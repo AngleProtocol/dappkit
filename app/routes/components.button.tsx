@@ -1,8 +1,8 @@
 import type { MetaFunction } from "@remix-run/node";
-import Group from "~/src/extenders/Group";
-import Box from "~/src/primitives/Box";
-import Button from "~/src/primitives/Button";
-import Title from "~/src/primitives/Title";
+import Group from "src/extenders/Group";
+import Box from "src/primitives/Box";
+import Button from "src/primitives/Button";
+import Title from "src/primitives/Title";
 
 export const meta: MetaFunction = () => {
   return [

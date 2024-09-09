@@ -2,6 +2,9 @@ import * as RadixColors from "@radix-ui/colors";
 import Color from "colorjs.io";
 import BezierEasing from "bezier-easing";
 
+//FROM Radix website: https://github.com/radix-ui/website?tab=MIT-1-ov-file
+//WARNING: Might require some MIT labels
+
 type ArrayOf12<T> = [T, T, T, T, T, T, T, T, T, T, T, T];
 const arrayOf12 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] as const;
 
@@ -46,6 +49,7 @@ const scaleNames = [
 const lightColors = Object.fromEntries(
 	scaleNames.map((scaleName) => [
 		scaleName,
+		// eslint-disable-next-line import/namespace
 		Object.values(RadixColors[`${scaleName}P3`]).map((str) =>
 			new Color(str).to("oklch"),
 		),
@@ -55,6 +59,7 @@ const lightColors = Object.fromEntries(
 const darkColors = Object.fromEntries(
 	scaleNames.map((scaleName) => [
 		scaleName,
+		// eslint-disable-next-line import/namespace
 		Object.values(RadixColors[`${scaleName}DarkP3`]).map((str) =>
 			new Color(str).to("oklch"),
 		),
@@ -64,6 +69,7 @@ const darkColors = Object.fromEntries(
 const lightGrayColors = Object.fromEntries(
 	grayScaleNames.map((scaleName) => [
 		scaleName,
+		// eslint-disable-next-line import/namespace
 		Object.values(RadixColors[`${scaleName}P3`]).map((str) =>
 			new Color(str).to("oklch"),
 		),
@@ -73,6 +79,7 @@ const lightGrayColors = Object.fromEntries(
 const darkGrayColors = Object.fromEntries(
 	grayScaleNames.map((scaleName) => [
 		scaleName,
+		// eslint-disable-next-line import/namespace
 		Object.values(RadixColors[`${scaleName}DarkP3`]).map((str) =>
 			new Color(str).to("oklch"),
 		),
@@ -226,15 +233,16 @@ function getStep9Colors(
 function getButtonHoverColor(source: Color, scales: ArrayOf12<Color>[]) {
 	const [L, C, H] = source.coords;
 	const newL = L > 0.4 ? L - 0.03 / (L + 0.1) : L + 0.03 / (L + 0.1);
-	const newC = L > 0.4 && !isNaN(H) ? C * 0.93 + 0 : C;
+	const newC = L > 0.4 && !Number.isNaN(H) ? C * 0.93 + 0 : C;
 	const buttonHoverColor = new Color("oklch", [newL, newC, H]);
 
 	// Find closest in-scale color to donate the chroma and hue.
 	// Especially useful when the source color is pure white or black,
 	// but the gray scale is tinted.
 	let closestColor = buttonHoverColor;
-	let minDistance = Infinity;
+	let minDistance = Number.POSITIVE_INFINITY;
 
+	// biome-ignore lint/complexity/noForEach: <explanation>
 	scales.forEach((scale) => {
 		for (const color of scale) {
 			const distance = buttonHoverColor.deltaEOK(color);
@@ -255,8 +263,9 @@ function getScaleFromColor(
 	scales: Record<string, ArrayOf12<Color>>,
 	backgroundColor: Color,
 ) {
-	let allColors: { scale: string; color: Color; distance: number }[] = [];
+	const allColors: { scale: string; color: Color; distance: number }[] = [];
 
+	// biome-ignore lint/complexity/noForEach: <explanation>
 	Object.entries(scales).forEach(([name, scale]) => {
 		for (const color of scale) {
 			const distance = source.deltaEOK(color);
@@ -267,7 +276,7 @@ function getScaleFromColor(
 	allColors.sort((a, b) => a.distance - b.distance);
 
 	// Remove non-unique scales
-	let closestColors = allColors.filter(
+	const closestColors = allColors.filter(
 		(color, i, arr) =>
 			i === arr.findIndex((value) => value.scale === color.scale),
 	);
@@ -286,8 +295,8 @@ function getScaleFromColor(
 		}
 	}
 
-	let colorA = closestColors[0];
-	let colorB = closestColors[1];
+	const colorA = closestColors[0];
+	const colorB = closestColors[1];
 
 	// Light trigonometry ahead.
 	//
@@ -370,7 +379,8 @@ function getScaleFromColor(
 	const ratioC = source.coords[1] / baseColor.coords[1];
 
 	// Modify hue and chroma of the scale to match the source color
-	scale.forEach((color) => {
+	// biome-ignore lint/complexity/noForEach: <explanation>
+		scale.forEach((color) => {
 		color.coords[1] = Math.min(
 			source.coords[1] * 1.5,
 			color.coords[1] * ratioC,
@@ -400,7 +410,7 @@ function getScaleFromColor(
 	}
 
 	// Dark mode
-	let ease: typeof darkModeEasing = [...darkModeEasing];
+	const ease: typeof darkModeEasing = [...darkModeEasing];
 	const referenceBackgroundColorL = scale[0].coords[0];
 	const backgroundColorL = Math.max(0, Math.min(1, backgroundColor.coords[0]));
 
@@ -435,6 +445,7 @@ function getTextColor(background: Color) {
 	const white = new Color("oklch", [1, 0, 0]);
 
 	if (Math.abs(white.contrastAPCA(background)) < 40) {
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const [L, C, H] = background.coords;
 		return new Color("oklch", [0.25, Math.max(0.08 * C, 0.04), H]);
 	}
@@ -496,9 +507,9 @@ function getAlphaColor(
 	}
 
 	const clampRgb = (n: number) =>
-		isNaN(n) ? 0 : Math.min(rgbPrecision, Math.max(0, n));
+		Number.isNaN(n) ? 0 : Math.min(rgbPrecision, Math.max(0, n));
 	const clampA = (n: number) =>
-		isNaN(n) ? 0 : Math.min(alphaPrecision, Math.max(0, n));
+		Number.isNaN(n) ? 0 : Math.min(alphaPrecision, Math.max(0, n));
 	const maxAlpha = targetAlpha ?? Math.max(alphaR, alphaG, alphaB);
 
 	const A = clampA(Math.ceil(maxAlpha * alphaPrecision)) / alphaPrecision;

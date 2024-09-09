@@ -1,8 +1,8 @@
 import type { Config } from "tailwindcss";
-import { createVariableScale } from "./app/src/utils/theming";
+import { createVariableScale } from "./src/utils/theming";
 
 export default {
-	content: ["./app/**/{**,.client,.server}/**/*.{js,jsx,ts,tsx}"],
+	content: ["./{app,src}/**/{**,.client,.server}/**/*.{js,jsx,ts,tsx}"],
 	theme: {
 		extend: {},
 		colors: {

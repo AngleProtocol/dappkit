@@ -1,10 +1,10 @@
 
 import React, { useState, type PropsWithChildren, type ReactNode } from 'react';
-import type { Variant } from '~/src/utils/types';
+import type { Variant } from 'src/utils/types';
 import { tv } from 'tailwind-variants';
 import * as RadixSelect from '@radix-ui/react-select';
-import { buttonStyles } from '~/src/primitives/Button';
-import Icon from '~/src/primitives/Icon';
+import { buttonStyles } from 'src/primitives/Button';
+import Icon from 'src/primitives/Icon';
 import { useTheme } from '../theme/Theme.context';
 import clsx from 'clsx';
 

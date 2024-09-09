@@ -1,5 +1,5 @@
 
-import type { Component } from '~/src/utils/types';
+import type { Component } from 'src/utils/types';
 import { tv } from 'tailwind-variants';
 
 export const inputStyles = tv({

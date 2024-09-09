@@ -1,9 +1,9 @@
 import { json, type MetaFunction } from "@remix-run/node";
-import Group from "~/src/extenders/Group";
-import Box from "~/src/primitives/Box";
-import Button from "~/src/primitives/Button";
-import Input from "~/src/primitives/Input";
-import Title from "~/src/primitives/Title";
+import Group from "src/extenders/Group";
+import Box from "src/primitives/Box";
+import Button from "src/primitives/Button";
+import Input from "src/primitives/Input";
+import Title from "src/primitives/Title";
 import { ChartConfig, ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent } from "~/components/ui/chart"
 import { Bar, BarChart, AreaChart, Area, AreaS, CartesianGrid, XAxis, ResponsiveContainer, LineChart, Tooltip, YAxis, Line, Legend } from "recharts"
 import { useLoaderData } from "@remix-run/react";
