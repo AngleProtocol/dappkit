@@ -10,11 +10,11 @@ The DappKit theme exposes 3 scales of 12 colors that can be customized using the
 
 ### Tailwind Variables
 
-To be able to define some component styling with abstract colors, we define color scales and use them according to the [radix color guidelines](https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale):
+To be able to define some component styling with abstract colors, we define scales of 12 colors and use them according to the [radix color guidelines](https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale):
 
 ![image](https://github.com/user-attachments/assets/67109bff-eb4c-43a6-8e5a-7f50773dcc65)
 
-Radix also provides a way to generate appropriates scales from a single color ([preview](https://www.radix-ui.com/colors/custom)), we can then make the configuration only be one color per scale.
+Radix also provides a way to generate appropriates scales from a single color ([preview](https://www.radix-ui.com/colors/custom)), we can then make the configuration only be one color per scale. Instead of defining tailwind color classes with colors, we map them to css variables (`bg-main-2: 'var(--main-2)'`), which gives us room to add a variable declaration later on to assign a color to that class.
 
 ![image](https://github.com/user-attachments/assets/6c38d21c-0b5e-4c2a-ac0d-5f46fb0050ce)
 
@@ -27,7 +27,6 @@ Once we have access to variables through tailwind classes, for each component we
 Thanks to some generic typing and utility functions we can elegantly define components: 
 
 ```tsx
-
 import { mergeClass } from 'src/utils/css';
 import type { Component, Styled } from 'src/utils/types';
 import { tv } from 'tailwind-variants';
@@ -62,7 +61,7 @@ export default function Button({ look, size, className, ...props }: ButtonProps)
 }
 ```
 
-And use them in the code in an abstract manner, the configuration of the theme and the variables will take care of styling it:
+We then use them in the code in an abstract manner, the configuration of the theme and the variables will take care of styling it:
 
 ```tsx
 function AnAbstractedButton() {
