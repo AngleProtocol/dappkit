@@ -1,13 +1,9 @@
 import { json, type MetaFunction } from "@remix-run/node";
 import Group from "src/extenders/Group";
 import Box from "src/primitives/Box";
-import Button from "src/primitives/Button";
 import Input from "src/primitives/Input";
 import Title from "src/primitives/Title";
-import { ChartConfig, ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent } from "~/components/ui/chart"
-import { Bar, BarChart, AreaChart, Area, AreaS, CartesianGrid, XAxis, ResponsiveContainer, LineChart, Tooltip, YAxis, Line, Legend } from "recharts"
-import { useLoaderData } from "@remix-run/react";
-import Thief from "colorthief";
+import { AreaChart, Area, CartesianGrid, XAxis, ResponsiveContainer, Tooltip } from "recharts";
 
 export const meta: MetaFunction = () => {
   return [
@@ -15,26 +11,6 @@ export const meta: MetaFunction = () => {
     { name: "description", content: "Welcome to Remix!" },
   ];
 };
-
-const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-]
-
-const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "#2563eb",
-  },
-  mobile: {
-    label: "Mobile",
-    color: "#60a5fa",
-  },
-} satisfies ChartConfig
 
 const data = [
   {
@@ -105,7 +81,7 @@ export default function Previews() {
   return (
     <div>
       <Box look="hype">
-        <Title h1 >Previews</Title>
+        <Title h={1} >Previews</Title>
         {/* <ChartContainer config={chartConfig} className="min-h-[200px] w-full"> */}
         <Box className="flex">
 

@@ -6,6 +6,7 @@ export default {
 	theme: {
 		extend: {},
 		colors: {
+			current: "currentColor",
 			main: createVariableScale("main", 12),
 			primary: createVariableScale("primary", 12),
 			secondary: createVariableScale("secondary", 12),
@@ -17,9 +18,10 @@ export default {
 			md: "8px",
 			lg: "12px",
 			xl: "16px",
+			xxl: "24px",
 		},
 		padding: {
-			0: "0",
+			0: "0px",
 			1: "2px",
 			2: "4px",
 			3: "6px",
@@ -29,7 +31,7 @@ export default {
 		},
 		borderWidth: {
 			0: "0px",
-			1: "2px",
+			1: "1px",
 			2: "2px",
 			3: "3px",
 			4: "4px",

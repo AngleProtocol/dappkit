@@ -1,5 +1,6 @@
 import { tv } from "tailwind-variants"
-import type { Component } from "../utils/types"
+import type { Component, Styled } from "../utils/types"
+import clsx from "clsx"
 
 export const titleStyles = tv({
     base: "text-main-12",
@@ -24,22 +25,22 @@ export const titleStyles = tv({
     }
 })
 
-export type TitleProps = Component<typeof titleStyles> & {
+export type TitleProps = Component<Styled<typeof titleStyles> & {
     h: 1 | 2 | 3 | 4 | 5
-}
+}, HTMLHeadingElement>
 
-export default function Title({ look, h, children }: TitleProps) {
+export default function Title({ look, h, className, ...props }: TitleProps) {
     switch (h) {
         case 1:
-            return <h1 className={titleStyles({ look, h })} children={children} />;
+            return <h1 className={clsx(titleStyles({ look, h }), className)} {...props} />;
         case 2:
-            return <h2 className={titleStyles({ look, h })} children={children} />;
+            return <h2 className={clsx(titleStyles({ look, h }), className)} {...props} />;
         case 3:
-            return <h3 className={titleStyles({ look, h })} children={children} />;
+            return <h3 className={clsx(titleStyles({ look, h }), className)} {...props} />;
         case 4:
-            return <h4 className={titleStyles({ look, h })} children={children} />;
+            return <h4 className={clsx(titleStyles({ look, h }), className)} {...props} />;
         case 5:
-            return <h5 className={titleStyles({ look, h })} children={children} />;
+            return <h5 className={clsx(titleStyles({ look, h }), className)} {...props} />;
         default:
             break;
     }

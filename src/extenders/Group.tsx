@@ -1,10 +1,10 @@
 import { tv } from "tailwind-variants"
-import type { Component } from "../utils/types"
+import type { Component, Styled } from "../utils/types"
 import { boxStyles } from "../primitives/Box"
 
 export const groupStyles = tv({
     extend: boxStyles,
-    base: "flex-row bg-main-0 p-0",
+    base: "flex-row bg-main-0 p-0 border-0 flex-wrap",
     variants: {
         look: {
             base: "bg-main-0",
@@ -26,8 +26,8 @@ export const groupStyles = tv({
     }
 })
 
-export type GroupProps = Component<typeof groupStyles>
+export type GroupProps = Component<Styled<typeof groupStyles>, HTMLDivElement>
 
-export default function Group({look, size, className, ...props}: GroupProps) {
-    return <div className={[groupStyles({look, size}), className].join(' ')} {...props}/>
+export default function Group({ look, size, className, ...props }: GroupProps) {
+    return <div className={[groupStyles({ look, size }), className].join(' ')} {...props} />
 }

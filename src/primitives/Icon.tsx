@@ -9,5 +9,5 @@ export default function Icon({remix}: IconProps) {
     // eslint-disable-next-line import/namespace
     const Component = useMemo(() => RemixIcon[remix], [remix]);
 
-    return <Component/>
+    return <Component className="self-center"/>
 }

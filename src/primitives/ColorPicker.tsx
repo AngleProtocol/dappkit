@@ -2,7 +2,7 @@
 import type { Component, Styled } from 'src/utils/types';
 import { tv } from 'tailwind-variants';
 
-export const inputStyles = tv({
+export const colorPickerStyles = tv({
     base: "text-main-11 flex items-center gap-1 border-1 outline-offset-0 outline-0 text-nowrap",
     variants: {
         look: {
@@ -25,8 +25,8 @@ export const inputStyles = tv({
     }
 })
 
-export type InputProps = Component<Styled<typeof inputStyles>, HTMLInputElement>
+export type ColorPickerProps = Component<Styled<typeof colorPickerStyles>, HTMLInputElement>
 
-export default function Input({ look, size, ...props }: InputProps) {
-    return <input className={inputStyles({ look, size })} {...props} />
+export default function ColorPicker({ look, size, ...props }: ColorPickerProps) {
+    return <div className={colorPickerStyles({ look, size })}><input {...props} /><input type="color"/></div>
 }

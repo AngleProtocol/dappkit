@@ -2,6 +2,7 @@ import type { MetaFunction } from "@remix-run/node";
 import Group from "src/extenders/Group";
 import Box from "src/primitives/Box";
 import Button from "src/primitives/Button";
+import ColorPicker from "src/primitives/ColorPicker";
 import Input from "src/primitives/Input";
 import Text from "src/primitives/Text";
 import Title from "src/primitives/Title";
@@ -13,7 +14,7 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export default function Inputs() {
+export default function ColorPickers() {
   return (
     <div>
       <Box>
@@ -23,7 +24,7 @@ export default function Inputs() {
           {(["xs", "sm", "md", "lg", "xl"] as const).map((size) =>
             <Group key={size}>{
               (["base", "soft", "bold", "hype"] as const).map((look) =>
-                <Input key={look} size={size} look={look}/>
+                <ColorPicker key={look} size={size} look={look}/>
               )
             }</Group>
           )}
