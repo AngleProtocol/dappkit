@@ -1,12 +1,12 @@
 import type { MetaFunction } from "@remix-run/node";
 import { Link, Outlet } from "@remix-run/react";
 import WalletButton from "src/components/dapp/WalletButton";
-import Group from "src/extenders/Group";
-import Modal from "src/extenders/Modal";
-import Select from "src/extenders/Select";
-import Box from "src/primitives/Box";
-import Button from "src/primitives/Button";
-import Title from "src/primitives/Title";
+import Group from "src/components/extenders/Group";
+import Modal from "src/components/extenders/Modal";
+import Select from "src/components/extenders/Select";
+import Box from "src/components/primitives/Box";
+import Button from "src/components/primitives/Button";
+import Title from "src/components/primitives/Title";
 import { useTheme } from "src/theme/Theme.context";
 
 export const meta: MetaFunction = () => {

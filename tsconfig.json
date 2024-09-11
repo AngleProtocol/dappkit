@@ -5,8 +5,10 @@
     "**/.server/**/*.ts",
     "**/.server/**/*.tsx",
     "**/.client/**/*.ts",
-    "**/.client/**/*.tsx"
-, "app/routes/components.preview.$symboltsx"  ],
+    "**/.client/**/*.tsx",
+    "app/routes/components.preview.$symboltsx",
+    "src/context/WalletContexttsx"
+  ],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "types": ["@remix-run/node", "vite/client"],
@@ -27,6 +29,6 @@
     },
 
     // Vite takes care of building everything, not tsc.
-    "noEmit": true
+    "noEmit": false
   }
 }

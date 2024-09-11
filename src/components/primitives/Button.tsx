@@ -14,7 +14,7 @@ export const buttonStyles = tv({
       hype: "bg-primary-9 border-primary-6 hover:bg-primary-10 active:bg-primary-8 text-primary-12 focus-visible:border-primary-10",
     },
     size: {
-      xs: "px-2 py-1 text-xs rounded",
+      xs: "px-2 py-1 text-xs rounded-xs",
       sm: "px-3 py-2 text-sm rounded-sm",
       md: "px-4 py-3 text-md rounded-md",
       lg: "px-5 py-4 text-lg rounded-lg",

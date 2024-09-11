@@ -1,12 +1,12 @@
 import * as Dialog from "@radix-ui/react-dialog";
-import Box from "src/primitives/Box";
-import Button from "src/primitives/Button";
+import Box from "src/components/primitives/Box";
+import Button from "src/components/primitives/Button";
 import { useTheme } from "src/theme/Theme.context";
 import Group from "./Group";
 import { ReactNode, useState } from "react";
 import { Component, GetSet } from "src/utils/types";
-import Title from "src/primitives/Title";
-import Text from "src/primitives/Text";
+import Title from "src/components/primitives/Title";
+import Text from "src/components/primitives/Text";
 
 export type ModalProps = Component<{
   open?: boolean;

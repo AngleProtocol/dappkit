@@ -2,12 +2,12 @@ import React, { useState, type PropsWithChildren, type ReactNode } from "react";
 import type { GetSet, Variant } from "src/utils/types";
 import { tv } from "tailwind-variants";
 import * as RadixSelect from "@radix-ui/react-select";
-import { buttonStyles } from "src/primitives/Button";
-import Icon from "src/primitives/Icon";
-import { useTheme } from "../theme/Theme.context";
+import { buttonStyles } from "src/components/primitives/Button";
+import Icon from "src/components/primitives/Icon";
+import { useTheme } from "../../theme/Theme.context";
 import clsx from "clsx";
-import Block from "src/primitives/Block";
-import Divider from "src/primitives/Divider";
+import Block from "src/components/primitives/Block";
+import Divider from "src/components/primitives/Divider";
 import { mergeClass } from "src/utils/css";
 
 export const selectStyles = tv({

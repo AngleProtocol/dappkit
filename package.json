@@ -1,12 +1,12 @@
 {
   "name": "dappkit",
-  "private": true,
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "build": "remix vite:build",
+    "build": "bun build --target=node ./src/index.ts --outfile=dist/index.js && bun run build:declaration",
+    "build:declaration": "tsc --emitDeclarationOnly --project tsconfig.types.json",
     "dev": "remix vite:dev",
-    "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
+    "lint": "biome check --apply ./src ./app",
     "start": "remix-serve ./build/server/index.js",
     "typecheck": "tsc"
   },
@@ -61,7 +61,37 @@
     "vite": "^5.1.0",
     "vite-tsconfig-paths": "^4.2.1"
   },
+  "private": true,
   "engines": {
     "node": ">=20.0.0"
+  },
+  "keywords": [
+    "angle",
+    "angle money",
+    "angle protocol",
+    "ethereum",
+    "eth",
+    "stablecoin",
+    "stablecoins",
+    "defi",
+    "blockchain",
+    "solidity",
+    "javascript"
+  ],
+  "homepage": "https://angle.money",
+  "bugs": {
+    "url": "https://github.com/AngleProtocol/dappkit/issues",
+    "email": "contact@angle.money"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AngleProtocol/dappkit"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "publishConfig": {
+    "access": "restricted",
+    "registry": "https://npm.pkg.github.com/"
   }
 }

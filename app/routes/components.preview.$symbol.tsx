@@ -1,8 +1,8 @@
 import { json, type MetaFunction } from "@remix-run/node";
-import Group from "src/extenders/Group";
-import Box from "src/primitives/Box";
-import Input from "src/primitives/Input";
-import Title from "src/primitives/Title";
+import Group from "src/components/extenders/Group";
+import Box from "src/components/primitives/Box";
+import Input from "src/components/primitives/Input";
+import Title from "src/components/primitives/Title";
 import { AreaChart, Area, CartesianGrid, XAxis, ResponsiveContainer, Tooltip } from "recharts";
 
 export const meta: MetaFunction = () => {

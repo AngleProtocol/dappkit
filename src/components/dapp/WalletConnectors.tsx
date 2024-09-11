@@ -1,10 +1,10 @@
 import { useWalletContext } from "src/context/Wallet.context";
-import Group from "src/extenders/Group";
-import Button from "src/primitives/Button";
-import Divider from "src/primitives/Divider";
-import Image from "src/primitives/Image";
-import Input from "src/primitives/Input";
-import Text from "src/primitives/Text";
+import Group from "src/components/extenders/Group";
+import Button from "src/components/primitives/Button";
+import Divider from "src/components/primitives/Divider";
+import Image from "src/components/primitives/Image";
+import Input from "src/components/primitives/Input";
+import Text from "src/components/primitives/Text";
 import { useAccount, useConfig } from "wagmi";
 
 export default function WalletConnectors() {

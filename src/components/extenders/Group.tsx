@@ -1,5 +1,5 @@
 import { tv } from "tailwind-variants"
-import type { Component, Styled } from "../utils/types"
+import type { Component, Styled } from "../../utils/types"
 import { boxStyles } from "../primitives/Box"
 
 export const groupStyles = tv({

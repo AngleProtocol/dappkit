@@ -1,5 +1,5 @@
 import { tv } from "tailwind-variants"
-import type { Component, Styled } from "../utils/types"
+import type { Component, Styled } from "../../utils/types"
 import clsx from "clsx"
 import { twMerge } from "tailwind-merge"
 import { mergeClass } from "src/utils/css"
