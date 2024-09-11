@@ -10,7 +10,7 @@ export const buttonStyles = tv({
     look: {
       base: "bg-main-4 border-main-7 hover:bg-main-5 active:bg-main-3 text-main-12 focus-visible:border-main-9",
       soft: "bg-main-0 border-main-0 hover:bg-main-4 active:bg-main-3 hover:text-main-12  focus-visible:border-main-9",
-      bold: "bg-primary-4 border-primary-6 hover:bg-primary-5 active:bg-primary-3 text-main-12 focus-visible:border-primary-9",
+      bold: "bg-primary-4 border-primary-6 hover:bg-primary-5 active:bg-primary-3 text-primary-12 focus-visible:border-primary-9",
       hype: "bg-primary-9 border-primary-6 hover:bg-primary-10 active:bg-primary-8 text-primary-12 focus-visible:border-primary-10",
     },
     size: {

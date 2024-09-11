@@ -11,7 +11,7 @@ export default function WalletConnectors() {
   const { config, connect, address} = useWalletContext();
 
   return (
-    <Group className="flex-col w-full min-w-[300px]">
+    <Group className="flex-col w-full ">
       {config.connectors.map((connector) => {
         return (
           <Button onClick={() => connect(connector.id)} key={connector.id}>
@@ -27,7 +27,7 @@ export default function WalletConnectors() {
       })}
       <Divider horizontal className="border-main-6"/>
       <Text>Spy</Text>
-      <Input placeholder="Address" />
+      <Input size="sm" placeholder="Address" />
     </Group>
   );
 }

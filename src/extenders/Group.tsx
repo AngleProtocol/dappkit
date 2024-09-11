@@ -3,8 +3,7 @@ import type { Component, Styled } from "../utils/types"
 import { boxStyles } from "../primitives/Box"
 
 export const groupStyles = tv({
-    extend: boxStyles,
-    base: "flex-row bg-main-0 p-0 border-0 flex-wrap",
+    base: "shadow-none flex-row bg-main-0 p-0 border-0 flex-wrap flex gap-1",
     variants: {
         look: {
             base: "bg-main-0",
@@ -15,9 +14,9 @@ export const groupStyles = tv({
         size: {
             xs: "p-0",
             sm: "p-0",
-            md: "p-0",
-            lg: "p-0",
-            xl: "p-0"
+            md: "gap-2",
+            lg: "gap-4",
+            xl: "gap-6"
         }
     },
     defaultVariants: {

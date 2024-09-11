@@ -1,5 +1,5 @@
 import React, { useState, type PropsWithChildren, type ReactNode } from "react";
-import type { Variant } from "src/utils/types";
+import type { GetSet, Variant } from "src/utils/types";
 import { tv } from "tailwind-variants";
 import * as RadixSelect from "@radix-ui/react-select";
 import { buttonStyles } from "src/primitives/Button";
@@ -15,7 +15,7 @@ export const selectStyles = tv({
     "text-main-11 flex items-center justify-between gap-1 border-1 outline-offset-0 outline-0 text-nowrap",
   ],
   slots: {
-    dropdown: "border-1 bg-main-4 mt-2 p-4",
+    dropdown: "border-1 bg-main-4 mt-2 p-4 shadow-md",
     item: "p-2 outline-offset-0 outline-0 text-nowrap",
     icon: "border-l-1 h-full flex items-center",
     value: "flex",
@@ -42,7 +42,7 @@ export const selectStyles = tv({
       },
       hype: {
         base: "bg-primary-9 border-primary-6 hover:bg-primary-10 active:bg-primary-8 text-primary-12 focus-visible:border-primary-10",
-        icon: "border-primary-6",
+        icon: "border-primary-11",
         dropdown: "bg-primary-9 border-primary-6",
         item: "hover:bg-primary-10 data-[highlighted]:bg-primary-10 active:bg-primary-4 text-main-12 focus-visible:border-primary-10",
       },
@@ -95,7 +95,7 @@ export type SelectProps<Value extends string | number | symbol = string> = Props
   size?: Variant<typeof selectStyles, "size">;
   look?: Variant<typeof selectStyles, "look">;
   value?: Value;
-  state?: [Value, (value: Value) => void];
+  state?: GetSet<Value>;
   options?: { [key: string | number | symbol]: ReactNode };
 }> &
   RadixSelect.SelectProps;

@@ -16,7 +16,7 @@ export const boxStyles = tv({
         size: {
             xs: "",
             sm: "",
-            md: "p-4 gap-2 rounded-lg",
+            md: " p-4 gap-2 rounded-lg",
             lg: "p-4 gap-4 rounded-lg",
             xl: "p-4 gap-6 rounded-xl"
         }

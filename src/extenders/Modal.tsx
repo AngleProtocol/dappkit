@@ -27,12 +27,9 @@ export default function Modal({ state, title, description, content, children }: 
     >
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay className="bg-blackA6 data-[state=open]:animate-overlayShow fixed inset-0" />
-        <Dialog.Content
-          style={vars}
-          className="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"
-        >
-          <Box>
+        <Dialog.Overlay style={vars} className="bg-main-1 opacity-[0.75] fixed inset-0" />
+        <Dialog.Content style={vars} className="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
+          <Box className="shadow-md">
             <Dialog.Title asChild={!!title}>
               {typeof title === "string" ? <Title h={2}>{title}</Title> : title}
             </Dialog.Title>
