@@ -1,21 +1,15 @@
-import {
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from "@remix-run/react";
-import "remixicon/fonts/remixicon.css"
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
+import "remixicon/fonts/remixicon.css";
 import ThemeProvider from "../src/theme/Theme.context";
 import type { LinksFunction } from "@remix-run/node";
 
 // eslint-disable-next-line import/no-duplicates
 import styles from "./tailwind.css?url";
 import "./tailwind.css";
+import { config } from "src/hooks/useWalletState";
+import { WalletProvider } from "src/context/Wallet.context";
 
-export const links: LinksFunction = () => [
-  { rel: "stylesheet", href: styles, as: "style" },
-];
+export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles, as: "style" }];
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -26,7 +20,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body> 
+      <body>
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -36,5 +30,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <ThemeProvider><Outlet /></ThemeProvider>;
+  return (
+    <ThemeProvider>
+      <WalletProvider config={config}>
+        <Outlet />
+      </WalletProvider>
+    </ThemeProvider>
+  );
 }

@@ -1,5 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
 import { Link, Outlet } from "@remix-run/react";
+import WalletButton from "src/components/dapp/WalletButton";
 import Group from "src/extenders/Group";
 import Modal from "src/extenders/Modal";
 import Select from "src/extenders/Select";
@@ -42,9 +43,7 @@ export default function Index() {
               look="soft"
               size="sm"
             />
-            <Button look="bold" size="sm">
-              Connect
-            </Button>
+            <WalletButton size="sm" look="bold" />
           </Group>
         </Box>
         <Group size="lg" className="flex-col">
