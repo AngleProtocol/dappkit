@@ -1,7 +1,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import Box from "src/components/primitives/Box";
 import Button from "src/components/primitives/Button";
-import { useTheme } from "src/theme/Theme.context";
+import { useTheme } from "src/context/Theme.context";
 import Group from "./Group";
 import { ReactNode, useState } from "react";
 import { Component, GetSet } from "src/utils/types";

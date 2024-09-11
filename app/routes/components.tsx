@@ -7,7 +7,7 @@ import Select from "src/components/extenders/Select";
 import Box from "src/components/primitives/Box";
 import Button from "src/components/primitives/Button";
 import Title from "src/components/primitives/Title";
-import { useTheme } from "src/theme/Theme.context";
+import { useTheme } from "src/context/Theme.context";
 
 export const meta: MetaFunction = () => {
   return [{ title: "DappKit/Components" }, { name: "description", content: "Welcome to Remix!" }];

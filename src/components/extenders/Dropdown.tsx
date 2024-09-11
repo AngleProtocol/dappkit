@@ -1,7 +1,7 @@
 import * as Popover from "@radix-ui/react-popover";
 import { ReactNode, useState } from "react";
 import Box from "src/components/primitives/Box";
-import { useTheme } from "src/theme/Theme.context";
+import { useTheme } from "src/context/Theme.context";
 import { Component, GetSet } from "src/utils/types";
 
 export type DropdownProps = Component<{ state?: GetSet<boolean>; content?: ReactNode }>;

@@ -19,3 +19,6 @@ export * from "./components/extenders/Select";
 //DApp
 export * from "./components/dapp/WalletButton";
 export * from "./components/dapp/WalletConnectors";
+
+//Utils
+export * from "./utils/tailwind"

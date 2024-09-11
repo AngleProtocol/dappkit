@@ -4,7 +4,7 @@ import { tv } from "tailwind-variants";
 import * as RadixSelect from "@radix-ui/react-select";
 import { buttonStyles } from "src/components/primitives/Button";
 import Icon from "src/components/primitives/Icon";
-import { useTheme } from "../../theme/Theme.context";
+import { useTheme } from "../../context/Theme.context";
 import clsx from "clsx";
 import Block from "src/components/primitives/Block";
 import Divider from "src/components/primitives/Divider";

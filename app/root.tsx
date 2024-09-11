@@ -1,6 +1,6 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
 import "remixicon/fonts/remixicon.css";
-import ThemeProvider from "../src/theme/Theme.context";
+import ThemeProvider from "../src/context/Theme.context";
 import type { LinksFunction } from "@remix-run/node";
 
 // eslint-disable-next-line import/no-duplicates
