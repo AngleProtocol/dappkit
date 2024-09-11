@@ -6,15 +6,17 @@ import Group from "./Group";
 import { ReactNode, useState } from "react";
 import { Component, GetSet } from "src/utils/types";
 import Title from "src/primitives/Title";
+import Text from "src/primitives/Text";
 
 export type ModalProps = Component<{
   open?: boolean;
   title?: ReactNode;
+  description?: ReactNode;
   content?: ReactNode;
   state?: GetSet<boolean>;
 }>;
 
-export default function Modal({ state, title, content, children }: ModalProps) {
+export default function Modal({ state, title, description, content, children }: ModalProps) {
   const { vars } = useTheme();
   const [internalState, setInternalState] = useState<boolean>(false);
 
@@ -34,9 +36,10 @@ export default function Modal({ state, title, content, children }: ModalProps) {
             <Dialog.Title asChild={!!title}>
               {typeof title === "string" ? <Title h={2}>{title}</Title> : title}
             </Dialog.Title>
-            <Dialog.Description className="">
-              {content}
+            <Dialog.Description>
+              {typeof description === "string" ? <Text>{description}</Text> : description}
             </Dialog.Description>
+            {content}
             <Group className="justify-between">
               <Dialog.Close asChild>
                 <Button>Close</Button>

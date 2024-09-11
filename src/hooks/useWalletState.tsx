@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { http, createConfig, useConfig } from "wagmi";
+import { http, createConfig, useConfig, useAccount, useConnect } from "wagmi";
 import { Chain, mainnet, sepolia } from "wagmi/chains";
-import { walletConnect } from "wagmi/connectors";
+import { injected, walletConnect } from "wagmi/connectors";
 
 export const config = createConfig({
   chains: [mainnet, sepolia],
@@ -13,7 +13,7 @@ export const config = createConfig({
         name: "Example",
         description: "Example website",
         url: "https://example.com",
-        icons: []
+        icons: [],
       },
     }),
   ],
@@ -25,6 +25,8 @@ export const config = createConfig({
 
 export default function useWalletState() {
   const config = useConfig();
+  const wagmiConnect = useConnect();
+  const account = useAccount();
 
   const [address, setAddress] = useState<string>();
 
@@ -33,9 +35,22 @@ export default function useWalletState() {
 
   const [connected, setConnected] = useState<boolean>();
 
-  async function connect() {
-    console.log("CONNECT");
+  async function connect(connectorId: string) {
+    const connector = config.connectors.find(({ id }) => id === connectorId);
+
+    if (!connector) return;
+
+    wagmiConnect.connect({ connector });
   }
 
-  return { chainId, blockNumber, address, connected, connect };
+  async function disconnect(connectorId: string) {
+    const connector = config.connectors.find(({ id }) => id === connectorId);
+
+    if (!connector) return;
+
+    connector.disconnect();
+    await connector.connect({ isReconnecting: !!account.address });
+  }
+
+  return { chainId, blockNumber, address: account.address, connected, connect, config, disconnect };
 }

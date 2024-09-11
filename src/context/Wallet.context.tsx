@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createContext, PropsWithChildren, useContext } from "react";
 import useWalletState from "src/hooks/useWalletState";
 import { ResolvedRegister, WagmiProvider } from "wagmi";
@@ -5,6 +6,7 @@ import { ResolvedRegister, WagmiProvider } from "wagmi";
 export type WalletContextType = ReturnType<typeof useWalletState>;
 
 const WalletContext = createContext<WalletContextType>(null);
+const queryClient = new QueryClient()
 
 export function useWalletContext() {
   const data = useContext(WalletContext);
@@ -27,7 +29,9 @@ function WalletStateProvider({ children }: PropsWithChildren) {
 export function WalletProvider({ config, children }: PropsWithChildren<WalletProviderProps>) {
   return (
     <WagmiProvider config={config}>
+            <QueryClientProvider client={queryClient}>
       <WalletStateProvider>{children}</WalletStateProvider>
+      </QueryClientProvider>
     </WagmiProvider>
   );
 }
