@@ -69,6 +69,10 @@ function AnAbstractedButton() {
 }
 ```
 
+### Sizing
+
+We use a straightforward scale for every sizing variable: `xs, sm, md, lg, xl` that applies to radius, padding, gaps... The border radius also has a composed scale to be able to create boxes that perfectly wrap their content: `xs+sm, xs+md, xs+lg...`.
+
 ## Usage
 
 ## Development

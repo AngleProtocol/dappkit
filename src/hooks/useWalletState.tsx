@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { http, createConfig, useConfig, useAccount, useConnect, useDisconnect } from "wagmi";
 import { Chain, mainnet, sepolia } from "wagmi/chains";
-import { injected, walletConnect } from "wagmi/connectors";
+import { coinbaseWallet, injected, walletConnect } from "wagmi/connectors";
 
 export const config = createConfig({
   chains: [mainnet, sepolia],
   connectors: [
+    coinbaseWallet(),
     walletConnect({
       customStoragePrefix: "wagmi",
       projectId: "26c912aadd2132cd869a5edc00aeea0f",

@@ -22,9 +22,9 @@ export default function Index() {
   );
 
   return (
-    <div className="font-sans p-4">
+    <div className="font-sans p-lg">
       <Group size="lg" className="grid grid-cols-[200px,1fr] w-full">
-        <Box className="col-span-2 justify-between flex-row">
+        <Box size='lg' content="sm" className="col-span-2 justify-between flex-row">
           <Group>
             <Title h={3}>DappKit</Title>
           </Group>
@@ -49,13 +49,18 @@ export default function Index() {
         <Group size="lg" className="flex-col">
           <Modal open={true} />
           {/* <Select value={theme} options={Object.keys(themes).reduce((obj, theme) => Object.assign(obj, { [theme]: theme }), {})} /> */}
-          <Box>
+          <Box size='lg'>
             <Title h={3}>Components</Title>
             <Link to="button">Button</Link>
             <Link to="select">Select</Link>
             <Link to="input">Input</Link>
             <Link to="preview">Previews</Link>
-            <Link to="colorpicker">Color Pickers</Link>
+          </Box>
+          <Box size='lg'>
+            <Title h={3}>Pages</Title>
+            <Link to="page/swap">Swap</Link>
+            <Link to="page/token">Token</Link>
+            <Link to="page/pool">Pool</Link>
           </Box>
           {/* <Box>
             <Title h={3}>Themes</Title>

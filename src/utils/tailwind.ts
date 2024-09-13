@@ -1,4 +1,11 @@
+import generateSizingVariables from "../theme/variables";
 import { createVariableScale } from "./theming";
+
+export const paddingScale = [2, 4, 6, 12, 16, 24];
+export const radiusScale = [2, 4, 8, 12, 16, 24];
+export const sizeScale = ["xs", "sm", "md", "lg", "xl"] as const;
+
+const sizes = generateSizingVariables([2, 4, 6, 12, 16], [2, 6, 12, 16, 32])
 
 export const generateTailwindConfig = () => ({
   extend: {},
@@ -10,12 +17,7 @@ export const generateTailwindConfig = () => ({
   },
   borderRadius: {
     0: "0",
-    xs: "2px",
-    sm: "4px",
-    md: "8px",
-    lg: "12px",
-    xl: "16px",
-    xxl: "24px",
+   ...sizes.borderRadius
   },
   boxShadow: {
     md: "0 2px 4px -2px rgba(0, 0, 0, 0.3)",
@@ -23,12 +25,17 @@ export const generateTailwindConfig = () => ({
   },
   padding: {
     0: "0px",
-    1: "2px",
-    2: "4px",
-    3: "6px",
-    4: "12px",
-    5: "16px",
-    6: "24px",
+    ...sizes.padding
+  },
+  margin: {
+    0: "0px",
+    auto: "auto",
+    ...sizes.padding
+  },
+  gap: {
+    0: "0px",
+    auto: "auto",
+    ...sizes.padding
   },
   borderWidth: {
     0: "0px",
