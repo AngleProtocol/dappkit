@@ -3,7 +3,7 @@ import type { Component, Styled } from "../../utils/types"
 import clsx from "clsx"
 
 export const titleStyles = tv({
-    base: "text-main-12",
+    base: "text-main-12 font-main font-medium",
     variants: {
         look: {
             base: "text-main-12",

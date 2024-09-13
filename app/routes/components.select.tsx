@@ -21,7 +21,7 @@ export default function Selects() {
         <Group className="flex-col">
           {(["xs", "sm", "md", "lg", "xl"] as const).map((size) =>
             <Group key={size}>{
-              (["base", "soft", "bold", "hype"] as const).map((look) =>
+              (["soft", "base", "bold", "tint", "hype"] as const).map((look) =>
                 <Select key={look} size={size} look={look} options={{1: "eth", 2: "arb", 3: "op"}}>{look} {size}</Select>
               )
             }</Group>

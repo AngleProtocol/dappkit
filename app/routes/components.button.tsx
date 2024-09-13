@@ -19,7 +19,7 @@ export default function Buttons() {
         <Group className="flex-col">
           {(["xs", "sm", "md", "lg", "xl"] as const).map((size) =>
             <Group key={size}>{
-              (["base", "soft", "bold", "hype"] as const).map((look) =>
+              (["soft", "base", "bold", "tint", "hype"] as const).map((look) =>
                 <Button key={look} size={size} look={look}>{look} {size}</Button>
               )
             }</Group>

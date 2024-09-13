@@ -22,19 +22,25 @@ export const selectStyles = tv({
   },
   variants: {
     look: {
-      base: {
-        base: "bg-main-4 border-main-4 hover:bg-main-5 active:bg-main-3 text-main-12 focus-visible:border-main-9",
-        dropdown: "bg-main-4 border-main-7",
-        item: "hover:bg-main-6 data-[highlighted]:bg-main-6 active:bg-main-5 text-main-12",
-        icon: "border-main-6",
-      },
       soft: {
+        base: "bg-main-0 border-main-0 hover:bg-main-4 active:bg-main-3 hover:text-main-12  focus-visible:border-main-9",
+        icon: "border-main-0",
+        dropdown: "bg-main-2 border-main-6",
+        item: "hover:bg-main-5 data-[highlighted]:bg-main-5 active:bg-main-4 text-main-12 focus-visible:border-main-8",
+      },
+      base: {
         base: "bg-main-0 border-main-6 hover:bg-main-4 active:bg-main-3 hover:text-main-12  focus-visible:border-main-9",
         icon: "border-main-6",
         dropdown: "bg-main-2 border-main-6",
         item: "hover:bg-main-5 data-[highlighted]:bg-main-5 active:bg-main-4 text-main-12 focus-visible:border-main-8",
       },
       bold: {
+        base: "bg-main-4 border-main-4 hover:bg-main-5 active:bg-main-3 text-main-12 focus-visible:border-main-9",
+        icon: "border-main-6",
+        dropdown: "bg-main-4 border-main-6",
+        item: "hover:bg-main-6 data-[highlighted]:bg-main-6 active:bg-main-5 text-main-12 focus-visible:border-main-8",
+      },
+      tint: {
         base: "bg-primary-4 border-primary-4 hover:bg-primary-5 active:bg-primary-3 text-main-12 focus-visible:border-primary-9",
         icon: "border-primary-6",
         dropdown: "bg-primary-4 border-primary-6",
@@ -42,7 +48,7 @@ export const selectStyles = tv({
       },
       hype: {
         base: "bg-primary-9 border-primary-9 hover:bg-primary-10 active:bg-primary-8 text-primary-12 focus-visible:border-primary-10",
-        icon: "border-primary-6",
+        icon: "border-primary-11",
         dropdown: "bg-primary-9 border-primary-6",
         item: "hover:bg-primary-10 data-[highlighted]:bg-primary-10 active:bg-primary-4 text-main-12 focus-visible:border-primary-10",
       },
@@ -89,6 +95,33 @@ export const selectStyles = tv({
     look: "base",
     size: "md",
   },
+  compoundVariants: [
+    {
+      size: "xs",
+      look: "soft",
+      class: { icon: "!pl-0", value: "!pr-0" },
+    },
+    {
+      size: "sm",
+      look: "soft",
+      class: { icon: "!pl-0", value: "!pr-0" },
+    },
+    {
+      size: "md",
+      look: "soft",
+      class: { icon: "!pl-0", value: "!pr-sm/2" },
+    },
+    {
+      size: "lg",
+      look: "soft",
+      class: { icon: "!pl-0", value: "!pr-md/2" },
+    },
+    {
+      size: "xl",
+      look: "soft",
+      class: { icon: "!pl-0", value: "!pr-lg/2"},
+    },
+  ],
 });
 
 export type SelectProps<Value extends string | number | symbol = string> = PropsWithChildren<{

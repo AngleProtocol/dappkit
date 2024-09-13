@@ -14,7 +14,7 @@ export default function WalletConnectors() {
     <Group className="flex-col w-full ">
       {config.connectors.map((connector) => {
         return (
-          <Button onClick={() => connect(connector.id)} key={connector.id}>
+          <Button look="bold" onClick={() => connect(connector.id)} key={connector.id}>
             <Image
               className="h-8 w-8 rounded-md"
               alt={connector.name}

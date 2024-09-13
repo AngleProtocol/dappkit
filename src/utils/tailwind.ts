@@ -17,6 +17,7 @@ export const generateTailwindConfig = () => ({
   },
   borderRadius: {
     0: "0",
+    full: "100vmax",
    ...sizes.borderRadius
   },
   boxShadow: {
@@ -46,4 +47,14 @@ export const generateTailwindConfig = () => ({
     5: "6px",
     6: "8px",
   },
+  fontFamily: {
+    main: [
+      '"Space Grotesk", sans-serif',
+      {
+        fontFeatureSettings: '"cv11", "ss01"',
+        fontVariationSettings: '"opsz" 32'
+      },
+    ],
+
+  }
 });

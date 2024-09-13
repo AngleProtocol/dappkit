@@ -34,7 +34,7 @@ export default function WalletButton(props: ButtonProps) {
           </>
         }
       >
-        <Button look="bold" size="sm">
+        <Button look="tint" size="sm">
           {"Connect"}
         </Button>
       </Dropdown>
@@ -67,7 +67,7 @@ export default function WalletButton(props: ButtonProps) {
           </>
         }
       >
-        <Button look="bold" size="sm">
+        <Button look="tint" size="sm">
           {Format.address(address, "short")}
         </Button>
       </Dropdown>
