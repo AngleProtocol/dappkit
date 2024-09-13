@@ -12,7 +12,7 @@ export const buttonStyles = tv({
       base: "bg-main-0 border-main-6 hover:bg-main-4 active:bg-main-3 hover:text-main-12  focus-visible:border-main-9",
       bold: "bg-main-4 border-main-4 hover:bg-main-5 active:bg-main-3 text-main-12 focus-visible:border-main-9",
       tint: "bg-primary-3 border-primary-3 hover:bg-primary-5 active:bg-primary-3 text-primary-11 focus-visible:border-primary-9",
-      hype: "bg-primary-9 border-primary-9 hover:bg-primary-10 active:bg-primary-8 text-main-12 focus-visible:border-primary-10",
+      hype: "bg-primary-9 border-primary-9 hover:bg-primary-10 active:bg-primary-8 text-primary-12 focus-visible:border-primary-10",
     },
     size: {
       xs: "px-xs*2 py-xs text-xs rounded-xs gap-xs",

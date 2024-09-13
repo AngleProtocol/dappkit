@@ -5,7 +5,8 @@ import Group from "src/components/extenders/Group";
 import Modal from "src/components/extenders/Modal";
 import Select from "src/components/extenders/Select";
 import Box from "src/components/primitives/Box";
-import Button from "src/components/primitives/Button";
+import Button, { buttonStyles } from "src/components/primitives/Button";
+import Divider from "src/components/primitives/Divider";
 import Title from "src/components/primitives/Title";
 import { useTheme } from "src/context/Theme.context";
 
@@ -49,18 +50,19 @@ export default function Index() {
         <Group size="lg" className="flex-col">
           <Modal open={true} />
           {/* <Select value={theme} options={Object.keys(themes).reduce((obj, theme) => Object.assign(obj, { [theme]: theme }), {})} /> */}
-          <Box size='lg'>
+          <Box size='md' content="sm">
             <Title h={3}>Components</Title>
-            <Link to="button">Button</Link>
-            <Link to="select">Select</Link>
-            <Link to="input">Input</Link>
-            <Link to="preview">Previews</Link>
+            <Divider horizontal className="border-main-4"/>
+            <Link className={buttonStyles({look: "soft", size: "sm"})} to="button">Button</Link>
+            <Link className={buttonStyles({look: "soft", size: "sm"})} to="select">Select</Link>
+            <Link className={buttonStyles({look: "soft", size: "sm"})} to="input">Input</Link>
           </Box>
-          <Box size='lg'>
+          <Box size='md' content="sm">
             <Title h={3}>Pages</Title>
-            <Link to="page/swap">Swap</Link>
-            <Link to="page/token">Token</Link>
-            <Link to="page/pool">Pool</Link>
+            <Divider horizontal className="border-main-4"/>
+            <Link className={buttonStyles({look: "soft", size: "sm"})} to="page/swap">Swap</Link>
+            <Link className={buttonStyles({look: "soft", size: "sm"})} to="page/token">Token</Link>
+            <Link className={buttonStyles({look: "soft", size: "sm"})} to="page/pool">Pool</Link>
           </Box>
           {/* <Box>
             <Title h={3}>Themes</Title>

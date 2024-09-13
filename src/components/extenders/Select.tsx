@@ -12,10 +12,10 @@ import { mergeClass } from "src/utils/css";
 
 export const selectStyles = tv({
   base: [
-    "text-main-11 flex items-center justify-between gap-1 border-1 outline-offset-0 outline-0 text-nowrap",
+    "text-main-11 flex items-center justify-between gap-1 border-1 outline-offset-0 outline-0 text-nowrap font-main font-medium",
   ],
   slots: {
-    dropdown: "border-1 bg-main-4 mt-sm p-lg shadow-md",
+    dropdown: "border-1 bg-main-4 mt-sm p-lg shadow-md font-main font-normal",
     item: "p-sm outline-offset-0 outline-0 text-nowrap",
     icon: "border-l-1 h-full flex items-center",
     value: "flex",
@@ -29,7 +29,7 @@ export const selectStyles = tv({
         item: "hover:bg-main-5 data-[highlighted]:bg-main-5 active:bg-main-4 text-main-12 focus-visible:border-main-8",
       },
       base: {
-        base: "bg-main-0 border-main-6 hover:bg-main-4 active:bg-main-3 hover:text-main-12  focus-visible:border-main-9",
+        base: "bg-main-2 border-main-6 hover:bg-main-4 active:bg-main-3 hover:text-main-12  focus-visible:border-main-9",
         icon: "border-main-6",
         dropdown: "bg-main-2 border-main-6",
         item: "hover:bg-main-5 data-[highlighted]:bg-main-5 active:bg-main-4 text-main-12 focus-visible:border-main-8",
@@ -62,7 +62,7 @@ export const selectStyles = tv({
         item: "px-sm text-xs rounded-xs",
       },
       sm: {
-        base: " text-sm rounded-sm",
+        base: "text-sm rounded-sm",
         value: "px-sm py-sm/2",
         icon: "px-xs/2",
         dropdown: "p-sm rounded-sm+sm",
@@ -70,7 +70,7 @@ export const selectStyles = tv({
       },
       md: {
         base: "text-md rounded-md",
-        value: "px-md py-md/2",
+        value: "px-md text-md py-md/2",
         dropdown: "p-sm rounded-md+md",
         icon: "px-md/2",
         item: "px-md text-md rounded-md",
