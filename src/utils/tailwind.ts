@@ -15,6 +15,20 @@ export const generateTailwindConfig = () => ({
     primary: createVariableScale("primary", 12),
     secondary: createVariableScale("secondary", 12),
   },
+  keyframes: {
+    drop: {
+      '0%': { transform: 'translateY(-10px)', opacity: 0 },
+      '100%': { transform: 'translateY(0px)', opacity: 1},
+    },
+    fadeIn: {
+      '0%': {  opacity: 0.7 },
+      '100%': {  opacity: 1},
+    }
+  },
+  animation: {
+    drop: 'drop 0.1s ease-out',
+    fadeIn: 'fadeIn 0.1s ease-out',
+  },
   borderRadius: {
     0: "0",
     full: "100vmax",
@@ -46,6 +60,15 @@ export const generateTailwindConfig = () => ({
     4: "4px",
     5: "6px",
     6: "8px",
+  },
+  fontSize: {
+    xs: '0.7rem',
+    sm: '0.8rem',
+    xl: '1.25rem',
+    '2xl': '1.563rem',
+    '3xl': '1.953rem',
+    '4xl': '2.441rem',
+    '5xl': '3.052rem',
   },
   fontFamily: {
     main: [

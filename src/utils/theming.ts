@@ -45,9 +45,9 @@ const a = generateRadixColors({
 
 export const themes = {
   merkl: {
-    light: { primary: radixColors.violet, main: radixColors.sage },
-    dark: { primary: radixColors.violetDark, main: radixColors.sageDark },
-    radius: ["4px", "8px", "12px", "16px", "18px", "24px"],
+    light: generateTheme({ mode: "light", main: "#131620", primary: "#B9AAFD" }),
+    dark: generateTheme({ mode: "dark", main: "#131620", primary: "#B9AAFD" }),
+    radius: ["2px", "4px", "8px", "12px", "18px", "24px"],
   },
   angle: {
     light: { primary: radixColors.red, main: radixColors.blue },

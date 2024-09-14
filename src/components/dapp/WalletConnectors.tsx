@@ -5,27 +5,34 @@ import Divider from "src/components/primitives/Divider";
 import Image from "src/components/primitives/Image";
 import Input from "src/components/primitives/Input";
 import Text from "src/components/primitives/Text";
+import List from "src/components/primitives/List";
 import { useAccount, useConfig } from "wagmi";
 
 export default function WalletConnectors() {
-  const { config, connect, address} = useWalletContext();
+  const { config, connect, connector: connected, address } = useWalletContext();
 
   return (
     <Group className="flex-col w-full ">
-      {config.connectors.map((connector) => {
-        return (
-          <Button look="bold" onClick={() => connect(connector.id)} key={connector.id}>
-            <Image
-              className="h-8 w-8 rounded-md"
-              alt={connector.name}
-              src={connector.icon}
-              fallback="WC"
-            />
-            {connector.name}
-          </Button>
-        );
-      })}
-      <Divider horizontal className="border-main-6"/>
+      <List look="bold">
+        {config.connectors.map((connector) => {
+          return (
+            <Button
+              look={connected?.id === connector.id ? "hype" : undefined}
+              onClick={() => connect(connector.id)}
+              key={connector.id}
+            >
+              <Image
+                className="h-8 w-8 rounded-md"
+                alt={connector.name}
+                src={connector.icon}
+                fallback="WC"
+              />
+              {connector.name}
+            </Button>
+          );
+        })}
+      </List>
+      <Divider horizontal className="border-main-6" />
       <Text>Spy</Text>
       <Input size="sm" placeholder="Address" />
     </Group>

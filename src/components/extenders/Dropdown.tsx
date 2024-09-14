@@ -17,8 +17,8 @@ export default function Dropdown({ state,content, children }: DropdownProps) {
     >
       <Popover.Trigger>{children}</Popover.Trigger>
       <Popover.Portal>
-        <Popover.Content asChild style={vars} className="" sideOffset={5}>
-          <Box size='lg' className="mx-lg shadow-md">
+        <Popover.Content asChild style={vars} className="" >
+          <Box size='lg' className="mx-lg shadow-md animate-drop">
             {content}
             <Popover.Arrow className="fill-main-6 border-main-6" />
           </Box>

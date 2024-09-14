@@ -15,7 +15,7 @@ export const selectStyles = tv({
     "text-main-11 flex items-center justify-between gap-1 border-1 outline-offset-0 outline-0 text-nowrap font-main font-medium",
   ],
   slots: {
-    dropdown: "border-1 bg-main-4 mt-sm p-lg shadow-md font-main font-normal",
+    dropdown: "animate-drop border-1 bg-main-4 mt-sm p-lg shadow-md font-main font-normal",
     item: "p-sm outline-offset-0 outline-0 text-nowrap",
     icon: "border-l-1 h-full flex items-center",
     value: "flex",
@@ -83,7 +83,7 @@ export const selectStyles = tv({
         item: "px-lg text-lg rounded-md",
       },
       xl: {
-        base: " text-xl rounded-xl",
+        base: " text-xl",
         value: "px-lg py-lg/2",
         dropdown: "p-md rounded-lg+md",
         icon: "px-lg/2",
@@ -119,7 +119,7 @@ export const selectStyles = tv({
     {
       size: "xl",
       look: "soft",
-      class: { icon: "!pl-0", value: "!pr-lg/2"},
+      class: { icon: "!pl-0", value: "!pr-lg/2" },
     },
   ],
 });
@@ -150,16 +150,23 @@ export default function Select<Value extends string | number | symbol = string>(
   size,
   state,
   options,
+  className,
   ...props
 }: SelectProps<Value>) {
   const { vars } = useTheme();
   const [getter, setter] = state ?? [];
 
-  const { base, dropdown, item, icon, value } = selectStyles({ look, size });
+  const { base, dropdown, item, icon, value } = selectStyles({
+    look: look ?? "base",
+    size: size ?? "md",
+  });
 
   return (
     <RadixSelect.Root {...props} value={getter && `${String(getter)}`} onValueChange={setter}>
-      <RadixSelect.Trigger className={base({ look, size })} aria-label="Food">
+      <RadixSelect.Trigger
+        className={mergeClass(base({ look, size }), className)}
+        aria-label="Food"
+      >
         <div className={value()}>
           <RadixSelect.Value placeholder="Select a fruit" />
         </div>

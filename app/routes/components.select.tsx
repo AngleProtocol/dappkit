@@ -15,7 +15,7 @@ export const meta: MetaFunction = () => {
 
 export default function Selects() {
   return (
-    <div>
+    <div className="animate-fadeIn">
       <Box>
         <Title h={1}>Select</Title>
         <Group className="flex-col">

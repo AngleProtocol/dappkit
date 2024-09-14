@@ -23,7 +23,7 @@ export default function WalletButton(props: ButtonProps) {
     return "Choose a wallet to connect with";
   }, [address]);
 
-  if (!connected)
+  if (true)
     return (
       <Dropdown
         content={
