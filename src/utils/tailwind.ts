@@ -4,6 +4,7 @@ import { createVariableScale } from "./theming";
 export const paddingScale = [2, 4, 6, 12, 16, 24];
 export const radiusScale = [2, 4, 8, 12, 16, 24];
 export const sizeScale = ["xs", "sm", "md", "lg", "xl"] as const;
+export const lookScale = ["soft", "base", "bold", "tint", "hype"] as const;
 
 const sizes = generateSizingVariables([2, 4, 6, 12, 16], [2, 6, 12, 16, 32]);
 

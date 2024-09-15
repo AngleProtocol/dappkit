@@ -32,7 +32,12 @@ export default function Index() {
   return (
     <div className="font-sans p-lg">
       <Group size="lg" className="grid grid-cols-[200px,1fr] w-full">
-        <Box size="md" content="lg" className="items-center col-span-2 justify-between flex-row">
+        <Box
+          look="soft"
+          size="md"
+          content="lg"
+          className="items-center col-span-2 justify-between flex-row"
+        >
           <Group>
             <Title h={3}>DappKit</Title>
           </Group>
@@ -46,23 +51,20 @@ export default function Index() {
             <WalletButton look="tint" size="lg" />
           </Group>
         </Box>
-        <Group size="lg" className="flex-col">
+        <Box container={"true"} size="lg" className="flex-col">
           <Modal open={true} />
-          <Group look="soft" className="flex-col" size="lg">
+          <Group look="soft" className="flex-col" size="sm">
             {
               Object.entries(components).flatMap(([title, _components]) => [
-                <List key={title} look="base" size="lg">
-                  <Box>
-                    <Title h={4}>{title} </Title>
-                  </Box>
-                  {_components.map(
-                    (component) =>
-                      (
-                        <Button look="soft" key={component} to={component}>
-                          {component}
-                        </Button>
-                      ),
-                    )}
+                <Box size="sm">
+                  <Title h={4}>{title} </Title>
+                </Box>,
+                <List key={title} look="bold" size="lg">
+                  {_components.map((component) => (
+                    <Button key={component} to={component}>
+                      {component}
+                    </Button>
+                  ))}
                 </List>,
               ]) as ReactElement[] | ReactElement[]
             }
@@ -104,7 +106,7 @@ export default function Index() {
               ))}
             </Group>
           </Box> */}
-        </Group>
+        </Box>
         <Outlet />
       </Group>
     </div>

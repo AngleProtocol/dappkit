@@ -123,7 +123,7 @@ export default function List({
   return (
     <div className={mergeClass(base(), className)} {...props}>
       {Children.map(children as ListElement | ListElement[], (child, index) => (
-        <>
+        child && <>
           {!!index && <div className={divider()} />}
           {cloneElement(child, {
             size,
