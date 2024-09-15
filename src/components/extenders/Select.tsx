@@ -9,14 +9,16 @@ import clsx from "clsx";
 import Block from "src/components/primitives/Block";
 import Divider from "src/components/primitives/Divider";
 import { mergeClass } from "src/utils/css";
+import List from "../primitives/List";
+import { boxStyles } from "../primitives/Box";
 
 export const selectStyles = tv({
   base: [
     "text-main-11 flex items-center justify-between gap-1 border-1 outline-offset-0 outline-0 text-nowrap font-main font-medium",
   ],
   slots: {
-    dropdown: "animate-drop border-1 bg-main-4 mt-sm p-lg shadow-md font-main font-normal",
-    item: "p-sm outline-offset-0 outline-0 text-nowrap",
+    dropdown: "animate-drop mt-sm",
+    item: "cursor-pointer select-none p-sm outline-offset-0 outline-0 text-nowrap",
     icon: "border-l-1 h-full flex items-center",
     value: "flex",
   },
@@ -25,31 +27,26 @@ export const selectStyles = tv({
       soft: {
         base: "bg-main-0 border-main-0 hover:bg-main-4 active:bg-main-3 hover:text-main-12  focus-visible:border-main-9",
         icon: "border-main-0",
-        dropdown: "bg-main-2 border-main-6",
         item: "hover:bg-main-5 data-[highlighted]:bg-main-5 active:bg-main-4 text-main-12 focus-visible:border-main-8",
       },
       base: {
         base: "bg-main-2 border-main-6 hover:bg-main-4 active:bg-main-3 hover:text-main-12  focus-visible:border-main-9",
         icon: "border-main-6",
-        dropdown: "bg-main-2 border-main-6",
         item: "hover:bg-main-5 data-[highlighted]:bg-main-5 active:bg-main-4 text-main-12 focus-visible:border-main-8",
       },
       bold: {
         base: "bg-main-4 border-main-4 hover:bg-main-5 active:bg-main-3 text-main-12 focus-visible:border-main-9",
         icon: "border-main-6",
-        dropdown: "bg-main-4 border-main-6",
         item: "hover:bg-main-6 data-[highlighted]:bg-main-6 active:bg-main-5 text-main-12 focus-visible:border-main-8",
       },
       tint: {
         base: "bg-primary-4 border-primary-4 hover:bg-primary-5 active:bg-primary-3 text-main-12 focus-visible:border-primary-9",
         icon: "border-primary-6",
-        dropdown: "bg-primary-4 border-primary-6",
         item: "hover:bg-primary-6 data-[highlighted]:bg-primary-6 active:bg-primary-5 text-main-12 focus-visible:border-main-8",
       },
       hype: {
         base: "bg-primary-9 border-primary-9 hover:bg-primary-10 active:bg-primary-8 text-primary-12 focus-visible:border-primary-10",
         icon: "border-primary-11",
-        dropdown: "bg-primary-9 border-primary-6",
         item: "hover:bg-primary-10 data-[highlighted]:bg-primary-10 active:bg-primary-4 text-main-12 focus-visible:border-primary-10",
       },
     },
@@ -58,36 +55,31 @@ export const selectStyles = tv({
         base: "text-xs rounded-xs",
         value: "px-xs*2 py-xs*2",
         icon: "px-0",
-        dropdown: "p-xs rounded-xs+xs",
         item: "px-sm text-xs rounded-xs",
       },
       sm: {
         base: "text-sm rounded-sm",
         value: "px-sm py-sm/2",
         icon: "px-xs/2",
-        dropdown: "p-sm rounded-sm+sm",
         item: "px-md text-sm rounded-sm",
       },
       md: {
         base: "text-md rounded-md",
         value: "px-md text-md py-md/2",
-        dropdown: "p-sm rounded-md+md",
         icon: "px-md/2",
         item: "px-md text-md rounded-md",
       },
       lg: {
         base: " text-lg rounded-lg",
         value: "px-lg py-lg/2",
-        dropdown: "p-md rounded-md+md",
         icon: "px-md/2",
-        item: "px-lg text-lg rounded-md",
+        item: "px-lg text-lg rounded-lg",
       },
       xl: {
-        base: " text-xl",
+        base: "text-xl rounded-xl",
         value: "px-lg py-lg/2",
-        dropdown: "p-md rounded-lg+md",
         icon: "px-lg/2",
-        item: "px-xl text-xl rounded-lg",
+        item: "px-xl text-xl rounded-xl",
       },
     },
   },
@@ -178,17 +170,23 @@ export default function Select<Value extends string | number | symbol = string>(
         <RadixSelect.Content
           position="popper"
           style={vars}
-          className={mergeClass(dropdown(), "min-w-[var(--radix-select-trigger-width)]")}
+          className={mergeClass(
+            boxStyles({ size: "xs", content: size }),
+            dropdown(),
+            "min-w-[var(--radix-select-trigger-width)]",
+          )}
         >
           <RadixSelect.Viewport>
             <RadixSelect.Group>
-              {Object.entries(options ?? {}).map(([value, label]) => {
-                return (
-                  <SelectItem className={item()} key={value} value={value}>
-                    {label}
-                  </SelectItem>
-                );
-              })}
+              <List look="bold" size={size}>
+                {Object.entries(options ?? {}).map(([value, label]) => {
+                  return (
+                    <SelectItem className={item()} key={value} value={value}>
+                      {label}
+                    </SelectItem>
+                  );
+                })}
+              </List>
             </RadixSelect.Group>
           </RadixSelect.Viewport>
         </RadixSelect.Content>

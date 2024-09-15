@@ -7,19 +7,27 @@ const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
 type Size = (typeof sizes)[number];
 
 export const listStyles = tv({
-  base: "flex flex-col border-1",
+  base: "flex border-1",
   slots: {
     item: "",
     divider: "pt-xs/2 h-xs",
   },
   variants: {
+    flex: {
+      col: { base: "flex-col" },
+      row: { base: "flex-row", item: "grow", divider: "w-[1px]" },
+    },
     index: {
       first: "",
       last: "",
     },
     look: {
       soft: { base: "bg-main-0 border-main-0" },
-      base: { base: "border-main-6 border-main-6  text-main-12", item: "border-main-0", divider: "bg-main-6" },
+      base: {
+        base: "border-main-6 border-main-6  text-main-12",
+        item: "border-main-0",
+        divider: "bg-main-6",
+      },
       bold: {
         base: "bg-main-0 border-main-0 text-main-12",
       },
@@ -36,36 +44,53 @@ export const listStyles = tv({
   },
   defaultVariants: {
     size: "md",
+    flex: "col",
     content: "md",
     look: "base",
   },
   compoundVariants: [
     ...sizes.flatMap((size) =>
       sizes.flatMap((content) => {
+        const base = {
+          content,
+          size,
+          index: undefined satisfies "first" | "last" | undefined,
+          look: ["base", "bold", "tint", "hype"] satisfies ("bold" | "tint" | "hype")[],
+          class: { item: "!rounded-0 !hover:rounded-0", base: `rounded-${content}` },
+        };
+
         return [
+          base,
           {
-            content,
-            size,
-            index: undefined satisfies "first" | "last" | undefined,
-            look: ["base", "bold", "tint", "hype"] satisfies ("bold" | "tint" | "hype")[],
-            class: { item: "!rounded-0", base: `rounded-${content}+${size}` },
-          },
-          {
-            content,
-            size,
+            ...base,
             index: ["first"] satisfies ("first" | "last")[],
-            look: ["base", "bold", "tint", "hype"] satisfies ("bold" | "tint" | "hype")[],
+            flex: "col",
             class: {
-              item: `rounded-${size} !rounded-b-0` as `rounded-${Size}+${Size} rounded-t-${Size}`,
+              item: `!rounded-b-0` as `rounded-${Size}+${Size} rounded-t-${Size}`,
             },
           },
           {
-            content,
-            size,
+            ...base,
             index: ["last"] satisfies ("first" | "last")[],
-            look: ["base", "bold", "tint", "hype"] satisfies ("bold" | "tint" | "hype")[],
+            flex: "col",
             class: {
-              item: `rounded-${size} !rounded-t-0` as `rounded-${Size}+${Size} rounded-t-${Size}`,
+              item: `!rounded-t-0` as `rounded-${Size}+${Size} rounded-t-${Size}`,
+            },
+          },
+          {
+            ...base,
+            index: ["first"] satisfies ("first" | "last")[],
+            flex: "row",
+            class: {
+              item: `!rounded-r-0` as `rounded-${Size}+${Size} rounded-t-${Size}`,
+            },
+          },
+          {
+            ...base,
+            index: ["last"] satisfies ("first" | "last")[],
+            flex: "row",
+            class: {
+              item: `!rounded-l-0` as `rounded-${Size}+${Size} rounded-t-${Size}`,
             },
           },
         ];
@@ -143,20 +168,31 @@ export type ListProps = Component<
   Omit<HTMLDivElement, "children">
 >;
 
-export default function List({ look, size, content, className, children, ...props }: ListProps) {
-  const { base, item, divider } = listStyles({ look, size, content: size });
+export default function List({
+  look,
+  size,
+  flex,
+  content,
+  className,
+  children,
+  ...props
+}: ListProps) {
+  const { base, item, divider } = listStyles({ look, size, content: size, flex });
 
   return (
     <div className={mergeClass(base(), className)} {...props}>
       {Children.map(children, (child, index) => (
         <>
-          {!!index && <div className={divider()}/>}
+          {!!index && <div className={divider()} />}
           {cloneElement(child, {
             size,
             look: child.props.look ?? look,
-            className: mergeClass(child.props.className, item({
-              index: ({ 0: "first", [Children.count(children) - 1]: "last" } as const)[index],
-            })),
+            className: mergeClass(
+              child.props.className,
+              item({
+                index: ({ 0: "first", [Children.count(children) - 1]: "last" } as const)[index],
+              }),
+            ),
           })}
         </>
       ))}

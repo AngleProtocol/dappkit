@@ -24,7 +24,7 @@ export default function Lists() {
           looks={["soft", "base", "bold", "tint", "hype"]}
           sizes={["xs", "sm", "md", "lg", "xl"]}
         >
-          <List look="hype">
+          <List look="hype" className="!min-w-[400px]">
             <Button>Swap</Button>
             <Button look="hype">Swap</Button>
             <Button>Swap</Button>
@@ -32,32 +32,7 @@ export default function Lists() {
             <Button>Swap</Button>
           </List>
         </Showcase>
-        <Group className="flex-col">
-          {(["xs", "sm", "md", "lg", "xl"] as const).map((size) => (
-            <Group className="flex-col">
-              <Title h={3}>{size}</Title>
-              <Text>{size}</Text>
-              <Box size="md" look="soft" content={size}>
-                <Group key={size}>
-                  {(["soft", "base", "bold", "tint", "hype"] as const).map((look) => (
-                    <List key={look} size={size} look={look}>
-                      <div>a</div>
-                      <div>a</div>
-                      <div>a</div>
-                    </List>
-                  ))}
-                </Group>
-              </Box>
-              <Box size="md" content={size}>
-                <Group key={size}>
-                  {(["soft", "base", "bold", "tint", "hype"] as const).map((look) => (
-                    <List key={look} size={size} look={look} />
-                  ))}
-                </Group>
-              </Box>
-            </Group>
-          ))}
-        </Group>
+
       </Box>
     </div>
   );

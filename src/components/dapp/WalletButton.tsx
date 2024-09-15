@@ -34,7 +34,7 @@ export default function WalletButton(props: ButtonProps) {
           </>
         }
       >
-        <Button look="tint" size="sm">
+        <Button {...props}>
           {"Connect"}
         </Button>
       </Dropdown>
