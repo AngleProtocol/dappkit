@@ -1,6 +1,6 @@
-import { Children, cloneElement, ReactElement } from "react";
+import { Children, ReactElement, type ReactNode, cloneElement } from "react";
 import { mergeClass } from "src/utils/css";
-import { Component, Styled } from "src/utils/types";
+import type { Component, Styled } from "src/utils/types";
 import { tv } from "tailwind-variants";
 
 const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
@@ -15,7 +15,7 @@ export const listStyles = tv({
   variants: {
     flex: {
       col: { base: "flex-col" },
-      row: { base: "flex-row", item: "grow", divider: "w-[1px]" },
+      row: { base: "flex-row", item: "grow", divider: "min-w-[1px] w-[1px]" },
     },
     index: {
       first: "",
@@ -33,6 +33,13 @@ export const listStyles = tv({
       },
       tint: { base: "bg-main-0 border-primary-0 text-primary-12" },
       hype: { base: "border-primary-0 text-primary-12" },
+    },
+    size: {
+      xs: "",
+      sm: "",
+      md: "",
+      lg: "",
+      xl: "",
     },
     content: {
       xs: "",
@@ -55,7 +62,7 @@ export const listStyles = tv({
           content,
           size,
           index: undefined satisfies "first" | "last" | undefined,
-          look: ["base", "bold", "tint", "hype"] satisfies ("bold" | "tint" | "hype")[],
+          look: ["base", "bold", "tint", "hype"] satisfies ("base" | "bold" | "tint" | "hype")[],
           class: { item: "!rounded-0 !hover:rounded-0", base: `rounded-${content}` },
         };
 
@@ -64,33 +71,33 @@ export const listStyles = tv({
           {
             ...base,
             index: ["first"] satisfies ("first" | "last")[],
-            flex: "col",
+            flex: "col" as const,
             class: {
-              item: `!rounded-b-0` as `rounded-${Size}+${Size} rounded-t-${Size}`,
+              item: "!rounded-b-0",
             },
           },
           {
             ...base,
             index: ["last"] satisfies ("first" | "last")[],
-            flex: "col",
+            flex: "col" as const,
             class: {
-              item: `!rounded-t-0` as `rounded-${Size}+${Size} rounded-t-${Size}`,
+              item: "!rounded-t-0",
             },
           },
           {
             ...base,
             index: ["first"] satisfies ("first" | "last")[],
-            flex: "row",
+            flex: "row" as const,
             class: {
-              item: `!rounded-r-0` as `rounded-${Size}+${Size} rounded-t-${Size}`,
+              item: "!rounded-r-0",
             },
           },
           {
             ...base,
             index: ["last"] satisfies ("first" | "last")[],
-            flex: "row",
+            flex: "row" as const,
             class: {
-              item: `!rounded-l-0` as `rounded-${Size}+${Size} rounded-t-${Size}`,
+              item: "!rounded-l-0",
             },
           },
         ];
@@ -99,74 +106,8 @@ export const listStyles = tv({
   ],
 });
 
-// [
-//   { content: "xs", size: "xs", look: ["bold", "tint", "hype"], class: { item: "rounded-xs+xs" } },
-//   { content: "xs", size: "sm", look: ["bold", "tint", "hype"], class: { item: "rounded-xs+sm" } },
-//   { content: "xs", size: "md", look: ["bold", "tint", "hype"], class: { item: "rounded-xs+md" } },
-//   { content: "xs", size: "lg", look: ["bold", "tint", "hype"], class: { item: "rounded-xs+lg" } },
-//   { content: "xs", size: "xl", look: ["bold", "tint", "hype"], class: { item: "rounded-xs+xl" } },
-
-//   { content: "sm", size: "xs", look: ["bold", "tint", "hype"], class: { item: "rounded-sm+xs" } },
-//   { content: "sm", size: "sm", look: ["bold", "tint", "hype"], class: { item: "rounded-sm+sm" } },
-//   { content: "sm", size: "md", look: ["bold", "tint", "hype"], class: { item: "rounded-sm+md" } },
-//   { content: "sm", size: "lg", look: ["bold", "tint", "hype"], class: { item: "rounded-sm+lg" } },
-//   { content: "sm", size: "xl", look: ["bold", "tint", "hype"], class: { item: "rounded-sm+xl" } },
-
-//   { content: "md", size: "xs", look: ["bold", "tint", "hype"], class: { item: "rounded-md+xs" } },
-//   { content: "md", size: "sm", look: ["bold", "tint", "hype"], class: { item: "rounded-md+sm" } },
-//   { content: "md", size: "md", look: ["bold", "tint", "hype"], class: { item: "rounded-md+md" } },
-//   { content: "md", size: "lg", look: ["bold", "tint", "hype"], class: { item: "rounded-md+lg" } },
-//   { content: "md", size: "xl", look: ["bold", "tint", "hype"], class: { item: "rounded-md+xl" } },
-
-//   { content: "xs", size: "xs", look: ["soft", "base"], class: { base: "rounded-xs+xs" } },
-//   { content: "lg", size: "xs", look: ["bold", "tint", "hype"], class: { item: "rounded-lg+xs" } },
-//   { content: "lg", size: "sm", look: ["bold", "tint", "hype"], class: { item: "rounded-lg+sm" } },
-//   { content: "lg", size: "md", look: ["bold", "tint", "hype"], class: { item: "rounded-lg+md" } },
-//   { content: "lg", size: "lg", look: ["bold", "tint", "hype"], class: { item: "rounded-lg+lg" } },
-//   { content: "lg", size: "xl", look: ["bold", "tint", "hype"], class: { item: "rounded-lg+xl" } },
-
-//   { content: "xl", size: "xs", look: ["soft", "base"], class: { base: "rounded-xl+xs" } },
-//   { content: "xl", size: "sm", look: ["soft", "base"], class: { base: "rounded-xl+sm" } },
-//   { content: "xl", size: "md", look: ["soft", "base"], class: { base: "rounded-xl+md" } },
-//   { content: "xl", size: "lg", look: ["soft", "base"], class: { base: "rounded-xl+lg" } },
-//   { content: "xl", size: "xl", look: ["soft", "base"], class: { base: "rounded-xl+xl" } },
-
-//   { content: "xs", size: "xs", look: ["soft", "base"], class: { base: "rounded-xs+xs" } },
-//   { content: "xs", size: "sm", look: ["soft", "base"], class: { base: "rounded-xs+sm" } },
-//   { content: "xs", size: "md", look: ["soft", "base"], class: { base: "rounded-xs+md" } },
-//   { content: "xs", size: "lg", look: ["soft", "base"], class: { base: "rounded-xs+lg" } },
-//   { content: "xs", size: "xl", look: ["soft", "base"], class: { base: "rounded-xs+xl" } },
-
-//   { content: "sm", size: "xs", look: ["soft", "base"], class: { base: "rounded-sm+xs" } },
-//   { content: "sm", size: "sm", look: ["soft", "base"], class: { base: "rounded-sm+sm" } },
-//   { content: "sm", size: "md", look: ["soft", "base"], class: { base: "rounded-sm+md" } },
-//   { content: "sm", size: "lg", look: ["soft", "base"], class: { base: "rounded-sm+lg" } },
-//   { content: "sm", size: "xl", look: ["soft", "base"], class: { base: "rounded-sm+xl" } },
-
-//   { content: "md", size: "xs", look: ["soft", "base"], class: { base: "rounded-md+xs" } },
-//   { content: "md", size: "sm", look: ["soft", "base"], class: { base: "rounded-md+sm" } },
-//   { content: "md", size: "md", look: ["soft", "base"], class: { base: "rounded-md+md" } },
-//   { content: "md", size: "lg", look: ["soft", "base"], class: { base: "rounded-md+lg" } },
-//   { content: "md", size: "xl", look: ["soft", "base"], class: { base: "rounded-md+xl" } },
-
-//   { content: "lg", size: "xs", look: ["soft", "base"], class: { base: "rounded-lg+xs" } },
-//   { content: "lg", size: "sm", look: ["soft", "base"], class: { base: "rounded-lg+sm" } },
-//   { content: "lg", size: "md", look: ["soft", "base"], class: { base: "rounded-lg+md" } },
-//   { content: "lg", size: "lg", look: ["soft", "base"], class: { base: "rounded-lg+lg" } },
-//   { content: "lg", size: "xl", look: ["soft", "base"], class: { base: "rounded-lg+xl" } },
-
-//   { content: "xs", size: "xs", look: ["soft", "base"], class: { base: "rounded-xs+xs" } },
-//   { content: "xl", size: "xs", look: ["soft", "base"], class: { base: "rounded-xl+xs" } },
-//   { content: "xl", size: "sm", look: ["soft", "base"], class: { base: "rounded-xl+sm" } },
-//   { content: "xl", size: "md", look: ["soft", "base"], class: { base: "rounded-xl+md" } },
-//   { content: "xl", size: "lg", look: ["soft", "base"], class: { base: "rounded-xl+lg" } },
-//   { content: "xl", size: "xl", look: ["soft", "base"], class: { base: "rounded-xl+xl" } },
-// ]
-
-export type ListProps = Component<
-  Styled<typeof listStyles> & { children: ReactElement[] | ReactElement },
-  Omit<HTMLDivElement, "children">
->;
+type ListElement = ReactElement<{ look: unknown; size: unknown; className?: string }>;
+export type ListProps = Component<Styled<typeof listStyles>, HTMLDivElement>;
 
 export default function List({
   look,
@@ -181,7 +122,7 @@ export default function List({
 
   return (
     <div className={mergeClass(base(), className)} {...props}>
-      {Children.map(children, (child, index) => (
+      {Children.map(children as ListElement | ListElement[], (child, index) => (
         <>
           {!!index && <div className={divider()} />}
           {cloneElement(child, {

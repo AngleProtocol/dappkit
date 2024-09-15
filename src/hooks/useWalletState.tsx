@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { http, createConfig, useConfig, useAccount, useConnect, useDisconnect } from "wagmi";
-import { Chain, mainnet, sepolia } from "wagmi/chains";
+import { http, createConfig, useAccount, useConfig, useConnect, useDisconnect } from "wagmi";
+import { type Chain, mainnet, sepolia } from "wagmi/chains";
 import { coinbaseWallet, injected, walletConnect } from "wagmi/connectors";
 
 export const config = createConfig({

@@ -1,4 +1,4 @@
-import clsx, { ClassValue } from "clsx";
+import clsx, { type ClassValue } from "clsx";
 import { boxStyles } from "src/components/primitives/Box";
 import { twMerge } from "tailwind-merge";
 
@@ -7,5 +7,5 @@ import { twMerge } from "tailwind-merge";
  * @returns finalized class
  */
 export function mergeClass(...classes: ClassValue[]) {
-	return twMerge(clsx(...classes));
+  return twMerge(clsx(...classes));
 }

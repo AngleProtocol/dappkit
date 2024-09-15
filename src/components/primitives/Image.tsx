@@ -1,6 +1,6 @@
 import * as Avatar from "@radix-ui/react-avatar";
 import { mergeClass } from "src/utils/css";
-import { Component } from "src/utils/types";
+import type { Component } from "src/utils/types";
 
 export type ImageProps = Component<
   {

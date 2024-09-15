@@ -1,6 +1,6 @@
-import React, { PropsWithChildren, ReactNode, useCallback } from "react";
+import React, { PropsWithChildren, type ReactNode, useCallback } from "react";
 import { mergeClass } from "src/utils/css";
-import { Component } from "src/utils/types";
+import type { Component } from "src/utils/types";
 import Divider from "./Divider";
 
 const extensions = ["header", "footer", "prefix", "suffix"] as const;

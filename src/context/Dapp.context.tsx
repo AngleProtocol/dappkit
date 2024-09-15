@@ -1,11 +1,10 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { createContext, PropsWithChildren, useContext } from "react";
-import useDAppState from "src/hooks/useDAppState";
-import { ResolvedRegister, WagmiProvider } from "wagmi";
-import { WalletProvider } from "./Wallet.context";
+import { type PropsWithChildren, createContext, useContext } from "react";
+import { type ResolvedRegister, WagmiProvider } from "wagmi";
 import ThemeProvider from "./Theme.context";
+import { WalletProvider } from "./Wallet.context";
 
-export type DAppContextType = ReturnType<typeof useDAppState>;
+export type DAppContextType = unknown;
 
 const DAppContext = createContext<DAppContextType>(null);
 const queryClient = new QueryClient();

@@ -57,23 +57,8 @@ const data = [
   },
 ];
 
-export async function loader({ params }) {
-  const res = await (await fetch("https://api.merkl.xyz/v1/tokens")).json() as any as { [chain: number]: { [address: string]: { logoURI: string, symbol: string } } };
+export async function loader() {
 
-  const token = () => {
-    for (const [chain, tokens] of Object.entries(res)) {
-      for (const [address, token] of Object.entries(tokens)) {
-        if (token.symbol.toLowerCase() === params.symbol.toLowerCase())
-          return token.logoURI;
-      }
-    }
-  }
-
-  console.log(token());
-  
-
-
-  return json(token() ?? "nnoen;dsqh");
 }
 
 export default function Previews() {

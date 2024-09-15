@@ -1,9 +1,9 @@
+import { Link } from "@remix-run/react";
 import { mergeClass } from "src/utils/css";
 import type { Component, Styled } from "src/utils/types";
 import { tv } from "tailwind-variants";
 import Block from "./Block";
 import Icon from "./Icon";
-import { Link } from "@remix-run/react";
 
 export const buttonStyles = tv({
   base: "text-main-11 flex items-center bg-gradient-to-tr border-1 outline-offset-0 outline-0 text-nowrap font-main font-bold",
@@ -25,26 +25,32 @@ export const buttonStyles = tv({
   },
 });
 
-export type ButtonProps = Component<
-  Styled<typeof buttonStyles> & { to?: string },
-  HTMLButtonElement
->;
+export type ButtonProps = Component<Styled<typeof buttonStyles>, HTMLButtonElement>;
 
-export default function Button({ look, size, to, className, children, ...props }: ButtonProps) {
-  if (to)
+export default function Button({
+  look,
+  size,
+  to,
+  className,
+  children,
+  ...props
+}: ButtonProps & { to?: string }) {
+  if (to) {
     return (
       <Link
+        {...{ size, look }}
         className={mergeClass(
           buttonStyles({ look: look ?? "base", size: size ?? "md" }),
           className,
         )}
-        {...props}
         to={to}
         type="button"
       >
         {children}
       </Link>
     );
+  }
+
   return (
     <button
       className={mergeClass(buttonStyles({ look: look ?? "base", size: size ?? "md" }), className)}

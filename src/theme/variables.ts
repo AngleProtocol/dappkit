@@ -42,8 +42,8 @@ export default function generateSizingVariables(
       {},
     ),
     padding: Object.entries(paddings).reduce(
-        (s, [className, value]) => Object.assign(s, { [className]: value }),
-        {},
-      ),
+      (s, [className, value]) => Object.assign(s, { [className]: value }),
+      {},
+    ),
   };
 }

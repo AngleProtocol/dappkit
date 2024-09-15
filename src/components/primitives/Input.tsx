@@ -1,7 +1,7 @@
-import { mergeClass } from "../../utils/css";
+import type { ReactNode } from "react";
 import type { Component, Styled } from "src/utils/types";
 import { tv } from "tailwind-variants";
-import { ReactNode } from "react";
+import { mergeClass } from "../../utils/css";
 import Group from "../extenders/Group";
 
 export const inputStyles = tv({

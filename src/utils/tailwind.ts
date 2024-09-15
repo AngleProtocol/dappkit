@@ -5,7 +5,7 @@ export const paddingScale = [2, 4, 6, 12, 16, 24];
 export const radiusScale = [2, 4, 8, 12, 16, 24];
 export const sizeScale = ["xs", "sm", "md", "lg", "xl"] as const;
 
-const sizes = generateSizingVariables([2, 4, 6, 12, 16], [2, 6, 12, 16, 32])
+const sizes = generateSizingVariables([2, 4, 6, 12, 16], [2, 6, 12, 16, 32]);
 
 export const generateTailwindConfig = () => ({
   extend: {},
@@ -17,22 +17,22 @@ export const generateTailwindConfig = () => ({
   },
   keyframes: {
     drop: {
-      '0%': { transform: 'translateY(-10px)', opacity: 0 },
-      '100%': { transform: 'translateY(0px)', opacity: 1},
+      "0%": { transform: "translateY(-10px)", opacity: 0 },
+      "100%": { transform: "translateY(0px)", opacity: 1 },
     },
     fadeIn: {
-      '0%': {  opacity: 0.7 },
-      '100%': {  opacity: 1},
-    }
+      "0%": { opacity: 0.7 },
+      "100%": { opacity: 1 },
+    },
   },
   animation: {
-    drop: 'drop 0.1s ease-out',
-    fadeIn: 'fadeIn 0.1s ease-out',
+    drop: "drop 0.1s ease-out",
+    fadeIn: "fadeIn 0.1s ease-out",
   },
   borderRadius: {
     0: "0",
     full: "100vmax",
-   ...sizes.borderRadius
+    ...sizes.borderRadius,
   },
   boxShadow: {
     md: "0 2px 4px -2px rgba(0, 0, 0, 0.3)",
@@ -40,17 +40,17 @@ export const generateTailwindConfig = () => ({
   },
   padding: {
     0: "0px",
-    ...sizes.padding
+    ...sizes.padding,
   },
   margin: {
     0: "0px",
     auto: "auto",
-    ...sizes.padding
+    ...sizes.padding,
   },
   gap: {
     0: "0px",
     auto: "auto",
-    ...sizes.padding
+    ...sizes.padding,
   },
   borderWidth: {
     0: "0px",
@@ -62,22 +62,21 @@ export const generateTailwindConfig = () => ({
     6: "8px",
   },
   fontSize: {
-    xs: '0.7rem',
-    sm: '0.8rem',
-    xl: '1.25rem',
-    '2xl': '1.563rem',
-    '3xl': '1.953rem',
-    '4xl': '2.441rem',
-    '5xl': '3.052rem',
+    xs: "0.7rem",
+    sm: "0.8rem",
+    xl: "1.25rem",
+    "2xl": "1.563rem",
+    "3xl": "1.953rem",
+    "4xl": "2.441rem",
+    "5xl": "3.052rem",
   },
   fontFamily: {
     main: [
       '"Space Grotesk", sans-serif',
       {
         fontFeatureSettings: '"cv11", "ss01"',
-        fontVariationSettings: '"opsz" 32'
+        fontVariationSettings: '"opsz" 32',
       },
     ],
-
-  }
+  },
 });

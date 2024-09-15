@@ -1,7 +1,13 @@
-import { Root, Track, Range, Thumb, SliderProps as RadixSliderProps } from "@radix-ui/react-slider";
+import {
+  type SliderProps as RadixSliderProps,
+  Range,
+  Root,
+  Thumb,
+  Track,
+} from "@radix-ui/react-slider";
 import { useState } from "react";
 import { mergeClass } from "src/utils/css";
-import { Component, GetSet, Styled } from "src/utils/types";
+import type { Component, GetSet, Styled } from "src/utils/types";
 import { tv } from "tailwind-variants";
 
 export const sliderStyles = tv({

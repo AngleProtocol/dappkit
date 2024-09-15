@@ -1,16 +1,17 @@
+import clsx from "clsx";
+import { mergeClass } from "src/utils/css";
+import { twMerge } from "tailwind-merge";
 import { tv } from "tailwind-variants";
 import type { Component, Styled } from "../../utils/types";
-import clsx from "clsx";
-import { twMerge } from "tailwind-merge";
-import { mergeClass } from "src/utils/css";
 
 export const boxStyles = tv({
   base: "flex flex-col border-1 gap-1",
   variants: {
     look: {
-      base: "bg-main-2 border-main-3 text-main-12",
-      soft: "bg-main-1 border-main-3",
+      soft: "bg-main-1 border-main-0",
+      base: "bg-main-2 border-main-6 text-main-12",
       bold: "bg-primary-4 border-main-5 text-main-12",
+      tint: "bg-main-2 border-main-3 text-main-12",
       hype: "bg-primary-9 border-main-10 text-primary-12",
     },
     size: {
@@ -69,13 +70,5 @@ export const boxStyles = tv({
 export type BoxProps = Component<Styled<typeof boxStyles>>;
 
 export default function Box({ look, size, content, className, ...props }: BoxProps) {
-  return (
-    <div
-      className={mergeClass(
-        boxStyles({ look, size, content }),
-        className,
-      )}
-      {...props}
-    />
-  );
+  return <div className={mergeClass(boxStyles({ look, size, content }), className)} {...props} />;
 }

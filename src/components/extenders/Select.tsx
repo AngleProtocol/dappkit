@@ -1,16 +1,16 @@
-import React, { useState, type PropsWithChildren, type ReactNode } from "react";
-import type { GetSet, Variant } from "src/utils/types";
-import { tv } from "tailwind-variants";
 import * as RadixSelect from "@radix-ui/react-select";
-import { buttonStyles } from "src/components/primitives/Button";
-import Icon from "src/components/primitives/Icon";
-import { useTheme } from "../../context/Theme.context";
 import clsx from "clsx";
+import React, { MutableRefObject, useState, type PropsWithChildren, type ReactNode } from "react";
 import Block from "src/components/primitives/Block";
+import { buttonStyles } from "src/components/primitives/Button";
 import Divider from "src/components/primitives/Divider";
+import Icon from "src/components/primitives/Icon";
 import { mergeClass } from "src/utils/css";
-import List from "../primitives/List";
+import type { Component, GetSet, Variant } from "src/utils/types";
+import { tv } from "tailwind-variants";
+import { useTheme } from "../../context/Theme.context";
 import { boxStyles } from "../primitives/Box";
+import List from "../primitives/List";
 
 export const selectStyles = tv({
   base: [
@@ -116,7 +116,7 @@ export const selectStyles = tv({
   ],
 });
 
-export type SelectProps<Value extends string | number | symbol = string> = PropsWithChildren<{
+export type SelectProps<Value extends string | number | symbol = string> = Component<{
   size?: Variant<typeof selectStyles, "size">;
   look?: Variant<typeof selectStyles, "look">;
   value?: Value;
@@ -125,26 +125,24 @@ export type SelectProps<Value extends string | number | symbol = string> = Props
 }> &
   RadixSelect.SelectProps;
 
-const SelectItem = React.forwardRef(function Item(
-  { children, ...props }: PropsWithChildren<{ className: string }>,
-  forwardedRef,
-) {
-  return (
-    <RadixSelect.Item {...props} ref={forwardedRef}>
-      <RadixSelect.ItemText>{children}</RadixSelect.ItemText>
-      <RadixSelect.ItemIndicator className="absolute left-0 w-[25px] inline-flex items-center justify-center"></RadixSelect.ItemIndicator>
-    </RadixSelect.Item>
-  );
-});
+const SelectItem = React.forwardRef<
+  HTMLDivElement,
+  PropsWithChildren<{ className: string } & RadixSelect.SelectItemProps>
+>(({ children, ...props }, forwardedRef) => (
+  <RadixSelect.Item {...props} ref={forwardedRef}>
+    <RadixSelect.ItemText>{children}</RadixSelect.ItemText>
+    <RadixSelect.ItemIndicator className="absolute left-0 w-[25px] inline-flex items-center justify-center" />
+  </RadixSelect.Item>
+));
 
-export default function Select<Value extends string | number | symbol = string>({
+export default function Select({
   look,
   size,
   state,
   options,
   className,
   ...props
-}: SelectProps<Value>) {
+}: SelectProps<string>) {
   const { vars } = useTheme();
   const [getter, setter] = state ?? [];
 
@@ -154,7 +152,11 @@ export default function Select<Value extends string | number | symbol = string>(
   });
 
   return (
-    <RadixSelect.Root {...props} value={getter && `${String(getter)}`} onValueChange={setter}>
+    <RadixSelect.Root
+      {...props}
+      value={getter && `${String(getter)}`}
+      onValueChange={(n) => setter?.(n)}
+    >
       <RadixSelect.Trigger
         className={mergeClass(base({ look, size }), className)}
         aria-label="Food"

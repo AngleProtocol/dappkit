@@ -1,19 +1,22 @@
 import Box from "src/components/primitives/Box";
-import { Children, cloneElement, useState } from "react";
+import { Children, cloneElement, type ReactElement, useState } from "react";
 import Slider from "src/components/primitives/Slider";
-import { Component } from "src/utils/types";
-import Group from "src/components/extenders/Group";
+import type { Component } from "src/utils/types";
 import List from "src/components/primitives/List";
 import Text from "src/components/primitives/Text";
+import { mergeClass } from "src/utils/css";
 
-export type ShowcaseProps = Component<{ sizes: string[]; looks: string[]; contents?: string[] }>;
+export type ShowcaseProps = Component<{
+  sizes: string[];
+  looks: string[];
+  contents?: string[];
+  children?: ReactElement;
+}>;
 
-export default function Showcase({ sizes, looks, contents, children, ...props }) {
+export default function Showcase({ sizes, looks, contents, children, className }: ShowcaseProps) {
   const [size, setSize] = useState(3);
   const [look, setLook] = useState(3);
   const [content, setContent] = useState(3);
-
-  Children.only(children);
 
   return (
     <List size="lg">
@@ -37,9 +40,9 @@ export default function Showcase({ sizes, looks, contents, children, ...props })
           />
         </Box>
       </List>
-      <Box look="soft" className="min-h-[200px]" {...props}>
-        <div className="flex my-auto justify-center my-xl">
-          {cloneElement(children, {
+      <Box look="soft" className={mergeClass(className, "min-h-[200px]")} >
+        <div className="flex my-auto min-my-xl justify-center">
+          {children && cloneElement(Children.only(children), {
             look: looks[look],
             size: sizes[size],
             content: contents?.[content],

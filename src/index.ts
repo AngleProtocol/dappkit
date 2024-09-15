@@ -21,4 +21,4 @@ export * from "./components/dapp/WalletButton";
 export * from "./components/dapp/WalletConnectors";
 
 //Utils
-export * from "./utils/tailwind"
+export * from "./utils/tailwind";

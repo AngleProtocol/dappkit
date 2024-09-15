@@ -27,7 +27,7 @@ export default function PageSwap() {
       <Box size="lg">
         <Title h={1}>Swap</Title>
         <Text>Imitates uniswap's swap interface</Text>
-        <Box look="soft">
+        <Box look="base">
           <Slider
             format={(n) => sizes[n]}
             state={[size, setSize]}
