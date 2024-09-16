@@ -1,4 +1,5 @@
-import generateSizingVariables from "../theme/variables";
+import generateSizingVariables from "../theme/variabless";
+import { deriveSizingUtilityClasses } from "../theme/classes";
 import { createVariableScale } from "./theming";
 
 export const paddingScale = [2, 4, 6, 12, 16, 24];
@@ -8,13 +9,15 @@ export const lookScale = ["soft", "base", "bold", "tint", "hype"] as const;
 
 const sizes = generateSizingVariables([2, 4, 6, 12, 16], [2, 6, 12, 16, 32]);
 
+console.log(sizes);
+
+
 export const generateTailwindConfig = () => ({
   extend: {},
   colors: {
     current: "currentColor",
     main: createVariableScale("main", 12),
     primary: createVariableScale("primary", 12),
-    secondary: createVariableScale("secondary", 12),
   },
   keyframes: {
     drop: {

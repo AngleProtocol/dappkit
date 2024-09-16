@@ -1,49 +1,11 @@
-import { sizeScale } from "../utils/tailwind";
+/**
+ * Default size array to be defined for components and tailwind classes
+ */
+export const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
+export type Size = (typeof sizes)[number];
 
-export const sizingScale = ["xs", "sm", "md", "lg", "xl"] as const;
-export type SizingArray<T = number> = [T, T, T, T, T];
-
-export default function generateSizingVariables(
-  radiusScale: SizingArray,
-  paddingScale: SizingArray,
-) {
-  const radiuses = sizeScale.reduce(function distributeRadiusScale(variables, size, index) {
-    const radius = radiusScale[index];
-
-    return Object.assign(
-      variables,
-      { [size]: radius },
-      sizeScale.reduce(function distributePaddingOffset(offsets, offset, pIndex) {
-        const padding = radiusScale[pIndex];
-        return Object.assign(offsets, { [`${size}+${offset}`]: radius + padding });
-      }, {}),
-    );
-  }, {});
-
-  const paddings = sizeScale.reduce(function distributePaddingScale(variables, size, index) {
-    const padding = paddingScale[index];
-
-    return Object.assign(
-      variables,
-      { [size]: padding },
-      [2].reduce(function distributePaddingOffset(offsets, factor, pIndex) {
-        return Object.assign(
-          offsets,
-          { [`${size}/${factor}`]: padding / factor },
-          { [`${size}*${factor}`]: padding * factor },
-        );
-      }, {}),
-    );
-  }, {});
-
-  return {
-    borderRadius: Object.entries(radiuses).reduce(
-      (s, [className, value]) => Object.assign(s, { [className]: value }),
-      {},
-    ),
-    padding: Object.entries(paddings).reduce(
-      (s, [className, value]) => Object.assign(s, { [className]: value }),
-      {},
-    ),
-  };
-}
+/**
+ * Default look array to be defined for components and tailwind classes
+ */
+export const looks = ["soft", "base", "bold", "tint", "hype"] as const;
+export type Look = (typeof looks)[number];

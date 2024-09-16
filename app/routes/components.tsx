@@ -25,15 +25,16 @@ export default function Index() {
   );
 
   const components = {
+    concept: ["themes", "dsq"],
     primitives: ["card", "box", "group", "list", "text", "title", "icon", "tooltip"],
-    interactive: ["button", "select"],
+    interactive: ["button", "select", "input", "slider", "checkbox"],
   };
 
   return (
     <div className="font-sans p-lg">
       <Group size="lg" className="grid grid-cols-[200px,1fr] w-full">
         <Box
-          look="soft"
+          look="base"
           size="md"
           content="lg"
           className="items-center col-span-2 justify-between flex-row"
@@ -51,12 +52,12 @@ export default function Index() {
             <WalletButton look="tint" size="lg" />
           </Group>
         </Box>
-        <Box container={"true"} size="lg" className="flex-col">
+        <Group size="lg" className="flex-col">
           <Modal open={true} />
           <Group look="soft" className="flex-col" size="sm">
             {
               Object.entries(components).flatMap(([title, _components]) => [
-                <Box size="sm">
+                <Box key={title} look="soft" size="sm">
                   <Title h={4}>{title} </Title>
                 </Box>,
                 <List key={title} look="bold" size="lg">
@@ -106,7 +107,7 @@ export default function Index() {
               ))}
             </Group>
           </Box> */}
-        </Box>
+        </Group>
         <Outlet />
       </Group>
     </div>

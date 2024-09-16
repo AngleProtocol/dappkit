@@ -17,7 +17,7 @@ export const meta: MetaFunction = () => {
 export default function Lists() {
   return (
     <div>
-      <Box>
+      <Box content="lg">
         <Title h={1}>Lists</Title>
         <Text>Lists are used to display elements in a column layout</Text>
         <Showcase

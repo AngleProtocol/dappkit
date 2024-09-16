@@ -84,12 +84,11 @@ export type ThemeSeed = {
 
   main: string;
   primary: string;
-  secondary: string;
 
-  info: string;
-  good: string;
-  warn: string;
-  harm: string;
+  info?: string;
+  good?: string;
+  warn?: string;
+  harm?: string;
 };
 
 export function generateTheme(seed: ThemeSeed) {

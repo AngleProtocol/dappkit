@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { Component, Styled } from "src/utils/types";
+import type { Component, GetSet, Styled } from "src/utils/types";
 import { tv } from "tailwind-variants";
 import { mergeClass } from "../../utils/css";
 import Group from "../extenders/Group";
@@ -33,11 +33,13 @@ export const extensions = ["header", "footer", "prefix", "suffix", "label", "hin
 export type InputExtension = (typeof extensions)[number];
 
 export type InputProps = Component<
-  Styled<typeof inputStyles> & { [Extension in InputExtension]?: ReactNode },
+  Styled<typeof inputStyles> & { [Extension in InputExtension]?: ReactNode } & {
+    state?: GetSet<string>;
+  },
   HTMLInputElement
 >;
 
-export default function Input({ look, size, className, ...props }: InputProps) {
+export default function Input({ look, size, state, className, ...props }: InputProps) {
   const { header, footer, prefix, suffix, label, hint, ...rest } = props;
 
   if (extensions.some((extension) => !!props?.[extension]))
@@ -62,6 +64,8 @@ export default function Input({ look, size, className, ...props }: InputProps) {
               className,
               "w-full !flex-1 !px-sm !py-md",
             )}
+            value={state?.[0]}
+            onChange={(e) => state?.[1]?.(e?.target?.value)}
             {...rest}
           />
           {suffix && (
@@ -75,5 +79,12 @@ export default function Input({ look, size, className, ...props }: InputProps) {
         </label>
       </label>
     );
-  return <input className={mergeClass(inputStyles({ look, size }), className)} {...rest} />;
+  return (
+    <input
+      className={mergeClass(inputStyles({ look, size }), className)}
+      value={state?.[0]}
+      onChange={(e) => state?.[1]?.(e?.target?.value)}
+      {...rest}
+    />
+  );
 }

@@ -13,7 +13,7 @@ export const boxStyles = tv({
       base: "bg-main-2 border-main-0 text-main-12",
       bold: "bg-main-2 border-main-6 text-main-12",
       tint: "bg-primary-4 border-main-0 text-main-12",
-      hype: "bg-primary-9 border-main-0 text-main-12",
+      hype: "bg-primary-4 border-primary-6 text-main-12",
     },
     size: {
       xs: "p-xs gap-xs/2",
@@ -42,41 +42,20 @@ export const boxStyles = tv({
   },
   compoundVariants: sizeScale.flatMap((size) =>
     sizeScale.flatMap((content) => [
-      { size, content, container: true, class: `rounded-${size}+${content}` },
-      { size, content, container: false, class: `rounded-${size}` },
+      {
+        size,
+        content,
+        container: true as const,
+        class: `rounded-${size}+${content}` as `rounded-${typeof size}+${typeof content}`,
+      },
+      {
+        size,
+        content,
+        container: false as const,
+        class: `rounded-${size}` as `rounded-${typeof size}`,
+      },
     ]),
   ),
-  // compoundVariants: [
-  //   { content: "xs", size: "xs", class: "rounded-xs+xs" },
-  //   { content: "xs", size: "sm", class: "rounded-xs+sm" },
-  //   { content: "xs", size: "md", class: "rounded-xs+md" },
-  //   { content: "xs", size: "lg", class: "rounded-xs+lg" },
-  //   { content: "xs", size: "xl", class: "rounded-xs+xl" },
-
-  //   { content: "sm", size: "xs", class: "rounded-sm+xs" },
-  //   { content: "sm", size: "sm", class: "rounded-sm+sm" },
-  //   { content: "sm", size: "md", class: "rounded-sm+md" },
-  //   { content: "sm", size: "lg", class: "rounded-sm+lg" },
-  //   { content: "sm", size: "xl", class: "rounded-sm+xl" },
-
-  //   { content: "md", size: "xs", class: "rounded-md+xs" },
-  //   { content: "md", size: "sm", class: "rounded-md+sm" },
-  //   { content: "md", size: "md", class: "rounded-md+md" },
-  //   { content: "md", size: "lg", class: "rounded-md+lg" },
-  //   { content: "md", size: "xl", class: "rounded-md+xl" },
-
-  //   { content: "lg", size: "xs", class: "rounded-lg+xs" },
-  //   { content: "lg", size: "sm", class: "rounded-lg+sm" },
-  //   { content: "lg", size: "md", class: "rounded-lg+md" },
-  //   { content: "lg", size: "lg", class: "rounded-lg+lg" },
-  //   { content: "lg", size: "xl", class: "rounded-lg+xl" },
-
-  //   { content: "xl", size: "xs", class: "rounded-xl+xs" },
-  //   { content: "xl", size: "sm", class: "rounded-xl+sm" },
-  //   { content: "xl", size: "md", class: "rounded-xl+md" },
-  //   { content: "xl", size: "lg", class: "rounded-xl+lg" },
-  //   { content: "xl", size: "xl", class: "rounded-xl+xl" },
-  // ],
 });
 
 export type BoxProps = Component<Styled<typeof boxStyles>>;
@@ -85,7 +64,7 @@ export default function Box({ look, size, container, content, className, ...prop
   return (
     <div
       className={mergeClass(
-        boxStyles({ look, size, content, container: container === "false" }),
+        boxStyles({ look, size, content, container: container !== "false" }),
         className,
       )}
       {...props}

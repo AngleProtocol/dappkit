@@ -1,21 +1,22 @@
-import type { Component, Styled } from "src/utils/types";
+import { mergeClass } from "src/utils/css";
+import type { Component, GetSet, Styled } from "src/utils/types";
 import { tv } from "tailwind-variants";
 
 export const colorPickerStyles = tv({
-  base: "text-main-11 flex items-center gap-1 border-1 outline-offset-0 outline-0 text-nowrap",
+  base: "bg-main-0 border-none p-0 h-6 w-6",
   variants: {
     look: {
-      base: "bg-main-1 border-main-4 hover:bg-main-2 active:bg-main-2 text-main-12 focus-visible:border-main-9",
-      soft: "bg-main-2 border-main-3 hover:bg-main-4 active:bg-main-3 hover:text-main-12 hover:border-main-6 focus-visible:border-main-7",
-      bold: "bg-primary-4 border-primary-6 hover:bg-primary-5 active:bg-primary-3 text-main-12 focus-visible:border-primary-9",
-      hype: "bg-primary-9 border-primary-6 hover:bg-primary-10 active:bg-primary-8 text-primary-12 focus-visible:border-primary-10",
+      soft: "h-1",
+      base: "",
+      bold: "",
+      hype: "",
     },
     size: {
-      xs: "px-2 py-1 text-xs rounded",
-      sm: "px-3 py-2 text-sm rounded-sm",
-      md: "px-4 py-3 text-md rounded-md",
-      lg: "px-5 py-4 text-lg rounded-lg",
-      xl: "px-6 py-5 text-xl rounded-xl",
+      xs: "text-xs rounded",
+      sm: "text-sm rounded-sm",
+      md: "text-md rounded-md",
+      lg: "text-lg rounded-lg",
+      xl: "text-xl rounded-xl",
     },
   },
   defaultVariants: {
@@ -24,13 +25,19 @@ export const colorPickerStyles = tv({
   },
 });
 
-export type ColorPickerProps = Component<Styled<typeof colorPickerStyles>, HTMLInputElement>;
+export type ColorPickerProps = Component<
+  Styled<typeof colorPickerStyles> & { state: GetSet<string> },
+  HTMLInputElement
+>;
 
-export default function ColorPicker({ look, size, ...props }: ColorPickerProps) {
+export default function ColorPicker({ look, size, state, className, ...props }: ColorPickerProps) {
   return (
-    <div className={colorPickerStyles({ look, size })}>
-      <input {...props} />
-      <input type="color" />
-    </div>
+    <input
+      className={mergeClass(colorPickerStyles({ look, size }), className)}
+      value={state?.[0]}
+      onChange={(e) => state?.[1]?.(e?.target?.value)}
+      {...props}
+      type="color"
+    />
   );
 }
