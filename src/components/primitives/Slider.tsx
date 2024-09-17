@@ -40,16 +40,16 @@ export const sliderStyles = tv({
           "hover:bg-main-6 data-[highlighted]:bg-main-6 active:bg-main-5 text-main-12 focus-visible:border-main-8",
       },
       tint: {
-        base: "bg-primary-4 border-primary-4 hover:bg-primary-5 active:bg-primary-3 text-main-12 focus-visible:border-primary-9",
-        thumb: "bg-primary-4 border-primary-6",
+        base: "bg-accent-4 border-accent-4 hover:bg-accent-5 active:bg-accent-3 text-main-12 focus-visible:border-accent-9",
+        thumb: "bg-accent-4 border-accent-6",
         track:
-          "hover:bg-primary-6 data-[highlighted]:bg-primary-6 active:bg-primary-5 text-main-12 focus-visible:border-main-8",
+          "hover:bg-accent-6 data-[highlighted]:bg-accent-6 active:bg-accent-5 text-main-12 focus-visible:border-main-8",
       },
       hype: {
-        base: "bg-primary-9 border-primary-9 hover:bg-primary-10 active:bg-primary-8 text-primary-12 focus-visible:border-primary-10",
-        thumb: "bg-primary-9 border-primary-6",
+        base: "bg-accent-9 border-accent-9 hover:bg-accent-10 active:bg-accent-8 text-accent-12 focus-visible:border-accent-10",
+        thumb: "bg-accent-9 border-accent-6",
         track:
-          "hover:bg-primary-10 data-[highlighted]:bg-primary-10 active:bg-primary-4 text-main-12 focus-visible:border-primary-10",
+          "hover:bg-accent-10 data-[highlighted]:bg-accent-10 active:bg-accent-4 text-main-12 focus-visible:border-accent-10",
       },
     },
     size: {

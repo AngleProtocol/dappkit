@@ -37,8 +37,8 @@ export const buttonStyles = tv({
         look: {
             base: "bg-main-4 border-main-7 hover:bg-main-5 active:bg-main-3 text-main-12 focus-visible:border-main-9",
             soft: "bg-main-0 border-main-0 hover:bg-main-4 active:bg-main-3 hover:text-main-12  focus-visible:border-main-9",
-            bold: "bg-primary-4 border-primary-6 hover:bg-primary-5 active:bg-primary-3 text-main-12 focus-visible:border-primary-9",
-            hype: "bg-primary-9 border-primary-6 hover:bg-primary-10 active:bg-primary-8 text-primary-12 focus-visible:border-primary-10"
+            bold: "bg-accent-4 border-accent-6 hover:bg-accent-5 active:bg-accent-3 text-main-12 focus-visible:border-accent-9",
+            hype: "bg-accent-9 border-accent-6 hover:bg-accent-10 active:bg-accent-8 text-accent-12 focus-visible:border-accent-10"
         },
         size: {
             xs: "px-2 py-1 text-xs rounded",

@@ -30,7 +30,7 @@ export function extractColorScale(theme: Coloring) {
  * Assigns color scales to the corresponding css variables
  * @returns returns css variables for each mode (dark, light) and each color (main, accent)
  */
-export function reduceThemeIntoVariables(
+export function reduceColorIntoVariables(
   theme: Coloring,
   mainVarName = "main",
   accentVarName = "accent",

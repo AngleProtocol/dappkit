@@ -86,7 +86,7 @@ export default function Previews() {
               <XAxis dataKey="name" />
               {/* <YAxis /> */}
               <Tooltip />
-              <Area type="monotone" dataKey="uv" stackId="1" stroke="var(--primary-8)" fill="var(--primary-11)" />
+              <Area type="monotone" dataKey="uv" stackId="1" stroke="var(--accent-8)" fill="var(--accent-11)" />
               <Area type="monotone" dataKey="pv" stackId="1" stroke="#1755F4" fill="#1755F4" />
               <Area type="monotone" dataKey="optimism" stackId="1" stroke="#FF0420" fill="#FF0420" />
             </AreaChart>

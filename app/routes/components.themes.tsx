@@ -60,18 +60,18 @@ export default function Themes() {
         </Text>
         <Box look="soft" className="grid grid-cols-2">
           <List look="soft">
-            <div className={"bg-primary-1 text-primary-12"}>1 - backgrounds</div>
-            <div className={"bg-primary-2 text-primary-12"}>2 - backgrounds</div>
-            <div className={"bg-primary-3 text-primary-12"}>3 - interactive components</div>
-            <div className={"bg-primary-4 text-primary-12"}>4 - interactive components</div>
-            <div className={"bg-primary-5 text-primary-12"}>5 - interactive components</div>
-            <div className={"bg-primary-6 text-primary-12"}>6 - borders / separators</div>
-            <div className={"bg-primary-7 text-primary-12"}>7 - borders / separators</div>
-            <div className={"bg-primary-8 text-primary-12"}>8 - borders / separators</div>
-            <div className={"bg-primary-9 text-primary-12"}>9 - solid colors</div>
-            <div className={"bg-primary-10 text-primary-12"}>10 - solid colors</div>
-            <div className={"bg-primary-11 text-primary-12"}>11 - text</div>
-            <div className={"bg-primary-12 text-primary-1"}>12 - text</div>
+            <div className={"bg-accent-1 text-accent-12"}>1 - backgrounds</div>
+            <div className={"bg-accent-2 text-accent-12"}>2 - backgrounds</div>
+            <div className={"bg-accent-3 text-accent-12"}>3 - interactive components</div>
+            <div className={"bg-accent-4 text-accent-12"}>4 - interactive components</div>
+            <div className={"bg-accent-5 text-accent-12"}>5 - interactive components</div>
+            <div className={"bg-accent-6 text-accent-12"}>6 - borders / separators</div>
+            <div className={"bg-accent-7 text-accent-12"}>7 - borders / separators</div>
+            <div className={"bg-accent-8 text-accent-12"}>8 - borders / separators</div>
+            <div className={"bg-accent-9 text-accent-12"}>9 - solid colors</div>
+            <div className={"bg-accent-10 text-accent-12"}>10 - solid colors</div>
+            <div className={"bg-accent-11 text-accent-12"}>11 - text</div>
+            <div className={"bg-accent-12 text-accent-1"}>12 - text</div>
           </List>
           <List look="soft">
             <div className={"bg-main-1 text-main-12"}>1 - backgrounds</div>
@@ -113,18 +113,18 @@ export default function Themes() {
           </List>
           <div>
             <List flex="row" look="soft">
-              <div className={"bg-primary-1 text-primary-12"}>1</div>
-              <div className={"bg-primary-2 text-primary-12"}>2</div>
-              <div className={"bg-primary-3 text-primary-12"}>3</div>
-              <div className={"bg-primary-4 text-primary-12"}>4</div>
-              <div className={"bg-primary-5 text-primary-12"}>5</div>
-              <div className={"bg-primary-6 text-primary-12"}>6</div>
-              <div className={"bg-primary-7 text-primary-12"}>7</div>
-              <div className={"bg-primary-8 text-primary-12"}>8</div>
-              <div className={"bg-primary-9 text-primary-12"}>9</div>
-              <div className={"bg-primary-10 text-primary-12"}>10</div>
-              <div className={"bg-primary-11 text-primary-12"}>11</div>
-              <div className={"bg-primary-12 text-primary-1"}>12</div>
+              <div className={"bg-accent-1 text-accent-12"}>1</div>
+              <div className={"bg-accent-2 text-accent-12"}>2</div>
+              <div className={"bg-accent-3 text-accent-12"}>3</div>
+              <div className={"bg-accent-4 text-accent-12"}>4</div>
+              <div className={"bg-accent-5 text-accent-12"}>5</div>
+              <div className={"bg-accent-6 text-accent-12"}>6</div>
+              <div className={"bg-accent-7 text-accent-12"}>7</div>
+              <div className={"bg-accent-8 text-accent-12"}>8</div>
+              <div className={"bg-accent-9 text-accent-12"}>9</div>
+              <div className={"bg-accent-10 text-accent-12"}>10</div>
+              <div className={"bg-accent-11 text-accent-12"}>11</div>
+              <div className={"bg-accent-12 text-accent-1"}>12</div>
             </List>
             <List flex="row" look="soft">
               <div className={"bg-main-1 text-main-12"}>1</div>

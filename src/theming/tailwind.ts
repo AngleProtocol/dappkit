@@ -6,14 +6,14 @@ import type { Config as TailwindConfig } from "tailwindcss";
  * @returns a partial tailwind config that only adds the css variables
  */
 export function generateVariableAssigners(): TailwindConfig["theme"] {
-    return {
-      colors: {
-        main: generateColorScale("main"),
-        accent: generateColorScale("accent"),
-      },
-      borderRadius: generateRadiusScale("radius"),
-      padding: generateSpacingScale("spacing"),
-      margin: generateSpacingScale("spacing"),
-      gap: generateSpacingScale("spacing"),
-    };
-  }
+  return {
+    colors: {
+      main: { 0: "transparent", ...generateColorScale("main") },
+      accent: { 0: "transparent", ...generateColorScale("accent") },
+    },
+    borderRadius: generateRadiusScale("radius"),
+    padding: generateSpacingScale("spacing"),
+    margin: generateSpacingScale("spacing"),
+    gap: generateSpacingScale("spacing"),
+  };
+}

@@ -61,10 +61,10 @@ export function generateSpacingScale<N extends string>(name: N) {
       Object.assign(
         obj,
         { [value]: `var(--${name}-${value})` },
-        { [`${value}*2`]: `calc(var(--${name}-${value})*2)` } as SpacingVariant<"*2">,
-        { [`${value}*4`]: `calc(var(--${name}-${value})*4)` } as SpacingVariant<"*4">,
-        { [`${value}/2`]: `calc(var(--${name}-${value})/2)` } as SpacingVariant<"/2">,
-        { [`${value}/4`]: `calc(var(--${name}-${value})/4)` } as SpacingVariant<"/4">,
+        { [`${value}*2`]: `calc(var(--${name}-${value}) * 2)` } as SpacingVariant<"*2">,
+        { [`${value}*4`]: `calc(var(--${name}-${value}) * 4)` } as SpacingVariant<"*4">,
+        { [`${value}/2`]: `calc(var(--${name}-${value}) / 2)` } as SpacingVariant<"/2">,
+        { [`${value}/4`]: `calc(var(--${name}-${value}) / 4)` } as SpacingVariant<"/4">,
       ),
     {} as { [V in Size]: CssVariable<`${N}-${V}`> } & {
       [S in `${"/" | "*"}${2 | 4}`]: SpacingVariant<S>;
@@ -90,7 +90,7 @@ export function generateRadiusScale<N extends string>(name: N) {
         sizes.reduce(
           (_obj, _value) =>
             Object.assign(_obj, {
-              [`${value}+${_value}`]: `calc(var(--${name}-${value})+var(--${name}-${_value}))`,
+              [`${value}+${_value}`]: `calc(var(--${name}-${value}) + var(--${name}-${_value}))`,
             } satisfies Partial<RadiusExtension<typeof value>>),
           {} as RadiusExtension<typeof value>,
         ),

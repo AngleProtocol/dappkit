@@ -1,5 +1,7 @@
 import { type PropsWithChildren, createContext, useContext, useMemo, useState } from "react";
 import { type Theme, themes } from "../utils/theming";
+import { reduceColorIntoVariables } from "@/theming/coloring";
+import { reduceSpacingIntoVariables } from "@/theming/spacing";
 
 const ThemeContext = createContext<ReturnType<typeof useThemeState> | null>(null);
 
@@ -10,23 +12,14 @@ function useThemeState() {
   const vars = useMemo(() => {
     const _theme = themes[theme];
 
-    return Object.assign(
-      Object.keys(themes[theme][mode]).reduce(
-        (obj, key) =>
-          Object.assign(
-            obj,
-            _theme[mode][key].reduce(
-              (vars, color, index) => Object.assign(vars, { [`--${key}-${index + 1}`]: color }),
-              {},
-            ),
-          ),
-        {},
-      ),
-      _theme.radius.reduce(
-        (vars, color, index) => Object.assign(vars, { [`--radius-${index + 1}`]: color }),
-        {},
-      ),
-    );
+    const colors = reduceColorIntoVariables({
+      dark: { accent: "#FC72FF", main: "#3D3D3D" },
+      light: { accent: "#FC72FF", main: "#131313" },
+    });
+    const spacing = reduceSpacingIntoVariables({ xs: 2, sm: 4, md: 6, lg: 8, xl: 10 }, "spacing");
+    const radius = reduceSpacingIntoVariables({ xs: 2, sm: 4, md: 6, lg: 8, xl: 12 }, "radius");
+
+    return Object.assign({}, colors[mode].accent, colors[mode].main, spacing, radius);
   }, [theme, mode]);
 
   return { theme, setTheme, vars, themes, mode, setMode };

@@ -12,8 +12,8 @@ export const boxStyles = tv({
       soft: "bg-main-1 border-main-0",
       base: "bg-main-2 border-main-0 text-main-12",
       bold: "bg-main-2 border-main-6 text-main-12",
-      tint: "bg-primary-4 border-main-0 text-main-12",
-      hype: "bg-primary-4 border-primary-6 text-main-12",
+      tint: "bg-accent-4 border-main-0 text-main-12",
+      hype: "bg-accent-4 border-accent-6 text-main-12",
     },
     size: {
       xs: "p-xs gap-xs/2",

@@ -31,8 +31,8 @@ export const listStyles = tv({
       bold: {
         base: "bg-main-0 border-main-0 text-main-12",
       },
-      tint: { base: "bg-main-0 border-primary-0 text-primary-12" },
-      hype: { base: "border-primary-0 text-primary-12" },
+      tint: { base: "bg-main-0 border-accent-0 text-accent-12" },
+      hype: { base: "border-accent-0 text-accent-12" },
     },
     size: {
       xs: "",

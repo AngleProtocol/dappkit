@@ -2,6 +2,7 @@ import generateSizingVariables from "../theme/variabless";
 import { deriveSizingUtilityClasses } from "../theme/classes";
 import { createVariableScale } from "./theming";
 import { generateRadiusScale } from "../theming/variables";
+import { generateVariableAssigners } from "../theming/tailwind";
 
 export const paddingScale = [2, 4, 6, 12, 16, 24];
 export const radiusScale = [2, 4, 8, 12, 16, 24];
@@ -10,15 +11,14 @@ export const lookScale = ["soft", "base", "bold", "tint", "hype"] as const;
 
 const sizes = generateSizingVariables([2, 4, 6, 12, 16], [2, 6, 12, 16, 32]);
 
-console.log(generateRadiusScale('rad'));
-
+export const variableConfig = generateVariableAssigners()
+console.log(variableConfig, 'var');
 
 export const generateTailwindConfig = () => ({
+  ...variableConfig,
   extend: {},
   colors: {
-    current: "currentColor",
-    main: createVariableScale("main", 12),
-    primary: createVariableScale("primary", 12),
+    ...variableConfig?.colors
   },
   keyframes: {
     drop: {
@@ -37,7 +37,7 @@ export const generateTailwindConfig = () => ({
   borderRadius: {
     0: "0",
     full: "100vmax",
-    ...sizes.borderRadius,
+    ...variableConfig?.borderRadius
   },
   boxShadow: {
     md: "0 2px 4px -2px rgba(0, 0, 0, 0.3)",
@@ -45,17 +45,17 @@ export const generateTailwindConfig = () => ({
   },
   padding: {
     0: "0px",
-    ...sizes.padding,
+    ...variableConfig?.padding,
   },
   margin: {
     0: "0px",
     auto: "auto",
-    ...sizes.padding,
+    ...variableConfig?.margin,
   },
   gap: {
     0: "0px",
     auto: "auto",
-    ...sizes.padding,
+    ...variableConfig?.gap,
   },
   borderWidth: {
     0: "0px",

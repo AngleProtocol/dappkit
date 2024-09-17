@@ -10,8 +10,8 @@ export const checkboxStyles = tv({
       soft: "bg-main-0 border-main-0 hover:bg-main-4 active:bg-main-3 hover:text-main-12  focus-visible:border-main-9",
       base: "bg-main-0 border-main-6 hover:bg-main-4 active:bg-main-3 hover:text-main-12  focus-visible:border-main-9",
       bold: "bg-main-4 border-main-4 hover:bg-main-5 active:bg-main-3 text-main-12 focus-visible:border-main-9",
-      tint: "bg-primary-3 border-primary-3 hover:bg-primary-5 active:bg-primary-3 text-primary-11 focus-visible:border-primary-9",
-      hype: "bg-primary-9 border-primary-9 hover:bg-primary-10 active:bg-primary-8 text-main-12 focus-visible:border-primary-10",
+      tint: "bg-accent-3 border-accent-3 hover:bg-accent-5 active:bg-accent-3 text-accent-11 focus-visible:border-accent-9",
+      hype: "bg-accent-9 border-accent-9 hover:bg-accent-10 active:bg-accent-8 text-main-12 focus-visible:border-accent-10",
     },
     size: {
       xs: "min-h-sm px-xs*2 py-xs text-xs rounded-xs gap-xs",

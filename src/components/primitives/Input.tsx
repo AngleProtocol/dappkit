@@ -12,8 +12,8 @@ export const inputStyles = tv({
       soft: "bg-main-2 border-main-2 hover:border-main-4 active:border-main-7 hover:text-main-12 focus-within:border-main-7",
       base: "bg-main-0 border-main-4 hover:border-main-4 active:border-main-7 hover:text-main-12 focus-within:border-main-7",
       bold: "bg-main-1 border-main-1 hover:bg-main-2 active:bg-main-2 text-main-12 focus-within:border-main-9",
-      tint: "bg-primary-4 border-primary-6 hover:bg-primary-5 active:bg-primary-3 text-main-12 focus-within:border-primary-9",
-      hype: "bg-primary-9 border-primary-6 hover:bg-primary-10 active:bg-border-8 text-primary-12 focus-within:border-primary-10",
+      tint: "bg-accent-4 border-accent-6 hover:bg-accent-5 active:bg-accent-3 text-main-12 focus-within:border-accent-9",
+      hype: "bg-accent-9 border-accent-6 hover:bg-accent-10 active:bg-border-8 text-accent-12 focus-within:border-accent-10",
     },
     size: {
       xs: "px-xs py-xs text-xs rounded-xs",
