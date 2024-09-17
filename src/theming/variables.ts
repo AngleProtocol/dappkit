@@ -1,4 +1,3 @@
-import type { Config as TailwindConfig } from "tailwindcss";
 
 /**
  * Default size array to be defined for components and tailwind classes
@@ -77,6 +76,7 @@ export function generateSpacingScale<N extends string>(name: N) {
 
 /**
  * Generates the utility classes for radius that maps to to-be-defined css variables
+ * @param name the name of the css variables `var(--name-*)`
  * @returns an object with {[X(1...12)]: var(--name-X)} + padding extensions such as {[X(1...12)+X(1...12)]: var(--name-X)}
  */
 export function generateRadiusScale<N extends string>(name: N) {
@@ -93,26 +93,10 @@ export function generateRadiusScale<N extends string>(name: N) {
           (_obj, _value) =>
             Object.assign(_obj, {
               [`${value}+${_value}`]: `calc(var(--${name}-${value})+var(--${name}-${_value}))`,
-            }),
+            } satisfies Partial<RadiusExtension<typeof value>>),
           {} as RadiusExtension<typeof value>,
         ),
       ),
     {} as { [V in Size]: CssVariable<`${N}-${V}`> } & RadiusExtension<Size>,
   );
-}
-
-/**
- * Generates tailwind classes as css variables for all theme related variables
- */
-export function generateVariableAssigners(): TailwindConfig["theme"] {
-  return {
-    colors: {
-      main: generateColorScale("main"),
-      accent: generateColorScale("accent"),
-    },
-    borderRadius: generateRadiusScale("radius"),
-    padding: generateSpacingScale("spacing"),
-    margin: generateSpacingScale("spacing"),
-    gap: generateSpacingScale("spacing"),
-  };
 }

@@ -25,13 +25,10 @@ export const titleStyles = tv({
   },
 });
 
+type Heading<He> = { [H in 1 | 2 | 3 | 4 | 5 | 6 as `h${H}`]: He extends H ? boolean : undefined };
 export type TitleProps = Component<
-  Styled<typeof titleStyles> & {
-    /**
-     * DLMSKJDLQ
-     */
-    h: 1 | 2 | 3 | 4 | 5;
-  },
+  | (Styled<typeof titleStyles> & { h?: 1 | 2 | 3 | 4 | 5 | 6 })
+  | Heading<1 | 2 | 3 | 4 | 5 | 6>,
   HTMLHeadingElement
 >;
 
