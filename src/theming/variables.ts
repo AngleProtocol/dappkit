@@ -1,4 +1,3 @@
-
 /**
  * Default size array to be defined for components and tailwind classes
  */
@@ -53,8 +52,8 @@ export function generateColorScale<N extends string>(name: N) {
  * @returns an object with {[X(1...12)]: var(--name-X)} + utility extensions such as X/2 X*2 etc...
  */
 export function generateSpacingScale<N extends string>(name: N) {
-  type SpacingVariant<ClassSuffix extends string, VariableSuffix extends string> = {
-    [V in `${Size}${ClassSuffix}`]: CssVariable<`${N}-${VariableSuffix}`>;
+  type SpacingVariant<ClassSuffix extends string> = {
+    [V in `${Size}${ClassSuffix}`]: `calc(${CssVariable<`${N}-${V}`>}${ClassSuffix})`;
   };
 
   return sizes.reduce(
@@ -62,15 +61,14 @@ export function generateSpacingScale<N extends string>(name: N) {
       Object.assign(
         obj,
         { [value]: `var(--${name}-${value})` },
-        { [`${value}*2`]: `var(--${name}-${value}-mul-2)` },
-        { [`${value}*4`]: `var(--${name}-${value}-mul-4)` },
-        { [`${value}/2`]: `var(--${name}-${value}-div-2)` },
-        { [`${value}/4`]: `var(--${name}-${value}-div-4)` },
+        { [`${value}*2`]: `calc(var(--${name}-${value})*2)` } as SpacingVariant<"*2">,
+        { [`${value}*4`]: `calc(var(--${name}-${value})*4)` } as SpacingVariant<"*4">,
+        { [`${value}/2`]: `calc(var(--${name}-${value})/2)` } as SpacingVariant<"/2">,
+        { [`${value}/4`]: `calc(var(--${name}-${value})/4)` } as SpacingVariant<"/4">,
       ),
-    {} as { [V in Size]: CssVariable<`${N}-${V}`> } & SpacingVariant<"*2", "mul-2"> &
-      SpacingVariant<"*4", "mul-4"> &
-      SpacingVariant<"/2", "div-2"> &
-      SpacingVariant<"/4", "div-4">,
+    {} as { [V in Size]: CssVariable<`${N}-${V}`> } & {
+      [S in `${"/" | "*"}${2 | 4}`]: SpacingVariant<S>;
+    }[`${"/" | "*"}${2 | 4}`],
   );
 }
 
