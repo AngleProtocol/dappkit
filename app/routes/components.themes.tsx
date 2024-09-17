@@ -14,6 +14,9 @@ import { generateTheme } from "src/utils/theming";
 import { useTheme } from "src/context/Theme.context";
 import { fillVariables } from "src/theme/variabless";
 import ColorPicker from "src/components/primitives/ColorPicker";
+import { createColoring, reduceColorIntoVariables } from "@/theming/coloring";
+import { Coloring } from "@/theming/variables";
+import Slider from "@/components/primitives/Slider";
 
 export const meta: MetaFunction = () => {
   return [{ title: "DappKit/Lists" }, { name: "description", content: "Welcome to Remix!" }];
@@ -29,27 +32,43 @@ export default function Themes() {
     if (![colorMain, colorAccent].every((color) => color && color !== "")) return;
 
     try {
-      return generateTheme({
-        mode: "dark",
-        primary: colorAccent,
-        main: colorMain,
+      return reduceColorIntoVariables({
+        dark: { main: colorMain, accent: colorAccent },
+        light: { main: colorMain, accent: colorAccent },
       });
     } catch (err) {
-      console.log("err", err);
-
       return;
     }
   }, [colorMain, colorAccent]);
 
+  const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
+  const [size, setSize] = useState(1);
+  const [border, setBorder] = useState(1);
+
+  const s = sizes[size];
+  const b = sizes[border];
+
+  const [previewColoring, setPreviewColoring] = useState<Coloring>();
   const variables = useMemo(() => {
-    if (!theme) return;
-    return (["main", "primary"] as const).reduce(
-      (vars, scale) => Object.assign(vars, fillVariables(scale, theme?.[scale])),
+    if (!previewColoring) return;
+
+    const all = reduceColorIntoVariables(previewColoring);
+
+    return (["main", "accent"] as const).reduce(
+      // biome-ignore lint/complexity/useLiteralKeys: <explanation>
+      (vars, scale) => Object.assign(vars, all["dark"][scale]),
       {},
     );
-  }, [theme]);
+  }, [previewColoring]);
 
-  console.log(variables);
+  const testThemes: { [name: string]: Coloring } = {
+    uniswap: createColoring(["#131313", "#FC72FF"], ["#FFFFFF", "#FC72FF"]),
+    "1inch": createColoring(["#131823", "#172A45"], ["#FFFFFF", "#DDECFE"]),
+    kiln: createColoring(["#000000", "#FF6521"], ["#FFFFFF", "#FF6521"]),
+    avocado: createColoring(["#0E121C", "#07A65D"], ["#FFFFFF", "#07A65D"]),
+    pancakeswap: createColoring(["#27262C", "#B8ADD2"], ["#FFFFFF", "#7A6EAA"]),
+    optimism: createColoring(["#000000", "#FF0420"], ["#FBFCFE", "#7A6EAA"]),
+  };
 
   return (
     <div>
@@ -96,20 +115,16 @@ export default function Themes() {
         </Text>
         <Box style={variables} look="soft" container={"true"} content="lg">
           <List size={"lg"} flex="row">
-            <Input
-              header={<Text size="sm">main</Text>}
-              prefix={<ColorPicker state={[colorMain, setColorMain]} />}
-              state={[colorMain, setColorMain]}
-              placeholder="main"
-              look="soft"
-            />
-            <Input
-              header={<Text size="sm">accent</Text>}
-              prefix={<ColorPicker state={[colorAccent, setColorAccent]} />}
-              state={[colorAccent, setColorAccent]}
-              placeholder="accent"
-              look="soft"
-            />
+            {Object.entries(testThemes).map(([label, coloring]) => (
+              <Button
+                className="justify-center"
+                onClick={() => setPreviewColoring(coloring)}
+                key={label}
+                look="soft"
+              >
+                {label}
+              </Button>
+            ))}
           </List>
           <div>
             <List flex="row" look="soft">
@@ -148,13 +163,46 @@ export default function Themes() {
               </Button>
             ))}
           </Box>
-          <Box look="hype" className="flex-row justify-center">
-            {(["soft", "base", "bold", "tint", "hype"] as const).map((look) => (
-              <Button key={look} look={look}>
-                Button
+          <Group className="flex-col" look="soft">
+            <List size="xl" flex="row">
+              <Box className="flex-col w-full">
+                <Text size="sm">size</Text>
+                <Slider format={(n) => sizes[n]} state={[size, setSize]} max={sizes.length - 1} />
+              </Box>
+              <Box className="flex-col w-full">
+                <Text size="sm">emphasis</Text>
+                <Slider
+                  format={(n) => sizes[n]}
+                  state={[border, setBorder]}
+                  max={sizes.length - 1}
+                />
+              </Box>
+            </List>
+            <Box
+              look="bold"
+              size={b}
+              content={s}
+              container={"true"}
+              className="w-[500px] mx-auto my-xl*2"
+            >
+              <Input
+                look="bold"
+                size={s}
+                header={<Text size="sm">Swap</Text>}
+                footer={<Text size="xs">price: 0.01</Text>}
+                // suffix={<Select look="base" size="md" options={{ 1: "USDC", 2: "USDT" }} />}
+              />
+              <Input
+                look="bold"
+                size={s}
+                header={<Text size="sm">Swap</Text>}
+                footer={<Text size="xs">price: 0.01</Text>}
+              />
+              <Button className="justify-center" look="hype" size={s}>
+                Swap
               </Button>
-            ))}
-          </Box>
+            </Box>
+          </Group>
         </Box>
       </Box>
     </div>

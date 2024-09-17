@@ -16,7 +16,7 @@ function useThemeState() {
       dark: { accent: "#FC72FF", main: "#3D3D3D" },
       light: { accent: "#FC72FF", main: "#131313" },
     });
-    const spacing = reduceSpacingIntoVariables({ xs: 2, sm: 4, md: 6, lg: 8, xl: 10 }, "spacing");
+    const spacing = reduceSpacingIntoVariables({ xs: 2, sm: 4, md: 8, lg: 12, xl: 16 }, "spacing");
     const radius = reduceSpacingIntoVariables({ xs: 2, sm: 4, md: 6, lg: 8, xl: 12 }, "radius");
 
     return Object.assign({}, colors[mode].accent, colors[mode].main, spacing, radius);

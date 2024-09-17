@@ -2,6 +2,29 @@ import { generateRadixColors } from "@/color";
 import type { Coloring } from "./variables";
 
 /**
+ * Shorthand to create a coloring object as a one-line
+ * @returns a coloring
+ */
+export function createColoring(
+  dark: [main: string, accent: string],
+  light: [main: string, accent: string],
+): Coloring {
+  const [mainDark, accentDark] = dark;
+  const [mainLight, accentLight] = light;
+
+  return {
+    dark: {
+      main: mainDark,
+      accent: accentDark,
+    },
+    light: {
+      main: mainLight,
+      accent: accentLight,
+    },
+  };
+}
+
+/**
  * Extracts the color scales from the theme's base colors
  * @returns a color array of 12 for each mode (dark, light)
  */
