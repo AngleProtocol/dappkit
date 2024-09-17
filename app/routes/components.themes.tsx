@@ -66,7 +66,7 @@ export default function Themes() {
     "1inch": createColoring(["#131823", "#172A45"], ["#FFFFFF", "#DDECFE"]),
     kiln: createColoring(["#000000", "#FF6521"], ["#FFFFFF", "#FF6521"]),
     avocado: createColoring(["#0E121C", "#07A65D"], ["#FFFFFF", "#07A65D"]),
-    pancakeswap: createColoring(["#27262C", "#B8ADD2"], ["#FFFFFF", "#7A6EAA"]),
+    pancakeswap: createColoring(["#27262C", "#1FC7D4"], ["#FFFFFF", "#1FC7D4"]),
     optimism: createColoring(["#000000", "#FF0420"], ["#FBFCFE", "#7A6EAA"]),
   };
 
