@@ -18,12 +18,12 @@ export default function Buttons() {
       <Box>
         <Title h={1}>Buttons</Title>
         <Text>Displays a button or a link that looks like a button.</Text>
-        <Showcase
-          sizes={sizeScale.map((n) => n)}
-          looks={lookScale.map((n) => n)}
-        >
+        <Showcase sizes={sizeScale.map((n) => n)} looks={lookScale.map((n) => n)}>
           <Button>Button</Button>
         </Showcase>
+        <Button accent={"harm"} look="tint" className="justify-center">
+          Themed
+        </Button>
       </Box>
     </div>
   );

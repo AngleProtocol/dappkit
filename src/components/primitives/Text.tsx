@@ -3,7 +3,7 @@ import type { Component, Styled } from "src/utils/types";
 import { tv } from "tailwind-variants";
 
 export const textStyles = tv({
-  base: "text-main-11 font-main font-normal",
+  base: "text-main-11 font-default font-normal",
   variants: {
     look: {
       base: "text-main-11",

@@ -17,6 +17,12 @@ export const colors = ["main", "accent"] as const;
 export type Color = (typeof colors)[number];
 
 /**
+ * Colors that needs to be defined in a global theme as shortcuts for dynamic themes
+ */
+export const states = ["info", "good", "warn", "harm"] as const;
+export type State = (typeof states)[number];
+
+/**
  * Modes that needs to be defined in a theme
  */
 export const modes = ["dark", "light"] as const;

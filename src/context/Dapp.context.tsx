@@ -3,6 +3,7 @@ import { type PropsWithChildren, createContext, useContext } from "react";
 import { type ResolvedRegister, WagmiProvider } from "wagmi";
 import ThemeProvider from "./Theme.context";
 import { WalletProvider } from "./Wallet.context";
+import { demoThemes } from "@/config/themes";
 
 export type DAppContextType = unknown;
 
@@ -23,7 +24,7 @@ export type DAppProviderProps = {
 
 export function DAppProvider({ config, children }: PropsWithChildren<DAppProviderProps>) {
   return (
-    <ThemeProvider>
+    <ThemeProvider themes={demoThemes}>
       <WalletProvider config={config}>{children}</WalletProvider>
     </ThemeProvider>
   );

@@ -8,6 +8,7 @@ import styles from "./tailwind.css?url";
 import "./tailwind.css";
 import { config } from "src/hooks/useWalletState";
 import { WalletProvider } from "src/context/Wallet.context";
+import { DAppProvider } from "@/context/Dapp.context";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles, as: "style" }];
 
@@ -21,8 +22,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <style>
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
-
+        @import
+        url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
       </style>
       <body>
         {children}
@@ -35,10 +36,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <ThemeProvider>
-      <WalletProvider config={config}>
-        <Outlet />
-      </WalletProvider>
-    </ThemeProvider>
+    <DAppProvider config={config}>
+      <Outlet />
+    </DAppProvider>
   );
 }

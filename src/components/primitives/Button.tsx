@@ -4,6 +4,8 @@ import type { Component, Styled } from "src/utils/types";
 import { tv } from "tailwind-variants";
 import Block from "./Block";
 import Icon from "./Icon";
+import type { Coloring, State } from "@/theming/variables";
+import useThemeVariables from "@/hooks/theming/useThemedVariables";
 
 export const buttonStyles = tv({
   base: "text-main-11 flex items-center bg-gradient-to-tr border-1 outline-offset-0 outline-0 text-nowrap font-main font-bold",
@@ -25,16 +27,23 @@ export const buttonStyles = tv({
   },
 });
 
-export type ButtonProps = Component<Styled<typeof buttonStyles>, HTMLButtonElement>;
+type Themable = { theme?: Coloring | State; coloring?: Coloring | State; accent?: Coloring | State };
+
+export type ButtonProps = Component<Styled<typeof buttonStyles> & Themable, HTMLButtonElement>;
 
 export default function Button({
   look,
   size,
   to,
+  theme,
+  coloring,
+  accent,
   className,
   children,
   ...props
 }: ButtonProps & { to?: string }) {
+  const themeVars = useThemeVariables(coloring, accent);
+
   if (to) {
     return (
       <Link
@@ -51,8 +60,13 @@ export default function Button({
     );
   }
 
+
+  console.log(themeVars);
+  
+
   return (
     <button
+      style={themeVars}
       className={mergeClass(buttonStyles({ look: look ?? "base", size: size ?? "md" }), className)}
       {...props}
       type="button"

@@ -76,6 +76,13 @@ export const generateTailwindConfig = () => ({
     "5xl": "3.052rem",
   },
   fontFamily: {
+    default: [
+      '"Open Sans", sans-serif;',
+      {
+        fontFeatureSettings: '"cv11", "ss01"',
+        fontVariationSettings: '"opsz" 32',
+      },
+    ],
     main: [
       '"Space Grotesk", sans-serif',
       {

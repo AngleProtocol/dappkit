@@ -1,5 +1,18 @@
 import { generateRadixColors } from "@/color";
-import type { Coloring } from "./variables";
+import type { Coloring, State } from "./variables";
+
+/**
+ * Themes are a set of colorings to be applied in a theme context
+ */
+export type Theme = {
+  base: Coloring;
+  info: Coloring;
+  good: Coloring;
+  warn: Coloring;
+  harm: Coloring;
+};
+
+export type Themes = { [name: string]: Theme };
 
 /**
  * Shorthand to create a coloring object as a one-line

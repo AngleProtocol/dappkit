@@ -1,37 +1,60 @@
 import { type PropsWithChildren, createContext, useContext, useMemo, useState } from "react";
-import { type Theme, themes } from "../utils/theming";
-import { reduceColorIntoVariables } from "@/theming/coloring";
+import { reduceColorIntoVariables, Theme, Themes } from "@/theming/coloring";
 import { reduceSpacingIntoVariables } from "@/theming/spacing";
+import { State } from "@/theming/variables";
 
 const ThemeContext = createContext<ReturnType<typeof useThemeState> | null>(null);
 
-function useThemeState() {
-  const [theme, setTheme] = useState<string>("merkl");
+function useThemeState(themes: Themes) {
+  const [theme, setTheme] = useState<string>(Object.keys(themes ?? {})[0]);
   const [mode, setMode] = useState<"dark" | "light">("dark");
 
-  const vars = useMemo(() => {
-    const _theme = themes[theme];
+  const variables = useMemo(
+    () =>
+      Object.entries(themes ?? {}).reduce(
+        (o, [label, theme]) =>
+          Object.assign(o, {
+            [label]: Object.entries(theme ?? {}).reduce(
+              (_o, [state, coloring]) =>
+                Object.assign(_o, { [state]: reduceColorIntoVariables(coloring) }),
+              {} as { [S in keyof Theme]: ReturnType<typeof reduceColorIntoVariables> },
+            ),
+          }),
+        {} as {
+          [label: string]: { [S in keyof Theme]: ReturnType<typeof reduceColorIntoVariables> };
+        },
+      ),
+    [themes],
+  );
 
-    const colors = reduceColorIntoVariables({
-      dark: { accent: "#FC72FF", main: "#3D3D3D" },
-      light: { accent: "#FC72FF", main: "#131313" },
-    });
+  const vars = useMemo(() => {
+    const colors = variables?.[theme]?.base?.[mode];
     const spacing = reduceSpacingIntoVariables({ xs: 2, sm: 4, md: 8, lg: 12, xl: 16 }, "spacing");
     const radius = reduceSpacingIntoVariables({ xs: 2, sm: 4, md: 6, lg: 8, xl: 12 }, "radius");
 
-    return Object.assign({}, colors[mode].accent, colors[mode].main, spacing, radius);
-  }, [theme, mode]);
+    return Object.assign({}, colors.accent, colors.main, spacing, radius);
+  }, [mode, theme, variables]);
 
-  return { theme, setTheme, vars, themes, mode, setMode };
+  return {
+    theme,
+    setTheme,
+    vars,
+    variables,
+    themes,
+    mode,
+    setMode,
+    toggleMode: () => setMode((m) => (m === "dark" ? "light" : "dark")),
+  };
 }
 
-export default function ThemeProvider(props: PropsWithChildren) {
-  const value = useThemeState();
+export type ThemeProviderProps = PropsWithChildren<{ themes: Themes }>;
+export default function ThemeProvider({ themes, children }: ThemeProviderProps) {
+  const value = useThemeState(themes);
 
   return (
     <ThemeContext.Provider value={value}>
       <div style={value?.vars} className="bg-main-1 h-full overflow-y-scroll">
-        {props.children}
+        {children}
       </div>
     </ThemeContext.Provider>
   );

@@ -27,7 +27,8 @@ export default function Themes() {
   const [colorAccent, setColorAccent] = useState<string>("");
   const [colorBackground, setColorBackground] = useState<string>("");
 
-  const { mode } = useTheme();
+  const { mode, toggleMode } = useTheme();
+  const [localMode, setLocalMode] = useState(mode);
   const theme = useMemo(() => {
     if (![colorMain, colorAccent].every((color) => color && color !== "")) return;
 
@@ -49,17 +50,21 @@ export default function Themes() {
   const b = sizes[border];
 
   const [previewColoring, setPreviewColoring] = useState<Coloring>();
-  const variables = useMemo(() => {
-    if (!previewColoring) return;
 
-    const all = reduceColorIntoVariables(previewColoring);
+  function getVars(_coloring: Coloring) {
+    const all = reduceColorIntoVariables(_coloring);
 
     return (["main", "accent"] as const).reduce(
       // biome-ignore lint/complexity/useLiteralKeys: <explanation>
-      (vars, scale) => Object.assign(vars, all["dark"][scale]),
+      (vars, scale) => Object.assign(vars, all[localMode][scale]),
       {},
     );
-  }, [previewColoring]);
+  }
+
+  const variables = useMemo(() => {
+    if (!previewColoring) return;
+    return getVars(previewColoring);
+  }, [previewColoring, localMode]);
 
   const testThemes: { [name: string]: Coloring } = {
     uniswap: createColoring(["#131313", "#FC72FF"], ["#FFFFFF", "#FC72FF"]),
@@ -67,8 +72,17 @@ export default function Themes() {
     kiln: createColoring(["#000000", "#FF6521"], ["#FFFFFF", "#FF6521"]),
     avocado: createColoring(["#0E121C", "#07A65D"], ["#FFFFFF", "#07A65D"]),
     pancakeswap: createColoring(["#27262C", "#1FC7D4"], ["#FFFFFF", "#1FC7D4"]),
-    optimism: createColoring(["#000000", "#FF0420"], ["#FBFCFE", "#7A6EAA"]),
+    optimism: createColoring(["#000000", "#FF0420"], ["#FBFCFE", "#FF0420"]),
   };
+
+  const themeColors = useMemo(
+    () =>
+      Object.entries(testThemes).reduce(
+        (o, [label, coloring]) => Object.assign(o, { [label]: getVars(coloring) }),
+        {},
+      ),
+    [localMode],
+  );
 
   return (
     <div>
@@ -114,18 +128,27 @@ export default function Themes() {
           tokens, protocols...).
         </Text>
         <Box style={variables} look="soft" container={"true"} content="lg">
-          <List size={"lg"} flex="row">
-            {Object.entries(testThemes).map(([label, coloring]) => (
-              <Button
-                className="justify-center"
-                onClick={() => setPreviewColoring(coloring)}
-                key={label}
-                look="soft"
-              >
-                {label}
-              </Button>
-            ))}
-          </List>
+          <Group className="w-full">
+            <List size={"lg"} flex="row" className="grow">
+              {Object.entries(testThemes).map(([label, coloring]) => (
+                <Button
+                  style={themeColors[label] ?? {}}
+                  className="justify-center text-accent-12"
+                  onClick={() => setPreviewColoring(coloring)}
+                  key={label}
+                  look="soft"
+                >
+                  {label}
+                </Button>
+              ))}
+            </List>
+            <Button
+              onClick={() => setLocalMode((m) => (m === "dark" ? "light" : "dark"))}
+              className="justify-center"
+            >
+              {localMode}
+            </Button>
+          </Group>
           <div>
             <List flex="row" look="soft">
               <div className={"bg-accent-1 text-accent-12"}>1</div>
@@ -165,11 +188,11 @@ export default function Themes() {
           </Box>
           <Group className="flex-col" look="soft">
             <List size="xl" flex="row">
-              <Box className="flex-col w-full">
+              <Box container="false" className="flex-col w-full">
                 <Text size="sm">size</Text>
                 <Slider format={(n) => sizes[n]} state={[size, setSize]} max={sizes.length - 1} />
               </Box>
-              <Box className="flex-col w-full">
+              <Box container="false" className="flex-col w-full">
                 <Text size="sm">emphasis</Text>
                 <Slider
                   format={(n) => sizes[n]}
@@ -185,19 +208,21 @@ export default function Themes() {
               container={"true"}
               className="w-[500px] mx-auto my-xl*2"
             >
-              <Input
-                look="bold"
-                size={s}
-                header={<Text size="sm">Swap</Text>}
-                footer={<Text size="xs">price: 0.01</Text>}
-                // suffix={<Select look="base" size="md" options={{ 1: "USDC", 2: "USDT" }} />}
-              />
-              <Input
-                look="bold"
-                size={s}
-                header={<Text size="sm">Swap</Text>}
-                footer={<Text size="xs">price: 0.01</Text>}
-              />
+              <List size={s} look="soft" className="gap-sm">
+                <Input
+                  look="bold"
+                  size={s}
+                  header={<Text size="sm">Swap</Text>}
+                  footer={<Text size="xs">price: 0.01</Text>}
+                  // suffix={<Select look="base" size="md" options={{ 1: "USDC", 2: "USDT" }} />}
+                />
+                <Input
+                  look="bold"
+                  size={s}
+                  header={<Text size="sm">Swap</Text>}
+                  footer={<Text size="xs">price: 0.01</Text>}
+                />
+              </List>
               <Button className="justify-center" look="hype" size={s}>
                 Swap
               </Button>

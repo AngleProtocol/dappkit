@@ -16,11 +16,11 @@ export const boxStyles = tv({
       hype: "bg-accent-4 border-accent-6 text-main-12",
     },
     size: {
-      xs: "p-xs gap-xs/2",
-      sm: "p-sm gap-sm/2",
-      md: "p-md gap-md/2",
-      lg: "p-lg gap-lg/2",
-      xl: "p-xl gap-xl/2",
+      xs: "p-xs gap-xs",
+      sm: "p-sm gap-sm",
+      md: "p-md gap-md",
+      lg: "p-lg gap-lg",
+      xl: "p-xl gap-xl",
     },
     container: {
       true: "",
