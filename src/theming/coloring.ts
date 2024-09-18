@@ -19,20 +19,22 @@ export type Themes = { [name: string]: Theme };
  * @returns a coloring
  */
 export function createColoring(
-  dark: [main: string, accent: string],
-  light: [main: string, accent: string],
+  dark: [main: string, accent: string, background: string],
+  light: [main: string, accent: string, background: string],
 ): Coloring {
-  const [mainDark, accentDark] = dark;
-  const [mainLight, accentLight] = light;
+  const [mainDark, accentDark, backgroundDark] = dark;
+  const [mainLight, accentLight, backgroundLight] = light;
 
   return {
     dark: {
       main: mainDark,
       accent: accentDark,
+      background: backgroundDark,
     },
     light: {
       main: mainLight,
       accent: accentLight,
+      background: backgroundLight,
     },
   };
 }
@@ -41,13 +43,13 @@ export function createColoring(
  * Extracts the color scales from the theme's base colors
  * @returns a color array of 12 for each mode (dark, light)
  */
-export function extractColorScale(theme: Coloring) {
+export function extractColorScale(theme: Coloring, background?: string) {
   const [darkOutput, lightOutput] = (["dark", "light"] as const).map((mode) =>
     generateRadixColors({
       appearance: mode,
       accent: theme[mode].accent,
       gray: theme[mode].main,
-      background: mode === "dark" ? "black" : "white",
+      background: background ?? theme[mode].main,
     }),
   );
 
