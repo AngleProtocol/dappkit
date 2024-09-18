@@ -47,7 +47,7 @@ export function extractColorScale(theme: Coloring) {
       appearance: mode,
       accent: theme[mode].accent,
       gray: theme[mode].main,
-      background: theme[mode].main,
+      background: mode === "dark" ? "black" : "white",
     }),
   );
 

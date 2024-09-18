@@ -15,7 +15,7 @@ import { useTheme } from "src/context/Theme.context";
 import { fillVariables } from "src/theme/variabless";
 import ColorPicker from "src/components/primitives/ColorPicker";
 import { createColoring, reduceColorIntoVariables } from "@/theming/coloring";
-import { Coloring } from "@/theming/variables";
+import { Coloring, states } from "@/theming/variables";
 import Slider from "@/components/primitives/Slider";
 
 export const meta: MetaFunction = () => {
@@ -228,6 +228,46 @@ export default function Themes() {
               </Button>
             </Box>
           </Group>
+        </Box>
+        <Text>
+          As you also might want to use other accent colors in one theme, especially for showing
+          states, you can tweak the coloring on a per-component basis.
+        </Text>
+        <Box look="soft">
+          <Title h={4}>Only accent</Title>
+          {states.map((state) => (
+            <Box
+              key={`${state} accent`}
+              accent={state}
+              look="bold"
+              className="flex-row items-center justify-center"
+            >
+              <Text look="hype">{state}</Text>
+              {(["soft", "base", "bold", "tint", "hype"] as const).map((look) => (
+                <Button key={look} look={look}>
+                  Button
+                </Button>
+              ))}
+            </Box>
+          ))}
+        </Box>
+        <Box look="soft">
+          <Title h={4}>Main & Accent</Title>
+          {states.map((state) => (
+            <Box
+              key={state}
+              coloring={state}
+              look="bold"
+              className="flex-row items-center justify-center"
+            >
+              <Text look="hype">{state}</Text>
+              {(["soft", "base", "bold", "tint", "hype"] as const).map((look) => (
+                <Button key={look} look={look}>
+                  Button
+                </Button>
+              ))}
+            </Box>
+          ))}
         </Box>
       </Box>
     </div>

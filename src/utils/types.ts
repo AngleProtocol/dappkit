@@ -1,3 +1,4 @@
+import { Coloring, State } from "@/theming/variables";
 import type { Dispatch, PropsWithChildren, SetStateAction } from "react";
 import type { TVReturnType } from "tailwind-variants";
 
@@ -21,6 +22,11 @@ export type Styled<
   T extends TVReturnType,
   Key extends keyof T["variants"] = keyof T["variants"],
 > = { [K in Key]?: Variant<T, K> };
+
+/**
+ * Themable
+ */
+export type Themable = { theme?: Coloring | State; coloring?: Coloring | State; accent?: Coloring | State }
 
 /**
  * Components

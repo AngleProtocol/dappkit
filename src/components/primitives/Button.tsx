@@ -1,11 +1,11 @@
 import { Link } from "@remix-run/react";
 import { mergeClass } from "src/utils/css";
-import type { Component, Styled } from "src/utils/types";
+import type { Component, Styled, Themable } from "src/utils/types";
 import { tv } from "tailwind-variants";
 import Block from "./Block";
 import Icon from "./Icon";
 import type { Coloring, State } from "@/theming/variables";
-import useThemeVariables from "@/hooks/theming/useThemedVariables";
+import useThemedVariables from "@/hooks/theming/useThemedVariables";
 
 export const buttonStyles = tv({
   base: "text-main-11 flex items-center bg-gradient-to-tr border-1 outline-offset-0 outline-0 text-nowrap font-main font-bold",
@@ -27,8 +27,6 @@ export const buttonStyles = tv({
   },
 });
 
-type Themable = { theme?: Coloring | State; coloring?: Coloring | State; accent?: Coloring | State };
-
 export type ButtonProps = Component<Styled<typeof buttonStyles> & Themable, HTMLButtonElement>;
 
 export default function Button({
@@ -42,7 +40,7 @@ export default function Button({
   children,
   ...props
 }: ButtonProps & { to?: string }) {
-  const themeVars = useThemeVariables(coloring, accent);
+  const themeVars = useThemedVariables(coloring, accent);
 
   if (to) {
     return (
@@ -59,10 +57,6 @@ export default function Button({
       </Link>
     );
   }
-
-
-  console.log(themeVars);
-  
 
   return (
     <button

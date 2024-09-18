@@ -3,7 +3,8 @@ import { mergeClass } from "src/utils/css";
 import { sizeScale } from "src/utils/tailwind";
 import { twMerge } from "tailwind-merge";
 import { tv } from "tailwind-variants";
-import type { Component, Styled } from "../../utils/types";
+import type { Component, Styled, Themable } from "../../utils/types";
+import useThemedVariables from "src/hooks/theming/useThemedVariables";
 
 export const boxStyles = tv({
   base: "flex flex-col border-1 gap-1",
@@ -58,11 +59,24 @@ export const boxStyles = tv({
   ),
 });
 
-export type BoxProps = Component<Styled<typeof boxStyles>>;
+export type BoxProps = Component<Styled<typeof boxStyles> & Themable>;
 
-export default function Box({ look, size, container, content, className, ...props }: BoxProps) {
+export default function Box({
+  look,
+  size,
+  coloring,
+  accent,
+  style,
+  container,
+  content,
+  className,
+  ...props
+}: BoxProps) {
+  const themeVars = useThemedVariables(coloring, accent);
+
   return (
     <div
+      style={Object.assign(style ?? {}, themeVars)}
       className={mergeClass(
         boxStyles({ look, size, content, container: container !== "false" }),
         className,

@@ -9,7 +9,8 @@ export const textStyles = tv({
       base: "text-main-11",
       soft: "text-main-11",
       bold: "text-secondary-12",
-      hype: "text-accent-12",
+      tint: "text-accent-12",
+      hype: "text-accent-11",
     },
     size: {
       xs: "text-xs rounded",
