@@ -5,7 +5,7 @@ import { type ResolvedRegister, WagmiProvider } from "wagmi";
 
 export type WalletContextType = ReturnType<typeof useWalletState>;
 
-const WalletContext = createContext<WalletContextType>(null);
+const WalletContext = createContext<WalletContextType | null>(null);
 const queryClient = new QueryClient();
 
 export function useWalletContext() {
