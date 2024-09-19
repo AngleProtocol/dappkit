@@ -1,19 +1,13 @@
 import type { MetaFunction } from "@remix-run/node";
-import { Link } from "@remix-run/react";
 import Group from "src/components/extenders/Group";
 import Box from "src/components/primitives/Box";
-import Button, { buttonStyles } from "src/components/primitives/Button";
+import Button from "src/components/primitives/Button";
 import Input from "src/components/primitives/Input";
 import List from "src/components/primitives/List";
 import Text from "src/components/primitives/Text";
 import Title from "src/components/primitives/Title";
-import Select from "src/components/extenders/Select";
-import Showcase from "~/components/Showcase";
 import { useMemo, useState } from "react";
-import { generateTheme } from "src/utils/theming";
 import { useTheme } from "src/context/Theme.context";
-import { fillVariables } from "src/theme/variabless";
-import ColorPicker from "src/components/primitives/ColorPicker";
 import { createColoring, reduceColorIntoVariables } from "@/theming/coloring";
 import { Coloring, states } from "@/theming/variables";
 import Slider from "@/components/primitives/Slider";
@@ -55,7 +49,6 @@ export default function Themes() {
     const all = reduceColorIntoVariables(_coloring);
 
     return (["main", "accent"] as const).reduce(
-      // biome-ignore lint/complexity/useLiteralKeys: <explanation>
       (vars, scale) => Object.assign(vars, all[localMode][scale]),
       {},
     );
