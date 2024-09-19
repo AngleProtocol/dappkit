@@ -43,13 +43,13 @@ export function createColoring(
  * Extracts the color scales from the theme's base colors
  * @returns a color array of 12 for each mode (dark, light)
  */
-export function extractColorScale(theme: Coloring, background?: string) {
+export function extractColorScale(theme: Coloring) {
   const [darkOutput, lightOutput] = (["dark", "light"] as const).map((mode) =>
     generateRadixColors({
       appearance: mode,
       accent: theme[mode].accent,
       gray: theme[mode].main,
-      background: background ?? theme[mode].main,
+      background: theme[mode].background ?? "blue",
     }),
   );
 
