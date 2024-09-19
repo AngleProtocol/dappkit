@@ -395,7 +395,7 @@ function getTextColor(background: Color) {
 
   if (Math.abs(white.contrastAPCA(background)) < 40) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [L, C, H] = background.coords;
+    const [_, C, H] = background.coords;
     return new Color("oklch", [0.25, Math.max(0.08 * C, 0.04), H]);
   }
 

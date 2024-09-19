@@ -1,11 +1,7 @@
-import { useMemo } from "react";
 import Dropdown from "src/components/extenders/Dropdown";
 import Group from "src/components/extenders/Group";
-import Modal from "src/components/extenders/Modal";
-import Select from "src/components/extenders/Select";
 import Button, { type ButtonProps } from "src/components/primitives/Button";
 import Divider from "src/components/primitives/Divider";
-import Icon from "src/components/primitives/Icon";
 import Image from "src/components/primitives/Image";
 import Text from "src/components/primitives/Text";
 import Title from "src/components/primitives/Title";
@@ -16,14 +12,9 @@ import WalletConnectors from "./WalletConnectors";
 export type WalletButton = ButtonProps;
 
 export default function WalletButton(props: ButtonProps) {
-  const { address, connected, connect, disconnect, connector, chainId } = useWallet();
+  const { address, disconnect, connected, connector } = useWallet();
 
-  const description = useMemo(() => {
-    if (address) return `Connected as ${address}`;
-    return "Choose a wallet to connect with";
-  }, [address]);
-
-  if (true)
+  if (connected)
     return (
       <Dropdown
         content={

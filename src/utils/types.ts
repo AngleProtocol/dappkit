@@ -1,6 +1,5 @@
 import { Coloring, State } from "@/theming/variables";
-import type { Dispatch, PropsWithChildren, SetStateAction } from "react";
-import type { TVReturnType } from "tailwind-variants";
+import type { Dispatch, SetStateAction } from "react";
 
 /**
  * Variant

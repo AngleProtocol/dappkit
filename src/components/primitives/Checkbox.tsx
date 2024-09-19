@@ -1,4 +1,4 @@
-import { Root, Indicator } from "@radix-ui/react-checkbox";
+import { Root, Indicator, CheckboxProps as RadixCheckboxProps } from "@radix-ui/react-checkbox";
 import { mergeClass } from "src/utils/css";
 import { Component, GetSet, Styled } from "src/utils/types";
 import { tv } from "tailwind-variants";
@@ -25,22 +25,21 @@ export const checkboxStyles = tv({
 
 export type CheckboxProps = Component<
   Styled<typeof checkboxStyles> & { state?: GetSet<boolean> },
-  HTMLInputElement
+  RadixCheckboxProps
 >;
 
-export default function Checkbox({ look, size, state, className, ...props }: CheckboxProps) {
+export default function Checkbox({ look, size, state, className }: CheckboxProps) {
   const [getter, setter] = state ?? [];
 
   return (
     <Root
       checked={!!getter}
       onCheckedChange={(v) => setter?.(v === "indeterminate" ? false : v)}
-      className={mergeClass(checkboxStyles({ look: look ?? "base", size: size ?? "md" }))}
+      className={mergeClass(checkboxStyles({ look: look ?? "base", size: size ?? "md" }), className)}
       defaultChecked
       id="c1"
     >
-      x
-      <Indicator className="text-violet11">x</Indicator>
+      x<Indicator className="text-violet11">x</Indicator>
     </Root>
   );
 }

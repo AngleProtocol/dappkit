@@ -1,5 +1,5 @@
 import { generateRadixColors } from "@/color";
-import type { Coloring, State } from "./variables";
+import type { Coloring } from "./variables";
 
 /**
  * Themes are a set of colorings to be applied in a theme context

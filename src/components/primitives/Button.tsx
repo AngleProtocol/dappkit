@@ -2,9 +2,6 @@ import { Link } from "@remix-run/react";
 import { mergeClass } from "src/utils/css";
 import type { Component, Styled, Themable } from "src/utils/types";
 import { tv } from "tailwind-variants";
-import Block from "./Block";
-import Icon from "./Icon";
-import type { Coloring, State } from "@/theming/variables";
 import useThemedVariables from "@/hooks/theming/useThemedVariables";
 
 export const buttonStyles = tv({

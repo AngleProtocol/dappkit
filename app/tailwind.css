@@ -5,7 +5,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 body {
   height: 100vh;
 }

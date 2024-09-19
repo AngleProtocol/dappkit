@@ -1,5 +1,4 @@
-import React, { PropsWithChildren, type ReactNode, useCallback } from "react";
-import { mergeClass } from "src/utils/css";
+import { type ReactNode } from "react";
 import type { Component } from "src/utils/types";
 import Divider from "./Divider";
 
@@ -22,7 +21,6 @@ export default function Block({
 }: Component<BlockProps>) {
   const hasExtensions = extensions.some((extension) => props?.[extension]);
 
-  const classOf = (extension: BlockExtension) => props?.[`${extension}ClassName`];
   const componentOf = (extension: BlockExtension) => props?.[extension];
 
   if (!hasExtensions) return children;

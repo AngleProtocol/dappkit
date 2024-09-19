@@ -1,10 +1,9 @@
-import { Children, ReactElement, type ReactNode, cloneElement } from "react";
+import { Children, ReactElement, cloneElement } from "react";
 import { mergeClass } from "src/utils/css";
 import type { Component, Styled } from "src/utils/types";
 import { tv } from "tailwind-variants";
 
 const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
-type Size = (typeof sizes)[number];
 
 export const listStyles = tv({
   base: "flex border-1",

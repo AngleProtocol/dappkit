@@ -1,5 +1,4 @@
 import { createColoring, Themes } from "@/theming/coloring";
-import type { Coloring } from "@/theming/variables";
 
 export const demoThemes: Themes = {
   uniswap: {

@@ -1,11 +1,11 @@
-import Box from "src/components/primitives/Box";
+import Box from "@/components/primitives/Box";
 import { Children, cloneElement, type ReactElement, ReactNode, useState } from "react";
-import Slider from "src/components/primitives/Slider";
-import type { Component } from "src/utils/types";
-import List from "src/components/primitives/List";
-import Text from "src/components/primitives/Text";
-import Checkbox from "src/components/primitives/Checkbox";
-import { mergeClass } from "src/utils/css";
+import Slider from "@/components/primitives/Slider";
+import type { Component } from "@/utils/types";
+import List from "@/components/primitives/List";
+import Text from "@/components/primitives/Text";
+import Checkbox from "@/components/primitives/Checkbox";
+import { mergeClass } from "@/utils/css";
 import { lookScale, sizeScale } from "src";
 
 export type ShowcaseProps = Component<{

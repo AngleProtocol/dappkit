@@ -1,10 +1,8 @@
-import clsx from "clsx";
-import { mergeClass } from "src/utils/css";
-import { sizeScale } from "src/utils/tailwind";
-import { twMerge } from "tailwind-merge";
+import { mergeClass } from "@/utils/css";
+import { sizeScale } from "@/utils/tailwind";
 import { tv } from "tailwind-variants";
 import type { Component, Styled, Themable } from "../../utils/types";
-import useThemedVariables from "src/hooks/theming/useThemedVariables";
+import useThemedVariables from "@/hooks/theming/useThemedVariables";
 
 export const boxStyles = tv({
   base: "flex flex-col border-1 gap-1",

@@ -1,6 +1,5 @@
 import { tv } from "tailwind-variants";
 import type { Component, Styled } from "../../utils/types";
-import { boxStyles } from "../primitives/Box";
 
 export const groupStyles = tv({
   base: "shadow-none flex-row bg-main-0 p-0 border-0 flex-wrap flex gap-1",

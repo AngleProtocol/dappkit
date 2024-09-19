@@ -1,9 +1,5 @@
 import * as RadixSelect from "@radix-ui/react-select";
-import clsx from "clsx";
-import React, { MutableRefObject, useState, type PropsWithChildren, type ReactNode } from "react";
-import Block from "src/components/primitives/Block";
-import { buttonStyles } from "src/components/primitives/Button";
-import Divider from "src/components/primitives/Divider";
+import React, { type PropsWithChildren, type ReactNode } from "react";
 import Icon from "src/components/primitives/Icon";
 import { mergeClass } from "src/utils/css";
 import type { Component, GetSet, Variant } from "src/utils/types";

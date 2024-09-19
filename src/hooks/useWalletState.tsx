@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { http, createConfig, useAccount, useConfig, useConnect, useDisconnect } from "wagmi";
 import { type Chain, mainnet, sepolia } from "wagmi/chains";
-import { coinbaseWallet, injected, walletConnect } from "wagmi/connectors";
+import { coinbaseWallet, walletConnect } from "wagmi/connectors";
 
 export const config = createConfig({
   chains: [mainnet, sepolia],
@@ -30,12 +30,8 @@ export default function useWalletState() {
   const wagmiDisconnect = useDisconnect();
   const account = useAccount();
 
-  const [address, setAddress] = useState<string>();
-
-  const [chainId, setChainId] = useState<Chain["id"]>();
-  const [blockNumber, setblockNumber] = useState<number>();
-
-  const [connected, setConnected] = useState<boolean>();
+  const [chainId] = useState<Chain["id"]>();
+  const [blockNumber] = useState<number>();
 
   async function connect(connectorId: string) {
     const connector = config.connectors.find(({ id }) => id === connectorId);

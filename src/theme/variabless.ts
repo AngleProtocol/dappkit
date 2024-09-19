@@ -35,7 +35,7 @@ export default function generateSizingVariables(
     return Object.assign(
       variables,
       { [size]: padding },
-      [2].reduce(function distributePaddingOffset(offsets, factor, pIndex) {
+      [2].reduce(function distributePaddingOffset(offsets, factor) {
         return Object.assign(
           offsets,
           { [`${size}/${factor}`]: padding / factor },

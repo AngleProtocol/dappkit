@@ -1,7 +1,6 @@
 import { type PropsWithChildren, createContext, useContext, useMemo, useState } from "react";
 import { reduceColorIntoVariables, Theme, Themes } from "@/theming/coloring";
 import { reduceSpacingIntoVariables } from "@/theming/spacing";
-import { State } from "@/theming/variables";
 
 const ThemeContext = createContext<ReturnType<typeof useThemeState> | null>(null);
 

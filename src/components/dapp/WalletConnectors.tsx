@@ -6,10 +6,9 @@ import Input from "src/components/primitives/Input";
 import List from "src/components/primitives/List";
 import Text from "src/components/primitives/Text";
 import { useWalletContext } from "src/context/Wallet.context";
-import { useAccount, useConfig } from "wagmi";
 
 export default function WalletConnectors() {
-  const { config, connect, connector: connected, address } = useWalletContext();
+  const { config, connect, connector: connected } = useWalletContext();
 
   return (
     <Group className="flex-col w-full ">
