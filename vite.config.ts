@@ -36,7 +36,6 @@ export default defineConfig({
     lib: {
       name: "dappkit",
       entry: path.resolve(__dirname, "/src/index.ts"),
-      formats: ["umd"],
     },
   },
 
