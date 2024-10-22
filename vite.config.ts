@@ -1,41 +1,41 @@
-import { vitePlugin as remix } from "@remix-run/dev";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
+import tailwindcss from "tailwindcss";
+// import dts from "vite-plugin-dts";
+import react from "@vitejs/plugin-react-swc";
 import path from "node:path";
-import dts from "vite-plugin-dts";
-import react from "@vitejs/plugin-react";
 
 export default defineConfig({
-  plugins: [
-    react(),
-    tsconfigPaths(),
-    dts({ include: ["src"] }),
-  ],
-
   build: {
-    copyPublicDir: false,
+    lib: {
+      entry: path.resolve(__dirname, "./src/index.ts"),
+      name: "dappkit",
+      fileName: (format) => `index.${format}.js`,
+    },
     rollupOptions: {
-      external: ["react", 'react-dom', "react/jsx-runtime"],
+      external: ["react", "react-dom", "tailwindcss"],
       output: {
-        assetFileNames: "assets/[name][extname]",
-        entryFileNames: "[name].js",
         globals: {
           react: "React",
-          "react-dom": "React-dom",
-          "react/jsx-runtime": "react/jsx-runtime",
+          "react-dom": "ReactDOM",
+          tailwindcss: "tailwindcss",
         },
       },
     },
-    lib: {
-      name: "dappkit",
-      entry: path.resolve(__dirname, "/src/index.ts"),
+    sourcemap: true,
+    emptyOutDir: true,
+  },
+  plugins: [react()],
+  css: {
+    postcss: {
+      plugins: [tailwindcss],
     },
   },
 
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "/src"),
-      src: path.resolve(__dirname, "/src"),
+      src: path.resolve(__dirname, "./src/"),
+      "@": path.resolve(__dirname, "./src/"),
     },
   },
 });

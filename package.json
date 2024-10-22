@@ -7,7 +7,7 @@
   "types": "./dist/index.d.ts",
   "files": ["dist"],
   "scripts": {
-    "pack": "tsc --emitDeclarationOnly --project ./tsconfig.types.json && vite build",
+    "pack": "tsc; vite build",
     "build": "rm -rf ./dist/ && bun build --target=bun ./src/index.ts --outfile=dist/index.js && bun run build:declaration",
     "build:declaration": "tsc --emitDeclarationOnly --project tsconfig.types.json",
     "dev": "remix vite:dev",
@@ -50,18 +50,19 @@
     "save": "^2.9.0",
     "tailwind-merge": "^2.5.2",
     "tailwind-variants": "^0.2.1",
-    "tailwindcss": "^3.4.4",
     "tailwindcss-animate": "^1.0.7",
     "typedoc": "^0.26.7",
     "viem": "2.x",
-    "vite-plugin-dts": "^4.2.1",
+    "vite-plugin-dts": "^4.2.4",
     "wagmi": "^2.12.10"
   },
   "peerDependencies": {
+    "tailwindcss": "^3.4.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "tailwindcss": "^3.4.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "bun-types": "latest",
