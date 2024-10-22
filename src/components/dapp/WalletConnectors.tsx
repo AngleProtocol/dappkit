@@ -1,36 +1,30 @@
-import Group from "src/components/extenders/Group";
-import Button from "src/components/primitives/Button";
-import Divider from "src/components/primitives/Divider";
-import Image from "src/components/primitives/Image";
-import Input from "src/components/primitives/Input";
-import List from "src/components/primitives/List";
-import Text from "src/components/primitives/Text";
-import { useWalletContext } from "src/context/Wallet.context";
+import Group from "../../components/extenders/Group";
+import Button from "../../components/primitives/Button";
+import Divider from "../../components/primitives/Divider";
+import Image from "../../components/primitives/Image";
+import Input from "../../components/primitives/Input";
+import Text from "../../components/primitives/Text";
+import { useWalletContext } from "../../context/Wallet.context";
 
 export default function WalletConnectors() {
   const { config, connect, connector: connected } = useWalletContext();
 
   return (
-    <Group className="flex-col w-full ">
-      <List look="bold">
-        {config.connectors.map((connector) => {
+    <Group className="flex-col w-full">
+      <div className="grid grid-flow-row gap-sm">
+        {config.connectors.map(connector => {
           return (
             <Button
-              look={connected?.id === connector.id ? "hype" : undefined}
+              look={connected?.id === connector.id ? "hype" : "bold"}
               onClick={() => connect(connector.id)}
-              key={connector.id}
-            >
-              <Image
-                className="h-8 w-8 rounded-md"
-                alt={connector.name}
-                src={connector.icon}
-                fallback="WC"
-              />
+              size="xl"
+              key={connector.id}>
+              <Image className="h-lg*2 w-lg*2 rounded-md" alt={connector.name} src={connector.icon} fallback="WC" />
               {connector.name}
             </Button>
           );
         })}
-      </List>
+      </div>
       <Divider horizontal className="border-main-6" />
       <Text>Spy</Text>
       <Input size="sm" placeholder="Address" />

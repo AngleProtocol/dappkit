@@ -1,14 +1,8 @@
-import {
-  type SliderProps as RadixSliderProps,
-  Range,
-  Root,
-  Thumb,
-  Track,
-} from "@radix-ui/react-slider";
+import { type SliderProps as RadixSliderProps, Range, Root, Thumb, Track } from "@radix-ui/react-slider";
 import { useState } from "react";
-import { mergeClass } from "src/utils/css";
-import type { Component, GetSet, Styled } from "src/utils/types";
 import { tv } from "tailwind-variants";
+import { mergeClass } from "../../utils/css";
+import type { Component, GetSet, Styled } from "../../utils/types";
 
 export const sliderStyles = tv({
   base: [
@@ -24,20 +18,17 @@ export const sliderStyles = tv({
       base: {
         base: "bg-main-2 border-main-6 hover:bg-main-4 active:bg-main-3 hover:text-main-12  focus-visible:border-main-9",
         thumb: "bg-main-2 border-main-6",
-        track:
-          "hover:bg-main-5 data-[highlighted]:bg-main-5 active:bg-main-4 text-main-12 focus-visible:border-main-8",
+        track: "hover:bg-main-5 data-[highlighted]:bg-main-5 active:bg-main-4 text-main-12 focus-visible:border-main-8",
       },
       soft: {
         base: "bg-main-0 border-main-0 hover:bg-main-4 active:bg-main-3 hover:text-main-12  focus-visible:border-main-9",
         thumb: "bg-main-2 border-main-6",
-        track:
-          "hover:bg-main-5 data-[highlighted]:bg-main-5 active:bg-main-4 text-main-12 focus-visible:border-main-8",
+        track: "hover:bg-main-5 data-[highlighted]:bg-main-5 active:bg-main-4 text-main-12 focus-visible:border-main-8",
       },
       bold: {
         base: "bg-main-4 border-main-4 hover:bg-main-5 active:bg-main-3 text-main-12 focus-visible:border-main-9",
         thumb: "bg-main-4 border-main-6",
-        track:
-          "hover:bg-main-6 data-[highlighted]:bg-main-6 active:bg-main-5 text-main-12 focus-visible:border-main-8",
+        track: "hover:bg-main-6 data-[highlighted]:bg-main-6 active:bg-main-5 text-main-12 focus-visible:border-main-8",
       },
       tint: {
         base: "bg-accent-4 border-accent-4 hover:bg-accent-5 active:bg-accent-3 text-main-12 focus-visible:border-accent-9",
@@ -110,8 +101,7 @@ export default function Slider({ look, size, state, format, className, ...props 
         setValue(n);
       }}
       value={[state?.[0] ?? 0]}
-      {...props}
-    >
+      {...props}>
       <Track className={track()}>
         <Range className={range()} />
       </Track>

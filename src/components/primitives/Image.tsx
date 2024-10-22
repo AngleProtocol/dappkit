@@ -1,6 +1,6 @@
 import * as Avatar from "@radix-ui/react-avatar";
-import { mergeClass } from "src/utils/css";
-import type { Component } from "src/utils/types";
+import { mergeClass } from "../../utils/css";
+import type { Component } from "../../utils/types";
 
 export type ImageProps = Component<
   {
@@ -11,12 +11,11 @@ export type ImageProps = Component<
 
 export default function Image({ fallback, className, ...props }: ImageProps) {
   return (
-    <Avatar.Root className={mergeClass("flex items-center", className)}>
-      <Avatar.Image {...props} className={className} />
+    <Avatar.Root className={mergeClass(className)}>
+      <Avatar.Image {...props} style={{ ...props.style, width: "100%", height: "100%" }} />
       <Avatar.Fallback
-        className="bg-main-2 h-full w-full justify-center flex items-center rounded-md"
-        delayMs={100}
-      >
+        className="bg-main-7 h-full w-full text-auto justify-center flex items-center rounded-full p-sm"
+        delayMs={0}>
         {fallback}
       </Avatar.Fallback>
     </Avatar.Root>

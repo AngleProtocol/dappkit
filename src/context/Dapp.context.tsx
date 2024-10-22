@@ -1,12 +1,13 @@
-import { type PropsWithChildren, createContext, useContext } from "react";
+import { type PropsWithChildren, useContext } from "react";
 import type { ResolvedRegister } from "wagmi";
+import { demoThemes } from "../config/themes";
 import ThemeProvider from "./Theme.context";
-import { demoThemes } from "@/config/themes";
 import { WalletProvider } from "./Wallet.context";
+import React from 'react'
 
 export type DAppContextType = { flag?: string };
 
-const DAppContext = createContext<DAppContextType | null>(null);
+const DAppContext = React.createContext<DAppContextType | null>(null);
 
 export function useDAppContext() {
   const data = useContext(DAppContext);

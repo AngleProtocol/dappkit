@@ -1,7 +1,7 @@
-import { Children, ReactElement, cloneElement } from "react";
-import { mergeClass } from "src/utils/css";
-import type { Component, Styled } from "src/utils/types";
+import { Children, type ReactElement, cloneElement } from "react";
 import { tv } from "tailwind-variants";
+import { mergeClass } from "../../utils/css";
+import type { Component, Styled } from "../../utils/types";
 
 const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
 
@@ -23,9 +23,9 @@ export const listStyles = tv({
     look: {
       soft: { base: "bg-main-0 border-main-0" },
       base: {
-        base: "border-main-6 border-main-6  text-main-12",
+        base: "border-main-0 border-main-0  text-main-12",
         item: "border-main-0",
-        divider: "bg-main-6",
+        divider: "bg-main-0 border-main-0",
       },
       bold: {
         base: "bg-main-0 border-main-0 text-main-12",
@@ -55,8 +55,8 @@ export const listStyles = tv({
     look: "base",
   },
   compoundVariants: [
-    ...sizes.flatMap((size) =>
-      sizes.flatMap((content) => {
+    ...sizes.flatMap(size =>
+      sizes.flatMap(content => {
         const base = {
           content,
           size,
@@ -108,34 +108,30 @@ export const listStyles = tv({
 type ListElement = ReactElement<{ look: unknown; size: unknown; className?: string }>;
 export type ListProps = Component<Styled<typeof listStyles>, HTMLDivElement>;
 
-export default function List({
-  look,
-  size,
-  flex,
-  content,
-  className,
-  children,
-  ...props
-}: ListProps) {
+export default function List({ look, size, flex, content, className, children, ...props }: ListProps) {
   const { base, item, divider } = listStyles({ look, size, content: size, flex });
 
   return (
     <div className={mergeClass(base(), className)} {...props}>
-      {Children.map(children as ListElement | ListElement[], (child, index) => (
-        child && <>
-          {!!index && <div className={divider()} />}
-          {cloneElement(child, {
-            size,
-            look: child.props.look ?? look,
-            className: mergeClass(
-              child.props.className,
-              item({
-                index: ({ 0: "first", [Children.count(children) - 1]: "last" } as const)[index],
-              }),
-            ),
-          })}
-        </>
-      ))}
+      {Children.map(
+        children as ListElement | ListElement[],
+        (child, index) =>
+          child && (
+            <>
+              {!!index && <div className={divider()} />}
+              {cloneElement(child, {
+                size,
+                look: child.props.look ?? look,
+                className: mergeClass(
+                  child.props.className,
+                  item({
+                    index: ({ 0: "first", [Children.count(children) - 1]: "last" } as const)[index],
+                  }),
+                ),
+              })}
+            </>
+          ),
+      )}
     </div>
   );
 }

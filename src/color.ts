@@ -40,34 +40,34 @@ const scaleNames = [
 ] as const;
 
 const lightColors = Object.fromEntries(
-  scaleNames.map((scaleName) => [
+  scaleNames.map(scaleName => [
     scaleName,
     // eslint-disable-next-line import/namespace
-    Object.values(RadixColors[`${scaleName}P3`]).map((str) => new Color(str).to("oklch")),
+    Object.values(RadixColors[`${scaleName}P3`]).map(str => new Color(str).to("oklch")),
   ]),
 ) as Record<(typeof scaleNames)[number], ArrayOf12<Color>>;
 
 const darkColors = Object.fromEntries(
-  scaleNames.map((scaleName) => [
+  scaleNames.map(scaleName => [
     scaleName,
     // eslint-disable-next-line import/namespace
-    Object.values(RadixColors[`${scaleName}DarkP3`]).map((str) => new Color(str).to("oklch")),
+    Object.values(RadixColors[`${scaleName}DarkP3`]).map(str => new Color(str).to("oklch")),
   ]),
 ) as Record<(typeof scaleNames)[number], ArrayOf12<Color>>;
 
 const lightGrayColors = Object.fromEntries(
-  grayScaleNames.map((scaleName) => [
+  grayScaleNames.map(scaleName => [
     scaleName,
     // eslint-disable-next-line import/namespace
-    Object.values(RadixColors[`${scaleName}P3`]).map((str) => new Color(str).to("oklch")),
+    Object.values(RadixColors[`${scaleName}P3`]).map(str => new Color(str).to("oklch")),
   ]),
 ) as Record<(typeof grayScaleNames)[number], ArrayOf12<Color>>;
 
 const darkGrayColors = Object.fromEntries(
-  grayScaleNames.map((scaleName) => [
+  grayScaleNames.map(scaleName => [
     scaleName,
     // eslint-disable-next-line import/namespace
-    Object.values(RadixColors[`${scaleName}DarkP3`]).map((str) => new Color(str).to("oklch")),
+    Object.values(RadixColors[`${scaleName}DarkP3`]).map(str => new Color(str).to("oklch")),
   ]),
 ) as Record<(typeof grayScaleNames)[number], ArrayOf12<Color>>;
 
@@ -97,7 +97,7 @@ export const generateRadixColors = ({
   // Make sure we use the tint from the gray scale for when base is pure white or black
   const accentBaseHex = accentBaseColor.to("srgb").toString({ format: "hex" });
   if (accentBaseHex === "#000" || accentBaseHex === "#fff") {
-    accentScaleColors = grayScaleColors.map((color) => color.clone()) as ArrayOf12<Color>;
+    accentScaleColors = grayScaleColors.map(color => color.clone()) as ArrayOf12<Color>;
   }
 
   const [accent9Color, accentContrastColor] = getStep9Colors(accentScaleColors, accentBaseColor);
@@ -115,33 +115,27 @@ export const generateRadixColors = ({
     accentScaleColors[11].coords[1],
   );
 
-  const accentScaleHex = accentScaleColors.map((color) =>
+  const accentScaleHex = accentScaleColors.map(color =>
     color.to("srgb").toString({ format: "hex" }),
   ) as ArrayOf12<string>;
 
   const accentScaleWideGamut = accentScaleColors.map(toOklchString) as ArrayOf12<string>;
 
-  const accentScaleAlphaHex = accentScaleHex.map((color) =>
-    getAlphaColorSrgb(color, backgroundHex),
-  ) as ArrayOf12<string>;
+  const accentScaleAlphaHex = accentScaleHex.map(color => getAlphaColorSrgb(color, backgroundHex)) as ArrayOf12<string>;
 
-  const accentScaleAlphaWideGamutString = accentScaleHex.map((color) =>
+  const accentScaleAlphaWideGamutString = accentScaleHex.map(color =>
     getAlphaColorP3(color, backgroundHex),
   ) as ArrayOf12<string>;
 
   const accentContrastColorHex = accentContrastColor.to("srgb").toString({ format: "hex" });
 
-  const grayScaleHex = grayScaleColors.map((color) =>
-    color.to("srgb").toString({ format: "hex" }),
-  ) as ArrayOf12<string>;
+  const grayScaleHex = grayScaleColors.map(color => color.to("srgb").toString({ format: "hex" })) as ArrayOf12<string>;
 
   const grayScaleWideGamut = grayScaleColors.map(toOklchString) as ArrayOf12<string>;
 
-  const grayScaleAlphaHex = grayScaleHex.map((color) =>
-    getAlphaColorSrgb(color, backgroundHex),
-  ) as ArrayOf12<string>;
+  const grayScaleAlphaHex = grayScaleHex.map(color => getAlphaColorSrgb(color, backgroundHex)) as ArrayOf12<string>;
 
-  const grayScaleAlphaWideGamutString = grayScaleHex.map((color) =>
+  const grayScaleAlphaWideGamutString = grayScaleHex.map(color =>
     getAlphaColorP3(color, backgroundHex),
   ) as ArrayOf12<string>;
 
@@ -168,8 +162,7 @@ export const generateRadixColors = ({
     grayScaleAlphaWideGamut: grayScaleAlphaWideGamutString,
 
     graySurface: appearance === "light" ? "#ffffffcc" : "rgba(0, 0, 0, 0.05)",
-    graySurfaceWideGamut:
-      appearance === "light" ? "color(display-p3 1 1 1 / 80%)" : "color(display-p3 0 0 0 / 5%)",
+    graySurfaceWideGamut: appearance === "light" ? "color(display-p3 1 1 1 / 80%)" : "color(display-p3 0 0 0 / 5%)",
 
     accentSurface: accentSurfaceHex,
     accentSurfaceWideGamut: accentSurfaceWideGamutString,
@@ -203,8 +196,7 @@ function getButtonHoverColor(source: Color, scales: ArrayOf12<Color>[]) {
   let closestColor = buttonHoverColor;
   let minDistance = Number.POSITIVE_INFINITY;
 
-  // biome-ignore lint/complexity/noForEach: <explanation>
-  scales.forEach((scale) => {
+  scales.forEach(scale => {
     for (const color of scale) {
       const distance = buttonHoverColor.deltaEOK(color);
       if (distance < minDistance) {
@@ -219,14 +211,9 @@ function getButtonHoverColor(source: Color, scales: ArrayOf12<Color>[]) {
   return buttonHoverColor;
 }
 
-function getScaleFromColor(
-  source: Color,
-  scales: Record<string, ArrayOf12<Color>>,
-  backgroundColor: Color,
-) {
+function getScaleFromColor(source: Color, scales: Record<string, ArrayOf12<Color>>, backgroundColor: Color) {
   const allColors: { scale: string; color: Color; distance: number }[] = [];
 
-  // biome-ignore lint/complexity/noForEach: <explanation>
   Object.entries(scales).forEach(([name, scale]) => {
     for (const color of scale) {
       const distance = source.deltaEOK(color);
@@ -237,16 +224,14 @@ function getScaleFromColor(
   allColors.sort((a, b) => a.distance - b.distance);
 
   // Remove non-unique scales
-  const closestColors = allColors.filter(
-    (color, i, arr) => i === arr.findIndex((value) => value.scale === color.scale),
-  );
+  const closestColors = allColors.filter((color, i, arr) => i === arr.findIndex(value => value.scale === color.scale));
 
   // If the next two closest colors are both grays, remove the second one until it’s not a gray anymore.
   // This is because up next we will be comparing how close the two closest colors are to the source color,
   // and since the grays are all extremely close to each other, we won’t get any useful data from the second
   // closest color if it’s also a gray.
   const grayScaleNamesStr = grayScaleNames as readonly string[];
-  const allAreGrays = closestColors.every((color) => grayScaleNamesStr.includes(color.scale));
+  const allAreGrays = closestColors.every(color => grayScaleNamesStr.includes(color.scale));
   if (!allAreGrays && grayScaleNamesStr.includes(closestColors[0].scale)) {
     while (grayScaleNamesStr.includes(closestColors[1].scale)) {
       closestColors.splice(1, 1);
@@ -324,9 +309,7 @@ function getScaleFromColor(
   // The base scale is going to be a mix of the two closest scales, with the mix ratio we determined before
   const scaleA = scales[colorA.scale];
   const scaleB = scales[colorB.scale];
-  const scale = arrayOf12.map((i) =>
-    new Color(Color.mix(scaleA[i], scaleB[i], ratio)).to("oklch"),
-  ) as ArrayOf12<Color>;
+  const scale = arrayOf12.map(i => new Color(Color.mix(scaleA[i], scaleB[i], ratio)).to("oklch")) as ArrayOf12<Color>;
 
   // Get the closest color from the pre-mixed scale we created
   const baseColor = scale.slice().sort((a, b) => source.deltaEOK(a) - source.deltaEOK(b))[0];
@@ -335,8 +318,7 @@ function getScaleFromColor(
   const ratioC = source.coords[1] / baseColor.coords[1];
 
   // Modify hue and chroma of the scale to match the source color
-  // biome-ignore lint/complexity/noForEach: <explanation>
-  scale.forEach((color) => {
+  scale.forEach(color => {
     color.coords[1] = Math.min(source.coords[1] * 1.5, color.coords[1] * ratioC);
     color.coords[2] = source.coords[2];
   });
@@ -412,8 +394,8 @@ function getAlphaColor(
   alphaPrecision: number,
   targetAlpha?: number,
 ) {
-  const [tr, tg, tb] = targetRgb.map((c) => Math.round(c * rgbPrecision));
-  const [br, bg, bb] = backgroundRgb.map((c) => Math.round(c * rgbPrecision));
+  const [tr, tg, tb] = targetRgb.map(c => Math.round(c * rgbPrecision));
+  const [br, bg, bb] = backgroundRgb.map(c => Math.round(c * rgbPrecision));
 
   if (
     tr === undefined ||
@@ -444,7 +426,7 @@ function getAlphaColor(
   const alphaG = (tg - bg) / (desiredRgb - bg);
   const alphaB = (tb - bb) / (desiredRgb - bb);
 
-  const isPureGray = [alphaR, alphaG, alphaB].every((alpha) => alpha === alphaR);
+  const isPureGray = [alphaR, alphaG, alphaB].every(alpha => alpha === alphaR);
 
   // No need for precision gymnastics with pure grays, and we can get cleaner output
   if (!targetAlpha && isPureGray) {
@@ -578,11 +560,7 @@ function formatHex(str: string) {
 const darkModeEasing = [1, 0, 1, 0] as [number, number, number, number];
 const lightModeEasing = [0, 2, 0, 2] as [number, number, number, number];
 
-export function transposeProgressionStart(
-  to: number,
-  arr: number[],
-  curve: [number, number, number, number],
-) {
+export function transposeProgressionStart(to: number, arr: number[], curve: [number, number, number, number]) {
   return arr.map((n, i, arr) => {
     const lastIndex = arr.length - 1;
     const diff = arr[0] - to;
@@ -591,11 +569,7 @@ export function transposeProgressionStart(
   });
 }
 
-export function transposeProgressionEnd(
-  to: number,
-  arr: number[],
-  curve: [number, number, number, number],
-) {
+export function transposeProgressionEnd(to: number, arr: number[], curve: [number, number, number, number]) {
   return arr.map((n, i, arr) => {
     const lastIndex = arr.length - 1;
     const diff = arr[lastIndex] - to;
