@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import tailwindcss from "tailwindcss";
-// import dts from "vite-plugin-dts";
+import dts from "vite-plugin-dts";
 import react from "@vitejs/plugin-react-swc";
 import path from "node:path";
 
@@ -25,7 +25,7 @@ export default defineConfig({
     sourcemap: true,
     emptyOutDir: true,
   },
-  plugins: [react()],
+  plugins: [react(), dts({ rollupTypes: true })],
   css: {
     postcss: {
       plugins: [tailwindcss],
