@@ -1,10 +1,8 @@
-import clsx from "clsx";
-import { mergeClass } from "src/utils/css";
-import { sizeScale } from "src/utils/tailwind";
-import { twMerge } from "tailwind-merge";
 import { tv } from "tailwind-variants";
+import useThemedVariables from "../../hooks/theming/useThemedVariables";
+import { mergeClass } from "../../utils/css";
+import { sizeScale } from "../../utils/tailwind";
 import type { Component, Styled, Themable } from "../../utils/types";
-import useThemedVariables from "src/hooks/theming/useThemedVariables";
 
 export const boxStyles = tv({
   base: "flex flex-col border-1 gap-1",
@@ -41,8 +39,8 @@ export const boxStyles = tv({
     look: "base",
     container: true,
   },
-  compoundVariants: sizeScale.flatMap((size) =>
-    sizeScale.flatMap((content) => [
+  compoundVariants: sizeScale.flatMap(size =>
+    sizeScale.flatMap(content => [
       {
         size,
         content,
@@ -77,10 +75,7 @@ export default function Box({
   return (
     <div
       style={Object.assign(style ?? {}, themeVars)}
-      className={mergeClass(
-        boxStyles({ look, size, content, container: container !== "false" }),
-        className,
-      )}
+      className={mergeClass(boxStyles({ look, size, content, container: container !== "false" }), className)}
       {...props}
     />
   );

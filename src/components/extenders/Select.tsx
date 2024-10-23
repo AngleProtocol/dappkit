@@ -1,53 +1,55 @@
-import * as RadixSelect from "@radix-ui/react-select";
-import clsx from "clsx";
-import React, { MutableRefObject, useState, type PropsWithChildren, type ReactNode } from "react";
-import Block from "src/components/primitives/Block";
-import { buttonStyles } from "src/components/primitives/Button";
-import Divider from "src/components/primitives/Divider";
-import Icon from "src/components/primitives/Icon";
-import { mergeClass } from "src/utils/css";
-import type { Component, GetSet, Variant } from "src/utils/types";
+import * as Ariakit from "@ariakit/react";
+import type * as RadixSelect from "@radix-ui/react-select";
+import { mergeClass } from "dappkit/src";
+import { matchSorter } from "match-sorter";
+import { type ReactNode, useCallback, useMemo, useState } from "react";
 import { tv } from "tailwind-variants";
 import { useTheme } from "../../context/Theme.context";
-import { boxStyles } from "../primitives/Box";
-import List from "../primitives/List";
+import type { Component, GetSet, Variant } from "../../utils/types";
+import Group from "./Group";
+import Box from "../primitives/Box";
+import Icon from "../primitives/Icon";
+import { inputStyles } from "../primitives/Input";
+import Text from "../primitives/Text";
 
 export const selectStyles = tv({
   base: [
     "text-main-11 flex items-center justify-between gap-1 border-1 outline-offset-0 outline-0 text-nowrap font-main font-medium",
   ],
   slots: {
-    dropdown: "animate-drop mt-sm",
-    item: "cursor-pointer select-none p-sm outline-offset-0 outline-0 text-nowrap",
+    dropdown: "outline-0 z-50 origin-top animate-drop animate-stretch mt-sm min-w-[var(--popover-anchor-width)]",
+    item: "flex justify-between items-center gap-lg cursor-pointer select-none p-sm outline-offset-0 outline-0 text-nowrap",
     icon: "border-l-1 h-full flex items-center",
-    value: "flex",
+    value: "flex gap-sm items-center",
+    check: "",
   },
   variants: {
     look: {
       soft: {
         base: "bg-main-0 border-main-0 hover:bg-main-4 active:bg-main-3 hover:text-main-12  focus-visible:border-main-9",
         icon: "border-main-0",
-        item: "hover:bg-main-5 data-[highlighted]:bg-main-5 active:bg-main-4 text-main-12 focus-visible:border-main-8",
+        item: "hover:bg-main-5 data-[active-item]:bg-main-5 active:bg-main-4 text-main-12 focus-visible:border-main-8",
       },
       base: {
         base: "bg-main-2 border-main-6 hover:bg-main-4 active:bg-main-3 hover:text-main-12  focus-visible:border-main-9",
         icon: "border-main-6",
-        item: "hover:bg-main-5 data-[highlighted]:bg-main-5 active:bg-main-4 text-main-12 focus-visible:border-main-8",
+        item: "hover:bg-main-5 data-[active-item]:bg-main-5 active:bg-main-4 text-main-12 focus-visible:border-main-8",
+        check: "text-accent-10",
       },
       bold: {
         base: "bg-main-4 border-main-4 hover:bg-main-5 active:bg-main-3 text-main-12 focus-visible:border-main-9",
         icon: "border-main-6",
-        item: "hover:bg-main-6 data-[highlighted]:bg-main-6 active:bg-main-5 text-main-12 focus-visible:border-main-8",
+        item: "hover:bg-main-6 data-[active-item]:bg-main-6 active:bg-main-5 text-main-12 focus-visible:border-main-8",
       },
       tint: {
         base: "bg-accent-4 border-accent-4 hover:bg-accent-5 active:bg-accent-3 text-main-12 focus-visible:border-accent-9",
         icon: "border-accent-6",
-        item: "hover:bg-accent-6 data-[highlighted]:bg-accent-6 active:bg-accent-5 text-main-12 focus-visible:border-main-8",
+        item: "hover:bg-accent-6 data-[active-item]:bg-accent-6 active:bg-accent-5 text-main-12 focus-visible:border-main-8",
       },
       hype: {
         base: "bg-accent-9 border-accent-9 hover:bg-accent-10 active:bg-accent-8 text-accent-12 focus-visible:border-accent-10",
         icon: "border-accent-11",
-        item: "hover:bg-accent-10 data-[highlighted]:bg-accent-10 active:bg-accent-4 text-main-12 focus-visible:border-accent-10",
+        item: "hover:bg-accent-10 data-[active-item]:bg-accent-10 active:bg-accent-4 text-main-12 focus-visible:border-accent-10",
       },
     },
     size: {
@@ -116,83 +118,173 @@ export const selectStyles = tv({
   ],
 });
 
-export type SelectProps<Value extends string | number | symbol = string> = Component<{
+export type SelectProps<Value> = Component<{
   size?: Variant<typeof selectStyles, "size">;
   look?: Variant<typeof selectStyles, "look">;
   value?: Value;
+  placeholder?: string;
   state?: GetSet<Value>;
+  search?: boolean;
+  allOption?: ReactNode;
   options?: { [key: string | number | symbol]: ReactNode };
 }> &
   RadixSelect.SelectProps;
 
-const SelectItem = React.forwardRef<
-  HTMLDivElement,
-  PropsWithChildren<{ className: string } & RadixSelect.SelectItemProps>
->(({ children, ...props }, forwardedRef) => (
-  <RadixSelect.Item {...props} ref={forwardedRef}>
-    <RadixSelect.ItemText>{children}</RadixSelect.ItemText>
-    <RadixSelect.ItemIndicator className="absolute left-0 w-[25px] inline-flex items-center justify-center" />
-  </RadixSelect.Item>
-));
+type MaybeArray<T, IsArray extends undefined | boolean> = IsArray extends true ? T[] : T;
 
-export default function Select({
+export default function Select<
+  T extends string | number | symbol,
+  Multiple extends undefined | boolean,
+  Value extends MaybeArray<T, Multiple>,
+>({
   look,
   size,
   state,
   options,
+  search,
+  multiple,
+  allOption,
+  placeholder,
   className,
   ...props
-}: SelectProps<string>) {
+}: SelectProps<Value> & { multiple?: Multiple }) {
   const { vars } = useTheme();
+  const [internal, setInternal] = useState<Value>();
   const [getter, setter] = state ?? [];
 
-  const { base, dropdown, item, icon, value } = selectStyles({
+  const {
+    base,
+    dropdown,
+    item,
+    icon,
+    value: valueStyle,
+    check,
+  } = selectStyles({
     look: look ?? "base",
     size: size ?? "md",
   });
 
+  const value = useMemo(() => getter ?? internal, [getter, internal]);
+  const setValue = useCallback((v: Value) => setter?.(v) ?? setInternal(v), [setter]);
+
+  const [searchInput, setSearch] = useState<string>();
+
+  const matches = useMemo(() => {
+    // const textToMatch = Object.keys(options ?? {}).map(option => `${option}_${options[option]?.props?.children?.filter(a => typeof a !== "object").join(" ")}`)
+    const textToMatch = Object.keys(options ?? {}).reduce(
+      (matches, option) =>
+        Object.assign(
+          matches,
+          { [`${option}`]: option },
+          { [`${options[option]?.props?.children?.filter?.(a => typeof a !== "object")?.join(" ")}`]: option },
+        ),
+      {},
+    );
+    const searchMatches = matchSorter(Object.keys(textToMatch), searchInput ?? "").map(key => textToMatch[key]);
+    const uniqueOptionMatches = Array.from(
+      searchMatches.reduce((set, option) => {
+        set.add(option);
+        return set;
+      }, new Set()),
+    );
+
+    return uniqueOptionMatches;
+  }, [options, searchInput]);
+
+  const label = useMemo(() => {
+    if (options?.[value]) return options?.[value];
+    if (value?.length > 0)
+      return (
+        <>
+          <Text size="xs" className="rounded-full w-md*2 h-md*2 bg-accent-12 text-main-2">
+            {value.length}
+          </Text>{" "}
+          {placeholder}
+        </>
+      );
+    return placeholder;
+  }, [options, value, placeholder]);
+
   return (
-    <RadixSelect.Root
-      {...props}
-      value={getter && `${String(getter)}`}
-      onValueChange={(n) => setter?.(n)}
-    >
-      <RadixSelect.Trigger
-        className={mergeClass(base({ look, size }), className)}
-        aria-label="Food"
-      >
-        <div className={value()}>
-          <RadixSelect.Value placeholder="Select a fruit" />
-        </div>
-        <div className={icon()}>
-          <Icon remix="RiArrowDropDownLine" />
-        </div>
-      </RadixSelect.Trigger>
-      <RadixSelect.Portal>
-        <RadixSelect.Content
-          position="popper"
-          style={vars}
-          className={mergeClass(
-            boxStyles({ size: "xs", content: size }),
-            dropdown(),
-            "min-w-[var(--radix-select-trigger-width)]",
-          )}
-        >
-          <RadixSelect.Viewport>
-            <RadixSelect.Group>
-              <List look="bold" size={size}>
-                {Object.entries(options ?? {}).map(([value, label]) => {
-                  return (
-                    <SelectItem className={item()} key={value} value={value}>
-                      {label}
-                    </SelectItem>
-                  );
-                })}
-              </List>
-            </RadixSelect.Group>
-          </RadixSelect.Viewport>
-        </RadixSelect.Content>
-      </RadixSelect.Portal>
-    </RadixSelect.Root>
+    <Ariakit.ComboboxProvider
+      resetValueOnHide
+      setValue={value => {
+        setSearch(value);
+      }}>
+      <Ariakit.SelectProvider setValue={setValue} value={value} defaultValue={multiple ? [] : undefined}>
+        <Ariakit.Select className={base()}>
+          <div className={valueStyle()}>{label}</div>
+          <div className={icon()}>
+            <Icon remix="RiArrowDropDownLine" />
+          </div>
+        </Ariakit.Select>
+        <Ariakit.SelectPopover gutter={4} className={dropdown()}>
+          <Box look="bold" size="sm" content="sm" className="max-h-[200px]">
+            {
+              search && <div className="combobox-wrapper">
+                <Ariakit.Combobox
+                  autoSelect
+                  placeholder="Search..."
+                  className={mergeClass(inputStyles({ size: "sm", look: "bold" }), "w-full", !search && "hidden")}
+                />
+              </div>
+            }
+            <div className="overflow-y-auto">
+              <Ariakit.ComboboxList>
+                {allOption && !searchInput && (
+                  <Ariakit.SelectItem
+                    className={mergeClass(item())}
+                    onClick={() => setValue(multiple ? [] : undefined)}
+                    render={
+                      <Ariakit.ComboboxItem
+                        children={[
+                          <Group className="flex-nowrap" key="label">
+                            {allOption}
+                          </Group>,
+                          <Icon
+                            key="select"
+                            className={mergeClass(
+                              check(),
+                              !(value?.length === 0 || value === undefined) && "opacity-0",
+                            )}
+                            size="sm"
+                            remix="RiCheckFill"
+                          />,
+                        ]}
+                      />
+                    }
+                  />
+                )}
+                {matches?.map(_value => (
+                  <Ariakit.SelectItem
+                    key={_value}
+                    value={_value}
+                    className={mergeClass(item())}
+                    render={
+                      <Ariakit.ComboboxItem
+                        children={[
+                          <Group className="flex-nowrap" key="label">
+                            {options?.[_value]}
+                          </Group>,
+                          <Icon
+                            key="select"
+                            className={mergeClass(
+                              check(),
+                              !(value?.includes(_value) || value === _value) && "opacity-0",
+                            )}
+                            size="sm"
+                            remix="RiCheckFill"
+                          />,
+                        ]}
+                      />
+                    }
+                  />
+                ))}
+              </Ariakit.ComboboxList>
+            </div>
+          </Box>
+        </Ariakit.SelectPopover>
+      </Ariakit.SelectProvider>
+    </Ariakit.ComboboxProvider>
   );
 }

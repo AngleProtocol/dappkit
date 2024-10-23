@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
-import type { Component, GetSet, Styled } from "src/utils/types";
 import { tv } from "tailwind-variants";
 import { mergeClass } from "../../utils/css";
+import type { Component, GetSet, Styled } from "../../utils/types";
 import Group from "../extenders/Group";
 
 export const inputStyles = tv({
@@ -42,12 +42,9 @@ export type InputProps = Component<
 export default function Input({ look, size, state, className, ...props }: InputProps) {
   const { header, footer, prefix, suffix, label, hint, ...rest } = props;
 
-  if (extensions.some((extension) => !!props?.[extension]))
+  if (extensions.some(extension => !!props?.[extension]))
     return (
-      <label
-        className={mergeClass(inputStyles({ look, size }), className, "flex-col flex !p-md")}
-        htmlFor="input"
-      >
+      <label className={mergeClass(inputStyles({ look, size }), className, "flex-col flex !p-md")} htmlFor="input">
         <label htmlFor="input" className="w-full flex">
           {header}
         </label>
@@ -59,13 +56,9 @@ export default function Input({ look, size, state, className, ...props }: InputP
           )}
           <input
             id="input"
-            className={mergeClass(
-              inputStyles({ look: "none", size }),
-              className,
-              "w-full !flex-1 !px-sm !py-md",
-            )}
+            className={mergeClass(inputStyles({ look: "none", size }), className, "w-full !flex-1 !px-sm !py-md")}
             value={state?.[0]}
-            onChange={(e) => state?.[1]?.(e?.target?.value)}
+            onChange={e => state?.[1]?.(e?.target?.value)}
             {...rest}
           />
           {suffix && (
@@ -83,7 +76,7 @@ export default function Input({ look, size, state, className, ...props }: InputP
     <input
       className={mergeClass(inputStyles({ look, size }), className)}
       value={state?.[0]}
-      onChange={(e) => state?.[1]?.(e?.target?.value)}
+      onChange={e => state?.[1]?.(e?.target?.value)}
       {...rest}
     />
   );

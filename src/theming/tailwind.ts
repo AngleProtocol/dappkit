@@ -1,5 +1,5 @@
-import { generateColorScale, generateRadiusScale, generateSpacingScale } from "./variables";
 import type { Config as TailwindConfig } from "tailwindcss";
+import { generateColorScale, generateRadiusScale, generateSpacingScale } from "./variables";
 
 /**
  * Generates tailwind classes as css variables for all theme related variables
@@ -15,5 +15,7 @@ export function generateVariableAssigners(): TailwindConfig["theme"] {
     padding: generateSpacingScale("spacing"),
     margin: generateSpacingScale("spacing"),
     gap: generateSpacingScale("spacing"),
+    width: generateSpacingScale("spacing"),
+    height: generateSpacingScale("spacing"),
   };
 }

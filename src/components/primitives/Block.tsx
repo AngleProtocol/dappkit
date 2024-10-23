@@ -1,6 +1,5 @@
-import React, { PropsWithChildren, type ReactNode, useCallback } from "react";
-import { mergeClass } from "src/utils/css";
-import type { Component } from "src/utils/types";
+import type { ReactNode } from "react";
+import type { Component } from "../../utils/types";
 import Divider from "./Divider";
 
 const extensions = ["header", "footer", "prefix", "suffix"] as const;
@@ -13,16 +12,9 @@ export type BlockProps = { [Part in BlockExtension]?: ReactNode } & {
 /**
  * Wraps a children of a component into a extendable block
  */
-export default function Block({
-  id,
-  children,
-  divide,
-  dividerClassName,
-  ...props
-}: Component<BlockProps>) {
-  const hasExtensions = extensions.some((extension) => props?.[extension]);
+export default function Block({ id, children, divide, dividerClassName, ...props }: Component<BlockProps>) {
+  const hasExtensions = extensions.some(extension => props?.[extension]);
 
-  const classOf = (extension: BlockExtension) => props?.[`${extension}ClassName`];
   const componentOf = (extension: BlockExtension) => props?.[extension];
 
   if (!hasExtensions) return children;

@@ -6,16 +6,10 @@ export type SizingArray<T = number> = [T, T, T, T, T];
 export type ColorArray<T = string> = [T, T, T, T, T, T, T, T, T, T, T, T];
 
 export function fillVariables(name: string, variables: ColorArray) {
-  return variables.reduce(
-    (vars, color, index) => Object.assign(vars, { [`--${name}-${index + 1}`]: color }),
-    {},
-  )
+  return variables.reduce((vars, color, index) => Object.assign(vars, { [`--${name}-${index + 1}`]: color }), {});
 }
 
-export default function generateSizingVariables(
-  radiusScale: SizingArray,
-  paddingScale: SizingArray,
-) {
+export default function generateSizingVariables(radiusScale: SizingArray, paddingScale: SizingArray) {
   const radiuses = sizeScale.reduce(function distributeRadiusScale(variables, size, index) {
     const radius = radiusScale[index];
 
@@ -35,7 +29,7 @@ export default function generateSizingVariables(
     return Object.assign(
       variables,
       { [size]: padding },
-      [2].reduce(function distributePaddingOffset(offsets, factor, pIndex) {
+      [2].reduce(function distributePaddingOffset(offsets, factor) {
         return Object.assign(
           offsets,
           { [`${size}/${factor}`]: padding / factor },
@@ -50,9 +44,6 @@ export default function generateSizingVariables(
       (s, [className, value]) => Object.assign(s, { [className]: value }),
       {},
     ),
-    padding: Object.entries(paddings).reduce(
-      (s, [className, value]) => Object.assign(s, { [className]: value }),
-      {},
-    ),
+    padding: Object.entries(paddings).reduce((s, [className, value]) => Object.assign(s, { [className]: value }), {}),
   };
 }

@@ -1,5 +1,4 @@
 import clsx, { type ClassValue } from "clsx";
-import { boxStyles } from "src/components/primitives/Box";
 import { twMerge } from "tailwind-merge";
 
 /**

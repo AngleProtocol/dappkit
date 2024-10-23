@@ -1,5 +1,5 @@
-import { generateRadixColors } from "@/color";
-import type { Coloring, State } from "./variables";
+import { generateRadixColors } from "../color";
+import type { Coloring } from "./variables";
 
 /**
  * Themes are a set of colorings to be applied in a theme context
@@ -44,7 +44,7 @@ export function createColoring(
  * @returns a color array of 12 for each mode (dark, light)
  */
 export function extractColorScale(theme: Coloring) {
-  const [darkOutput, lightOutput] = (["dark", "light"] as const).map((mode) =>
+  const [darkOutput, lightOutput] = (["dark", "light"] as const).map(mode =>
     generateRadixColors({
       appearance: mode,
       accent: theme[mode].accent,
@@ -53,26 +53,19 @@ export function extractColorScale(theme: Coloring) {
     }),
   );
 
-  const extract = ({
-    accentScale: accent,
-    grayScale: main,
-  }: typeof darkOutput | typeof lightOutput) => ({ accent, main });
+  const extract = ({ accentScale: accent, grayScale: main }: typeof darkOutput | typeof lightOutput) => ({
+    accent,
+    main,
+  });
 
-  return [extract(darkOutput), extract(lightOutput)] satisfies [
-    ReturnType<typeof extract>,
-    ReturnType<typeof extract>,
-  ];
+  return [extract(darkOutput), extract(lightOutput)] satisfies [ReturnType<typeof extract>, ReturnType<typeof extract>];
 }
 
 /**
  * Assigns color scales to the corresponding css variables
  * @returns returns css variables for each mode (dark, light) and each color (main, accent)
  */
-export function reduceColorIntoVariables(
-  theme: Coloring,
-  mainVarName = "main",
-  accentVarName = "accent",
-) {
+export function reduceColorIntoVariables(theme: Coloring, mainVarName = "main", accentVarName = "accent") {
   const [dark, light] = extractColorScale(theme);
 
   const assignToVariable = <N extends string>(name: N, scale: (typeof dark)["accent" | "main"]) =>

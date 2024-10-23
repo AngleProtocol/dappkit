@@ -1,6 +1,6 @@
-import { mergeClass } from "src/utils/css";
-import type { Component, GetSet, Styled } from "src/utils/types";
 import { tv } from "tailwind-variants";
+import { mergeClass } from "../../utils/css";
+import type { Component, GetSet, Styled } from "../../utils/types";
 
 export const colorPickerStyles = tv({
   base: "bg-main-0 border-none p-0 h-6 w-6",
@@ -35,7 +35,7 @@ export default function ColorPicker({ look, size, state, className, ...props }: 
     <input
       className={mergeClass(colorPickerStyles({ look, size }), className)}
       value={state?.[0]}
-      onChange={(e) => state?.[1]?.(e?.target?.value)}
+      onChange={e => state?.[1]?.(e?.target?.value)}
       {...props}
       type="color"
     />

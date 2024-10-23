@@ -1,19 +1,16 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { type PropsWithChildren, createContext, useContext } from "react";
-import { type ResolvedRegister, WagmiProvider } from "wagmi";
+import type { ResolvedRegister } from "wagmi";
+import { demoThemes } from "../config/themes";
 import ThemeProvider from "./Theme.context";
 import { WalletProvider } from "./Wallet.context";
-import { demoThemes } from "@/config/themes";
 
-export type DAppContextType = unknown;
+export type DAppContextType = { flag?: string };
 
-const DAppContext = createContext<DAppContextType>(null);
-const queryClient = new QueryClient();
+const DAppContext = createContext<DAppContextType | null>(null);
 
 export function useDAppContext() {
   const data = useContext(DAppContext);
 
-  // eslint-disable-next-line no-throw-literal
   if (data === null) throw "useDAppContext should only be used as child of DAppProvider";
   return data;
 }
