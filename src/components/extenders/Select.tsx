@@ -225,7 +225,7 @@ export default function Select<
                 <Ariakit.Combobox
                   autoSelect
                   placeholder="Search..."
-                  className={mergeClass(inputStyles({ size: "sm", look: "bold" }), "w-full", !search && "hidden")}
+                  className={mergeClass(inputStyles({ size: "sm", look: "base" }), "w-full", !search && "hidden")}
                 />
               </div>
             }
