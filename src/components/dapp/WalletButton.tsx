@@ -1,10 +1,10 @@
-import Dropdown from "../../components/extenders/Dropdown";
-import Group from "../../components/extenders/Group";
-import Button, { type ButtonProps } from "../../components/primitives/Button";
-import Divider from "../../components/primitives/Divider";
-import Image from "../../components/primitives/Image";
-import Text from "../../components/primitives/Text";
-import Title from "../../components/primitives/Title";
+import Dropdown from "../extenders/Dropdown";
+import Group from "../extenders/Group";
+import Button, { type ButtonProps } from "../primitives/Button";
+import Divider from "../primitives/Divider";
+import Image from "../primitives/Image";
+import Text from "../primitives/Text";
+import Title from "../primitives/Title";
 import useWallet from "../../hooks/useWalletState";
 import { Format } from "../../utils/format";
 import Modal from "../extenders/Modal";

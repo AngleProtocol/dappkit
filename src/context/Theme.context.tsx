@@ -1,9 +1,8 @@
-import { type PropsWithChildren, useContext, useMemo, useState } from "react";
+import { type PropsWithChildren, createContext, useContext, useMemo, useState } from "react";
 import { type Theme, type Themes, reduceColorIntoVariables } from "../theming/coloring";
 import { reduceSpacingIntoVariables } from "../theming/spacing";
-import React from 'react'
 
-const ThemeContext = React.createContext<ReturnType<typeof useThemeState> | null>(null);
+const ThemeContext = createContext<ReturnType<typeof useThemeState> | null>(null);
 
 function useThemeState(themes: Themes) {
   const [theme, setTheme] = useState<string>(Object.keys(themes ?? {})[0]);

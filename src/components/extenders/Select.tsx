@@ -1,12 +1,12 @@
 import * as Ariakit from "@ariakit/react";
 import type * as RadixSelect from "@radix-ui/react-select";
-import { mergeClass } from "@/utils/css";
+import { mergeClass } from "dappkit/src";
 import { matchSorter } from "match-sorter";
 import { type ReactNode, useCallback, useMemo, useState } from "react";
 import { tv } from "tailwind-variants";
 import { useTheme } from "../../context/Theme.context";
 import type { Component, GetSet, Variant } from "../../utils/types";
-import Group from "../extenders/Group";
+import Group from "./Group";
 import Box from "../primitives/Box";
 import Icon from "../primitives/Icon";
 import { inputStyles } from "../primitives/Input";

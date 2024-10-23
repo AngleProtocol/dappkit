@@ -1,6 +1,6 @@
 import * as RemixIcon from "@remixicon/react";
-import { mergeClass } from "@/utils/css";
-import type { Component, Styled } from "@/utils/types";
+import { mergeClass } from "dappkit";
+import type { Component, Styled } from "dappkit";
 import { useMemo } from "react";
 import { tv } from "tailwind-variants";
 import Image from "./Image";

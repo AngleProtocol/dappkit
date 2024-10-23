@@ -24,7 +24,7 @@ export const buttonStyles = tv({
   },
 });
 
-export type ButtonProps = Component<Styled<typeof buttonStyles> & Themable, {a: string}>;
+export type ButtonProps = Component<Styled<typeof buttonStyles> & Themable, HTMLButtonElement>;
 
 export default function Button({
   look,

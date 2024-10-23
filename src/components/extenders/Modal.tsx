@@ -1,9 +1,9 @@
 import * as Dialog from "@radix-ui/react-dialog";
-import { mergeClass } from "@/utils/css";
+import { mergeClass } from "dappkit/src";
 import { type ReactNode, useState } from "react";
-import Box, { type BoxProps } from "../../components/primitives/Box";
-import Text from "../../components/primitives/Text";
-import Title from "../../components/primitives/Title";
+import Box, { type BoxProps } from "../primitives/Box";
+import Text from "../primitives/Text";
+import Title from "../primitives/Title";
 import { useTheme } from "../../context/Theme.context";
 import type { Component, GetSet } from "../../utils/types";
 

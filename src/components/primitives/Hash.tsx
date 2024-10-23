@@ -1,4 +1,4 @@
-import { mergeClass } from "@/utils/css";
+import { mergeClass } from "dappkit/src";
 import { useMemo } from "react";
 import Text, { type TextProps } from "./Text";
 

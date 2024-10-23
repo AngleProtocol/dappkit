@@ -1,5 +1,6 @@
 {
 	"tailwindCSS.experimental.classRegex": [
         ["tv\\((([^()]*|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
-	]
+	],
+	"git.ignoreLimitWarning": true
 }

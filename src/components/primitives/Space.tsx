@@ -1,5 +1,5 @@
-import { mergeClass } from "@/utils/css";
-import type { Component, Styled } from "@/utils/types";
+import { mergeClass } from "dappkit/src";
+import type { Component, Styled } from "dappkit/src";
 import { tv } from "tailwind-variants";
 
 export const spaceStyles = tv({

@@ -1,32 +1,19 @@
 {
   "name": "dappkit",
+  "private": true,
   "sideEffects": false,
   "type": "module",
-  "main": "./dist/index.umd.js",
-  "module": "./dist/index.es.js",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
-  "exports": {
-    ".": {
-      "import": "./dist/index.es.js",
-      "require": "./dist/index.umd.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./dist/style.css": "./dist/style.css"
-  },
+  "main": "src/index.ts",
   "scripts": {
-    "pack": "tsc; vite build",
-    "build": "rm -rf ./dist/ && bun build --target=bun ./src/index.ts --outfile=dist/index.js && bun run build:declaration",
-    "build:declaration": "tsc --emitDeclarationOnly --project tsconfig.types.json",
+    "build": "remix vite:build",
     "dev": "remix vite:dev",
-    "lint": "biome check --apply ./src ./app",
+    "lint": "biome check --fix ./src ./app",
     "start": "remix-serve ./build/server/index.js",
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@ariakit/react": "^0.4.13",
+    "@ariakit/react": "^0.4.12",
+    "@elysiajs/eden": "^1.1.3",
     "@radix-ui/colors": "^3.0.0",
     "@radix-ui/react-avatar": "^1.1.0",
     "@radix-ui/react-checkbox": "^1.1.1",
@@ -37,8 +24,10 @@
     "@radix-ui/react-slider": "^1.2.0",
     "@remix-run/node": "^2.11.2",
     "@remix-run/react": "^2.11.2",
+    "merkl-api": "link:merkl-api",
     "@remix-run/serve": "^2.11.2",
     "@remixicon/react": "^4.2.0",
+    "@svgr/rollup": "^8.1.0",
     "@tanstack/react-query": "^5.55.4",
     "@vitejs/plugin-react": "^4.3.1",
     "ajv": "^8.17.1",
@@ -51,69 +40,48 @@
     "commander": "^12.1.0",
     "isbot": "^4.1.0",
     "lucide-react": "^0.439.0",
-    "match-sorter": "^7.0.0",
+    "match-sorter": "^6.3.4",
     "numerable": "^0.3.15",
-    "postcss": "^8.4.38",
+    "qs": "^6.13.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-responsive": "^10.0.0",
     "recharts": "^2.12.7",
+    "remix-utils": "^7.7.0",
     "remixicon": "^4.3.0",
     "save": "^2.9.0",
     "tailwind-merge": "^2.5.2",
     "tailwind-variants": "^0.2.1",
+    "tailwindcss": "^3.4.12",
     "tailwindcss-animate": "^1.0.7",
     "typedoc": "^0.26.7",
     "viem": "2.x",
-    "vite-plugin-dts": "^4.2.4",
-    "wagmi": "^2.12.10"
-  },
-  "peerDependencies": {
-    "tailwindcss": "^3.4.4",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "vite-plugin-dts": "^4.2.1",
+    "wagmi": "^2.12.10",
+    "zustand": "^5.0.0-rc.2"
   },
   "devDependencies": {
-    "tailwindcss": "^3.4.4",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "bun-types": "latest",
+    "@biomejs/biome": "1.9.2",
     "@remix-run/dev": "^2.11.2",
+    "@types/bun": "latest",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.7.4",
     "@typescript-eslint/parser": "^6.7.4",
     "autoprefixer": "^10.4.19",
-    "typescript": "^5.5.4",
+    "elysia": "^1.1.19",
+    "eslint": "^8.38.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "postcss": "^8.4.38",
+    "typescript": "^5.6.2",
     "vite": "^5.1.0",
     "vite-tsconfig-paths": "^4.2.1"
   },
-  "private": true,
   "engines": {
     "node": ">=20.0.0"
-  },
-  "keywords": [
-    "angle",
-    "angle money",
-    "angle protocol",
-    "ethereum",
-    "eth",
-    "stablecoin",
-    "stablecoins",
-    "defi",
-    "blockchain",
-    "solidity",
-    "javascript"
-  ],
-  "homepage": "https://angle.money",
-  "bugs": {
-    "url": "https://github.com/AngleProtocol/dappkit/issues",
-    "email": "contact@angle.money"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/AngleProtocol/dappkit"
-  },
-  "publishConfig": {
-    "access": "restricted",
-    "registry": "https://npm.pkg.github.com/"
   }
 }

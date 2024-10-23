@@ -1,5 +1,5 @@
 {
-  "include": ["src"],
+  "include": ["src", "../../src/hooks/filtering", "../../src/hooks/resources", "components", "config", "context", "hooks", "theme", "theming", "utils", "color.ts", "components.ts", "index.ts"],
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,
@@ -22,11 +22,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"],
-      "src/*": ["./src/*"],
-      "~/*": ["./app/*"]
-    },
 
     // Vite takes care of building everything, not tsc.
     "noEmit": true

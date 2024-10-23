@@ -1,6 +1,6 @@
 import * as Popover from "@radix-ui/react-popover";
 import { type ReactNode, useState } from "react";
-import Box from "../../components/primitives/Box";
+import Box from "../primitives/Box";
 import { useTheme } from "../../context/Theme.context";
 import type { Component, GetSet } from "../../utils/types";
 
