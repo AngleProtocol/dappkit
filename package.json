@@ -41,7 +41,6 @@
     "isbot": "^4.1.0",
     "lucide-react": "^0.439.0",
     "match-sorter": "^6.3.4",
-    "merkl-api": "link:merkl-api",
     "numerable": "^0.3.15",
     "qs": "^6.13.0",
     "react": "^18.2.0",
