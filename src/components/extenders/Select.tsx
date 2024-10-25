@@ -11,6 +11,7 @@ import Box from "../primitives/Box";
 import Icon from "../primitives/Icon";
 import { inputStyles } from "../primitives/Input";
 import Text from "../primitives/Text";
+import Scroll from "../primitives/Scroll";
 
 export const selectStyles = tv({
   base: [
@@ -219,17 +220,17 @@ export default function Select<
           </div>
         </Ariakit.Select>
         <Ariakit.SelectPopover gutter={4} className={dropdown()}>
-          <Box look="bold" size="sm" content="sm" className="max-h-[200px]">
-            {
-              search && <div className="combobox-wrapper">
+          <Box look="bold" size="sm" content="sm">
+            {search && (
+              <div className="combobox-wrapper">
                 <Ariakit.Combobox
                   autoSelect
                   placeholder="Search..."
                   className={mergeClass(inputStyles({ size: "sm", look: "base" }), "w-full", !search && "hidden")}
                 />
               </div>
-            }
-            <div className="overflow-y-auto">
+            )}
+            <Scroll vertical className="max-h-[200px]">
               <Ariakit.ComboboxList>
                 {allOption && !searchInput && (
                   <Ariakit.SelectItem
@@ -281,7 +282,7 @@ export default function Select<
                   />
                 ))}
               </Ariakit.ComboboxList>
-            </div>
+            </Scroll>
           </Box>
         </Ariakit.SelectPopover>
       </Ariakit.SelectProvider>
