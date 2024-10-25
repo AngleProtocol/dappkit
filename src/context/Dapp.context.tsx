@@ -1,8 +1,9 @@
 import { type PropsWithChildren, createContext, useContext } from "react";
 import type { ResolvedRegister } from "wagmi";
 import { demoThemes } from "../config/themes";
-import ThemeProvider from "./Theme.context";
+import ThemeProvider, { ThemeProviderProps } from "./Theme.context";
 import { WalletProvider } from "./Wallet.context";
+import { Theme } from "../theming/coloring";
 
 export type DAppContextType = { flag?: string };
 
@@ -17,11 +18,12 @@ export function useDAppContext() {
 
 export type DAppProviderProps = {
   config: ResolvedRegister["config"];
+  themes: ThemeProviderProps["themes"]
 };
 
-export function DAppProvider({ config, children }: PropsWithChildren<DAppProviderProps>) {
+export function DAppProvider({ config, themes, children }: PropsWithChildren<DAppProviderProps>) {
   return (
-    <ThemeProvider themes={demoThemes}>
+    <ThemeProvider themes={themes ?? demoThemes}>
       <WalletProvider config={config}>{children}</WalletProvider>
     </ThemeProvider>
   );

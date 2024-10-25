@@ -44,7 +44,7 @@ export default function Input({ look, size, state, className, ...props }: InputP
 
   if (extensions.some(extension => !!props?.[extension]))
     return (
-      <label className={mergeClass(inputStyles({ look, size }), className, "flex-col flex !p-md")} htmlFor="input">
+      <label className={mergeClass(inputStyles({ look, size }), className, "flex-col flex")} htmlFor="input">
         <label htmlFor="input" className="w-full flex">
           {header}
         </label>
@@ -56,7 +56,7 @@ export default function Input({ look, size, state, className, ...props }: InputP
           )}
           <input
             id="input"
-            className={mergeClass(inputStyles({ look: "none", size }), className, "w-full !flex-1 !px-sm !py-md")}
+            className={mergeClass(inputStyles({ look: "none", size }), className, "w-full !flex-1 !px-0 !py-0")}
             value={state?.[0]}
             onChange={e => state?.[1]?.(e?.target?.value)}
             {...rest}
