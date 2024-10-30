@@ -9,11 +9,11 @@ export const iconStyles = tv({
   base: "flex flex-col border-0 gap-1 self-center aspect-square rounded-sm",
   variants: {
     size: {
-      xs: "h-sm*2 w-sm*2",
-      sm: "h-md*2 w-md*2",
-      md: "h-lg*2 w-lg*2",
-      lg: "h-xl*2 w-xl*2",
-      xl: "h-xl*4 w-xl*4",
+      xs: "w-sm*2",
+      sm: "w-md*2",
+      md: "w-lg*2",
+      lg: "w-xl*2",
+      xl: "w-xl*4",
     },
     rounded: {
       true: "rounded-full",
@@ -34,12 +34,27 @@ export type IconProps = Component<
   HTMLImageElement
 >;
 
-export default function Icon({ size, rounded, remix, src, alt, className, ...props }: IconProps) {
+export default function Icon({
+  size,
+  rounded,
+  remix,
+  src,
+  alt,
+  className,
+  ...props
+}: IconProps) {
   const styles = useMemo(() => iconStyles({ size, rounded }), [size, rounded]);
 
   const Component = useMemo(() => {
     if (remix) return RemixIcon[remix];
-    return () => <Image className={mergeClass(styles, className)} alt={alt} src={src} {...props} />;
+    return () => (
+      <Image
+        className={mergeClass(styles, className)}
+        alt={alt}
+        src={src}
+        {...props}
+      />
+    );
   }, [remix, alt, src, props]);
 
   return <Component className={mergeClass(styles, className)} />;

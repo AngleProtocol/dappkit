@@ -1,8 +1,20 @@
-import { type PropsWithChildren, createContext, useContext, useMemo, useState } from "react";
-import { type Theme, type Themes, reduceColorIntoVariables } from "../theming/coloring";
+import {
+  type PropsWithChildren,
+  createContext,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
+import {
+  type Theme,
+  type Themes,
+  reduceColorIntoVariables,
+} from "../theming/coloring";
 import { reduceSpacingIntoVariables } from "../theming/spacing";
 
-const ThemeContext = createContext<ReturnType<typeof useThemeState> | null>(null);
+const ThemeContext = createContext<ReturnType<typeof useThemeState> | null>(
+  null
+);
 
 function useThemeState(themes: Themes) {
   const [theme, setTheme] = useState<string>(Object.keys(themes ?? {})[0]);
@@ -14,21 +26,34 @@ function useThemeState(themes: Themes) {
         (o, [label, theme]) =>
           Object.assign(o, {
             [label]: Object.entries(theme ?? {}).reduce(
-              (_o, [state, coloring]) => Object.assign(_o, { [state]: reduceColorIntoVariables(coloring) }),
-              {} as { [S in keyof Theme]: ReturnType<typeof reduceColorIntoVariables> },
+              (_o, [state, coloring]) =>
+                Object.assign(_o, {
+                  [state]: reduceColorIntoVariables(coloring),
+                }),
+              {} as {
+                [S in keyof Theme]: ReturnType<typeof reduceColorIntoVariables>;
+              }
             ),
           }),
         {} as {
-          [label: string]: { [S in keyof Theme]: ReturnType<typeof reduceColorIntoVariables> };
-        },
+          [label: string]: {
+            [S in keyof Theme]: ReturnType<typeof reduceColorIntoVariables>;
+          };
+        }
       ),
-    [themes],
+    [themes]
   );
 
   const vars = useMemo(() => {
     const colors = variables?.[theme]?.base?.[mode];
-    const spacing = reduceSpacingIntoVariables({ xs: 2, sm: 4, md: 8, lg: 12, xl: 16 }, "spacing");
-    const radius = reduceSpacingIntoVariables({ xs: 2, sm: 4, md: 6, lg: 8, xl: 12 }, "radius");
+    const spacing = reduceSpacingIntoVariables(
+      { xs: 2, sm: 4, md: 8, lg: 12, xl: 16 },
+      "spacing"
+    );
+    const radius = reduceSpacingIntoVariables(
+      { xs: 2, sm: 4, md: 6, lg: 8, xl: 12 },
+      "radius"
+    );
 
     return Object.assign({}, colors.accent, colors.main, spacing, radius);
   }, [mode, theme, variables]);
@@ -41,12 +66,15 @@ function useThemeState(themes: Themes) {
     themes,
     mode,
     setMode,
-    toggleMode: () => setMode(m => (m === "dark" ? "light" : "dark")),
+    toggleMode: () => setMode((m) => (m === "dark" ? "light" : "dark")),
   };
 }
 
 export type ThemeProviderProps = PropsWithChildren<{ themes: Themes }>;
-export default function ThemeProvider({ themes, children }: ThemeProviderProps) {
+export default function ThemeProvider({
+  themes,
+  children,
+}: ThemeProviderProps) {
   const value = useThemeState(themes);
 
   return (

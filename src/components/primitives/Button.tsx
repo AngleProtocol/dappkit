@@ -1,30 +1,46 @@
 import { Link } from "@remix-run/react";
-import { tv } from "tailwind-variants";
+import { tv, type VariantProps } from "tailwind-variants";
 import useThemedVariables from "../../hooks/theming/useThemedVariables";
 import { mergeClass } from "../../utils/css";
-import type { Component, Styled, Themable } from "../../utils/types";
+import type { Component, Themable } from "../../utils/types";
 
 export const buttonStyles = tv({
-  base: "text-main-11 flex items-center outline-offset-0 outline-0 text-nowrap font-main font-bold",
+  base: "text-main-11 flex items-center outline-offset-0 outline-0 text-nowrap font-main font-bold text-[clamp(15px,0.4167vw+0.78125rem,20px)]",
   variants: {
     look: {
-      soft: "bg-main-0 border-main-0 hover:bg-main-4 active:bg-main-3 hover:text-main-12  focus-visible:border-main-9",
-      base: "bg-main-4 border-main-6 hover:bg-main-4 active:bg-main-3 hover:text-main-12  focus-visible:border-main-9",
+      soft: "bg-main-0 border-main-0 hover:bg-main-4 active:bg-main-3 hover:text-main-12 focus-visible:border-main-9",
+      base: "bg-main-4 border-main-6 hover:bg-main-4 active:bg-main-3 hover:text-main-12 focus-visible:border-main-9",
       bold: "bg-main-4 border-main-4 hover:bg-main-5 active:bg-main-3 text-main-12 focus-visible:border-main-9",
       tint: "bg-accent-3 border-accent-3 hover:bg-accent-5 active:bg-accent-3 text-accent-11 focus-visible:border-accent-9",
       hype: "bg-accent-9 border-accent-9 hover:bg-accent-10 active:bg-accent-8 text-main-1 focus-visible:border-accent-10",
+      text: "!p-0 lg:opacity-100 lg:hover:opacity-70 transition-opacity text-main-12",
     },
     size: {
-      xs: "px-xs py-xs text-xs rounded-xs gap-xs",
-      sm: "px-sm py-sm/2 text-sm rounded-sm gap-sm",
-      md: "px-md py-md/2 text-md rounded-md gap-md",
-      lg: "px-lg py-lg/2 text-lg rounded-lg gap-lg",
-      xl: "px-xl py-xl/2 text-xl rounded-xl gap-xl",
+      xs: "px-xs py-xs rounded-xs gap-xs text-xs",
+      sm: "px-sm py-sm/2 rounded-sm gap-sm text-sm",
+      md: "px-md py-md/2 rounded-md gap-md text-base",
+      lg: "px-lg py-lg/2 rounded-lg gap-lg text-lg",
+      xl: "px-xl py-xl/2 rounded-xl gap-xl text-xl",
     },
+  },
+  defaultVariants: {
+    look: "base",
+    size: "md",
   },
 });
 
-export type ButtonProps = Component<Styled<typeof buttonStyles> & Themable, HTMLButtonElement>;
+type ButtonStyleProps = VariantProps<typeof buttonStyles>;
+
+export type ButtonProps = Component<
+  ButtonStyleProps &
+    Themable & {
+      to?: string;
+      external?: boolean;
+      className?: string;
+      type?: "button" | "submit" | "reset";
+    },
+  HTMLButtonElement
+>;
 
 export default function Button({
   look,
@@ -35,17 +51,23 @@ export default function Button({
   accent,
   className,
   children,
+  external,
   ...props
-}: ButtonProps & { to?: string }) {
+}: ButtonProps) {
   const themeVars = useThemedVariables(coloring, accent);
+
+  const styleProps = buttonStyles({ look, size });
 
   if (to) {
     return (
       <Link
-        {...{ size, look }}
-        className={mergeClass(buttonStyles({ look: look ?? "base", size: size ?? "md" }), className)}
         to={to}
-        type="button">
+        className={mergeClass(styleProps, className)}
+        {...(external && {
+          target: "_blank",
+          rel: "noopener noreferrer",
+        })}
+      >
         {children}
       </Link>
     );
@@ -54,9 +76,10 @@ export default function Button({
   return (
     <button
       style={themeVars}
-      className={mergeClass(buttonStyles({ look: look ?? "base", size: size ?? "md" }), className)}
+      className={mergeClass(styleProps, className)}
+      type="button"
       {...props}
-      type="button">
+    >
       {children}
     </button>
   );

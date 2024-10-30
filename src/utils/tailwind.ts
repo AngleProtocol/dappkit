@@ -8,30 +8,52 @@ export const lookScale = ["soft", "base", "bold", "tint", "hype"] as const;
 export const variableConfig = generateVariableAssigners();
 
 export const generateTailwindConfig = () => ({
-  ...variableConfig,
-  extend: {},
+  extend: {
+    width: {
+      ...variableConfig?.width,
+      full: "100%",
+    },
+    keyframes: {
+      drop: {
+        "0%": { transform: "translateY(-10px)", opacity: 0 },
+        "100%": { transform: "translateY(0px)", opacity: 1 },
+      },
+      stretch: {
+        "0%": { transform: "scaleY(0.9)" },
+        "100%": { transform: "scaleY(1)" },
+      },
+      fadeIn: {
+        "0%": { opacity: 0.7 },
+        "100%": { opacity: 1 },
+      },
+      slideDown: {
+        from: { height: "0px" },
+        to: { height: "var(--radix-accordion-content-height)" },
+      },
+      slideUp: {
+        from: { height: "var(--radix-accordion-content-height)" },
+        to: { height: "0px" },
+      },
+    },
+    animation: {
+      drop: "drop 0.1s ease-out",
+      stretch: "stretch 0.05s ease-out",
+      fadeIn: "fadeIn 0.1s ease-out",
+      slideDown: "slideDown 300ms cubic-bezier(0.87, 0, 0.13, 1)",
+      slideUp: "slideUp 300ms cubic-bezier(0.87, 0, 0.13, 1)",
+    },
+  },
   colors: {
     ...variableConfig?.colors,
   },
-  keyframes: {
-    drop: {
-      "0%": { transform: "translateY(-10px)", opacity: 0 },
-      "100%": { transform: "translateY(0px)", opacity: 1 },
-    },
-    stretch: {
-      "0%": { transform: "scaleY(0.9)" },
-      "100%": { transform: "scaleY(1)" },
-    },
-    fadeIn: {
-      "0%": { opacity: 0.7 },
-      "100%": { opacity: 1 },
-    },
+
+  screens: {
+    md: "640px",
+    lg: "1024px",
+    xl: "1536px",
+    xxl: "2065px",
   },
-  animation: {
-    drop: "drop 0.1s ease-out",
-    stretch: "stretch 0.05s ease-out",
-    fadeIn: "fadeIn 0.1s ease-out",
-  },
+
   borderRadius: {
     0: "0",
     full: "100vmax",
@@ -44,10 +66,6 @@ export const generateTailwindConfig = () => ({
   height: {
     full: "100%",
     ...variableConfig?.height,
-  },
-  width: {
-    full: "100%",
-    ...variableConfig?.width,
   },
   padding: {
     0: "0px",
@@ -73,13 +91,13 @@ export const generateTailwindConfig = () => ({
     6: "8px",
   },
   fontSize: {
-    xs: "0.7rem",
-    sm: "0.8rem",
-    xl: "1.25rem",
-    "2xl": "1.563rem",
-    "3xl": "1.953rem",
-    "4xl": "2.441rem",
-    "5xl": "3.052rem",
+    xs: "clamp(11px,0.4167vw+0.5859375,14px)",
+    sm: "clamp(13px,0.4167vw+0.68359375rem,16px)",
+    base: "clamp(15px,0.4167vw+0.78125rem,20px)",
+    lg: "clamp(18px,0.4167vw+0.87890625rem,22px)",
+    xl: "clamp(20px,0.4167vw+0.9765625rem,26px)",
+    "2xl": "clamp(22px,0.4167vw+1.171875rem,28px)",
+    "3xl": "clamp(24px,0.4167vw+1.46484375rem,30px)",
   },
   fontFamily: {
     default: [

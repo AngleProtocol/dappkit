@@ -29,7 +29,14 @@ export const inputStyles = tv({
   },
 });
 
-export const extensions = ["header", "footer", "prefix", "suffix", "label", "hint"] as const;
+export const extensions = [
+  "header",
+  "footer",
+  "prefix",
+  "suffix",
+  "label",
+  "hint",
+] as const;
 export type InputExtension = (typeof extensions)[number];
 
 export type InputProps = Component<
@@ -39,12 +46,25 @@ export type InputProps = Component<
   HTMLInputElement
 >;
 
-export default function Input({ look, size, state, className, ...props }: InputProps) {
+export default function Input({
+  look,
+  size,
+  state,
+  className,
+  ...props
+}: InputProps) {
   const { header, footer, prefix, suffix, label, hint, ...rest } = props;
 
-  if (extensions.some(extension => !!props?.[extension]))
+  if (extensions.some((extension) => !!props?.[extension]))
     return (
-      <label className={mergeClass(inputStyles({ look, size }), className, "flex-col flex")} htmlFor="input">
+      <label
+        className={mergeClass(
+          inputStyles({ look, size }),
+          className,
+          "flex-col flex"
+        )}
+        htmlFor="input"
+      >
         <label htmlFor="input" className="w-full flex">
           {header}
         </label>
@@ -56,9 +76,13 @@ export default function Input({ look, size, state, className, ...props }: InputP
           )}
           <input
             id="input"
-            className={mergeClass(inputStyles({ look: "none", size }), className, "w-full !flex-1 !px-0 !py-0")}
+            className={mergeClass(
+              inputStyles({ look: "none", size }),
+              className,
+              "w-full !flex-1 !px-0 !py-0"
+            )}
             value={state?.[0]}
-            onChange={e => state?.[1]?.(e?.target?.value)}
+            onChange={(e) => state?.[1]?.(e?.target?.value)}
             {...rest}
           />
           {suffix && (
@@ -76,7 +100,7 @@ export default function Input({ look, size, state, className, ...props }: InputP
     <input
       className={mergeClass(inputStyles({ look, size }), className)}
       value={state?.[0]}
-      onChange={e => state?.[1]?.(e?.target?.value)}
+      onChange={(e) => state?.[1]?.(e?.target?.value)}
       {...rest}
     />
   );
