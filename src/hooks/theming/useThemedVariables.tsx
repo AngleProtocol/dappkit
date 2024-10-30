@@ -11,6 +11,13 @@ export default function useThemedVariables(
   const { mode: contextMode, theme, variables } = useTheme();
   const mode = _mode ?? contextMode;
   const vars = useMemo(() => {
+    if (!coloring && !!_mode)
+      return Object.assign(
+        {},
+        variables?.[theme]?.base?.[mode].accent,
+        variables?.[theme]?.base?.[mode].main
+      );
+
     if (!coloring && !accent) return {};
 
     const currentTheme = (t: keyof Theme) => variables?.[theme]?.[t]?.[mode];

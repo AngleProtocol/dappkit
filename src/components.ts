@@ -51,3 +51,5 @@ export * from "./components/extenders/Icons.tsx";
 export { default as Icons } from "./components/extenders/Icons.tsx";
 export * from "./components/layout/Container.js";
 export { default as Container } from "./components/layout/Container.js";
+export * from "./components/layout/FAQ/Faq.tsx";
+export { default as Faq } from "./components/layout/FAQ/Faq.tsx";

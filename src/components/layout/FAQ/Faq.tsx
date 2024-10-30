@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import { FaqList } from "./FaqList";
-import Container from "../Container";
+import { Container } from "dappkit";
 import Group from "../../extenders/Group";
 import Title from "../../primitives/Title";
 import Accordion from "../../primitives/Accordion";
@@ -26,7 +26,7 @@ export function getFaqsByQuestions(questions: FaqQuestion[]): FAQ[] {
   }, []);
 }
 
-const FaqSection: FC<{
+const Faq: FC<{
   faqs: FaqQuestion[];
 }> = ({ faqs }) => {
   const faqData = getFaqsByQuestions(faqs);
@@ -58,4 +58,4 @@ const FaqSection: FC<{
   );
 };
 
-export default FaqSection;
+export default Faq;
