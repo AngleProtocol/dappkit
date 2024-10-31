@@ -1,8 +1,10 @@
 import clsx from "clsx";
 import { tv } from "tailwind-variants";
 import type { Component, Styled } from "../../utils/types";
+import { textStyles } from "./Text";
 
 export const titleStyles = tv({
+  extend: textStyles,
   base: "text-main-12 font-main font-medium",
   variants: {
     look: {
@@ -11,13 +13,14 @@ export const titleStyles = tv({
       bold: "text-secondary-12",
       hype: "text-accent-12",
     },
-    h: {
-      1: "text-3xl",
-      2: "text-2xl",
-      3: "text-xl",
-      4: "text-md",
-      5: "text-sm",
-    },
+    // h: {
+    //   1: "text-3xl",
+    //   2: "text-2xl",
+    //   3: "text-xl",
+    //   4: "text-md",
+    //   5: "text-sm",
+    //   6: "text-sm",
+    // },
   },
   defaultVariants: {
     size: "md",
@@ -29,22 +32,60 @@ type Heading<He> = {
   [H in 1 | 2 | 3 | 4 | 5 | 6 as `h${H}`]: He extends H ? boolean : undefined;
 };
 export type TitleProps = Component<
-  Styled<typeof titleStyles> & ({ h?: 1 | 2 | 3 | 4 | 5 | 6 } | Heading<1 | 2 | 3 | 4 | 5 | 6>),
+  Styled<typeof titleStyles> & { h?: 1 | 2 | 3 | 4 | 5 | 6 },
   HTMLHeadingElement
 >;
 
-export default function Title({ look, h, className, ...props }: TitleProps) {
+export default function Title({
+  look,
+  h,
+  size: _size,
+  style,
+  className,
+  ...props
+}: TitleProps) {
+  const size = _size ?? h;
   switch (h) {
     case 1:
-      return <h1 className={clsx(titleStyles({ look, h }), className)} children={" "} {...props} />;
+      return (
+        <h1
+          className={clsx(titleStyles({ look, size, style }), className)}
+          children={" "}
+          {...props}
+        />
+      );
     case 2:
-      return <h2 className={clsx(titleStyles({ look, h }), className)} children={" "} {...props} />;
+      return (
+        <h2
+          className={clsx(titleStyles({ look, size, style }), className)}
+          children={" "}
+          {...props}
+        />
+      );
     case 3:
-      return <h3 className={clsx(titleStyles({ look, h }), className)} children={" "} {...props} />;
+      return (
+        <h3
+          className={clsx(titleStyles({ look, size, style }), className)}
+          children={" "}
+          {...props}
+        />
+      );
     case 4:
-      return <h4 className={clsx(titleStyles({ look, h }), className)} children={" "} {...props} />;
+      return (
+        <h4
+          className={clsx(titleStyles({ look, size, style }), className)}
+          children={" "}
+          {...props}
+        />
+      );
     case 5:
-      return <h5 className={clsx(titleStyles({ look, h }), className)} children={" "} {...props} />;
+      return (
+        <h5
+          className={clsx(titleStyles({ look, size, style }), className)}
+          children={" "}
+          {...props}
+        />
+      );
     default:
       break;
   }

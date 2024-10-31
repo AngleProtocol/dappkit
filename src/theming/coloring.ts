@@ -53,9 +53,10 @@ export function extractColorScale(theme: Coloring) {
     }),
   );
 
-  const extract = ({ accentScale: accent, grayScale: main }: typeof darkOutput | typeof lightOutput) => ({
+  const extract = ({ accentScale: accent, grayScale: main, background}: typeof darkOutput | typeof lightOutput) => ({
     accent,
     main,
+    background
   });
 
   return [extract(darkOutput), extract(lightOutput)] satisfies [ReturnType<typeof extract>, ReturnType<typeof extract>];
@@ -78,10 +79,12 @@ export function reduceColorIntoVariables(theme: Coloring, mainVarName = "main", 
     dark: {
       accent: assignToVariable(accentVarName, dark.accent),
       main: assignToVariable(mainVarName, dark.main),
+      background: {"--background": dark.background}
     },
     light: {
       accent: assignToVariable(accentVarName, light.accent),
       main: assignToVariable(mainVarName, light.main),
+      background: {"--background": light.background}
     },
   };
 }

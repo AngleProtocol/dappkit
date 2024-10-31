@@ -1,5 +1,5 @@
 import type { Dispatch, SetStateAction } from "react";
-import type { Coloring, State } from "../theming/variables";
+import type { Coloring, Mode, State } from "../theming/variables";
 
 /**
  * Variant
@@ -29,6 +29,7 @@ export type Themable = {
   theme?: Coloring | State;
   coloring?: Coloring | State;
   accent?: Coloring | State;
+  mode?: Mode;
 };
 
 /**
