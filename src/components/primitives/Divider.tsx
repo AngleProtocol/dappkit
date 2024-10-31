@@ -11,5 +11,5 @@ export default function Divider({ vertical, horizontal, className, ...props }: D
     return (
       <div className={mergeClass("border-t-1 border-b-0 h-1 box-border w-full bg-main-0", className)} {...props} />
     );
-  return <div className={mergeClass("border-r-1 w-0 h-full", className)} {...props} />;
+  return <div className={mergeClass("border-r-1 max-w-[1px] box-border h-full bg-main-0", className)} {...props} />;
 }

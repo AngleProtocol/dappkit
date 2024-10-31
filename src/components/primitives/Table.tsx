@@ -7,6 +7,7 @@ import Box from "./Box";
 import Icon from "./Icon";
 import List from "./List";
 import Text from "./Text";
+import EventBlocker from "./EventBlocker";
 
 export const tableStyles = tv({
   base: "",
@@ -109,7 +110,7 @@ export function Row<T extends Columns>({ columns, exclude, children, ...props }:
           </div>
         );
       })}
-      {children && <div style={{ gridColumn: "1 / -1" }}>{children}</div>}
+      {children && (<EventBlocker style={{ gridColumn: "1 / -1" }}>{children}</EventBlocker>)}
     </Box>
   );
 }

@@ -33,7 +33,7 @@ export type ValueProps = Component<Styled<typeof valueStyles> & ValueFormatProps
 export default function Value({ look, size, value, className, format: _format, children, ...props }: ValueProps) {
   if (value) return format(children, _format, { currency: "USD" });
   return (
-    <div className={mergeClass(valueStyles({ size, look }))} {...props}>
+    <div className={mergeClass(valueStyles({ size, look }), className)} {...props}>
       {format(children, _format, { currency: "USD" })}
     </div>
   );
