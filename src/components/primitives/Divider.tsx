@@ -22,6 +22,7 @@ export default function Divider({
         {...props}
       />
     );
+
   return (
     <div
       className={mergeClass("border-r-1 self-stretch w-px h-auto", className)}
