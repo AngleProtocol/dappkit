@@ -6,7 +6,7 @@ import { tv } from "tailwind-variants";
 import Image from "./Image";
 
 export const iconStyles = tv({
-  base: "flex flex-col border-0 gap-1 self-center aspect-square rounded-sm",
+  base: "flex flex-col border-0 gap-1 rounded-md overflow-hidden self-center aspect-square rounded-sm",
   variants: {
     size: {
       xs: "w-sm*2",

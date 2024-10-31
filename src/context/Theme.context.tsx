@@ -55,7 +55,7 @@ function useThemeState(themes: Themes) {
       "radius"
     );
 
-    return Object.assign({}, colors.accent, colors.main, spacing, radius);
+    return Object.assign({}, colors.accent, colors.main, colors.background, spacing, radius);
   }, [mode, theme, variables]);
 
   return {
@@ -76,10 +76,11 @@ export default function ThemeProvider({
   children,
 }: ThemeProviderProps) {
   const value = useThemeState(themes);
+  console.log("v", value)
 
   return (
     <ThemeContext.Provider value={value}>
-      <div style={value?.vars} className="bg-main-1 h-full">
+      <div data-theme={value?.theme} data-mode={value?.mode} style={value?.vars} className="bg-background h-[100vh] overflow-auto">
         {children}
       </div>
     </ThemeContext.Provider>

@@ -9,6 +9,7 @@ export function generateVariableAssigners(): TailwindConfig["theme"] {
   return {
     colors: {
       main: { 0: "transparent", ...generateColorScale("main") },
+      background: "var(--background)",
       accent: { 0: "transparent", ...generateColorScale("accent") },
     },
     borderRadius: generateRadiusScale("radius"),

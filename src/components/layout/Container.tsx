@@ -9,7 +9,7 @@ export default function Container({
   return (
     <div
       className={mergeClass(
-        "px-[2rem] md:px-[3rem] lg:px-[4rem] xl:px-[5rem] w-full max-w-[1650px] mx-auto",
+        "!px-[clamp(0.5rem,3vw,5rem)] w-full max-w-[1650px] mx-auto",
         className
       )}
     >

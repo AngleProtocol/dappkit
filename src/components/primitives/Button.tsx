@@ -3,6 +3,7 @@ import { tv, type VariantProps } from "tailwind-variants";
 import useThemedVariables from "../../hooks/theming/useThemedVariables";
 import { mergeClass } from "../../utils/css";
 import type { Component, Themable } from "../../utils/types";
+import useThemableProps from "../../hooks/theming/useThemableProps";
 
 export const buttonStyles = tv({
   base: "text-main-11 flex items-center outline-offset-0 outline-0 text-nowrap font-main font-bold text-[clamp(15px,0.4167vw+0.78125rem,20px)]",
@@ -20,7 +21,7 @@ export const buttonStyles = tv({
       sm: "px-sm py-sm/2 rounded-sm gap-sm text-sm",
       md: "px-md py-md/2 rounded-md gap-md text-base",
       lg: "px-lg py-lg/2 rounded-lg gap-lg text-lg",
-      xl: "px-xl py-xl/2 rounded-xl gap-xl text-xl",
+      xl: "px-xl py-lg rounded-xl gap-lg/2 text-xl",
     },
   },
   defaultVariants: {
@@ -47,14 +48,12 @@ export default function Button({
   size,
   to,
   theme,
-  coloring,
-  accent,
   className,
   children,
   external,
   ...props
 }: ButtonProps) {
-  const themeVars = useThemedVariables(coloring, accent);
+  const themeVars = useThemableProps(props);
 
   const styleProps = buttonStyles({ look, size });
 

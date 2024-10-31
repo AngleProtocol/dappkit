@@ -91,13 +91,13 @@ export const generateTailwindConfig = () => ({
     6: "8px",
   },
   fontSize: {
-    xs: "clamp(11px,0.4167vw+0.5859375,14px)",
-    sm: "clamp(13px,0.4167vw+0.68359375rem,16px)",
-    base: "clamp(15px,0.4167vw+0.78125rem,20px)",
-    lg: "clamp(18px,0.4167vw+0.87890625rem,22px)",
-    xl: "clamp(20px,0.4167vw+0.9765625rem,26px)",
-    "2xl": "clamp(22px,0.4167vw+1.171875rem,28px)",
-    "3xl": "clamp(24px,0.4167vw+1.46484375rem,30px)",
+    xs: "clamp(11px,calc(0.4167vw + 0.5859375),14px)",
+    sm: "clamp(13px,calc(0.4167vw + 0.68359375rem),16px)",
+    base: "clamp(15px,calc(0.4167vw + 0.78125rem),20px)",
+    lg: "clamp(18px,calc(0.4167vw + 0.87890625rem),22px)",
+    xl: "clamp(20px,calc(0.4167vw + 0.9765625rem),26px)",
+    "2xl": "clamp(22px,calc(0.4167vw + 1.171875rem),28px)",
+    "3xl": "clamp(24px,calc(0.4167vw + 1.46484375rem),30px)",
   },
   fontFamily: {
     default: [
