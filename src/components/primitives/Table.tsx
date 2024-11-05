@@ -146,7 +146,7 @@ export function useHeaders<T extends Columns>(
       const handler = title && isSortable ? () => onHeaderClick?.(id) : undefined;
 
       head[`${id}Column`] = (
-        <Text className="relative" size="xs" interactable={isSortable} onKeyDown={handler} onClick={handler}>
+        <Text className="relative font-mono" size="xs" interactable={isSortable} onKeyDown={handler} onClick={handler}>
           {title}
           <span className="absolute -right-5">
             {sortable &&

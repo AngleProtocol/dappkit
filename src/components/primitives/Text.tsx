@@ -23,7 +23,7 @@ export const textStyles = tv({
       1: "text-3xl",
       2: "font-bold leading-tight !text-[clamp(52px,1.1667vw+2.8125rem,66px)]",
       3: "font-bold leading-normal !text-[clamp(28px,1vw+1.375rem,40px)]",
-      4: "text-md",
+      4: "leading-normal !text-[clamp(16px,1vw+1.375rem,30px)]",
       5: "font-bold leading-normal text-[clamp(15px,0.4167vw+0.78125rem,20px)] uppercase tracking-[1.6px] ",
       6: "text-sm",
     },

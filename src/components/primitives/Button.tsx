@@ -4,6 +4,7 @@ import useThemedVariables from "../../hooks/theming/useThemedVariables";
 import { mergeClass } from "../../utils/css";
 import type { Component, Themable } from "../../utils/types";
 import useThemableProps from "../../hooks/theming/useThemableProps";
+import { blockEvent } from "../../utils/event";
 
 export const buttonStyles = tv({
   base: "text-main-11 flex items-center outline-offset-0 outline-0 text-nowrap font-main font-bold text-[clamp(15px,0.4167vw+0.78125rem,20px)]",
