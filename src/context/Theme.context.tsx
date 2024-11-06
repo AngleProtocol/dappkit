@@ -76,7 +76,6 @@ export default function ThemeProvider({
   children,
 }: ThemeProviderProps) {
   const value = useThemeState(themes);
-  console.log("v", value)
 
   return (
     <ThemeContext.Provider value={value}>
