@@ -18,7 +18,7 @@ export function useDAppContext() {
 
 export type DAppProviderProps = {
   config: ResolvedRegister["config"];
-  themes: ThemeProviderProps["themes"]
+  themes?: ThemeProviderProps["themes"]
 };
 
 export function DAppProvider({ config, themes, children }: PropsWithChildren<DAppProviderProps>) {
