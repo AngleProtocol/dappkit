@@ -53,3 +53,5 @@ export * from "./components/layout/Container.js";
 export { default as Container } from "./components/layout/Container.js";
 export * from "./components/dapp/Countdown";
 export { default as Countdown } from "./components/dapp/Countdown";
+export * from "./components/primitives/Bar";
+export { default as Bar } from "./components/primitives/Bar";
