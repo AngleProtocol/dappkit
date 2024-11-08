@@ -25,7 +25,7 @@ export const iconsStyles = tv({
 });
 
 type ListElement = ReactElement<{ look: unknown; size: unknown; className?: string; style: unknown }>;
-export type IconsProps = Component<Styled<typeof iconsStyles> & { children: ListElement }, HTMLDivElement>;
+export type IconsProps = Component<Styled<typeof iconsStyles> & { children: ListElement[] }, HTMLDivElement>;
 
 export default function Icons({ size, children, className, ...props }: IconsProps) {
   const { container, item } = iconsStyles({ size });
