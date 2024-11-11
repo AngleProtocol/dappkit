@@ -50,7 +50,7 @@
     "remix-utils": "^7.7.0",
     "remixicon": "^4.3.0",
     "save": "^2.9.0",
-    "tailwind-merge": "^2.5.2",
+    "tailwind-merge": "^2.5.4",
     "tailwind-variants": "^0.2.1",
     "tailwindcss": "^3.4.12",
     "tailwindcss-animate": "^1.0.7",
