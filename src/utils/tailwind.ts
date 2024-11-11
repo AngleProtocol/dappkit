@@ -1,3 +1,4 @@
+import { Config } from "tailwindcss";
 import { generateVariableAssigners } from "../theming/tailwind";
 
 export const paddingScale = [2, 4, 6, 12, 16, 24];
@@ -15,16 +16,16 @@ export const generateTailwindConfig = () => ({
     },
     keyframes: {
       drop: {
-        "0%": { transform: "translateY(-10px)", opacity: 0 },
-        "100%": { transform: "translateY(0px)", opacity: 1 },
+        "0%": { transform: "translateY(-10px)", opacity: "0" },
+        "100%": { transform: "translateY(0px)", opacity: "1" },
       },
       stretch: {
         "0%": { transform: "scaleY(0.9)" },
         "100%": { transform: "scaleY(1)" },
       },
       fadeIn: {
-        "0%": { opacity: 0.7 },
-        "100%": { opacity: 1 },
+        "0%": { opacity: "0.7" },
+        "100%": { opacity: "1" },
       },
       slideDown: {
         from: { height: "0px" },
@@ -122,4 +123,4 @@ export const generateTailwindConfig = () => ({
       },
     ],
   },
-});
+}) satisfies Config["theme"];
