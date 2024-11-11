@@ -198,9 +198,9 @@ export function Table<T extends Columns>({
   const headers = useHeaders(columns, sortable, onHeaderClick, sort ?? sortBy, order ?? _order, props);
 
   return (
-    <List indexOffset={header ? 0 : 1} look={"base"} className={mergeClass(className)} {...props}>
+    <List indexOffset={header ? 0 : 1} className={mergeClass(className)} look={look} {...props}>
       {!!header ? <Box className="bg-auto">{header}</Box> : undefined}
-      <Row {...{look}} columns={columns} {...headers}/>
+      <Row columns={columns} {...headers}/>
       {children}
     </List>
   );

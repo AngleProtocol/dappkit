@@ -2,7 +2,7 @@ import { Children, type ReactElement, cloneElement, useMemo } from "react";
 import { tv } from "tailwind-variants";
 import { mergeClass } from "../../utils/css";
 import type { Component, Styled } from "../../utils/types";
-import {getDefinedIndexesOfChildren} from "../../utils/react";
+import { getDefinedIndexesOfChildren } from "../../utils/react";
 
 const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
 
@@ -110,7 +110,7 @@ export const listStyles = tv({
 });
 
 type ListElement = ReactElement<{ look: unknown; size: unknown; className?: string }>;
-export type ListProps = Component<Styled<typeof listStyles> & {indexOffset?: number}, HTMLDivElement>;
+export type ListProps = Component<Styled<typeof listStyles> & { indexOffset?: number }, HTMLDivElement>;
 
 export default function List({ look, size, flex, content, className, children, indexOffset, ...props }: ListProps) {
   const { base, item, divider } = listStyles({ look, size, content: size, flex });
@@ -121,28 +121,25 @@ export default function List({ look, size, flex, content, className, children, i
     return Children.map(children as ListElement | ListElement[], (child, index) => {
       let position: "first" | "last" | undefined = "first";
 
-      if (index > ((first ?? 0) + (indexOffset ?? 0))) position = undefined;
+      if (index > (first ?? 0) + (indexOffset ?? 0)) position = undefined;
       if (index >= (last ?? 0) + (indexOffset ?? 0)) position = "last";
 
       return (
-        child && (
-          <>
-            {cloneElement(child, {
-              size,
-              look: child.props.look ?? look,
-              className: mergeClass(
-                child.props.className,
-                item({
-                  index: position,
-                }),
-              ),
-            })}
-            {index <= (last ?? 0) && <div className={divider()} />}
-          </>
-        )
+        child && [
+          cloneElement(child, {
+            size,
+            look: child.props.look ?? look ?? "base",
+            className: mergeClass(
+              child.props.className,
+              item({
+                index: position,
+              }),
+            ),
+          }),
+          index <= (last ?? 0) && <div className={divider()} />,
+        ]
       );
-    })
-    
+    });
   }, [children, divider, item, look, size, indexOffset]);
 
   return (
