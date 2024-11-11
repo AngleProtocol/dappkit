@@ -92,7 +92,7 @@ export const generateTailwindConfig = () => ({
     6: "8px",
   },
   fontSize: {
-    xs: "clamp(11px,calc(0.4167vw + 0.5859375),14px)",
+    xs: "clamp(12px,calc(0.4167vw + 0.67rem),14px)",
     sm: "clamp(13px,calc(0.4167vw + 0.68359375rem),16px)",
     base: "clamp(15px,calc(0.4167vw + 0.78125rem),20px)",
     lg: "clamp(18px,calc(0.4167vw + 0.87890625rem),22px)",
