@@ -1,15 +1,15 @@
-import React from "react";
+import React, { type PropsWithChildren } from "react";
 
-const VisuallyHidden = ({ children, ...delegated }) => {
+export default function VisuallyHidden({ children, ...props }: PropsWithChildren)  {
   const [forceShow, setForceShow] = React.useState(false);
   React.useEffect(() => {
     if (process.env.NODE_ENV !== "production") {
-      const handleKeyDown = (ev) => {
+      const handleKeyDown = (ev: KeyboardEvent) => {
         if (ev.key === "Alt") {
           setForceShow(true);
         }
       };
-      const handleKeyUp = (ev) => {
+      const handleKeyUp = (ev: KeyboardEvent) => {
         if (ev.key === "Alt") {
           setForceShow(false);
         }
@@ -26,9 +26,8 @@ const VisuallyHidden = ({ children, ...delegated }) => {
     return children;
   }
   return (
-    <span className="sr-only" {...delegated}>
+    <span className="sr-only" {...props}>
       {children}
     </span>
   );
 };
-export default VisuallyHidden;

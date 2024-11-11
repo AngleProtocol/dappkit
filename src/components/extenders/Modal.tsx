@@ -11,12 +11,12 @@ export type ModalProps = Component<{
   open?: boolean;
   title?: ReactNode;
   description?: ReactNode;
-  content?: ReactNode;
+  modal?: ReactNode;
   state?: GetSet<boolean>;
 }> &
   BoxProps;
 
-export default function Modal({ state, title, description, content, children, className, ...props }: ModalProps) {
+export default function Modal({ state, title, description, modal, children, className, ...props }: ModalProps) {
   const { vars } = useTheme();
   const [internalState, setInternalState] = useState<boolean>(false);
 
@@ -39,7 +39,7 @@ export default function Modal({ state, title, description, content, children, cl
                 {typeof description === "string" ? <Text>{description}</Text> : description}
               </Dialog.Description>
             )}
-            {content}
+            {modal}
             {/* <Group className="justify-between">
               <Dialog.Close asChild>
                 <Button>Close</Button>

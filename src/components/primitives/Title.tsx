@@ -28,11 +28,8 @@ export const titleStyles = tv({
   },
 });
 
-type Heading<He> = {
-  [H in 1 | 2 | 3 | 4 | 5 | 6 as `h${H}`]: He extends H ? boolean : undefined;
-};
 export type TitleProps = Component<
-  Styled<typeof titleStyles> & { h?: 1 | 2 | 3 | 4 | 5 | 6 },
+  Styled<typeof titleStyles> & { h?: 1 | 2 | 3 | 4 | 5 | 6; size?: Styled<(typeof textStyles)>["size"] },
   HTMLHeadingElement
 >;
 
@@ -40,7 +37,6 @@ export default function Title({
   look,
   h,
   size: _size,
-  style,
   className,
   ...props
 }: TitleProps) {
@@ -49,7 +45,7 @@ export default function Title({
     case 1:
       return (
         <h1
-          className={clsx(titleStyles({ look, size, style }), className)}
+          className={clsx(titleStyles({ look, size }), className)}
           children={" "}
           {...props}
         />
@@ -57,7 +53,7 @@ export default function Title({
     case 2:
       return (
         <h2
-          className={clsx(titleStyles({ look, size, style }), className)}
+          className={clsx(titleStyles({ look, size }), className)}
           children={" "}
           {...props}
         />
@@ -65,7 +61,7 @@ export default function Title({
     case 3:
       return (
         <h3
-          className={clsx(titleStyles({ look, size, style }), className)}
+          className={clsx(titleStyles({ look, size }), className)}
           children={" "}
           {...props}
         />
@@ -73,7 +69,7 @@ export default function Title({
     case 4:
       return (
         <h4
-          className={clsx(titleStyles({ look, size, style }), className)}
+          className={clsx(titleStyles({ look, size }), className)}
           children={" "}
           {...props}
         />
@@ -81,7 +77,7 @@ export default function Title({
     case 5:
       return (
         <h5
-          className={clsx(titleStyles({ look, size, style }), className)}
+          className={clsx(titleStyles({ look, size }), className)}
           children={" "}
           {...props}
         />

@@ -1,7 +1,8 @@
-import { Children, type ReactElement, cloneElement } from "react";
+import { Children, type ReactElement, cloneElement, useMemo } from "react";
 import { tv } from "tailwind-variants";
 import { mergeClass } from "../../utils/css";
 import type { Component, Styled } from "../../utils/types";
+import {getDefinedIndexesOfChildren} from "../../utils/react";
 
 const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
 
@@ -13,8 +14,8 @@ export const listStyles = tv({
   },
   variants: {
     flex: {
-      col: { base: "flex-col" },
-      row: { base: "flex-row", item: "grow", divider: "min-w-[1px] w-[1px]" },
+      col: { base: "flex-col", divider: "min-h-[1px] h-[1px] max-h-[1px]" },
+      row: { base: "flex-row", item: "grow", divider: "min-w-[1px] w-[1px] max-w-[1px]" },
     },
     index: {
       first: "",
@@ -61,14 +62,13 @@ export const listStyles = tv({
           content,
           size,
           index: undefined satisfies "first" | "last" | undefined,
-          look: ["base", "bold", "tint", "hype"] satisfies ("base" | "bold" | "tint" | "hype")[],
           class: { item: "!rounded-0 !hover:rounded-0", base: `rounded-${content}` },
         };
 
         return [
-          base,
           {
-            ...base,
+            content,
+            size,
             index: ["first"] satisfies ("first" | "last")[],
             flex: "col" as const,
             class: {
@@ -76,7 +76,8 @@ export const listStyles = tv({
             },
           },
           {
-            ...base,
+            content,
+            size,
             index: ["last"] satisfies ("first" | "last")[],
             flex: "col" as const,
             class: {
@@ -84,7 +85,8 @@ export const listStyles = tv({
             },
           },
           {
-            ...base,
+            content,
+            size,
             index: ["first"] satisfies ("first" | "last")[],
             flex: "row" as const,
             class: {
@@ -92,46 +94,60 @@ export const listStyles = tv({
             },
           },
           {
-            ...base,
+            content,
+            size,
             index: ["last"] satisfies ("first" | "last")[],
             flex: "row" as const,
             class: {
               item: "!rounded-l-0",
             },
           },
-        ];
+          base,
+        ] as const;
       }),
     ),
   ],
 });
 
 type ListElement = ReactElement<{ look: unknown; size: unknown; className?: string }>;
-export type ListProps = Component<Styled<typeof listStyles>, HTMLDivElement>;
+export type ListProps = Component<Styled<typeof listStyles> & {indexOffset?: number}, HTMLDivElement>;
 
-export default function List({ look, size, flex, content, className, children, ...props }: ListProps) {
+export default function List({ look, size, flex, content, className, children, indexOffset, ...props }: ListProps) {
   const { base, item, divider } = listStyles({ look, size, content: size, flex });
+
+  const definedChild = useMemo(() => {
+    const [first, last] = getDefinedIndexesOfChildren(children);
+
+    return Children.map(children as ListElement | ListElement[], (child, index) => {
+      let position: "first" | "last" | undefined = "first";
+
+      if (index > ((first ?? 0) + (indexOffset ?? 0))) position = undefined;
+      if (index >= (last ?? 0) + (indexOffset ?? 0)) position = "last";
+
+      return (
+        child && (
+          <>
+            {cloneElement(child, {
+              size,
+              look: child.props.look ?? look,
+              className: mergeClass(
+                child.props.className,
+                item({
+                  index: position,
+                }),
+              ),
+            })}
+            {index <= (last ?? 0) && <div className={divider()} />}
+          </>
+        )
+      );
+    })
+    
+  }, [children, divider, item, look, size, indexOffset]);
 
   return (
     <div className={mergeClass(base(), className)} {...props}>
-      {Children.map(
-        children as ListElement | ListElement[],
-        (child, index) =>
-          child && (
-            <>
-              {!!index && <div className={divider()} />}
-              {cloneElement(child, {
-                size,
-                look: child.props.look ?? look,
-                className: mergeClass(
-                  child.props.className,
-                  item({
-                    index: ({ 0: "first", [Children.count(children) - 1]: "last" } as const)[index],
-                  }),
-                ),
-              })}
-            </>
-          ),
-      )}
+      {definedChild}
     </div>
   );
 }

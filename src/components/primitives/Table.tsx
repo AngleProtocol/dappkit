@@ -1,6 +1,6 @@
 import { mergeClass } from "dappkit/src";
 import type { Component, Styled } from "dappkit/src";
-import { type ReactNode, useMemo, useState } from "react";
+import { type PropsWithChildren, type ReactNode, useMemo, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { tv } from "tailwind-variants";
 import Box from "./Box";
@@ -47,26 +47,30 @@ export const tableStyles = tv({
 const orders = ["desc", "asc"] as const;
 
 export type Order = (typeof orders)[number];
-export type Columns = {
-  [id: string]: { name: ReactNode; size?: string; compactSize?: string; className?: string; main?: boolean };
+export type Columns<C extends string = string> = {
+  [id in C]: { name: ReactNode; size?: string; compactSize?: string; className?: string; main?: boolean };
 };
 export type TableColumns<T extends Columns> = {
   readonly [C in `${Extract<keyof T, string>}Column`]: ReactNode;
 };
+export type TableHeaders<T extends Columns> = {
+  readonly [C in `${Extract<keyof T, string>}Header`]?: ReactNode;
+};
 
 export type RowProps<T extends Columns> = Component<
-  {
+  PropsWithChildren<{
     columns: T;
     exclude?: (keyof T)[];
-  } & TableColumns<T>
+  } & TableColumns<T>> 
 >;
 
 export function Row<T extends Columns>({ columns, exclude, children, ...props }: RowProps<T>) {
   const isScreenSmall = useMediaQuery({ maxWidth: 600 });
   const [ids, grid, compact] = useMemo(() => {
     const cols = Object.keys(columns ?? {}) as (keyof T)[];
-    const style: { display: "grid"; gridTemplateColumns: string } = {
+    const style: { display: "grid"; gridTemplateColumns: string, rowGap: string} = {
       display: "grid",
+      rowGap: "0px",
       gridTemplateColumns: cols
         .map(id => {
           if (exclude?.includes(id)) return;
@@ -87,7 +91,7 @@ export function Row<T extends Columns>({ columns, exclude, children, ...props }:
 
   const divProps = { ...props };
   for (const id of ids) {
-    Object.keys(divProps)?.includes(`${String(id)}Column`) && delete divProps[`${id}Column`];
+    Object.keys(divProps)?.includes(`${String(id)}Column`) && delete divProps[`${String(id)}Column` as keyof typeof divProps];
   }
 
   // TODO: add headers to wrapped table when isScreenSmall
@@ -96,7 +100,7 @@ export function Row<T extends Columns>({ columns, exclude, children, ...props }:
   return (
     <Box style={isScreenSmall ? compact : grid} {...divProps}>
       {ids?.map(id => {
-        const element = props[`${String(id)}Column`] as ReactNode;
+        const element = props[`${String(id)}Column` as keyof typeof props] as ReactNode;
         const { className, main } = columns[id];
 
         if (exclude?.includes(id)) return;
@@ -125,7 +129,7 @@ export type TableProps<T extends Columns> = Component<
     loading?: boolean;
     sortable?: (keyof T)[];
     onSort?: (id: keyof T, order: Order) => void;
-  },
+  } & TableHeaders<T>,
   HTMLDivElement
 >;
 
@@ -135,19 +139,20 @@ export function useHeaders<T extends Columns>(
   onHeaderClick?: (id: keyof T) => void,
   sortBy?: keyof T,
   order?: Order,
+  props?: TableHeaders<T>
 ) {
   return useMemo(() => {
     const ids = Object.keys(columns ?? {});
-    const head = {};
+    const head: Partial<TableColumns<T>> = {};
 
     for (const id of ids) {
       const { name: title, className } = columns[id];
       const isSortable = sortable?.includes(id);
       const handler = title && isSortable ? () => onHeaderClick?.(id) : undefined;
 
-      head[`${id}Column`] = (
+      head[`${id}Column` as keyof TableColumns<T>] = (
         <Text className="relative font-mono" size="xs" interactable={isSortable} onKeyDown={handler} onClick={handler}>
-          {title}
+          {props?.[`${id}Header` as keyof TableHeaders<T>] ??  title}
           <span className="absolute -right-5">
             {sortable &&
               id === sortBy &&
@@ -190,12 +195,12 @@ export function Table<T extends Columns>({
     onSort?.(id, currentOrder);
   }
 
-  const headers = useHeaders(columns, sortable, onHeaderClick, sort ?? sortBy, order ?? _order);
+  const headers = useHeaders(columns, sortable, onHeaderClick, sort ?? sortBy, order ?? _order, props);
 
   return (
-    <List look={"base"} className={mergeClass(className)} {...props}>
-      {header && <Box>{header}</Box>}
-      {!isScreenSmall && <Row columns={columns} {...headers}></Row>}
+    <List indexOffset={header ? 0 : 1} look={"base"} className={mergeClass(className)} {...props}>
+      {!!header ? <Box className="bg-auto">{header}</Box> : undefined}
+      <Row {...{look}} columns={columns} {...headers}/>
       {children}
     </List>
   );

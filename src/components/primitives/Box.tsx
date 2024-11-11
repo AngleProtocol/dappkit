@@ -75,7 +75,7 @@ export default function Box({
   return (
     <div
       style={Object.assign(style ?? {}, themeVars)}
-      className={mergeClass(boxStyles({ look, size, content, container: container !== "false" }), className)}
+      className={mergeClass(boxStyles({ look, size, content, container: container !== false }), className)}
       {...props}
     />
   );

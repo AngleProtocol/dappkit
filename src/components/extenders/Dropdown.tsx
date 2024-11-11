@@ -15,7 +15,6 @@ export default function Dropdown({ state, content, children }: DropdownProps) {
   return (
     <Popover.Root open={!state ? internalState : state?.[0]} onOpenChange={!state ? setInternalState : state?.[1]}>
       <Popover.Trigger
-        className={"bg-main-2"}
         onClick={blockEvent(() => setInternalState(r => !r))}>
         {children}
       </Popover.Trigger>

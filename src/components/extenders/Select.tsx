@@ -134,7 +134,7 @@ export type SelectProps<Value> = Component<{
 type MaybeArray<T, IsArray extends undefined | boolean> = IsArray extends true ? T[] : T;
 
 export default function Select<
-  T extends string | number | symbol,
+  T extends string | number,
   Multiple extends undefined | boolean,
   Value extends MaybeArray<T, Multiple>,
 >({
@@ -173,13 +173,20 @@ export default function Select<
   const matches = useMemo(() => {
     // const textToMatch = Object.keys(options ?? {}).map(option => `${option}_${options[option]?.props?.children?.filter(a => typeof a !== "object").join(" ")}`)
     const textToMatch = Object.keys(options ?? {}).reduce(
-      (matches, option) =>
-        Object.assign(
-          matches,
-          { [`${option}`]: option },
-          { [`${options[option]?.props?.children?.filter?.(a => typeof a !== "object")?.join(" ")}`]: option },
-        ),
-      {},
+      (matches, option) => {
+        const opt = options?.[option];
+        const key =
+          typeof opt === "string"
+            ? opt
+            : (
+                options?.[option] as Exclude<ReactNode, string | number | boolean | Iterable<ReactNode>>
+              )?.props?.children
+                ?.filter?.((a: unknown) => typeof a !== "object")
+                ?.join(" ");
+
+        return Object.assign(matches, { [`${option}`]: option }, { [`${key}`]: option });
+      },
+      {} as { [key: string]: keyof typeof options },
     );
     const searchMatches = matchSorter(Object.keys(textToMatch), searchInput ?? "").map(key => textToMatch[key]);
     const uniqueOptionMatches = Array.from(
@@ -187,14 +194,19 @@ export default function Select<
         set.add(option);
         return set;
       }, new Set()),
-    );
+    ) as (typeof value)[];
 
     return uniqueOptionMatches;
   }, [options, searchInput]);
 
   const label = useMemo(() => {
-    if (options?.[value]) return options?.[value];
-    if (value?.length > 0)
+    if (
+      value &&
+      (typeof value === "number" || typeof value === "string" || typeof value === "symbol") &&
+      options?.[value]
+    )
+      return options?.[value];
+    if (typeof value === "object" && value?.length > 0)
       return (
         <>
           <Text size="xs" className="rounded-full w-md*2 h-md*2 bg-accent-12 text-main-2">
@@ -212,7 +224,7 @@ export default function Select<
       setValue={value => {
         setSearch(value);
       }}>
-      <Ariakit.SelectProvider setValue={setValue} value={value} defaultValue={multiple ? [] : undefined}>
+      <Ariakit.SelectProvider setValue={(v) => setValue(v as Value)} value={value as string} defaultValue={multiple ? [] : undefined}>
         <Ariakit.Select className={base()}>
           <div className={valueStyle()}>{label}</div>
           <div className={icon()}>
@@ -235,7 +247,7 @@ export default function Select<
                 {allOption && !searchInput && (
                   <Ariakit.SelectItem
                     className={mergeClass(item())}
-                    onClick={() => setValue(multiple ? [] : undefined)}
+                    onClick={() => setValue(!!multiple ? [] : undefined)}
                     render={
                       <Ariakit.ComboboxItem
                         children={[
@@ -246,7 +258,7 @@ export default function Select<
                             key="select"
                             className={mergeClass(
                               check(),
-                              !(value?.length === 0 || value === undefined) && "opacity-0",
+                              !((typeof value === "object" && value?.length > 0) || value === undefined) && "opacity-0",
                             )}
                             size="sm"
                             remix="RiCheckFill"
@@ -271,7 +283,7 @@ export default function Select<
                             key="select"
                             className={mergeClass(
                               check(),
-                              !(value?.includes(_value) || value === _value) && "opacity-0",
+                              !((typeof value === "object" && value?.includes(_value as T)) || value === _value) && "opacity-0",
                             )}
                             size="sm"
                             remix="RiCheckFill"

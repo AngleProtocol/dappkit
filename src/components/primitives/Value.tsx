@@ -27,7 +27,7 @@ export const valueStyles = tv({
   },
 });
 
-export type ValueFormatProps = { children?: number; format: string };
+export type ValueFormatProps = { children?: number; format: string; value?: boolean };
 export type ValueProps = Component<Styled<typeof valueStyles> & ValueFormatProps, HTMLDivElement>;
 
 export default function Value({ look, size, value, className, format: _format, children, ...props }: ValueProps) {

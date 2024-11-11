@@ -1,7 +1,6 @@
-import { Theme } from "src/theming/coloring";
 import type { Coloring, State } from "../../theming/variables";
 import useThemedVariables from "./useThemedVariables";
-import { PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 
 export type OverrideThemeProps = {
   coloring?: Coloring | State;

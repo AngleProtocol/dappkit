@@ -41,7 +41,7 @@ export type InputExtension = (typeof extensions)[number];
 
 export type InputProps = Component<
   Styled<typeof inputStyles> & { [Extension in InputExtension]?: ReactNode } & {
-    state?: GetSet<string>;
+    state?: GetSet<string | undefined>;
   },
   HTMLInputElement
 >;
