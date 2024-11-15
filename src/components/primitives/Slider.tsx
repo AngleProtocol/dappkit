@@ -12,11 +12,11 @@ import type { Component, GetSet, Styled } from "../../utils/types";
 
 export const sliderStyles = tv({
   base: [
-    "relative text-main-11 flex items-center justify-between gap-1 border-1 outline-offset-0 outline-0 text-nowrap font-mulish font-semibold",
+    "relative text-main-11 flex items-center justify-between gap-1 border-1 outline-offset-0 outline-0 text-nowrap font-text font-semibold",
   ],
   slots: {
     thumb:
-      "aspect-square text-xs border-1 bg-main-4 mt-sm shadow-md font-mulish font-normal",
+      "aspect-square text-xs border-1 bg-main-4 mt-sm shadow-md font-text font-normal",
     track: "p-sm outline-offset-0 outline-0 text-nowrap",
     range: "border-l-1 h-full flex items-center",
   },

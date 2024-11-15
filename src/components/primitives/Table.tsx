@@ -189,7 +189,7 @@ export function useHeaders<T extends Columns>(
 
       head[`${id}Column` as keyof TableColumns<T>] = (
         <Text
-          className="relative font-mulish"
+          className="relative font-text"
           size="xs"
           interactable={isSortable}
           onKeyDown={handler}

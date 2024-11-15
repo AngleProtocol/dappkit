@@ -15,7 +15,7 @@ export const buttonStyles = tv({
       base: "bg-main-4 border-main-6 hover:bg-main-4 active:bg-main-3 hover:text-main-12 focus-visible:border-main-9",
       bold: "bg-main-4 border-main-4 hover:bg-main-5 active:bg-main-3 text-main-12 focus-visible:border-main-9",
       tint: "bg-accent-3 border-accent-3 hover:bg-accent-5 active:bg-accent-3 text-accent-11 focus-visible:border-accent-9",
-      hype: "bg-accent-11 border-accent-9 hover:bg-accent-12 font-obviously active:bg-accent-8 ease text-main-1 font-semibold focus-visible:border-accent-10",
+      hype: "bg-accent-11 border-accent-9 hover:bg-accent-12 font-title active:bg-accent-8 ease text-main-1 font-semibold focus-visible:border-accent-10",
     },
     size: {
       xs: "px-xs py-xs rounded-xs gap-xs text-xs",

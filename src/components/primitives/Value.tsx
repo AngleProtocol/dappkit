@@ -4,7 +4,7 @@ import { format } from "numerable";
 import { tv } from "tailwind-variants";
 
 export const valueStyles = tv({
-  base: "font-mono font-normal",
+  base: "text-main-11 font-text font-normal",
   variants: {
     look: {
       soft: "text-main-8",

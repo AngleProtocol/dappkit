@@ -15,7 +15,7 @@ import Scroll from "../primitives/Scroll";
 
 export const selectStyles = tv({
   base: [
-    "text-main-11 flex items-center justify-between gap-1 border-1 outline-offset-0 outline-0 text-nowrap font-mulish font-semibold",
+    "text-main-11 flex items-center justify-between gap-1 border-1 outline-offset-0 outline-0 text-nowrap font-text font-semibold",
   ],
   slots: {
     dropdown:

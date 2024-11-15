@@ -102,7 +102,8 @@ export const generateTailwindConfig = () =>
       "3xl": "clamp(24px,calc(0.4167vw + 1.46484375rem),30px)",
     },
     fontFamily: {
-      mulish: ['"Mulish", sans-serif;'],
-      obviously: ['"Obviously", serif'],
+      title: ['"Obviously", serif;'],
+      text: ['"Mulish", sans-serif;'],
+      mono: ['"Space Mono", sans-serif;'],
     },
   } satisfies Config["theme"]);

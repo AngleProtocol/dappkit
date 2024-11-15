@@ -49,13 +49,13 @@ export default function Hash({
     [copy, isCopied]
   );
 
-  if (value) return <span className="font-mulish">{formatted}</span>;
+  if (value) return <span className="font-text">{formatted}</span>;
   return (
     <Text
       onClick={() => copyCall(hash)}
       {...props}
       className={mergeClass(
-        "hover:underline active:no-underline cursor-pointer font-mulish gap-sm",
+        "hover:underline active:no-underline cursor-pointer font-text gap-sm",
         copy && "select-none inline-flex",
         className
       )}
