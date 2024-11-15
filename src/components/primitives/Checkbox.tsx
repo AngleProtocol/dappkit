@@ -7,7 +7,7 @@ import VisuallyHidden from "../VisuallyHidden";
 import { blockEvent } from "../../utils/event";
 
 export const checkboxStyles = tv({
-  base: "text-main-11 flex items-center bg-gradient-to-tr border-1 outline-offset-0 outline-0 text-nowrap font-main font-bold",
+  base: "text-main-11 flex items-center bg-gradient-to-tr border-1 outline-offset-0 outline-0 text-nowrap font-mulish font-bold",
   variants: {
     look: {
       soft: "bg-main-0 border-main-0 hover:bg-main-4 active:bg-main-3 hover:text-main-12  focus-visible:border-main-9",

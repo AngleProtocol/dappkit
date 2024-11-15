@@ -5,7 +5,7 @@ import { textStyles } from "./Text";
 
 export const titleStyles = tv({
   extend: textStyles,
-  base: "text-main-12 font-main font-medium",
+  base: "text-main-12 font-obviously font-semibold",
   variants: {
     look: {
       base: "text-main-12",
@@ -29,7 +29,10 @@ export const titleStyles = tv({
 });
 
 export type TitleProps = Component<
-  Styled<typeof titleStyles> & { h?: 1 | 2 | 3 | 4 | 5 | 6; size?: Styled<(typeof textStyles)>["size"] },
+  Styled<typeof titleStyles> & {
+    h?: 1 | 2 | 3 | 4 | 5 | 6;
+    size?: Styled<typeof textStyles>["size"];
+  },
   HTMLHeadingElement
 >;
 

@@ -30,10 +30,21 @@ export const valueStyles = tv({
 export type ValueFormatProps = { children?: number | string; format: string; value?: boolean };
 export type ValueProps = Component<Styled<typeof valueStyles> & ValueFormatProps, HTMLDivElement>;
 
-export default function Value({ look, size, value, className, format: _format, children, ...props }: ValueProps) {
+export default function Value({
+  look,
+  size,
+  value,
+  className,
+  format: _format,
+  children,
+  ...props
+}: ValueProps) {
   if (value) return format(children, _format, { currency: "USD" });
   return (
-    <div className={mergeClass(valueStyles({ size, look }), className)} {...props}>
+    <div
+      className={mergeClass(valueStyles({ size, look }), className)}
+      {...props}
+    >
       {format(children, _format, { currency: "USD" })}
     </div>
   );
