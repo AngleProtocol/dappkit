@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { type PropsWithChildren, createContext, useContext } from "react";
 import { type ResolvedRegister, WagmiProvider } from "wagmi";
-import useWalletState from "../hooks/useWalletState";
+import useWalletState from "dappkit/src/hooks/useWalletState";
 
 export type WalletContextType = ReturnType<typeof useWalletState>;
 

@@ -1,8 +1,10 @@
-import type { ReactNode } from "react";
+import { useCallback, useMemo, useState, type ReactNode } from "react";
 import { tv } from "tailwind-variants";
 import { mergeClass } from "../../utils/css";
 import type { Component, GetSet, Styled } from "../../utils/types";
 import Group from "../extenders/Group";
+import { formatUnits, parseUnits } from "viem";
+import { format } from "numerable";
 
 export const inputStyles = tv({
   base: "text-main-11 flex items-center gap-1 border-1 outline-offset-0 outline-0 text-nowrap font-main",
@@ -39,14 +41,14 @@ export const extensions = [
 ] as const;
 export type InputExtension = (typeof extensions)[number];
 
-export type InputProps = Component<
+export type InputProps<T = string> = Component<
   Styled<typeof inputStyles> & { [Extension in InputExtension]?: ReactNode } & {
-    state?: GetSet<string | undefined>;
+    state?: GetSet<T | undefined>;
   },
   HTMLInputElement
 >;
 
-export default function Input({
+function Input({
   look,
   size,
   state,
@@ -105,3 +107,39 @@ export default function Input({
     />
   );
 }
+
+Input.BigInt = function InputBigInt({state, base, ...props}: InputProps<bigint> & {base: number}) {
+
+  const [internal, setInternal] = useState<bigint>();
+  const [displayed, setDisplayed] = useState("0.0");
+  const [getter, setter] = state ?? [];
+
+  const value = useMemo(() => {
+    const _value = !state ? internal : state?.[0];
+    const transformed = formatUnits(_value ?? 0n, base);
+
+    return displayed ?? transformed
+  }, [internal, state]);
+
+  const setValue = useCallback((v: string | undefined) => {
+    try {
+      if (v === undefined) {
+        setter?.(0n) ?? setInternal(0n)
+        return;
+      }
+
+      const raw = v?.replaceAll(',', '') ?? "";
+      const isInputtingDecimals = v?.split('.')?.[1]?.[v?.split?.('.')?.[1]?.length -1] === "0" || v?.[v.length - 1] === "."
+      const transformed = parseUnits(raw, base);
+      
+      if (raw === "0") setDisplayed("");
+      if (v?.split('.')?.length === 1 || v?.split?.('.')?.[1]?.length <= base) setDisplayed(isInputtingDecimals ? v : format(raw, "0,0.X"));
+      setter?.(transformed) ?? setInternal(transformed)
+    } catch (err) {
+    }
+  }, [setter, base]);
+  
+  return <Input state={[displayed, (v) => setValue(v)]}  {...props}/>
+}
+
+export default Input;

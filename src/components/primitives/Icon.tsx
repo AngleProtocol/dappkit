@@ -57,5 +57,5 @@ export default function Icon({
     );
   }, [remix, alt, src, props]);
 
-  return <i {...{className, ...props}}><Component className={mergeClass(styles, className)} /></i>;
+  return <Component {...props} className={mergeClass(styles, className)} />
 }

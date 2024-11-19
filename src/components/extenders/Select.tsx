@@ -19,7 +19,7 @@ export const selectStyles = tv({
   ],
   slots: {
     dropdown: "outline-0 z-50 origin-top animate-drop animate-stretch mt-sm min-w-[var(--popover-anchor-width)]",
-    item: "flex justify-between items-center gap-lg cursor-pointer select-none p-sm outline-offset-0 outline-0 text-nowrap",
+    item: "flex grow justify-between items-center gap-lg cursor-pointer select-none p-sm outline-offset-0 outline-0 text-nowrap",
     icon: "border-l-1 h-full flex items-center",
     value: "flex gap-sm items-center",
     check: "",
@@ -126,6 +126,7 @@ export type SelectProps<Value> = Component<{
   placeholder?: string;
   state?: GetSet<Value>;
   search?: boolean;
+  loading?: boolean;
   allOption?: ReactNode;
   options?: { [key: string | number | symbol]: ReactNode };
 }> &
@@ -144,9 +145,11 @@ export default function Select<
   options,
   search,
   multiple,
+  loading,
   allOption,
   placeholder,
   className,
+  defaultValue,
   ...props
 }: SelectProps<Value> & { multiple?: Multiple }) {
   const { vars } = useTheme();
@@ -165,7 +168,7 @@ export default function Select<
     size: size ?? "md",
   });
 
-  const value = useMemo(() => getter ?? internal, [getter, internal]);
+  const value = useMemo(() => !state ? internal : state?.[0], [internal, state]);
   const setValue = useCallback((v: Value) => setter?.(v) ?? setInternal(v), [setter]);
 
   const [searchInput, setSearch] = useState<string>();
@@ -224,11 +227,11 @@ export default function Select<
       setValue={value => {
         setSearch(value);
       }}>
-      <Ariakit.SelectProvider setValue={(v) => setValue(v as Value)} value={value as string} defaultValue={multiple ? [] : undefined}>
-        <Ariakit.Select className={base()}>
+      <Ariakit.SelectProvider setValue={(v) => setValue(v as Value)} value={value as string} defaultValue={defaultValue ?? (multiple ? [] : null)}>
+        <Ariakit.Select disabled={loading} className={mergeClass(base(), className)}>
           <div className={valueStyle()}>{label}</div>
           <div className={icon()}>
-            <Icon remix="RiArrowDropDownLine" />
+            {loading ? <Icon className="animate-spin" remix="RiLoader4Fill"/> : <Icon remix="RiArrowDropDownLine" />}
           </div>
         </Ariakit.Select>
         <Ariakit.SelectPopover gutter={4} className={dropdown()}>
@@ -242,7 +245,7 @@ export default function Select<
                 />
               </div>
             )}
-            <Scroll vertical className="max-h-[200px]">
+            <Scroll vertical className="max-h-[200px] w-full">
               <Ariakit.ComboboxList>
                 {allOption && !searchInput && (
                   <Ariakit.SelectItem
