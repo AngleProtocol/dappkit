@@ -5,7 +5,7 @@ import { mergeClass } from "../../utils/css";
 import type { Component, Styled } from "../../utils/types";
 import Icon from "./Icon";
 import Title from "./Title";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 
 export const accordionStyles = tv({
   base: "w-full flex items-center justify-between pb-xl",
