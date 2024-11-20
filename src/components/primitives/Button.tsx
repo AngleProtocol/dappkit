@@ -40,6 +40,7 @@ export type ButtonProps = Component<
       external?: boolean;
       className?: string;
       type?: "button" | "submit" | "reset";
+      disabled?: boolean;
     },
   HTMLButtonElement
 >;
@@ -52,6 +53,7 @@ export default function Button({
   className,
   children,
   external,
+  disabled,
   ...props
 }: ButtonProps) {
   const themeVars = useThemableProps(props);
@@ -64,7 +66,7 @@ export default function Button({
 
       <Link
         to={to}
-        className={mergeClass(styleProps, className)}
+        className={mergeClass(styleProps, className, disabled && "disabled")}
         {...(external && {
           target: "_blank",
           rel: "noopener noreferrer",
@@ -81,6 +83,7 @@ export default function Button({
       style={themeVars}
       className={mergeClass(styleProps, className)}
       type="button"
+      disabled={disabled}
       {...props}
     >
       {children}

@@ -25,8 +25,8 @@ export const demoThemes: Themes = {
   },
   ignite: {
     base: createColoring(
-      ["#7F89F2", "#FFA200", "#111111"],
-      ["#7F89F2", "#FFA200", "#FFFFFF"]
+      ["#1755F4", "#FF7900", "#0D1530"],
+      ["#1755F4", "#FF7900", "#FFFFFF"]
     ),
     info: createColoring(
       ["#2ABDFF", "#2ABDFF", "#131620"],

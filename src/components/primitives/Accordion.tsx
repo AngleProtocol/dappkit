@@ -54,27 +54,30 @@ export default function Accordion({
     >
       {items.map((item, index) => {
         return (
-          <div className="w-full overflow-y-hidden" key={item.key}>
+          <div
+            className="[&>*]:first:pt-0 w-full overflow-y-hidden"
+            key={item.key}
+          >
             <motion.div
-              className="border-b-2 py-xl  border-accent-10"
+              className="border-b-2 py-lg*2 border-main-8"
               initial={{ y: "100%" }}
               whileInView={{ y: 0 }}
               transition={{ delay: 0.2 * index }}
               viewport={{ once: true }}
             >
-              <RadixAccordion.Item value={`item-${index}`}>
-                <RadixAccordion.Trigger className="text-left overflow-hidden text-main-12 [&>svg]:data-[state=open]:rotate-0 [&>*]:data-[state=open]:!text-main-11 w-full flex items-center justify-between">
+              <RadixAccordion.Item value={`item-${index}`} className="faq-item">
+                <RadixAccordion.Trigger className="faq-item__trigger text-left overflow-hidden [&>*]:text-main-8 [&>i]:data-[state=closed]:rotate-45 [&>i]:data-[state=open]:rotate-0 w-full flex items-center justify-between">
                   <Title h={3} className="ease">
                     {item.trigger}
                   </Title>
                   <Icon
                     remix="RiCloseLargeFill"
-                    className="rotate-45 ease"
+                    className="ease"
                     alt="cross"
                     aria-hidden
                   />
                 </RadixAccordion.Trigger>
-                <RadixAccordion.Content className="overflow-hidden data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp xl:w-4/5 text-main-11">
+                <RadixAccordion.Content className="overflow-hidden data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp xl:w-4/5 text-main-12">
                   <div className="pt-xl">{item.content}</div>
                 </RadixAccordion.Content>{" "}
               </RadixAccordion.Item>
