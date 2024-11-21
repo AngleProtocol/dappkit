@@ -66,13 +66,14 @@ export default function Accordion({
               viewport={{ once: true }}
             >
               <RadixAccordion.Item value={`item-${index}`} className="faq-item">
-                <RadixAccordion.Trigger className="faq-item__trigger text-left overflow-hidden [&>*]:text-main-10 [&>i]:data-[state=closed]:rotate-45 [&>i]:data-[state=open]:rotate-0 w-full flex items-center justify-between">
+                <RadixAccordion.Trigger className="faq-item__trigger text-left overflow-hidden [&>*]:text-main-10 [&>svg]:data-[state=closed]:rotate-180 [&>svg]:data-[state=open]:rotate-0 w-full flex items-center justify-between">
                   <Title h={3} className="ease">
                     {item.trigger}
                   </Title>
                   <Icon
-                    remix="RiCloseLargeFill"
-                    className="ease"
+                    remix="RiArrowUpSLine"
+                    size="lg"
+                    className="ease "
                     alt="cross"
                     aria-hidden
                   />
