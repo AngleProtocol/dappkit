@@ -20,7 +20,7 @@ export default function Tooltip({
     <RadixTooltip.Provider delayDuration={0}>
       <RadixTooltip.Root>
         <RadixTooltip.Trigger asChild>
-          <span className="inline-flex items-center cursor-pointer">
+          <span className="inline-flex items-center">
             <div>{children}</div>
             {!!icon && <Icon remix="RiQuestionLine" alt="Tooltip" />}
           </span>
