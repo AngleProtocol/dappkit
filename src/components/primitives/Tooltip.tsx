@@ -34,7 +34,7 @@ export default function Tooltip({
             <Text size="sm" className="text-main-12">
               {helper}
             </Text>
-            <RadixTooltip.Arrow className="TooltipArrow fill-salmon" />
+            <RadixTooltip.Arrow />
           </RadixTooltip.Content>
         </RadixTooltip.Portal>
       </RadixTooltip.Root>
