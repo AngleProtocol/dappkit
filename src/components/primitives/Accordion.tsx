@@ -5,6 +5,7 @@ import { mergeClass } from "../../utils/css";
 import type { Component, Styled } from "../../utils/types";
 import Icon from "./Icon";
 import Title from "./Title";
+import { motion } from "framer-motion";
 
 export const accordionStyles = tv({
   base: "w-full flex items-center justify-between pb-xl",
@@ -49,32 +50,40 @@ export default function Accordion({
         className
       )}
       type="single"
-      defaultValue="item-1"
       collapsible
     >
       {items.map((item, index) => {
         return (
-          <RadixAccordion.Item
+          <div
+            className="[&>*]:first:pt-0 w-full overflow-y-hidden"
             key={item.key}
-            className="w-full border-b-2 py-xl border-accent-10 first:pt-0 focus-within:relative focus-within:z-10 focus-within:outline-dotted focus-within:outline-offset-4 focus-within:outline-accent-8"
-            value={`item-${index}`}
           >
-            <RadixAccordion.Trigger className="text-left overflow-hidden text-main-12 [&>svg]:data-[state=open]:rotate-0 [&>*]:data-[state=open]:!text-accent-12 w-full flex items-center justify-between">
-              <Title h={3} className="ease">
-                {item.trigger}
-              </Title>
-              <Icon
-                remix="RiCloseLargeFill"
-                className="rotate-45 ease"
-                alt="cross"
-                aria-hidden
-              />
-            </RadixAccordion.Trigger>
-
-            <RadixAccordion.Content className="overflow-hidden data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp xl:w-4/5 text-accent-12">
-              <div className="pt-xl"> {item.content}</div>
-            </RadixAccordion.Content>
-          </RadixAccordion.Item>
+            <motion.div
+              className="border-b-2 py-lg*2 border-main-10"
+              initial={{ y: "100%" }}
+              whileInView={{ y: 0 }}
+              transition={{ delay: 0.2 * index }}
+              viewport={{ once: true }}
+            >
+              <RadixAccordion.Item value={`item-${index}`} className="faq-item">
+                <RadixAccordion.Trigger className="faq-item__trigger text-left overflow-hidden [&>*]:text-main-10 [&>svg]:data-[state=closed]:rotate-180 [&>svg]:data-[state=open]:rotate-0 w-full flex items-center justify-between">
+                  <Title h={3} className="ease">
+                    {item.trigger}
+                  </Title>
+                  <Icon
+                    remix="RiArrowUpSLine"
+                    size="lg"
+                    className="ease "
+                    alt="cross"
+                    aria-hidden
+                  />
+                </RadixAccordion.Trigger>
+                <RadixAccordion.Content className="overflow-hidden data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp xl:w-4/5 text-main-12">
+                  <div className="pt-xl">{item.content}</div>
+                </RadixAccordion.Content>{" "}
+              </RadixAccordion.Item>
+            </motion.div>
+          </div>
         );
       })}
     </RadixAccordion.Root>

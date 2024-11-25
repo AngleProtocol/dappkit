@@ -44,38 +44,38 @@ const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
   return (
     <>
       <Group className="items-center leading-none">
-        <Title h={5} size={2} className="!leading-none">
+        <Title h={5} size={2} className="!leading-none !text-main-1">
           {timeRemaining.days}
         </Title>
-        <Text className="!text-main-1">
+        <Text size={5} className="!text-main-8">
           d<span className="hidden md:inline">ays</span>
         </Text>
       </Group>
       <Divider vertical className="md:mx-lg" />
       <Group className="items-center">
-        <Title h={5} size={2} className="!leading-none">
+        <Title h={5} size={2} className="!leading-none !text-main-1">
           {timeRemaining.hours}
         </Title>
-        <Text className="!text-main-1">
+        <Text size={5} className="!text-main-8">
           h<span className="hidden md:inline">ours</span>
         </Text>
       </Group>
       <Divider vertical className="md:mx-lg" />
       <Group className="items-center">
-        <Title h={5} size={2} className="!leading-none">
+        <Title h={5} size={2} className="!leading-none !text-main-1">
           {timeRemaining.minutes}
         </Title>
-        <Text className="!text-main-1">
+        <Text size={5} className="!text-main-8">
           m<span className="hidden md:inline">inutes</span>
         </Text>
       </Group>
 
-      <Divider vertical className="md:mx-lg lg:hidden" />
-      <Group className="items-center lg:hidden">
-        <Title h={5} size={2} className="!leading-none">
+      <Divider vertical className="md:mx-lg hidden md:block lg:hidden" />
+      <Group className="items-center hidden md:flex lg:hidden">
+        <Title h={5} size={2} className="!leading-none !text-main-1">
           {timeRemaining.seconds}
         </Title>
-        <Text className="!text-main-1">
+        <Text size={5} className="!text-main-8">
           s<span className="hidden md:inline">econds</span>
         </Text>
       </Group>

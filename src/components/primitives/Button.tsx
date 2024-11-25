@@ -1,6 +1,5 @@
 import { Link } from "@remix-run/react";
 import { tv, type VariantProps } from "tailwind-variants";
-import useThemedVariables from "../../hooks/theming/useThemedVariables";
 import { mergeClass } from "../../utils/css";
 import type { Component, Themable } from "../../utils/types";
 import useThemableProps from "../../hooks/theming/useThemableProps";
@@ -16,14 +15,14 @@ export const buttonStyles = tv({
       base: "bg-main-4 border-main-6 hover:bg-main-4 active:bg-main-3 hover:text-main-12 focus-visible:border-main-9",
       bold: "bg-main-4 border-main-4 hover:bg-main-5 active:bg-main-3 text-main-12 focus-visible:border-main-9",
       tint: "bg-accent-3 border-accent-3 hover:bg-accent-5 active:bg-accent-3 text-accent-11 focus-visible:border-accent-9",
-      hype: "bg-accent-9 border-accent-9 hover:bg-accent-10 active:bg-accent-8 text-main-1 focus-visible:border-accent-10",
+      hype: "bg-accent-11 border-accent-9 hover:bg-accent-12 font-title active:bg-accent-8 ease text-main-1 font-semibold focus-visible:border-accent-10",
     },
     size: {
       xs: "px-xs py-xs rounded-xs gap-xs text-xs",
       sm: "px-sm py-sm/2 rounded-sm gap-sm text-sm",
       md: "px-md py-md/2 rounded-md gap-md text-base",
       lg: "px-lg py-lg/2 rounded-lg gap-lg text-lg",
-      xl: "px-xl py-lg rounded-xl gap-lg/2 text-xl",
+      xl: "px-lg*2 py-lg rounded-xl gap-lg/2 text-xl",
     },
   },
   defaultVariants: {
@@ -41,6 +40,7 @@ export type ButtonProps = Component<
       external?: boolean;
       className?: string;
       type?: "button" | "submit" | "reset";
+      disabled?: boolean;
     },
   HTMLButtonElement
 >;
@@ -53,6 +53,7 @@ export default function Button({
   className,
   children,
   external,
+  disabled,
   ...props
 }: ButtonProps) {
   const themeVars = useThemableProps(props);
@@ -65,7 +66,7 @@ export default function Button({
 
       <Link
         to={to}
-        className={mergeClass(styleProps, className)}
+        className={mergeClass(styleProps, className, disabled && "disabled")}
         {...(external && {
           target: "_blank",
           rel: "noopener noreferrer",
@@ -82,6 +83,7 @@ export default function Button({
       style={themeVars}
       className={mergeClass(styleProps, className)}
       type="button"
+      disabled={disabled}
       {...props}
     >
       {children}

@@ -8,7 +8,7 @@ import { ButtonProps } from "../primitives/Button";
 
 export const cardStyles = tv({
   extend: boxStyles,
-  base: "text-main-11 flex !justify-start items-center outline-offset-0 outline-0 text-nowrap font-main font-bold",
+  base: "text-main-11 flex !justify-start items-center outline-offset-0 outline-0 text-nowrap font-text font-bold",
   variants: {
     look: {
       soft: "",
@@ -27,7 +27,10 @@ export const cardStyles = tv({
   },
 });
 
-export type CardProps = Component<Styled<typeof cardStyles> & Themable, HTMLButtonElement>;
+export type CardProps = Component<
+  Styled<typeof cardStyles> & Themable,
+  HTMLButtonElement
+>;
 
 export default function Card({
   look,
@@ -46,9 +49,16 @@ export default function Card({
     return (
       <Link
         {...{ size, look }}
-        className={mergeClass(cardStyles({ look: look === "text" ? "base" : look ?? "base", size: size ?? "md" }), className)}
+        className={mergeClass(
+          cardStyles({
+            look: look === "text" ? "base" : look ?? "base",
+            size: size ?? "md",
+          }),
+          className
+        )}
         to={to}
-        type="button">
+        type="button"
+      >
         {children}
       </Link>
     );
@@ -57,9 +67,16 @@ export default function Card({
   return (
     <button
       style={themeVars}
-      className={mergeClass(cardStyles({ look: look === "text" ? "base" : look ?? "base", size: size ?? "md" }), className)}
+      className={mergeClass(
+        cardStyles({
+          look: look === "text" ? "base" : look ?? "base",
+          size: size ?? "md",
+        }),
+        className
+      )}
       {...props}
-      type="button">
+      type="button"
+    >
       {children}
     </button>
   );

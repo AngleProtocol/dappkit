@@ -3,7 +3,7 @@ import { tv } from "tailwind-variants";
 import type { Component, Styled } from "../../utils/types";
 
 export const textStyles = tv({
-  base: "text-main-11 font-default font-normal text-[clamp(15px,0.4167vw+0.78125rem,20px)]",
+  base: "text-main-11 font-text font-normal text-[clamp(15px,0.4167vw+0.78125rem,20px)]",
   variants: {
     look: {
       base: "text-main-11",
@@ -19,13 +19,13 @@ export const textStyles = tv({
       lg: "text-lg",
       xl: "text-xl",
       display1:
-        "font-bold leading-tight !text-[clamp(92px,3.33vw+4.5rem,130px)]",
-      1: "text-3xl",
-      2: "font-bold leading-tight !text-[clamp(52px,1.1667vw+2.8125rem,66px)]",
-      3: "font-bold leading-normal !text-[clamp(28px,1vw+1.375rem,40px)]",
-      4: "leading-normal !text-[clamp(16px,1vw+1.375rem,30px)]",
-      5: "font-bold leading-normal text-[clamp(15px,0.4167vw+0.78125rem,20px)] uppercase tracking-[1.6px] ",
-      6: "text-sm",
+        "font-title font-bold leading-tight italic uppercase !text-[clamp(44px,5vw+0.875rem,104px)]",
+      1: "font-title text-3xl",
+      2: "font-title font-bold leading-none !text-[clamp(52px,1vw+2.875rem,64px)]",
+      3: "font-title font-bold leading-normal italic !text-[clamp(28px,1vw+1.375rem,40px)]",
+      4: "font-title leading-normal !text-[clamp(16px,1vw+1.375rem,30px)]",
+      5: "font-title font-semibold leading-normal text-[clamp(15px,0.25vw+0.84375rem,18px)] uppercase tracking-[1.6px] ",
+      6: "font-title text-sm",
     },
     interactable: {
       true: "cursor-pointer select-none",

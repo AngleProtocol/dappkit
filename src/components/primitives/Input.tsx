@@ -7,7 +7,7 @@ import { formatUnits, parseUnits } from "viem";
 import { format } from "numerable";
 
 export const inputStyles = tv({
-  base: "text-main-11 flex items-center gap-1 border-1 outline-offset-0 outline-0 text-nowrap font-main",
+  base: "text-main-11 flex items-center gap-1 border-1 outline-offset-0 outline-0 text-nowrap font-text",
   variants: {
     look: {
       none: "bg-main-0 border-0",
