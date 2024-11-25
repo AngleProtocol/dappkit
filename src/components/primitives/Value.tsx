@@ -4,11 +4,11 @@ import { format } from "numerable";
 import { tv } from "tailwind-variants";
 
 export const valueStyles = tv({
-  base: "text-main-11 font-mono font-normal",
+  base: "font-mono font-normal",
   variants: {
     look: {
+      soft: "text-main-8",
       base: "text-main-11",
-      soft: "text-main-11",
       bold: "text-secondary-12",
       tint: "text-accent-12",
       hype: "text-accent-11",
@@ -27,7 +27,7 @@ export const valueStyles = tv({
   },
 });
 
-export type ValueFormatProps = { children?: number; format: string; value?: boolean };
+export type ValueFormatProps = { children?: number | string; format: string; value?: boolean };
 export type ValueProps = Component<Styled<typeof valueStyles> & ValueFormatProps, HTMLDivElement>;
 
 export default function Value({ look, size, value, className, format: _format, children, ...props }: ValueProps) {

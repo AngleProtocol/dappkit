@@ -2,6 +2,9 @@ import { Indicator, type CheckboxProps as RadixCheckboxProps, Root } from "@radi
 import { tv } from "tailwind-variants";
 import { mergeClass } from "../../utils/css";
 import type { Component, GetSet, Styled } from "../../utils/types";
+import Icon from "./Icon";
+import VisuallyHidden from "../VisuallyHidden";
+import { blockEvent } from "../../utils/event";
 
 export const checkboxStyles = tv({
   base: "text-main-11 flex items-center bg-gradient-to-tr border-1 outline-offset-0 outline-0 text-nowrap font-main font-bold",
@@ -31,11 +34,11 @@ export default function Checkbox({ look, size, state, className }: CheckboxProps
   return (
     <Root
       checked={!!getter}
-      onCheckedChange={v => setter?.(v === "indeterminate" ? false : v)}
+      onClick={blockEvent(() => setter?.(!getter))}
+      onCheckedChange={v => setter?.(!v)}
       className={mergeClass(checkboxStyles({ look: look ?? "base", size: size ?? "md" }), className)}
-      defaultChecked
-      id="c1">
-      x<Indicator className="text-violet11">x</Indicator>
+      defaultChecked>
+      <Icon className={!getter && "text-main-0"} size={size} remix="RiCheckFill" />
     </Root>
   );
 }

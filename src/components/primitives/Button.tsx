@@ -5,9 +5,10 @@ import { mergeClass } from "../../utils/css";
 import type { Component, Themable } from "../../utils/types";
 import useThemableProps from "../../hooks/theming/useThemableProps";
 import { blockEvent } from "../../utils/event";
+import EventBlocker from "./EventBlocker";
 
 export const buttonStyles = tv({
-  base: "text-main-11 flex items-center outline-offset-0 outline-0 text-nowrap font-main font-bold text-[clamp(15px,0.4167vw+0.78125rem,20px)]",
+  base: "text-main-11 flex items-center select-none outline-offset-0 outline-0 text-nowrap font-main font-bold text-[clamp(15px,0.4167vw+0.78125rem,20px)]",
   variants: {
     look: {
       text: "!p-0 lg:opacity-100 lg:hover:opacity-70 transition-opacity text-main-12",
@@ -60,6 +61,8 @@ export default function Button({
 
   if (to) {
     return (
+      <EventBlocker>
+
       <Link
         to={to}
         className={mergeClass(styleProps, className)}
@@ -67,9 +70,10 @@ export default function Button({
           target: "_blank",
           rel: "noopener noreferrer",
         })}
-      >
+        >
         {children}
       </Link>
+        </EventBlocker>
     );
   }
 
