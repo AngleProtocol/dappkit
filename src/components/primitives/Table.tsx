@@ -219,6 +219,7 @@ export function Table<T extends Columns>({
   sortable,
   columns,
   header,
+  footer,
   order,
   sort,
   onSort,
@@ -258,6 +259,7 @@ export function Table<T extends Columns>({
       {!!header ? <Box className="bg-auto">{header}</Box> : undefined}
       <Row columns={columns} {...headers} />
       {children}
+      {!!footer ? <Box className="bg-auto">{footer}</Box> : undefined}
     </List>
   );
 }

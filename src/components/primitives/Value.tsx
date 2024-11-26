@@ -1,6 +1,7 @@
 import { mergeClass } from "dappkit/src";
 import type { Component, Styled } from "dappkit/src";
 import { format } from "numerable";
+import { ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
 export const valueStyles = tv({
@@ -27,7 +28,7 @@ export const valueStyles = tv({
   },
 });
 
-export type ValueFormatProps = { children?: number | string; format: string; value?: boolean };
+export type ValueFormatProps = { children?: number | string; format: string; value?: boolean, fallback?: (value: number | string) => ReactNode };
 export type ValueProps = Component<Styled<typeof valueStyles> & ValueFormatProps, HTMLDivElement>;
 
 export default function Value({
@@ -37,6 +38,7 @@ export default function Value({
   className,
   format: _format,
   children,
+  fallback,
   ...props
 }: ValueProps) {
   if (value) return format(children, _format, { currency: "USD" });
@@ -45,7 +47,7 @@ export default function Value({
       className={mergeClass(valueStyles({ size, look }), className)}
       {...props}
     >
-      {format(children, _format, { currency: "USD" })}
+      {children && (fallback?.(children) || format(children, _format, { currency: "USD" }))}
     </div>
   );
 }

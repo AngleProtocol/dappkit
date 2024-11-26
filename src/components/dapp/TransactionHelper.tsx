@@ -14,10 +14,6 @@ export type TransactionHelperProps = UseSendTransactionReturnType<ResolvedRegist
 };
 
 export default function TransactionHelper({ status, data,  variables, execute }: TransactionHelperProps) {
-  useEffect(() => {
-    status === "idle" && execute?.();
-  }, []);
-
   const statusBar = useMemo(() => {
     switch (status) {
       case "error":

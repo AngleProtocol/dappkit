@@ -180,6 +180,7 @@ export default function Select<
   const [searchInput, setSearch] = useState<string>();
 
   const matches = useMemo(() => {
+    if (!search) return Object.keys(options ?? {});
     // const textToMatch = Object.keys(options ?? {}).map(option => `${option}_${options[option]?.props?.children?.filter(a => typeof a !== "object").join(" ")}`)
     const textToMatch = Object.keys(options ?? {}).reduce((matches, option) => {
       const opt = options?.[option];
@@ -213,7 +214,7 @@ export default function Select<
     ) as (typeof value)[];
 
     return uniqueOptionMatches;
-  }, [options, searchInput]);
+  }, [options, searchInput, search]);
 
   const label = useMemo(() => {
     if (
@@ -251,7 +252,7 @@ export default function Select<
         value={value as string}
         defaultValue={multiple ? [] : undefined}
       >
-        <Ariakit.Select className={base()}>
+        <Ariakit.Select className={mergeClass(base(), className)}>
           <div className={valueStyle()}>{label}</div>
           <div className={icon()}>
             {loading ? <Icon className="animate-spin" remix="RiLoader4Fill"/> : <Icon remix="RiArrowDropDownLine" />}
