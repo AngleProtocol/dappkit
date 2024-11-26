@@ -47,16 +47,17 @@ function useThemeState(themes: Themes, sizing: Sizing) {
 
   const vars = useMemo(() => {
     const colors = variables?.[theme]?.base?.[mode];
-    const spacing = reduceSpacingIntoVariables(
-      sizing.spacing,
-      "spacing"
-    );
-    const radius = reduceSpacingIntoVariables(
-      sizing.radius,
-      "radius"
-    );
+    const spacing = reduceSpacingIntoVariables(sizing.spacing, "spacing");
+    const radius = reduceSpacingIntoVariables(sizing.radius, "radius");
 
-    return Object.assign({}, colors.accent, colors.main, colors.background, spacing, radius);
+    return Object.assign(
+      {},
+      colors.accent,
+      colors.main,
+      colors.background,
+      spacing,
+      radius
+    );
   }, [mode, theme, variables, sizing]);
 
   return {
@@ -71,7 +72,10 @@ function useThemeState(themes: Themes, sizing: Sizing) {
   };
 }
 
-export type ThemeProviderProps = PropsWithChildren<{ themes: Themes, sizing: Sizing }>;
+export type ThemeProviderProps = PropsWithChildren<{
+  themes: Themes;
+  sizing: Sizing;
+}>;
 export default function ThemeProvider({
   themes,
   sizing,
@@ -81,7 +85,12 @@ export default function ThemeProvider({
 
   return (
     <ThemeContext.Provider value={value}>
-      <div data-theme={value?.theme} data-mode={value?.mode} style={value?.vars} className="bg-background h-[100vh] overflow-auto">
+      <div
+        data-theme={value?.theme}
+        data-mode={value?.mode}
+        style={value?.vars}
+        className="bg-background h-[100vh] overflow-auto"
+      >
         {children}
       </div>
     </ThemeContext.Provider>

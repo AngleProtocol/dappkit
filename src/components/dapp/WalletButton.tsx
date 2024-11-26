@@ -41,12 +41,9 @@ export default function WalletButton(props: ButtonProps) {
         title="Connect Wallet"
         description="Available wallets"
         className="mx-auto w-full max-w-[500px]"
-        modal={
-          <>
-            <WalletConnectors />
-          </>
-        }>
-        <Button look="hype">Connect</Button>
+        modal={<WalletConnectors />}
+      >
+        <Button look="hype">Connect wallet</Button>
       </Modal>
     );
 
@@ -81,7 +78,8 @@ export default function WalletButton(props: ButtonProps) {
               </Button>
             </Group>
           </>
-        }>
+        }
+      >
         <Button look="tint">{Format.address(address, "short")}</Button>
       </Dropdown>
     </>
