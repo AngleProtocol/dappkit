@@ -6,14 +6,14 @@ import { tv } from "tailwind-variants";
 import Image from "./Image";
 
 export const iconStyles = tv({
-  base: "flex flex-col border-0 gap-1 rounded-md overflow-hidden self-center aspect-square rounded-sm",
+  base: "flex flex-col border-0 gap-1 rounded-md overflow-hidden self-center rounded-sm",
   variants: {
     size: {
-      xs: "w-sm*2",
-      sm: "w-md*2",
-      md: "w-lg*2",
-      lg: "w-xl*2",
-      xl: "w-xl*4",
+      xs: "w-xs*4 h-xs*4",
+      sm: "w-sm*4 h-sm*4",
+      md: "w-md*4 h-md*4",
+      lg: "w-lg*4 h-lg*4",
+      xl: "w-xl*4 h-xl*4",
     },
     rounded: {
       true: "rounded-full",
@@ -57,5 +57,5 @@ export default function Icon({
     );
   }, [remix, alt, src, props]);
 
-  return <Component {...props} className={mergeClass(styles, className)} />
+  return <Component {...props} className={mergeClass(styles, className)} />;
 }

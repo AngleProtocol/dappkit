@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 import { generateVariableAssigners } from "../theming/tailwind";
 
-export const paddingScale = [2, 4, 6, 12, 16, 24];
+export const paddingScale = [2, 4, 8, 12, 16];
 export const radiusScale = [2, 4, 8, 12, 16, 24];
 export const sizeScale = ["xs", "sm", "md", "lg", "xl"] as const;
 export const lookScale = ["soft", "base", "bold", "tint", "hype"] as const
@@ -75,14 +75,12 @@ export const generateTailwindConfig = () =>
     colors: {
       ...variableConfig?.colors,
     },
-
     screens: {
       md: "640px",
       lg: "1024px",
       xl: "1536px",
       xxl: "2065px",
     },
-
     borderRadius: {
       0: "0",
       full: "100vmax",
@@ -120,11 +118,11 @@ export const generateTailwindConfig = () =>
       6: "8px",
     },
     fontSize: {
-      xs: "clamp(12px,calc(0.4167vw + 0.67rem),14px)",
-      sm: "clamp(13px,calc(0.4167vw + 0.68359375rem),16px)",
-      base: "clamp(15px,calc(0.4167vw + 0.78125rem),20px)",
-      lg: "clamp(18px,calc(0.4167vw + 0.87890625rem),22px)",
-      xl: "clamp(20px,calc(0.4167vw + 0.9765625rem),26px)",
+      xs: "10px",
+      sm: "12px",
+      base: "14px",
+      lg: "16px",
+      xl: "20px",
       "2xl": "clamp(22px,calc(0.4167vw + 1.171875rem),28px)",
       "3xl": "clamp(24px,calc(0.4167vw + 1.46484375rem),30px)",
     },
