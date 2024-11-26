@@ -38,7 +38,3 @@ body {
 :focus:not(:focus-visible) {
   outline: none;
 }
-
-.ease {
-  transition: all 0.2s ease-in-out;
-}

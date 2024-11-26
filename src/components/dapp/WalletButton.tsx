@@ -53,20 +53,18 @@ export default function WalletButton(props: ButtonProps) {
       <Dropdown
         content={
           <>
-            <Title h={3}>
-              <Group className="items-center">
-                <Image className="h-5" src={connector?.icon} />
-                {Format.address(address, "short")}
-                <Button size="xs">
-                  <Icon size="sm" remix="RiFileCopyFill" />
-                </Button>
-                <Button coloring={"harm"} onClick={disconnect} size="xs">
-                  <Icon size="sm" remix="RiShutDownLine" />
-                </Button>
-              </Group>
-            </Title>
             <Group className="items-center">
-              <Text size="xs">Connected with {connector?.name}</Text>
+              <Image src={connector?.icon} />
+              <Title h={4}>{Format.address(address, "short")}</Title>
+              <Button size="xs">
+                <Icon size="sm" remix="RiFileCopyFill" />
+              </Button>
+              <Button coloring={"harm"} onClick={disconnect} size="xs">
+                <Icon size="sm" remix="RiShutDownLine" />
+              </Button>
+            </Group>
+            <Group className="items-center">
+              <Text size="sm">Connected with {connector?.name}</Text>
             </Group>
             <Divider horizontal className="border-main-6 mt-4" />
             <Group className="items-center flex-col [&>*]:w-full">
