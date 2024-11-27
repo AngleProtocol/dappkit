@@ -1,6 +1,6 @@
 # # DappKit
 
-A component library designed to quickly create customizable and accessible user interfaces for EVM decentralized applications. 
+A component library designed to quickly create customizable and accessible user interfaces for EVM decentralized applications.
 
 Built upon [React](https://react.dev/), [Tailwind](https://tailwindcss.com/) + [Variants](https://www.tailwind-variants.org/), [Radix Primitives](https://www.radix-ui.com/primitives) and [Wagmi](https://wagmi.sh/react/getting-started).
 
@@ -24,40 +24,59 @@ Once we have access to variables through tailwind classes, for each component we
 
 ![image](https://github.com/user-attachments/assets/5e64ace6-c88e-4d8f-b6a7-c9f16521c70f)
 
-Thanks to some generic typing and utility functions we can elegantly define components: 
+Thanks to some generic typing and utility functions we can elegantly define components:
 
 ```tsx
-import { mergeClass } from 'src/utils/css';
-import type { Component, Styled } from 'src/utils/types';
-import { tv } from 'tailwind-variants';
+import { mergeClass } from 'src/utils/css'
+import type { Component, Styled } from 'src/utils/types'
+import { tv } from 'tailwind-variants'
 
 export const buttonStyles = tv({
-    base: "text-main-11 flex items-center gap-1 border-1 outline-offset-0 outline-0 text-nowrap",
-    variants: {
-        look: {
-            base: "bg-main-4 border-main-7 hover:bg-main-5 active:bg-main-3 text-main-12 focus-visible:border-main-9",
-            soft: "bg-main-0 border-main-0 hover:bg-main-4 active:bg-main-3 hover:text-main-12  focus-visible:border-main-9",
-            bold: "bg-accent-4 border-accent-6 hover:bg-accent-5 active:bg-accent-3 text-main-12 focus-visible:border-accent-9",
-            hype: "bg-accent-9 border-accent-6 hover:bg-accent-10 active:bg-accent-8 text-accent-12 focus-visible:border-accent-10"
-        },
-        size: {
-            xs: "px-2 py-1 text-xs rounded",
-            sm: "px-3 py-2 text-sm rounded-sm",
-            md: "px-4 py-3 text-md rounded-md",
-            lg: "px-5 py-4 text-lg rounded-lg",
-            xl: "px-6 py-5 text-xl rounded-xl"
-        }
+  base:
+    'text-main-11 flex items-center gap-1 border-1 outline-offset-0 outline-0 text-nowrap',
+  variants: {
+    look: {
+      base:
+        'bg-main-4 border-main-7 hover:bg-main-5 active:bg-main-3 text-main-12 focus-visible:border-main-9',
+      soft:
+        'bg-main-0 border-main-0 hover:bg-main-4 active:bg-main-3 hover:text-main-12  focus-visible:border-main-9',
+      bold:
+        'bg-accent-4 border-accent-6 hover:bg-accent-5 active:bg-accent-3 text-main-12 focus-visible:border-accent-9',
+      hype:
+        'bg-accent-9 border-accent-6 hover:bg-accent-10 active:bg-accent-8 text-accent-12 focus-visible:border-accent-10',
     },
-    defaultVariants: {
-        size: "md",
-        look: "base"
-    }
+    size: {
+      xs: 'px-2 py-1 text-xs rounded',
+      sm: 'px-3 py-2 text-sm rounded-sm',
+      md: 'px-4 py-3 text-md rounded-md',
+      lg: 'px-5 py-4 text-lg rounded-lg',
+      xl: 'px-6 py-5 text-xl rounded-xl',
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+    look: 'base',
+  },
 })
 
-export type ButtonProps = Component<Styled<typeof buttonStyles>, HTMLButtonElement>
+export type ButtonProps = Component<
+  Styled<typeof buttonStyles>,
+  HTMLButtonElement
+>
 
-export default function Button({ look, size, className, ...props }: ButtonProps) {
-    return <button className={mergeClass(buttonStyles({ look, size }), className)} {...props} type="button"/>
+export default function Button({
+  look,
+  size,
+  className,
+  ...props
+}: ButtonProps) {
+  return (
+    <button
+      className={mergeClass(buttonStyles({ look, size }), className)}
+      {...props}
+      type="button"
+    />
+  )
 }
 ```
 
@@ -65,7 +84,11 @@ We then use them in the code in an abstract manner, the configuration of the the
 
 ```tsx
 function AnAbstractedButton() {
-  return <Button size="lg" look="hype">Explore opportunities</Button>
+  return (
+    <Button size="lg" look="hype">
+      Explore opportunities
+    </Button>
+  )
 }
 ```
 
@@ -78,23 +101,28 @@ We use a straightforward scale for every sizing variable: `xs, sm, md, lg, xl` t
 As of now, DappKit is not a build package, it exposes the .ts sources directly from the package. Our preferred way of intergrating the dappkit is through git submodules & workspaces:
 
 Add the submodule into `packages/` in your repository:
+
 ```bash
 git submodule add https://github.com/AngleProtocol/dappkit packages/dappkit
 ```
 
 Configure workspaces in yout `package.json`
+
 ```jsonc
 {
-  "workspaces": ["packages/*"],
+  "workspaces": ["packages/*"]
   //...
 }
 ```
 
-Update your packages (`bun i`), you will see `+ dappkit@workspace:packages/dappkit`, the package is now installed as `dappkit`: 
+Update your packages (`bun i`), you will see `+ dappkit@workspace:packages/dappkit`, the package is now installed as `dappkit`:
+
 ```ts
-import {Button} from "dappkit";
+import { Button } from 'dappkit'
 ```
+
 To import the tailwind config:
+
 ```ts
 //tailwind.config.ts
 import { generateTailwindConfig } from "dappkit/src/utils/tailwind";
@@ -114,3 +142,21 @@ You can preview and develop component using the included [Remix](https://remix.r
 ```shellscript
 npm run dev
 ```
+
+## License
+
+This project is licensed under the **BSD 3-Clause License with Specific Usage Restrictions**.
+
+### Key Terms
+
+- **Permitted Use**: This software may only be used to develop applications (frontend or backend) that directly interface with the Merkl incentive distribution solution.
+- **Prohibited Uses**:
+  - Developing standalone applications unrelated to the original backend.
+  - Creating competitive backend services or applications.
+  - Reverse engineering the core backend logic.
+  - Developing alternative backend implementations.
+- **Commercial Use**: Commercial use of this software, including incorporating it into paid products or services, is **strictly prohibited without prior written approval** from Angle Labs, Inc. For inquiries regarding commercial use, contact [contact@merkl.xyz](contact@merkl.xyz)
+
+### Full License
+
+For detailed terms and conditions, refer to the [`LICENSE`](./LICENSE) file in this repository.
