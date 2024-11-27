@@ -11,12 +11,13 @@ import {
   reduceColorIntoVariables,
 } from "../theming/coloring";
 import { reduceSpacingIntoVariables } from "../theming/spacing";
+import type { Sizing } from "../utils/tailwind";
 
 const ThemeContext = createContext<ReturnType<typeof useThemeState> | null>(
   null
 );
 
-function useThemeState(themes: Themes) {
+function useThemeState(themes: Themes, sizing: Sizing) {
   const [theme, setTheme] = useState<string>(Object.keys(themes ?? {})[0]);
   const [mode, setMode] = useState<"dark" | "light">("dark");
 
@@ -47,16 +48,16 @@ function useThemeState(themes: Themes) {
   const vars = useMemo(() => {
     const colors = variables?.[theme]?.base?.[mode];
     const spacing = reduceSpacingIntoVariables(
-      { xs: 2, sm: 4, md: 8, lg: 12, xl: 16 },
+      sizing.spacing,
       "spacing"
     );
     const radius = reduceSpacingIntoVariables(
-      { xs: 2, sm: 4, md: 6, lg: 8, xl: 12 },
+      sizing.radius,
       "radius"
     );
 
     return Object.assign({}, colors.accent, colors.main, colors.background, spacing, radius);
-  }, [mode, theme, variables]);
+  }, [mode, theme, variables, sizing]);
 
   return {
     theme,
@@ -70,12 +71,13 @@ function useThemeState(themes: Themes) {
   };
 }
 
-export type ThemeProviderProps = PropsWithChildren<{ themes: Themes }>;
+export type ThemeProviderProps = PropsWithChildren<{ themes: Themes, sizing: Sizing }>;
 export default function ThemeProvider({
   themes,
+  sizing,
   children,
 }: ThemeProviderProps) {
-  const value = useThemeState(themes);
+  const value = useThemeState(themes, sizing);
 
   return (
     <ThemeContext.Provider value={value}>

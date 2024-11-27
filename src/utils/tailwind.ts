@@ -1,10 +1,14 @@
-import { Config } from "tailwindcss";
+import type { Config } from "tailwindcss";
 import { generateVariableAssigners } from "../theming/tailwind";
 
 export const paddingScale = [2, 4, 6, 12, 16, 24];
 export const radiusScale = [2, 4, 8, 12, 16, 24];
 export const sizeScale = ["xs", "sm", "md", "lg", "xl"] as const;
-export const lookScale = ["soft", "base", "bold", "tint", "hype"] as const;
+export const lookScale = ["soft", "base", "bold", "tint", "hype"] as const
+export type Sizing = {
+  spacing: {[Size in (typeof sizeScale)[number]]: number},
+  radius: {[Size in (typeof sizeScale)[number]]: number},
+};
 
 export const variableConfig = generateVariableAssigners();
 
