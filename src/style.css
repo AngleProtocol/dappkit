@@ -30,7 +30,6 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
   min-height: 100vh;
-  z-index:1000;
 }
 
 :focus:not(:focus-visible) {
