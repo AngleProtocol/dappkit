@@ -1,13 +1,11 @@
 import type { Config } from "tailwindcss";
 import { generateVariableAssigners } from "../theming/tailwind";
 
-export const paddingScale = [2, 4, 8, 12, 16];
-export const radiusScale = [2, 4, 8, 12, 16, 24];
 export const sizeScale = ["xs", "sm", "md", "lg", "xl"] as const;
-export const lookScale = ["soft", "base", "bold", "tint", "hype"] as const
+export const lookScale = ["soft", "base", "bold", "tint", "hype"] as const;
 export type Sizing = {
-  spacing: {[Size in (typeof sizeScale)[number]]: number},
-  radius: {[Size in (typeof sizeScale)[number]]: number},
+  spacing: { [Size in (typeof sizeScale)[number]]: number };
+  radius: { [Size in (typeof sizeScale)[number]]: number };
 };
 
 export const variableConfig = generateVariableAssigners();
@@ -118,11 +116,11 @@ export const generateTailwindConfig = () =>
       6: "8px",
     },
     fontSize: {
-      xs: "10px",
-      sm: "12px",
-      base: "14px",
-      lg: "16px",
-      xl: "20px",
+      xs: "12px",
+      sm: "14px",
+      base: "16px",
+      lg: "18px",
+      xl: "22px",
       "2xl": "clamp(22px,calc(0.4167vw + 1.171875rem),28px)",
       "3xl": "clamp(24px,calc(0.4167vw + 1.46484375rem),30px)",
     },

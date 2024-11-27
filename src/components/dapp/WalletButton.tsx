@@ -17,23 +17,37 @@ import { useMemo } from "react";
 export type WalletButton = ButtonProps;
 
 export default function WalletButton(props: ButtonProps) {
-  const { address, disconnect, connected, connector, chainId, switchChain, chains } = useWalletContext();
+  const {
+    address,
+    disconnect,
+    connected,
+    connector,
+    chainId,
+    switchChain,
+    chains,
+  } = useWalletContext();
 
+  const chainOptions = useMemo(
+    () =>
+      chains?.reduce(
+        (obj, chain) =>
+          Object.assign(obj, {
+            [chain.id]: (
+              <>
+                <Icon size="sm" src={chain?.icon} />
+                {chain.name}
+              </>
+            ),
+          }),
+        {}
+      ) ?? [],
+    [chains]
+  );
 
-  const chainOptions = useMemo(()=> chains?.reduce(
-    (obj, chain) =>
-      Object.assign(obj, {
-        [chain.id]: (
-          <>
-            <Icon size="sm" src={chain?.icon} />
-            {chain.name}
-          </>
-        ),
-      }),
-    {},
-  ) ?? [], [chains]);
-
-  const chain = useMemo(() => chains.find(({id}) => id === chainId), [chains, chainId]);
+  const chain = useMemo(
+    () => chains.find(({ id }) => id === chainId),
+    [chains, chainId]
+  );
 
   if (!connected)
     return (
@@ -43,13 +57,18 @@ export default function WalletButton(props: ButtonProps) {
         className="mx-auto w-full max-w-[500px]"
         modal={<WalletConnectors />}
       >
-        <Button look="hype">Connect wallet</Button>
+        <Button look="hype" size="lg">
+          Connect wallet
+        </Button>
       </Modal>
     );
 
   return (
     <>
-      <Select state={[chainId, (c) => switchChain(+c)]} options={chainOptions}/>
+      <Select
+        state={[chainId, (c) => switchChain(+c)]}
+        options={chainOptions}
+      />
       <Dropdown
         content={
           <>
