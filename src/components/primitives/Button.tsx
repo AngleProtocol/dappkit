@@ -81,8 +81,7 @@ export default function Button({
   return (
     <button
       style={themeVars}
-      // className={styleProps}
-      className={mergeClass(styleProps)}
+      className={mergeClass(styleProps, className, disabled && "disabled")}
       type="button"
       disabled={disabled}
       {...props}

@@ -1,19 +1,21 @@
-import { Icon, mergeClass, OverrideTheme } from "dappkit/src";
+import { Icon, mergeClass, OverrideTheme, type Styled } from "dappkit/src";
 import { useMemo } from "react";
 import Text, { type TextProps } from "./Text";
 import useClipboard from "../../hooks/useClipboard";
 
+import type { textStyles } from "./Text";
+
 export type HashProps = Omit<TextProps, "children"> & {
   format: "full" | "short" | "prefix";
-  value?: boolean;
   children?: string;
+  size?: Styled<typeof textStyles>["size"];
   copy?: boolean;
 };
 
 export default function Hash({
   format,
-  value,
   copy,
+  size,
   children: hash,
   className,
   ...props
@@ -40,22 +42,21 @@ export default function Hash({
       copy && (
         <OverrideTheme coloring={isCopied ? "good" : undefined}>
           <Icon
-            className="text-main-9"
-            size="sm"
-            remix={isCopied ? "RiCheckboxCircleFill" : "RiFileCopyLine"}
+            className="text-main-11 !w-md*4 !h-md*4"
+            remix={isCopied ? "RiCheckboxCircleFill" : "RiFileCopyFill"}
           />
         </OverrideTheme>
       ),
     [copy, isCopied]
   );
 
-  if (value) return <span className="font-text">{formatted}</span>;
   return (
     <Text
+      size={size}
       onClick={() => copyCall(hash)}
       {...props}
       className={mergeClass(
-        "hover:underline active:no-underline cursor-pointer font-text gap-sm",
+        "items-center gap-md cursor-pointer font-text",
         copy && "select-none inline-flex",
         className
       )}
