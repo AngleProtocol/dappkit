@@ -12,14 +12,15 @@ import {
 } from "../theming/coloring";
 import { reduceSpacingIntoVariables } from "../theming/spacing";
 import type { Sizing } from "../utils/tailwind";
+import { Mode } from "../theming/variables";
 
 const ThemeContext = createContext<ReturnType<typeof useThemeState> | null>(
   null
 );
 
-function useThemeState(themes: Themes, sizing: Sizing) {
+function useThemeState(themes: Themes, sizing: Sizing, modes?: Mode[]) {
   const [theme, setTheme] = useState<string>(Object.keys(themes ?? {})[0]);
-  const [mode, setMode] = useState<"dark" | "light">("dark");
+  const [mode, setMode] = useState<"dark" | "light">(modes?.[0] ?? "dark");
 
   const variables = useMemo(
     () =>
@@ -68,20 +69,27 @@ function useThemeState(themes: Themes, sizing: Sizing) {
     themes,
     mode,
     setMode,
-    toggleMode: () => setMode((m) => (m === "dark" ? "light" : "dark")),
+    toggleMode: () => setMode((m) => {
+      const nextMode = (m === "dark" ? "light" : "dark")
+
+      if (modes && !modes.includes(nextMode)) return m;
+      return nextMode;
+    }),
   };
 }
 
 export type ThemeProviderProps = PropsWithChildren<{
   themes: Themes;
   sizing: Sizing;
+  modes?: Mode[];
 }>;
 export default function ThemeProvider({
   themes,
   sizing,
+  modes,
   children,
 }: ThemeProviderProps) {
-  const value = useThemeState(themes, sizing);
+  const value = useThemeState(themes, sizing, modes);
 
   return (
     <ThemeContext.Provider value={value}>
