@@ -28,12 +28,8 @@ export default function useWalletState(chains: Chain[]) {
   }
 
   async function switchChain(chainId: number) {
-    console.log(config);
-    
     wagmiCoreSwitchChain(config, {chainId });
   }
-
-  console.log(wagmiSwitchChain);
 
   return {
     config,
