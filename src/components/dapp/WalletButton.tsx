@@ -4,15 +4,14 @@ import Button, { type ButtonProps } from "../primitives/Button";
 import Divider from "../primitives/Divider";
 import Image from "../primitives/Image";
 import Text from "../primitives/Text";
-import Title from "../primitives/Title";
 import { Format } from "../../utils/format";
 import Modal from "../extenders/Modal";
 import Icon from "../primitives/Icon";
 import WalletConnectors from "./WalletConnectors";
-import List from "../primitives/List";
 import { useWalletContext } from "../../context/Wallet.context";
 import Select from "../extenders/Select";
 import { useMemo } from "react";
+import Hash from "../primitives/Hash";
 
 export type WalletButton = ButtonProps;
 
@@ -61,23 +60,29 @@ export default function WalletButton(props: ButtonProps) {
         options={chainOptions}
       />
       <Dropdown
+        size="lg"
+        padding="xs"
         content={
           <>
-            <Group className="items-center">
-              <Image src={connector?.icon} />
-              <Title h={4}>{Format.address(address, "short")}</Title>
-              <Button size="xs">
-                <Icon size="sm" remix="RiFileCopyFill" />
-              </Button>
-              <Button coloring={"harm"} onClick={disconnect} size="xs">
-                <Icon size="sm" remix="RiShutDownLine" />
+            <Group className="items-center" size="lg">
+              <Image className="h-lg*2 w-lg*2" src={connector?.icon} />
+              <Hash size="lg" copy format="short">
+                {address}
+              </Hash>
+              <Button
+                look="soft"
+                coloring={"harm"}
+                onClick={disconnect}
+                size="lg"
+              >
+                <Icon remix="RiShutDownLine" />
               </Button>
             </Group>
             <Group className="items-center">
               <Text size="sm">Connected with {connector?.name}</Text>
             </Group>
             <Divider horizontal className="border-main-6 mt-4" />
-            <Group className="items-center flex-col [&>*]:w-full">
+            <Group className="flex-col items-start">
               <Button size="sm" look="soft">
                 Explorer
               </Button>

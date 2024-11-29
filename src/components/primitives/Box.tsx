@@ -18,7 +18,7 @@ export const boxStyles = tv({
       xs: "p-xs gap-xs",
       sm: "p-sm gap-sm",
       md: "p-md gap-md",
-      lg: "p-lg gap-lg",
+      lg: "p-lg gap-md",
       xl: "p-xl gap-xl",
     },
     container: {

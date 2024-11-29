@@ -1,18 +1,23 @@
 import * as Popover from "@radix-ui/react-popover";
 import { type ReactNode, useState } from "react";
-import Box from "../primitives/Box";
+import Box, { type BoxProps } from "../primitives/Box";
 import { useTheme } from "../../context/Theme.context";
 import type { Component, GetSet } from "../../utils/types";
 import { blockEvent } from "../../utils/event";
 import EventBlocker from "../primitives/EventBlocker";
 
-export type DropdownProps = Component<{
-  state?: GetSet<boolean>;
-  content?: ReactNode;
-}>;
+export type DropdownProps = Component<
+  {
+    padding?: BoxProps["content"];
+    state?: GetSet<boolean>;
+    content?: ReactNode;
+  },
+  BoxProps
+>;
 
 export default function Dropdown({
   state,
+  padding,
   content,
   children,
   className,
@@ -37,9 +42,9 @@ export default function Dropdown({
           <EventBlocker>
             <Box
               look="bold"
-              size="md"
-              content="sm"
               className="mt-md mx-lg shadow-md animate-drop z-20 "
+              {...(props as BoxProps)}
+              content={padding}
             >
               {content}
             </Box>

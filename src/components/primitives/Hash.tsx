@@ -56,8 +56,8 @@ export default function Hash({
       onClick={() => copyCall(hash)}
       {...props}
       className={mergeClass(
-        "items-center gap-md cursor-pointer font-text",
-        copy && "select-none inline-flex",
+        "items-center gap-sm cursor-pointer font-text",
+        copy && "dim select-none inline-flex",
         className
       )}
     >
