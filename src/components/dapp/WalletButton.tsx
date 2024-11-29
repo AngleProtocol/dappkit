@@ -27,22 +27,13 @@ export default function WalletButton(props: ButtonProps) {
     chains,
   } = useWalletContext();
 
-  const chainOptions = useMemo(
-    () =>
-      chains?.reduce(
-        (obj, chain) =>
-          Object.assign(obj, {
-            [chain.id]: (
-              <>
-                <Icon size="sm" src={chain?.icon} />
-                {chain.name}
-              </>
-            ),
-          }),
-        {}
-      ) ?? [],
-    [chains]
-  );
+  const chainOptions = useMemo(() => {
+    if (!chains) return [];
+    return chains.reduce((obj, chain) => {
+      obj[chain.id] = <>{chain.name}</>;
+      return obj;
+    }, {});
+  }, [chains]);
 
   const chain = useMemo(
     () => chains.find(({ id }) => id === chainId),
