@@ -42,7 +42,7 @@ export default function Hash({
       copy && (
         <OverrideTheme coloring={isCopied ? "good" : undefined}>
           <Icon
-            className="text-main-11 !w-md*4 !h-md*4"
+            className="text-main-11"
             remix={isCopied ? "RiCheckboxCircleFill" : "RiFileCopyFill"}
           />
         </OverrideTheme>
