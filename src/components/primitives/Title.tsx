@@ -3,30 +3,25 @@ import { tv } from "tailwind-variants";
 import type { Component, Styled } from "../../utils/types";
 import { textStyles } from "./Text";
 
-export const titleStyles = tv({
-  extend: textStyles,
-  base: "text-main-12 font-title font-semibold",
-  variants: {
-    look: {
-      base: "text-main-12",
-      soft: "text-main-11",
-      bold: "text-secondary-12",
-      hype: "text-accent-12",
+export const titleStyles = tv(
+  {
+    extend: textStyles,
+    base: "text-main-12 font-title font-semibold",
+    variants: {
+      look: {
+        base: "text-main-12",
+        soft: "text-main-11",
+        bold: "text-secondary-12",
+        hype: "text-accent-12",
+      },
     },
-    // h: {
-    //   1: "text-3xl",
-    //   2: "text-2xl",
-    //   3: "text-xl",
-    //   4: "text-md",
-    //   5: "text-sm",
-    //   6: "text-sm",
-    // },
+    defaultVariants: {
+      size: "md",
+      look: "base",
+    },
   },
-  defaultVariants: {
-    size: "md",
-    look: "base",
-  },
-});
+  { twMerge: false }
+);
 
 export type TitleProps = Component<
   Styled<typeof titleStyles> & {

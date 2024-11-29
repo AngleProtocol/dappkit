@@ -3,33 +3,34 @@ import { tv, type VariantProps } from "tailwind-variants";
 import { mergeClass } from "../../utils/css";
 import type { Component, Themable } from "../../utils/types";
 import useThemableProps from "../../hooks/theming/useThemableProps";
-import { blockEvent } from "../../utils/event";
 import EventBlocker from "./EventBlocker";
 
-export const buttonStyles = tv({
-  base: "text-main-11 flex items-center select-none outline-offset-0 outline-0 text-nowrap font-main font-bold text-[clamp(15px,0.4167vw+0.78125rem,20px)]",
-  variants: {
-    look: {
-      text: "!p-0 lg:opacity-100 lg:hover:opacity-70 transition-opacity text-main-12",
-      soft: "bg-main-0 border-main-0 hover:bg-main-4 active:bg-main-3 hover:text-main-12 focus-visible:border-main-9",
-      base: "bg-main-4 border-main-6 hover:bg-main-4 active:bg-main-3 hover:text-main-12 focus-visible:border-main-9",
-      bold: "bg-main-4 border-main-4 hover:bg-main-5 active:bg-main-3 text-main-12 focus-visible:border-main-9",
-      tint: "bg-accent-3 border-accent-3 hover:bg-accent-5 active:bg-accent-3 text-accent-11 focus-visible:border-accent-9",
-      hype: "bg-accent-11 border-accent-9 hover:bg-accent-12 font-title active:bg-accent-8 ease text-main-1 font-semibold focus-visible:border-accent-10",
+export const buttonStyles = tv(
+  {
+    base: "flex items-center !leading-none select-none rounded-full text-nowrap font-text ease font-bold text-[clamp(15px,0.4167vw+0.78125rem,20px)]",
+    variants: {
+      look: {
+        soft: "text-main-12 !p-0 lg:opacity-100 lg:hover:opacity-70 transition-opacity focus-visible:border-main-9",
+        base: "text-main-12 hover:text-main-12 border-1 border-main-11 hover:bg-main-4 active:bg-main-3 focus-visible:border-main-9",
+        bold: "text-main-1 bg-main-11 hover:bg-main-5 active:bg-main-3 focus-visible:border-main-9",
+        tint: "text-main-1 bg-accent-10 hover:bg-accent-5 active:bg-accent-3 focus-visible:border-accent-9",
+        hype: "text-main-1 bg-accent-11 hover:bg-accent-12 active:bg-accent-8 focus-visible:border-accent-10",
+      },
+      size: {
+        xs: "px-sm py-xs gap-sm text-xs",
+        sm: "px-sm py-md gap-sm text-sm",
+        md: "px-md py-md gap-sm text-base",
+        lg: "px-lg py-lg gap-sm text-lg",
+        xl: "px-xl py-xl gap-sm text-xl",
+      },
     },
-    size: {
-      xs: "px-xs py-xs rounded-xs gap-xs text-xs",
-      sm: "px-sm py-sm/2 rounded-sm gap-sm text-sm",
-      md: "px-md py-md/2 rounded-md gap-md text-base",
-      lg: "px-lg py-lg/2 rounded-lg gap-lg text-lg",
-      xl: "px-lg*2 py-lg rounded-xl gap-lg/2 text-xl",
+    defaultVariants: {
+      look: "base",
+      size: "md",
     },
   },
-  defaultVariants: {
-    look: "base",
-    size: "md",
-  },
-});
+  { twMerge: false }
+);
 
 type ButtonStyleProps = VariantProps<typeof buttonStyles>;
 
@@ -63,25 +64,24 @@ export default function Button({
   if (to) {
     return (
       <EventBlocker>
-
-      <Link
-        to={to}
-        className={mergeClass(styleProps, className, disabled && "disabled")}
-        {...(external && {
-          target: "_blank",
-          rel: "noopener noreferrer",
-        })}
+        <Link
+          to={to}
+          className={mergeClass(styleProps, className, disabled && "disabled")}
+          {...(external && {
+            target: "_blank",
+            rel: "noopener noreferrer",
+          })}
         >
-        {children}
-      </Link>
-        </EventBlocker>
+          {children}
+        </Link>
+      </EventBlocker>
     );
   }
 
   return (
     <button
       style={themeVars}
-      className={mergeClass(styleProps, className)}
+      className={mergeClass(styleProps, className, disabled && "disabled")}
       type="button"
       disabled={disabled}
       {...props}

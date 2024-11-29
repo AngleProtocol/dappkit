@@ -6,22 +6,14 @@ import { tv } from "tailwind-variants";
 import Image from "./Image";
 
 export const iconStyles = tv({
-  base: "flex flex-col border-0 gap-1 rounded-md overflow-hidden self-center aspect-square rounded-sm",
+  base: "flex flex-col border-0 gap-1 rounded-md overflow-hidden self-center rounded-sm w-[1em] h-[1em]",
   variants: {
-    size: {
-      xs: "w-sm*2",
-      sm: "w-md*2",
-      md: "w-lg*2",
-      lg: "w-xl*2",
-      xl: "w-xl*4",
-    },
     rounded: {
       true: "rounded-full",
       false: "",
     },
   },
   defaultVariants: {
-    size: "md",
     rounded: false,
   },
 });
@@ -35,7 +27,6 @@ export type IconProps = Component<
 >;
 
 export default function Icon({
-  size,
   rounded,
   remix,
   src,
@@ -43,7 +34,7 @@ export default function Icon({
   className,
   ...props
 }: IconProps) {
-  const styles = useMemo(() => iconStyles({ size, rounded }), [size, rounded]);
+  const styles = useMemo(() => iconStyles({ rounded }), [rounded]);
 
   const Component = useMemo(() => {
     if (remix) return RemixIcon[remix];
@@ -57,5 +48,5 @@ export default function Icon({
     );
   }, [remix, alt, src, props]);
 
-  return <Component {...props} className={mergeClass(styles, className)} />
+  return <Component {...props} className={mergeClass(styles, className)} />;
 }
