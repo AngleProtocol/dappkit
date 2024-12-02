@@ -64,11 +64,13 @@ export default function WalletButton(props: ButtonProps) {
         padding="xs"
         content={
           <>
-            <Group className="items-center" size="lg">
-              <Image className="h-lg*2 w-lg*2" src={connector?.icon} />
-              <Hash size="lg" copy format="short">
-                {address}
-              </Hash>
+            <Group className="items-center justify-between">
+              <Group className="items-center">
+                <Image className="h-lg*2 w-lg*2" src={connector?.icon} />
+                <Hash size="lg" bold copy format="short">
+                  {address}
+                </Hash>
+              </Group>
               <Button
                 look="soft"
                 coloring={"harm"}
@@ -78,16 +80,17 @@ export default function WalletButton(props: ButtonProps) {
                 <Icon remix="RiShutDownLine" />
               </Button>
             </Group>
+            <Divider horizontal look="soft" />
             <Group className="items-center">
+              <Image className="h-lg*2 w-lg*2" src={connector?.icon} />
               <Text size="sm">Connected with {connector?.name}</Text>
             </Group>
-            <Divider horizontal className="border-main-6 mt-4" />
             <Group className="flex-col items-start">
               <Button size="sm" look="soft">
-                Explorer
+                <Icon remix="RiArrowRightLine" /> Explorer
               </Button>
               <Button to={`/user/${address}`} size="sm" look="soft">
-                Dashboard
+                <Icon remix="RiArrowRightLine" /> Dashboard
               </Button>
             </Group>
           </>
