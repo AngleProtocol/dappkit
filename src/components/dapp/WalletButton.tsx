@@ -29,7 +29,12 @@ export default function WalletButton(props: ButtonProps) {
   const chainOptions = useMemo(() => {
     if (!chains) return [];
     return chains.reduce((obj, chain) => {
-      obj[chain.id] = <>{chain.name}</>;
+      obj[chain.id] = (
+        <Group>
+          <Icon src={chain?.icon} />
+          {chain.name}
+        </Group>
+      );
       return obj;
     }, {});
   }, [chains]);
@@ -59,6 +64,7 @@ export default function WalletButton(props: ButtonProps) {
         state={[chainId, (c) => switchChain(+c)]}
         options={chainOptions}
       />
+
       <Dropdown
         size="lg"
         padding="xs"
@@ -100,7 +106,7 @@ export default function WalletButton(props: ButtonProps) {
           </>
         }
       >
-        <Button look="tint">{Format.address(address, "short")}</Button>
+        <Button look="tint" className="w-full justify-center">{Format.address(address, "short")}</Button>
       </Dropdown>
     </>
   );
