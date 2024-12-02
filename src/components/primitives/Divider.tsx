@@ -4,7 +4,7 @@ import type { Component, Styled } from "../../utils/types";
 
 export const dividerStyles = tv(
   {
-    base: "border-t-1 border-b-0 box-border",
+    base: "border-t-1 border-b-0 box-border bg-main-0",
     variants: {
       look: {
         soft: "border-main-8",
@@ -44,8 +44,8 @@ export type DividerProps = Component<
 >;
 
 export default function Divider({
-  vertical,
-  horizontal,
+  vertical = false,
+  horizontal = true,
   look,
   className,
   ...props
@@ -61,8 +61,7 @@ export default function Divider({
   return (
     <div
       className={mergeClass(
-        dividerStyles({ look, vertical }),
-
+        dividerStyles({ look, vertical: vertical ?? !horizontal }),
         className
       )}
       {...props}

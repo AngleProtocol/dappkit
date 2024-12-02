@@ -74,7 +74,7 @@ export default function WalletButton(props: ButtonProps) {
               <Group className="items-center">
                 {/* TODO: Show the account icon by default if there is no ENS icon */}
                 <Icon
-                  className="text-main-11 w-xl*2 h-xl*2"
+                  className="text-main-11 !w-xl*2 !h-xl*2"
                   remix="RiAccountCircleFill"
                 />
                 <Image className="h-lg*2 w-lg*2" src={connector?.icon} />
