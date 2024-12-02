@@ -18,7 +18,7 @@ export const boxStyles = tv({
       xs: "p-xs gap-xs",
       sm: "p-sm gap-sm",
       md: "p-md gap-md",
-      lg: "p-lg gap-lg",
+      lg: "p-lg gap-md",
       xl: "p-xl gap-xl",
     },
     container: {
@@ -39,13 +39,14 @@ export const boxStyles = tv({
     look: "base",
     container: true,
   },
-  compoundVariants: sizeScale.flatMap(size =>
-    sizeScale.flatMap(content => [
+  compoundVariants: sizeScale.flatMap((size) =>
+    sizeScale.flatMap((content) => [
       {
         size,
         content,
         container: true as const,
-        class: `rounded-${size}+${content}` as `rounded-${typeof size}+${typeof content}`,
+        class:
+          `rounded-${size}+${content}` as `rounded-${typeof size}+${typeof content}`,
       },
       {
         size,
@@ -53,7 +54,7 @@ export const boxStyles = tv({
         container: false as const,
         class: `rounded-${size}` as `rounded-${typeof size}`,
       },
-    ]),
+    ])
   ),
 });
 
@@ -75,7 +76,10 @@ export default function Box({
   return (
     <div
       style={Object.assign(style ?? {}, themeVars)}
-      className={mergeClass(boxStyles({ look, size, content, container: container !== false }), className)}
+      className={mergeClass(
+        boxStyles({ look, size, content, container: container !== false }),
+        className
+      )}
       {...props}
     />
   );

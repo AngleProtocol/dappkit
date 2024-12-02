@@ -84,7 +84,7 @@ export default function TransactionHelper({ status, data,  variables, execute }:
             {variables?.to ?? ""}
           </Hash>
         </Group>
-        <Divider horizontal className="border-main-6" />
+        <Divider horizontal look="soft" />
         <Text size="xs">status</Text>
       </Group>
       {statusBar}

@@ -4,15 +4,14 @@ import Button, { type ButtonProps } from "../primitives/Button";
 import Divider from "../primitives/Divider";
 import Image from "../primitives/Image";
 import Text from "../primitives/Text";
-import Title from "../primitives/Title";
 import { Format } from "../../utils/format";
 import Modal from "../extenders/Modal";
 import Icon from "../primitives/Icon";
 import WalletConnectors from "./WalletConnectors";
-import List from "../primitives/List";
 import { useWalletContext } from "../../context/Wallet.context";
 import Select from "../extenders/Select";
 import { useMemo } from "react";
+import Hash from "../primitives/Hash";
 
 export type WalletButton = ButtonProps;
 
@@ -30,7 +29,12 @@ export default function WalletButton(props: ButtonProps) {
   const chainOptions = useMemo(() => {
     if (!chains) return [];
     return chains.reduce((obj, chain) => {
-      obj[chain.id] = <>{chain.name}</>;
+      obj[chain.id] = (
+        <Group>
+          <Icon src={chain?.icon} />
+          {chain.name}
+        </Group>
+      );
       return obj;
     }, {});
   }, [chains]);
@@ -60,35 +64,49 @@ export default function WalletButton(props: ButtonProps) {
         state={[chainId, (c) => switchChain(+c)]}
         options={chainOptions}
       />
+
       <Dropdown
+        size="lg"
+        padding="xs"
         content={
           <>
-            <Group className="items-center">
-              <Image src={connector?.icon} />
-              <Title h={4}>{Format.address(address, "short")}</Title>
-              <Button size="xs">
-                <Icon size="sm" remix="RiFileCopyFill" />
-              </Button>
-              <Button coloring={"harm"} onClick={disconnect} size="xs">
-                <Icon size="sm" remix="RiShutDownLine" />
+            <Group className="items-center justify-between" size="xl">
+              <Group className="items-center">
+                {/* TODO: Show the account icon by default if there is no ENS icon */}
+                <Icon
+                  className="text-main-11 !w-xl*2 !h-xl*2"
+                  remix="RiAccountCircleFill"
+                />
+                <Image className="h-lg*2 w-lg*2" src={connector?.icon} />
+                <Hash size="lg" bold copy format="short">
+                  {address}
+                </Hash>
+              </Group>
+              <Button
+                look="soft"
+                onClick={disconnect}
+                className="bg-main-5 !p-sm"
+              >
+                <Icon className="text-main-11" remix="RiShutDownLine" />
               </Button>
             </Group>
+            <Divider horizontal look="soft" />
             <Group className="items-center">
               <Text size="sm">Connected with {connector?.name}</Text>
+              <Image className="h-lg*2 w-lg*2" src={connector?.icon} />
             </Group>
-            <Divider horizontal className="border-main-6 mt-4" />
-            <Group className="items-center flex-col [&>*]:w-full">
+            <Group className="flex-col items-start">
               <Button size="sm" look="soft">
-                Explorer
+                <Icon remix="RiArrowRightLine" /> Explorer
               </Button>
               <Button to={`/user/${address}`} size="sm" look="soft">
-                Dashboard
+                <Icon remix="RiArrowRightLine" /> Dashboard
               </Button>
             </Group>
           </>
         }
       >
-        <Button look="tint">{Format.address(address, "short")}</Button>
+        <Button look="tint" className="w-full justify-center">{Format.address(address, "short")}</Button>
       </Dropdown>
     </>
   );

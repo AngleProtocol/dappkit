@@ -1,4 +1,4 @@
-import { mergeClass } from "dappkit/src";
+import { Divider, mergeClass } from "dappkit/src";
 import type { Component, Styled } from "dappkit/src";
 import {
   type PropsWithChildren,
@@ -13,6 +13,7 @@ import Icon from "./Icon";
 import List from "./List";
 import Text from "./Text";
 import EventBlocker from "./EventBlocker";
+import SCREENS from "../../constants/SCREENS.json";
 
 export const tableStyles = tv({
   base: "",
@@ -190,19 +191,19 @@ export function useHeaders<T extends Columns>(
       head[`${id}Column` as keyof TableColumns<T>] = (
         <Text
           className="relative font-text"
-          size="xs"
+          size="md"
           interactable={isSortable}
           onKeyDown={handler}
           onClick={handler}
         >
           {props?.[`${id}Header` as keyof TableHeaders<T>] ?? title}
-          <span className="absolute -right-5">
+          <span className="absolute -right-5 top-1/2 -translate-y-1/2">
             {sortable &&
               id === sortBy &&
               (order === "desc" ? (
-                <Icon size="sm" remix={"RiArrowDropDownLine"} />
+                <Icon remix={"RiArrowDropDownLine"} />
               ) : (
-                <Icon size="sm" remix={"RiArrowDropUpLine"} />
+                <Icon remix={"RiArrowDropUpLine"} />
               ))}
           </span>
         </Text>
@@ -227,7 +228,7 @@ export function Table<T extends Columns>({
   children,
   ...props
 }: TableProps<T>) {
-  const isScreenSmall = useMediaQuery({ maxWidth: 600 });
+  const isScreenSmall = useMediaQuery({ maxWidth: SCREENS.md });
   const [_order, setOrder] = useState<"asc" | "desc">("desc");
   const [sortBy, setSortBy] = useState<keyof T | undefined>(sortable?.[0]);
 
@@ -257,7 +258,9 @@ export function Table<T extends Columns>({
       {...props}
     >
       {!!header ? <Box className="bg-auto">{header}</Box> : undefined}
+      {/* <Divider horizontal look="bold" /> */}
       <Row columns={columns} {...headers} />
+      {/* <Divider horizontal look="bold" /> */}
       {children}
       {!!footer ? <Box className="bg-auto">{footer}</Box> : undefined}
     </List>
