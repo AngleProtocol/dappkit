@@ -64,8 +64,13 @@ export default function WalletButton(props: ButtonProps) {
         padding="xs"
         content={
           <>
-            <Group className="items-center justify-between">
+            <Group className="items-center justify-between" size="xl">
               <Group className="items-center">
+                {/* TODO: Show the account icon by default if there is no ENS icon */}
+                <Icon
+                  className="text-main-11 w-xl*2 h-xl*2"
+                  remix="RiAccountCircleFill"
+                />
                 <Image className="h-lg*2 w-lg*2" src={connector?.icon} />
                 <Hash size="lg" bold copy format="short">
                   {address}
@@ -73,17 +78,16 @@ export default function WalletButton(props: ButtonProps) {
               </Group>
               <Button
                 look="soft"
-                coloring={"harm"}
                 onClick={disconnect}
-                size="lg"
+                className="bg-main-5 !p-sm"
               >
-                <Icon remix="RiShutDownLine" />
+                <Icon className="text-main-11" remix="RiShutDownLine" />
               </Button>
             </Group>
             <Divider horizontal look="soft" />
             <Group className="items-center">
-              <Image className="h-lg*2 w-lg*2" src={connector?.icon} />
               <Text size="sm">Connected with {connector?.name}</Text>
+              <Image className="h-lg*2 w-lg*2" src={connector?.icon} />
             </Group>
             <Group className="flex-col items-start">
               <Button size="sm" look="soft">
