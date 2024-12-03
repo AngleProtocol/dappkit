@@ -7,7 +7,7 @@ import type { Component, GetSet, Styled } from "../../utils/types";
 import Group from "../extenders/Group";
 
 export const inputStyles = tv({
-  base: "text-main-12 flex items-center gap-1 text-nowrap font-text",
+  base: "text-main-12 flex items-center gap-1 text-nowrap font-text focus-visible:outline focus-visible:outline-dashed focus-visible:outline-main-12",
   variants: {
     look: {
       none: "bg-main-0 border-0",
