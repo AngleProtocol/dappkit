@@ -1,14 +1,9 @@
-import {
-  Indicator,
-  type CheckboxProps as RadixCheckboxProps,
-  Root,
-} from "@radix-ui/react-checkbox";
+import { type CheckboxProps as RadixCheckboxProps, Root } from "@radix-ui/react-checkbox";
 import { tv } from "tailwind-variants";
 import { mergeClass } from "../../utils/css";
+import { blockEvent } from "../../utils/event";
 import type { Component, GetSet, Styled } from "../../utils/types";
 import Icon from "./Icon";
-import VisuallyHidden from "../VisuallyHidden";
-import { blockEvent } from "../../utils/event";
 
 export const checkboxStyles = tv({
   base: "text-main-11 flex items-center bg-gradient-to-tr border-1 outline-offset-0 outline-0 text-nowrap font-text font-bold",
@@ -30,17 +25,9 @@ export const checkboxStyles = tv({
   },
 });
 
-export type CheckboxProps = Component<
-  Styled<typeof checkboxStyles> & { state?: GetSet<boolean> },
-  RadixCheckboxProps
->;
+export type CheckboxProps = Component<Styled<typeof checkboxStyles> & { state?: GetSet<boolean> }, RadixCheckboxProps>;
 
-export default function Checkbox({
-  look,
-  size,
-  state,
-  className,
-}: CheckboxProps) {
+export default function Checkbox({ look, size, state, className }: CheckboxProps) {
   const [getter, setter] = state ?? [];
 
   return (

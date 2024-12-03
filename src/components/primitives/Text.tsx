@@ -1,6 +1,6 @@
 import { tv } from "tailwind-variants";
-import type { Component, Styled } from "../../utils/types";
 import { mergeClass } from "../../utils/css";
+import type { Component, Styled } from "../../utils/types";
 
 export const textStyles = tv({
   base: "text-main-11 font-text font-normal text-[clamp(15px,0.4167vw+0.78125rem,20px)]",
@@ -18,8 +18,7 @@ export const textStyles = tv({
       md: "text-base",
       lg: "text-lg",
       xl: "text-xl",
-      display1:
-        "font-title font-bold leading-tight italic uppercase !text-[clamp(44px,5vw+0.875rem,104px)]",
+      display1: "font-title font-bold leading-tight italic uppercase !text-[clamp(44px,5vw+0.875rem,104px)]",
       1: "font-title !text-3xl",
       2: "font-title font-bold leading-none !text-[clamp(52px,1vw+2.875rem,64px)]",
       3: "font-title font-bold leading-snug italic !text-[clamp(28px,1vw+1.375rem,40px)]",
@@ -50,29 +49,9 @@ export const textStyles = tv({
   ],
 });
 
-export type TextProps = Component<
-  Styled<typeof textStyles> & { bold?: boolean },
-  HTMLParagraphElement
->;
+export type TextProps = Component<Styled<typeof textStyles> & { bold?: boolean }, HTMLParagraphElement>;
 
-export default function Text({
-  look,
-  size,
-  style,
-  bold,
-  interactable,
-  className,
-  ...props
-}: TextProps) {
+export default function Text({ look, size, style, bold, interactable, className, ...props }: TextProps) {
   const styleBold = bold ? "font-bold" : "";
-  return (
-    <p
-      className={mergeClass(
-        textStyles({ look, size, interactable }),
-        className,
-        styleBold
-      )}
-      {...props}
-    />
-  );
+  return <p className={mergeClass(textStyles({ look, size, interactable }), className, styleBold)} {...props} />;
 }

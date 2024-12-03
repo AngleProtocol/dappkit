@@ -1,6 +1,6 @@
 import * as RadixScrollArea from "@radix-ui/react-scroll-area";
-import type { Component } from "../../utils/types";
 import { mergeClass } from "../../utils/css";
+import type { Component } from "../../utils/types";
 
 export type ScrollProps = Component<
   { horizontal: boolean; vertical?: never } | { vertical: boolean; horizontal?: never }
@@ -10,10 +10,7 @@ export type ScrollProps = Component<
 export default function Scroll({ horizontal, vertical, children, className, ...props }: ScrollProps) {
   return (
     <RadixScrollArea.Root type="always" className="flex overflow-hidden h-full">
-      <RadixScrollArea.Viewport
-        className={mergeClass("max-size-full", className)}>
-        {children}
-      </RadixScrollArea.Viewport>
+      <RadixScrollArea.Viewport className={mergeClass("max-size-full", className)}>{children}</RadixScrollArea.Viewport>
       {vertical && (
         <RadixScrollArea.Scrollbar
           style={{ position: "unset" }}

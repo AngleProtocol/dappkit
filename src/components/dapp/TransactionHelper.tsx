@@ -1,19 +1,19 @@
-import { useEffect, useMemo } from "react";
-import { ResolvedRegister, UseSendTransactionReturnType } from "wagmi";
-import Icon from "../primitives/Icon";
-import Box from "../primitives/Box";
+import { useMemo } from "react";
+import type { ResolvedRegister, UseSendTransactionReturnType } from "wagmi";
 import Group from "../extenders/Group";
+import Box from "../primitives/Box";
 import Button from "../primitives/Button";
-import Text from "../primitives/Text";
-import Hash from "../primitives/Hash";
-import Title from "../primitives/Title";
 import Divider from "../primitives/Divider";
+import Hash from "../primitives/Hash";
+import Icon from "../primitives/Icon";
+import Text from "../primitives/Text";
+import Title from "../primitives/Title";
 
 export type TransactionHelperProps = UseSendTransactionReturnType<ResolvedRegister["config"], unknown> & {
   execute?: () => void;
 };
 
-export default function TransactionHelper({ status, data,  variables, execute }: TransactionHelperProps) {
+export default function TransactionHelper({ status, data, variables, execute }: TransactionHelperProps) {
   const statusBar = useMemo(() => {
     switch (status) {
       case "error":

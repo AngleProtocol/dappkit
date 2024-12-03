@@ -33,7 +33,7 @@ export const dividerStyles = tv(
       { look: "hype", vertical: true, class: "border-r-2" },
     ],
   },
-  { twMerge: false }
+  { twMerge: false },
 );
 
 export type DividerProps = Component<
@@ -43,28 +43,10 @@ export type DividerProps = Component<
   }
 >;
 
-export default function Divider({
-  vertical = false,
-  horizontal = true,
-  look,
-  className,
-  ...props
-}: DividerProps) {
-  if (horizontal)
-    return (
-      <div
-        className={mergeClass(dividerStyles({ look }), className)}
-        {...props}
-      />
-    );
+export default function Divider({ vertical = false, horizontal = true, look, className, ...props }: DividerProps) {
+  if (horizontal) return <div className={mergeClass(dividerStyles({ look }), className)} {...props} />;
 
   return (
-    <div
-      className={mergeClass(
-        dividerStyles({ look, vertical: vertical ?? !horizontal }),
-        className
-      )}
-      {...props}
-    />
+    <div className={mergeClass(dividerStyles({ look, vertical: vertical ?? !horizontal }), className)} {...props} />
   );
 }

@@ -1,8 +1,8 @@
 import { Children, type ReactElement, cloneElement, useMemo } from "react";
 import { tv } from "tailwind-variants";
 import { mergeClass } from "../../utils/css";
-import type { Component, Styled } from "../../utils/types";
 import { getDefinedIndexesOfChildren } from "../../utils/react";
+import type { Component, Styled } from "../../utils/types";
 
 const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
 

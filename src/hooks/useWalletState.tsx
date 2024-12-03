@@ -1,9 +1,8 @@
-import { Chain } from "@angleprotocol/merkl-api";
+import type { Chain } from "@merkl/api";
+import { switchChain as wagmiCoreSwitchChain } from "@wagmi/core";
 import { useState } from "react";
-import { http, createConfig, useAccount, useConfig, useConnect, useDisconnect, useSwitchChain } from "wagmi";
-import { type Chain as WagmiChain, mainnet, optimism, sepolia } from "wagmi/chains";
-import { coinbaseWallet, walletConnect } from "wagmi/connectors";
-import { switchChain as wagmiCoreSwitchChain } from '@wagmi/core'
+import { useAccount, useConfig, useConnect, useDisconnect, useSwitchChain } from "wagmi";
+import type { Chain as WagmiChain } from "wagmi/chains";
 
 export default function useWalletState(chains: Chain[]) {
   const config = useConfig();
@@ -28,7 +27,7 @@ export default function useWalletState(chains: Chain[]) {
   }
 
   async function switchChain(chainId: number) {
-    wagmiCoreSwitchChain(config, {chainId });
+    wagmiCoreSwitchChain(config, { chainId });
   }
 
   return {

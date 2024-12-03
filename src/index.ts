@@ -8,10 +8,10 @@ export * from "./components";
 export * from "./hooks/events/useShortcut";
 export * from "./hooks/theming/OverrideTheme";
 export { default as OverrideTheme } from "./hooks/theming/OverrideTheme";
-export * from "./theming/coloring"
-export * from "./theming/variables"
-export * from "./utils/css"
-export * from "./utils/types"
+export * from "./theming/coloring";
+export * from "./theming/variables";
+export * from "./utils/css";
+export * from "./utils/types";
 
 //Primitives
 // export * from "./components/primitives/Block";

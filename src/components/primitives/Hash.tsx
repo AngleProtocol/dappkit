@@ -1,7 +1,7 @@
-import { Icon, mergeClass, OverrideTheme, type Styled } from "dappkit/src";
+import { Icon, OverrideTheme, type Styled, mergeClass } from "dappkit/src";
 import { useMemo } from "react";
-import Text, { type TextProps } from "./Text";
 import useClipboard from "../../hooks/useClipboard";
+import Text, { type TextProps } from "./Text";
 
 import type { textStyles } from "./Text";
 
@@ -12,14 +12,7 @@ export type HashProps = Omit<TextProps, "children"> & {
   copy?: boolean;
 };
 
-export default function Hash({
-  format,
-  copy,
-  size,
-  children: hash,
-  className,
-  ...props
-}: HashProps) {
+export default function Hash({ format, copy, size, children: hash, className, ...props }: HashProps) {
   const formatted: string = useMemo(() => {
     if (!hash) return "";
 
@@ -27,10 +20,7 @@ export default function Hash({
       case "prefix":
         return hash.slice(0, 6);
       case "short":
-        return `${hash?.substring(0, 6)}…${hash.substring(
-          hash.length,
-          hash.length - 4
-        )}`;
+        return `${hash?.substring(0, 6)}…${hash.substring(hash.length, hash.length - 4)}`;
       default:
         return hash;
     }
@@ -41,13 +31,10 @@ export default function Hash({
     () =>
       copy && (
         <OverrideTheme coloring={isCopied ? "good" : undefined}>
-          <Icon
-            className="text-main-11"
-            remix={isCopied ? "RiCheckboxCircleFill" : "RiFileCopyFill"}
-          />
+          <Icon className="text-main-11" remix={isCopied ? "RiCheckboxCircleFill" : "RiFileCopyFill"} />
         </OverrideTheme>
       ),
-    [copy, isCopied]
+    [copy, isCopied],
   );
 
   return (
@@ -58,9 +45,8 @@ export default function Hash({
       className={mergeClass(
         "items-center gap-sm cursor-pointer font-text",
         copy && "dim select-none inline-flex",
-        className
-      )}
-    >
+        className,
+      )}>
       {formatted}
       {copyButton}
     </Text>

@@ -1,8 +1,8 @@
 import { Link } from "@remix-run/react";
-import { tv, type VariantProps } from "tailwind-variants";
+import { type VariantProps, tv } from "tailwind-variants";
+import useThemableProps from "../../hooks/theming/useThemableProps";
 import { mergeClass } from "../../utils/css";
 import type { Component, Themable } from "../../utils/types";
-import useThemableProps from "../../hooks/theming/useThemableProps";
 import EventBlocker from "./EventBlocker";
 
 export const buttonStyles = tv(
@@ -29,7 +29,7 @@ export const buttonStyles = tv(
       size: "md",
     },
   },
-  { twMerge: false }
+  { twMerge: false },
 );
 
 type ButtonStyleProps = VariantProps<typeof buttonStyles>;
@@ -69,17 +69,11 @@ export default function Button({
       <EventBlocker>
         <Link
           to={to}
-          className={mergeClass(
-            styleProps,
-            styleBold,
-            className,
-            disabled && "disabled"
-          )}
+          className={mergeClass(styleProps, styleBold, className, disabled && "disabled")}
           {...(external && {
             target: "_blank",
             rel: "noopener noreferrer",
-          })}
-        >
+          })}>
           {children}
         </Link>
       </EventBlocker>
@@ -89,16 +83,10 @@ export default function Button({
   return (
     <button
       style={themeVars}
-      className={mergeClass(
-        styleProps,
-        styleBold,
-        className,
-        disabled && "disabled"
-      )}
+      className={mergeClass(styleProps, styleBold, className, disabled && "disabled")}
       type="button"
       disabled={disabled}
-      {...props}
-    >
+      {...props}>
       {children}
     </button>
   );

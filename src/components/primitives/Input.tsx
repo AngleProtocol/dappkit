@@ -1,10 +1,10 @@
-import { useCallback, useMemo, useState, type ReactNode } from "react";
+import { format } from "numerable";
+import { type ReactNode, useCallback, useMemo, useState } from "react";
 import { tv } from "tailwind-variants";
+import { formatUnits, parseUnits } from "viem";
 import { mergeClass } from "../../utils/css";
 import type { Component, GetSet, Styled } from "../../utils/types";
 import Group from "../extenders/Group";
-import { formatUnits, parseUnits } from "viem";
-import { format } from "numerable";
 
 export const inputStyles = tv({
   base: "text-main-12 flex items-center gap-1 text-nowrap font-text",
@@ -31,14 +31,7 @@ export const inputStyles = tv({
   },
 });
 
-export const extensions = [
-  "header",
-  "footer",
-  "prefix",
-  "suffix",
-  "label",
-  "hint",
-] as const;
+export const extensions = ["header", "footer", "prefix", "suffix", "label", "hint"] as const;
 export type InputExtension = (typeof extensions)[number];
 
 export type InputProps<T = string> = Component<
@@ -51,41 +44,22 @@ export type InputProps<T = string> = Component<
 function Input({ look, size, state, className, ...props }: InputProps) {
   const { header, footer, prefix, suffix, label, hint, ...rest } = props;
 
-  if (extensions.some((extension) => !!props?.[extension]))
+  if (extensions.some(extension => !!props?.[extension]))
     return (
-      <label
-        className={mergeClass(
-          inputStyles({ look, size }),
-          className,
-          "flex-col flex"
-        )}
-        htmlFor="input"
-      >
+      <label className={mergeClass(inputStyles({ look, size }), className, "flex-col flex")} htmlFor="input">
         <label htmlFor="input" className="w-full flex">
           {header}
         </label>
         <Group className="w-full flex-row flex-nowrap items-center">
-          {prefix && (
-            <label htmlFor="input">
-              {prefix}
-            </label>
-          )}
+          {prefix && <label htmlFor="input">{prefix}</label>}
           <input
             id="input"
-            className={mergeClass(
-              inputStyles({ look: "none", size }),
-              className,
-              "w-full !flex-1 !px-0 !py-0"
-            )}
+            className={mergeClass(inputStyles({ look: "none", size }), className, "w-full !flex-1 !px-0 !py-0")}
             value={state?.[0]}
-            onChange={(e) => state?.[1]?.(e?.target?.value)}
+            onChange={e => state?.[1]?.(e?.target?.value)}
             {...rest}
           />
-          {suffix && (
-            <label htmlFor="input">
-              {suffix}
-            </label>
-          )}
+          {suffix && <label htmlFor="input">{suffix}</label>}
         </Group>
         <label htmlFor="input" className="w-full flex">
           {footer}
@@ -96,17 +70,13 @@ function Input({ look, size, state, className, ...props }: InputProps) {
     <input
       className={mergeClass(inputStyles({ look, size }), className)}
       value={state?.[0]}
-      onChange={(e) => state?.[1]?.(e?.target?.value)}
+      onChange={e => state?.[1]?.(e?.target?.value)}
       {...rest}
     />
   );
 }
 
-Input.BigInt = function InputBigInt({
-  state,
-  base,
-  ...props
-}: InputProps<bigint> & { base: number }) {
+Input.BigInt = function InputBigInt({ state, base, ...props }: InputProps<bigint> & { base: number }) {
   const [internal, setInternal] = useState<bigint>();
   const [displayed, setDisplayed] = useState("0.0");
   const [getter, setter] = state ?? [];
@@ -128,8 +98,7 @@ Input.BigInt = function InputBigInt({
 
         const raw = v?.replaceAll(",", "") ?? "";
         const isInputtingDecimals =
-          v?.split(".")?.[1]?.[v?.split?.(".")?.[1]?.length - 1] === "0" ||
-          v?.[v.length - 1] === ".";
+          v?.split(".")?.[1]?.[v?.split?.(".")?.[1]?.length - 1] === "0" || v?.[v.length - 1] === ".";
         const transformed = parseUnits(raw, base);
 
         if (raw === "0") setDisplayed("");
@@ -138,10 +107,10 @@ Input.BigInt = function InputBigInt({
         setter?.(transformed) ?? setInternal(transformed);
       } catch (err) {}
     },
-    [setter, base]
+    [setter, base],
   );
 
-  return <Input state={[displayed, (v) => setValue(v)]} {...props} />;
+  return <Input state={[displayed, v => setValue(v)]} {...props} />;
 };
 
 export default Input;
