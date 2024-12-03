@@ -1,9 +1,7 @@
-import Button, { type ButtonProps } from "../primitives/Button";
-import { type ResolvedRegister, useSendTransaction, type UseSendTransactionReturnType, type Config } from "wagmi";
-import { ReactNode, useCallback } from "react";
-import Modal from "../extenders/Modal";
-import Title from "../primitives/Title";
+import { type ReactNode, useCallback } from "react";
+import { type ResolvedRegister, type UseSendTransactionReturnType, useSendTransaction } from "wagmi";
 import Dropdown from "../extenders/Dropdown";
+import Button, { type ButtonProps } from "../primitives/Button";
 import TransactionHelper from "./TransactionHelper";
 
 export type TransactionButtonProps = ButtonProps & {
@@ -25,10 +23,7 @@ export default function TransactionButton({ tx, name, ...props }: TransactionBut
   }, [tx, sendTransaction]);
 
   return (
-    <Dropdown
-      className="[&>*]:grow flex"
-      content={<TransactionHelper execute={execute} {...sendTxHook}/>}
-    >
+    <Dropdown className="[&>*]:grow flex" content={<TransactionHelper execute={execute} {...sendTxHook} />}>
       <Button {...props} onClick={execute} />
     </Dropdown>
   );

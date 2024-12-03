@@ -18,8 +18,7 @@ export const textStyles = tv({
       md: "text-base",
       lg: "text-lg",
       xl: "text-xl",
-      display1:
-        "font-title font-bold leading-tight italic uppercase !text-[clamp(44px,5vw+0.875rem,104px)]",
+      display1: "font-title font-bold leading-tight italic uppercase !text-[clamp(44px,5vw+0.875rem,104px)]",
       1: "font-title !text-3xl",
       2: "font-title font-bold leading-none !text-[clamp(52px,1vw+2.875rem,64px)]",
       3: "font-title font-bold leading-snug italic !text-[clamp(28px,1vw+1.375rem,40px)]",

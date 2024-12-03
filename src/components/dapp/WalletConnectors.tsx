@@ -1,10 +1,10 @@
+import { useWalletContext } from "../../context/Wallet.context";
 import Group from "../extenders/Group";
 import Button from "../primitives/Button";
 import Divider from "../primitives/Divider";
 import Image from "../primitives/Image";
 import Input from "../primitives/Input";
 import Text from "../primitives/Text";
-import { useWalletContext } from "../../context/Wallet.context";
 
 export default function WalletConnectors() {
   const { config, connect, connector: connected } = useWalletContext();

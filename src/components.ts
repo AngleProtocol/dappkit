@@ -14,7 +14,7 @@ export * from "./components/primitives/Box";
 export { default as Box } from "./components/primitives/Box";
 export * from "./components/primitives/Button";
 export { default as Button } from "./components/primitives/Button";
-export * from "./components/primitives/PrimitiveTag"
+export * from "./components/primitives/PrimitiveTag";
 export { default as PrimitiveTag } from "./components/primitives/PrimitiveTag";
 export * from "./components/primitives/Checkbox";
 export { default as Checkbox } from "./components/primitives/Checkbox";

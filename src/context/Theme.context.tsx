@@ -1,22 +1,10 @@
-import {
-  type PropsWithChildren,
-  createContext,
-  useContext,
-  useMemo,
-  useState,
-} from "react";
-import {
-  type Theme,
-  type Themes,
-  reduceColorIntoVariables,
-} from "../theming/coloring";
+import { type PropsWithChildren, createContext, useContext, useMemo, useState } from "react";
+import { type Theme, type Themes, reduceColorIntoVariables } from "../theming/coloring";
 import { reduceSpacingIntoVariables } from "../theming/spacing";
+import type { Mode } from "../theming/variables";
 import type { Sizing } from "../utils/tailwind";
-import { Mode } from "../theming/variables";
 
-const ThemeContext = createContext<ReturnType<typeof useThemeState> | null>(
-  null
-);
+const ThemeContext = createContext<ReturnType<typeof useThemeState> | null>(null);
 
 function useThemeState(themes: Themes, sizing: Sizing, modes?: Mode[]) {
   const [theme, setTheme] = useState<string>(Object.keys(themes ?? {})[0]);
@@ -34,16 +22,16 @@ function useThemeState(themes: Themes, sizing: Sizing, modes?: Mode[]) {
                 }),
               {} as {
                 [S in keyof Theme]: ReturnType<typeof reduceColorIntoVariables>;
-              }
+              },
             ),
           }),
         {} as {
           [label: string]: {
             [S in keyof Theme]: ReturnType<typeof reduceColorIntoVariables>;
           };
-        }
+        },
       ),
-    [themes]
+    [themes],
   );
 
   const vars = useMemo(() => {
@@ -51,14 +39,7 @@ function useThemeState(themes: Themes, sizing: Sizing, modes?: Mode[]) {
     const spacing = reduceSpacingIntoVariables(sizing.spacing, "spacing");
     const radius = reduceSpacingIntoVariables(sizing.radius, "radius");
 
-    return Object.assign(
-      {},
-      colors.accent,
-      colors.main,
-      colors.background,
-      spacing,
-      radius
-    );
+    return Object.assign({}, colors.accent, colors.main, colors.background, spacing, radius);
   }, [mode, theme, variables, sizing]);
 
   return {
@@ -69,12 +50,13 @@ function useThemeState(themes: Themes, sizing: Sizing, modes?: Mode[]) {
     themes,
     mode,
     setMode,
-    toggleMode: () => setMode((m) => {
-      const nextMode = (m === "dark" ? "light" : "dark")
+    toggleMode: () =>
+      setMode(m => {
+        const nextMode = m === "dark" ? "light" : "dark";
 
-      if (modes && !modes.includes(nextMode)) return m;
-      return nextMode;
-    }),
+        if (modes && !modes.includes(nextMode)) return m;
+        return nextMode;
+      }),
   };
 }
 
@@ -83,12 +65,7 @@ export type ThemeProviderProps = PropsWithChildren<{
   sizing: Sizing;
   modes?: Mode[];
 }>;
-export default function ThemeProvider({
-  themes,
-  sizing,
-  modes,
-  children,
-}: ThemeProviderProps) {
+export default function ThemeProvider({ themes, sizing, modes, children }: ThemeProviderProps) {
   const value = useThemeState(themes, sizing, modes);
 
   return (
@@ -97,8 +74,7 @@ export default function ThemeProvider({
         data-theme={value?.theme}
         data-mode={value?.mode}
         style={value?.vars}
-        className="bg-background h-[100vh] overflow-auto"
-      >
+        className="bg-background h-[100vh] overflow-auto">
         {children}
       </div>
     </ThemeContext.Provider>

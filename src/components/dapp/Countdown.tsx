@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Group, Text, Title, Divider } from "dappkit";
+import { Divider, Group, Text, Title } from "dappkit";
+import type React from "react";
+import { useEffect, useState } from "react";
 
 interface CountdownProps {
   targetDate: Date;
@@ -28,9 +29,7 @@ const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
         });
       } else {
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor(
-          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-        );
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 

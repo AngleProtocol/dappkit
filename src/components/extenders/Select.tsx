@@ -6,20 +6,19 @@ import { type ReactNode, useCallback, useMemo, useState } from "react";
 import { tv } from "tailwind-variants";
 import { useTheme } from "../../context/Theme.context";
 import type { Component, GetSet, Variant } from "../../utils/types";
-import Group from "./Group";
 import Box from "../primitives/Box";
 import Icon from "../primitives/Icon";
 import { inputStyles } from "../primitives/Input";
-import Text from "../primitives/Text";
 import Scroll from "../primitives/Scroll";
+import Text from "../primitives/Text";
+import Group from "./Group";
 
 export const selectStyles = tv({
   base: [
     "text-main-11 flex items-center justify-between gap-1 border-1 outline-offset-0 outline-0 text-nowrap font-text font-semibold",
   ],
   slots: {
-    dropdown:
-      "outline-0 z-50 origin-top animate-drop animate-stretch mt-sm min-w-[var(--popover-anchor-width)]",
+    dropdown: "outline-0 z-50 origin-top animate-drop animate-stretch mt-sm min-w-[var(--popover-anchor-width)]",
     item: "flex justify-between items-center gap-lg cursor-pointer select-none p-sm outline-offset-0 outline-0 text-nowrap",
     icon: "border-l-1 h-full flex items-center",
     value: "flex gap-sm items-center",
@@ -133,14 +132,12 @@ export type SelectProps<Value> = Component<{
 }> &
   RadixSelect.SelectProps;
 
-type MaybeArray<T, IsArray extends undefined | boolean> = IsArray extends true
-  ? T[]
-  : T;
+type MaybeArray<T, IsArray extends undefined | boolean> = IsArray extends true ? T[] : T;
 
 export default function Select<
   T extends string | number,
   Multiple extends undefined | boolean,
-  Value extends MaybeArray<T, Multiple>
+  Value extends MaybeArray<T, Multiple>,
 >({
   look,
   size,
@@ -172,45 +169,35 @@ export default function Select<
   });
 
   const value = useMemo(() => getter ?? internal, [getter, internal]);
-  const setValue = useCallback(
-    (v: Value) => setter?.(v) ?? setInternal(v),
-    [setter]
-  );
+  const setValue = useCallback((v: Value) => setter?.(v) ?? setInternal(v), [setter]);
 
   const [searchInput, setSearch] = useState<string>();
 
   const matches = useMemo(() => {
     if (!search) return Object.keys(options ?? {});
     // const textToMatch = Object.keys(options ?? {}).map(option => `${option}_${options[option]?.props?.children?.filter(a => typeof a !== "object").join(" ")}`)
-    const textToMatch = Object.keys(options ?? {}).reduce((matches, option) => {
-      const opt = options?.[option];
-      const key =
-        typeof opt === "string"
-          ? opt
-          : (
-              options?.[option] as Exclude<
-                ReactNode,
-                string | number | boolean | Iterable<ReactNode>
-              >
-            )?.props?.children
-              ?.filter?.((a: unknown) => typeof a !== "object")
-              ?.join(" ");
+    const textToMatch = Object.keys(options ?? {}).reduce(
+      (matches, option) => {
+        const opt = options?.[option];
+        const key =
+          typeof opt === "string"
+            ? opt
+            : (
+                options?.[option] as Exclude<ReactNode, string | number | boolean | Iterable<ReactNode>>
+              )?.props?.children
+                ?.filter?.((a: unknown) => typeof a !== "object")
+                ?.join(" ");
 
-      return Object.assign(
-        matches,
-        { [`${option}`]: option },
-        { [`${key}`]: option }
-      );
-    }, {} as { [key: string]: keyof typeof options });
-    const searchMatches = matchSorter(
-      Object.keys(textToMatch),
-      searchInput ?? ""
-    ).map((key) => textToMatch[key]);
+        return Object.assign(matches, { [`${option}`]: option }, { [`${key}`]: option });
+      },
+      {} as { [key: string]: keyof typeof options },
+    );
+    const searchMatches = matchSorter(Object.keys(textToMatch), searchInput ?? "").map(key => textToMatch[key]);
     const uniqueOptionMatches = Array.from(
       searchMatches.reduce((set, option) => {
         set.add(option);
         return set;
-      }, new Set())
+      }, new Set()),
     ) as (typeof value)[];
 
     return uniqueOptionMatches;
@@ -219,19 +206,14 @@ export default function Select<
   const label = useMemo(() => {
     if (
       value &&
-      (typeof value === "number" ||
-        typeof value === "string" ||
-        typeof value === "symbol") &&
+      (typeof value === "number" || typeof value === "string" || typeof value === "symbol") &&
       options?.[value]
     )
       return options?.[value];
     if (typeof value === "object" && value?.length > 0)
       return (
         <>
-          <Text
-            size="xs"
-            className="rounded-full w-md*2 h-md*2 bg-accent-12 text-main-2"
-          >
+          <Text size="xs" className="rounded-full w-md*2 h-md*2 bg-accent-12 text-main-2">
             {value.length}
           </Text>{" "}
           {placeholder}
@@ -243,19 +225,17 @@ export default function Select<
   return (
     <Ariakit.ComboboxProvider
       resetValueOnHide
-      setValue={(value) => {
+      setValue={value => {
         setSearch(value);
-      }}
-    >
+      }}>
       <Ariakit.SelectProvider
-        setValue={(v) => setValue(v as Value)}
+        setValue={v => setValue(v as Value)}
         value={value as string}
-        defaultValue={multiple ? [] : undefined}
-      >
+        defaultValue={multiple ? [] : undefined}>
         <Ariakit.Select className={mergeClass(base(), className)}>
           <div className={valueStyle()}>{label}</div>
           <div className={icon()}>
-            {loading ? <Icon className="animate-spin" remix="RiLoader4Fill"/> : <Icon remix="RiArrowDropDownLine" />}
+            {loading ? <Icon className="animate-spin" remix="RiLoader4Fill" /> : <Icon remix="RiArrowDropDownLine" />}
           </div>
         </Ariakit.Select>
         <Ariakit.SelectPopover gutter={4} className={dropdown()}>
@@ -265,11 +245,7 @@ export default function Select<
                 <Ariakit.Combobox
                   autoSelect
                   placeholder="Search..."
-                  className={mergeClass(
-                    inputStyles({ size: "sm", look: "base" }),
-                    "w-full",
-                    !search && "hidden"
-                  )}
+                  className={mergeClass(inputStyles({ size: "sm", look: "base" }), "w-full", !search && "hidden")}
                 />
               </div>
             )}
@@ -289,11 +265,7 @@ export default function Select<
                             key="select"
                             className={mergeClass(
                               check(),
-                              !(
-                                (typeof value === "object" &&
-                                  value?.length > 0) ||
-                                value === undefined
-                              ) && "opacity-0"
+                              !((typeof value === "object" && value?.length > 0) || value === undefined) && "opacity-0",
                             )}
                             size="sm"
                             remix="RiCheckFill"
@@ -303,7 +275,7 @@ export default function Select<
                     }
                   />
                 )}
-                {matches?.map((_value) => (
+                {matches?.map(_value => (
                   <Ariakit.SelectItem
                     key={_value}
                     value={_value}
@@ -318,11 +290,8 @@ export default function Select<
                             key="select"
                             className={mergeClass(
                               check(),
-                              !(
-                                (typeof value === "object" &&
-                                  value?.includes(_value as T)) ||
-                                value === _value
-                              ) && "opacity-0"
+                              !((typeof value === "object" && value?.includes(_value as T)) || value === _value) &&
+                                "opacity-0",
                             )}
                             size="sm"
                             remix="RiCheckFill"

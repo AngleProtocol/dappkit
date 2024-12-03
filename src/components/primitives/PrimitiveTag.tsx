@@ -1,7 +1,7 @@
-import { tv, type VariantProps } from "tailwind-variants";
+import { type VariantProps, tv } from "tailwind-variants";
+import useThemableProps from "../../hooks/theming/useThemableProps";
 import { mergeClass } from "../../utils/css";
 import type { Component, Themable } from "../../utils/types";
-import useThemableProps from "../../hooks/theming/useThemableProps";
 
 export const primitiveTagStyles = tv({
   base: "flex items-center select-none !leading-none rounded-full text-nowrap ease font-text font-bold text-[clamp(15px,0.4167vw+0.78125rem,20px)]",
@@ -60,8 +60,7 @@ export default function PrimitiveTag({
       className={mergeClass(styleProps, className)}
       type="button"
       disabled={disabled}
-      {...props}
-    >
+      {...props}>
       {children}
     </button>
   );

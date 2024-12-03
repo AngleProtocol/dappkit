@@ -4,7 +4,7 @@ import useThemedVariables from "../../hooks/theming/useThemedVariables";
 import { mergeClass } from "../../utils/css";
 import type { Component, Styled, Themable } from "../../utils/types";
 import { boxStyles } from "../primitives/Box";
-import { ButtonProps } from "../primitives/Button";
+import type { ButtonProps } from "../primitives/Button";
 
 export const cardStyles = tv({
   extend: boxStyles,
@@ -27,10 +27,7 @@ export const cardStyles = tv({
   },
 });
 
-export type CardProps = Component<
-  Styled<typeof cardStyles> & Themable,
-  HTMLButtonElement
->;
+export type CardProps = Component<Styled<typeof cardStyles> & Themable, HTMLButtonElement>;
 
 export default function Card({
   look,
@@ -51,14 +48,13 @@ export default function Card({
         {...{ size, look }}
         className={mergeClass(
           cardStyles({
-            look: look === "text" ? "base" : look ?? "base",
+            look: look === "text" ? "base" : (look ?? "base"),
             size: size ?? "md",
           }),
-          className
+          className,
         )}
         to={to}
-        type="button"
-      >
+        type="button">
         {children}
       </Link>
     );
@@ -69,14 +65,13 @@ export default function Card({
       style={themeVars}
       className={mergeClass(
         cardStyles({
-          look: look === "text" ? "base" : look ?? "base",
+          look: look === "text" ? "base" : (look ?? "base"),
           size: size ?? "md",
         }),
-        className
+        className,
       )}
       {...props}
-      type="button"
-    >
+      type="button">
       {children}
     </button>
   );

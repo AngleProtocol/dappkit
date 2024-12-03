@@ -1,5 +1,5 @@
 import { tv } from "tailwind-variants";
-import { Box, Component, mergeClass, Styled, Themable } from "../..";
+import { type Component, type Styled, type Themable, mergeClass } from "../..";
 import useThemedVariables from "../../hooks/theming/useThemedVariables";
 
 export const barStyles = tv({

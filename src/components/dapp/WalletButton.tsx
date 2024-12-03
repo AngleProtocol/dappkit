@@ -1,30 +1,22 @@
+import { useMemo } from "react";
+import { useWalletContext } from "../../context/Wallet.context";
+import { Format } from "../../utils/format";
 import Dropdown from "../extenders/Dropdown";
 import Group from "../extenders/Group";
+import Modal from "../extenders/Modal";
+import Select from "../extenders/Select";
 import Button, { type ButtonProps } from "../primitives/Button";
 import Divider from "../primitives/Divider";
+import Icon from "../primitives/Icon";
 import Image from "../primitives/Image";
 import Text from "../primitives/Text";
-import { Format } from "../../utils/format";
-import Modal from "../extenders/Modal";
-import Icon from "../primitives/Icon";
+import Title from "../primitives/Title";
 import WalletConnectors from "./WalletConnectors";
-import { useWalletContext } from "../../context/Wallet.context";
-import Select from "../extenders/Select";
-import { useMemo } from "react";
-import Hash from "../primitives/Hash";
 
 export type WalletButton = ButtonProps;
 
 export default function WalletButton(props: ButtonProps) {
-  const {
-    address,
-    disconnect,
-    connected,
-    connector,
-    chainId,
-    switchChain,
-    chains,
-  } = useWalletContext();
+  const { address, disconnect, connected, connector, chainId, switchChain, chains } = useWalletContext();
 
   const chainOptions = useMemo(() => {
     if (!chains) return [];
@@ -39,10 +31,7 @@ export default function WalletButton(props: ButtonProps) {
     }, {});
   }, [chains]);
 
-  const chain = useMemo(
-    () => chains.find(({ id }) => id === chainId),
-    [chains, chainId]
-  );
+  const chain = useMemo(() => chains.find(({ id }) => id === chainId), [chains, chainId]);
 
   if (!connected)
     return (
@@ -50,8 +39,7 @@ export default function WalletButton(props: ButtonProps) {
         title="Connect Wallet"
         description="Available wallets"
         className="mx-auto w-full max-w-[500px]"
-        modal={<WalletConnectors />}
-      >
+        modal={<WalletConnectors />}>
         <Button look="hype" size="lg">
           Connect wallet
         </Button>
@@ -60,11 +48,7 @@ export default function WalletButton(props: ButtonProps) {
 
   return (
     <>
-      <Select
-        state={[chainId, (c) => switchChain(+c)]}
-        options={chainOptions}
-      />
-
+      <Select state={[chainId, c => switchChain(+c)]} options={chainOptions} />
       <Dropdown
         size="lg"
         padding="xs"
@@ -99,14 +83,13 @@ export default function WalletButton(props: ButtonProps) {
               <Button size="sm" look="soft">
                 <Icon remix="RiArrowRightLine" /> Explorer
               </Button>
-              <Button to={`/user/${address}`} size="sm" look="soft">
-                <Icon remix="RiArrowRightLine" /> Dashboard
+              <Button to={`/users/${address}`} size="sm" look="soft">
+                Dashboard
               </Button>
             </Group>
           </>
-        }
-      >
-        <Button look="tint" className="w-full justify-center">{Format.address(address, "short")}</Button>
+        }>
+        <Button look="tint">{Format.address(address, "short")}</Button>
       </Dropdown>
     </>
   );

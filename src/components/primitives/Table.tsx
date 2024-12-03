@@ -1,19 +1,18 @@
 import { Divider, mergeClass } from "dappkit/src";
 import type { Component, Styled } from "dappkit/src";
-import {
-  type PropsWithChildren,
-  type ReactNode,
-  useMemo,
-  useState,
-} from "react";
+import { type PropsWithChildren, type ReactNode, useMemo, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { tv } from "tailwind-variants";
 import Box from "./Box";
+import EventBlocker from "./EventBlocker";
 import Icon from "./Icon";
 import List from "./List";
 import Text from "./Text";
+<<<<<<< HEAD
 import EventBlocker from "./EventBlocker";
 import SCREENS from "../../constants/SCREENS.json";
+=======
+>>>>>>> 71bc4b81 (update: api module)
 
 export const tableStyles = tv({
   base: "",
@@ -78,12 +77,7 @@ export type RowProps<T extends Columns> = Component<
   >
 >;
 
-export function Row<T extends Columns>({
-  columns,
-  exclude,
-  children,
-  ...props
-}: RowProps<T>) {
+export function Row<T extends Columns>({ columns, exclude, children, ...props }: RowProps<T>) {
   const isScreenSmall = useMediaQuery({ maxWidth: 600 });
   const [ids, grid, compact] = useMemo(() => {
     const cols = Object.keys(columns ?? {}) as (keyof T)[];
@@ -95,7 +89,7 @@ export function Row<T extends Columns>({
       display: "grid",
       rowGap: "0px",
       gridTemplateColumns: cols
-        .map((id) => {
+        .map(id => {
           if (exclude?.includes(id)) return;
           return columns?.[id]?.size ?? "1fr";
         })
@@ -104,8 +98,8 @@ export function Row<T extends Columns>({
     const compactStyle: { display: "grid"; gridTemplateColumns: string } = {
       display: "grid",
       gridTemplateColumns: cols
-        .filter((id) => !columns?.[id]?.main)
-        .map((id) => columns?.[id]?.compactSize ?? "1fr")
+        .filter(id => !columns?.[id]?.main)
+        .map(id => columns?.[id]?.compactSize ?? "1fr")
         .join(" "),
     };
 
@@ -123,10 +117,8 @@ export function Row<T extends Columns>({
 
   return (
     <Box style={isScreenSmall ? compact : grid} {...divProps}>
-      {ids?.map((id) => {
-        const element = props[
-          `${String(id)}Column` as keyof typeof props
-        ] as ReactNode;
+      {ids?.map(id => {
+        const element = props[`${String(id)}Column` as keyof typeof props] as ReactNode;
         const { className, main } = columns[id];
 
         if (exclude?.includes(id)) return;
@@ -136,22 +128,17 @@ export function Row<T extends Columns>({
             style={
               main && isScreenSmall
                 ? {
-                    gridColumn: `span ${ids?.length - 1} / span ${
-                      ids?.length - 1
-                    }`,
+                    gridColumn: `span ${ids?.length - 1} / span ${ids?.length - 1}`,
                   }
                 : {}
             }
             key={String(id)}
-            className={[className, "inline-flex items-center"].join(" ")}
-          >
+            className={[className, "inline-flex items-center"].join(" ")}>
             {element}
           </div>
         );
       })}
-      {children && (
-        <EventBlocker style={{ gridColumn: "1 / -1" }}>{children}</EventBlocker>
-      )}
+      {children && <EventBlocker style={{ gridColumn: "1 / -1" }}>{children}</EventBlocker>}
     </Box>
   );
 }
@@ -176,7 +163,7 @@ export function useHeaders<T extends Columns>(
   onHeaderClick?: (id: keyof T) => void,
   sortBy?: keyof T,
   order?: Order,
-  props?: TableHeaders<T>
+  props?: TableHeaders<T>,
 ) {
   return useMemo(() => {
     const ids = Object.keys(columns ?? {});
@@ -185,8 +172,7 @@ export function useHeaders<T extends Columns>(
     for (const id of ids) {
       const { name: title, className } = columns[id];
       const isSortable = sortable?.includes(id);
-      const handler =
-        title && isSortable ? () => onHeaderClick?.(id) : undefined;
+      const handler = title && isSortable ? () => onHeaderClick?.(id) : undefined;
 
       head[`${id}Column` as keyof TableColumns<T>] = (
         <Text
@@ -233,30 +219,17 @@ export function Table<T extends Columns>({
   const [sortBy, setSortBy] = useState<keyof T | undefined>(sortable?.[0]);
 
   function onHeaderClick(id: keyof T) {
-    const currentOrder =
-      id !== sortBy ? "desc" : _order === "desc" ? "asc" : "desc";
+    const currentOrder = id !== sortBy ? "desc" : _order === "desc" ? "asc" : "desc";
 
     setOrder(currentOrder);
     setSortBy(id);
     onSort?.(id, currentOrder);
   }
 
-  const headers = useHeaders(
-    columns,
-    sortable,
-    onHeaderClick,
-    sort ?? sortBy,
-    order ?? _order,
-    props
-  );
+  const headers = useHeaders(columns, sortable, onHeaderClick, sort ?? sortBy, order ?? _order, props);
 
   return (
-    <List
-      indexOffset={header ? 0 : 1}
-      className={mergeClass(className)}
-      look={look}
-      {...props}
-    >
+    <List indexOffset={header ? 0 : 1} className={mergeClass(className)} look={look} {...props}>
       {!!header ? <Box className="bg-auto">{header}</Box> : undefined}
       {/* <Divider horizontal look="bold" /> */}
       <Row columns={columns} {...headers} />
@@ -268,17 +241,9 @@ export function Table<T extends Columns>({
 }
 
 export function createTable<T extends Columns>(columns: T) {
-  const TemplateTable = (props: Omit<TableProps<T>, "columns">) => (
-    <Table {...props} columns={columns} />
-  );
+  const TemplateTable = (props: Omit<TableProps<T>, "columns">) => <Table {...props} columns={columns} />;
 
-  const TemplateRow = (props: Omit<RowProps<T>, "columns">) => (
-    <Row {...props} columns={columns} />
-  );
+  const TemplateRow = (props: Omit<RowProps<T>, "columns">) => <Row {...props} columns={columns} />;
 
-  return [TemplateTable, TemplateRow, Object.keys(columns)] as [
-    typeof TemplateTable,
-    typeof TemplateRow,
-    (keyof T)[]
-  ];
+  return [TemplateTable, TemplateRow, Object.keys(columns)] as [typeof TemplateTable, typeof TemplateRow, (keyof T)[]];
 }
