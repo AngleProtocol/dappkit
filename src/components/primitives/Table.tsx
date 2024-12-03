@@ -1,18 +1,19 @@
-import { Divider, mergeClass } from "dappkit/src";
+import { mergeClass } from "dappkit/src";
 import type { Component, Styled } from "dappkit/src";
 import { type PropsWithChildren, type ReactNode, useMemo, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { tv } from "tailwind-variants";
 import Box from "./Box";
-import EventBlocker from "./EventBlocker";
 import Icon from "./Icon";
 import List from "./List";
 import Text from "./Text";
 <<<<<<< HEAD
-import EventBlocker from "./EventBlocker";
 import SCREENS from "../../constants/SCREENS.json";
+import EventBlocker from "./EventBlocker";
 =======
->>>>>>> 71bc4b81 (update: api module)
+>>>>>>> 71bc4b81 (update: api
+module;
+)
 
 export const tableStyles = tv({
   base: "",
@@ -175,22 +176,12 @@ export function useHeaders<T extends Columns>(
       const handler = title && isSortable ? () => onHeaderClick?.(id) : undefined;
 
       head[`${id}Column` as keyof TableColumns<T>] = (
-        <Text
-          className="relative font-text"
-          size="md"
-          interactable={isSortable}
-          onKeyDown={handler}
-          onClick={handler}
-        >
+        <Text className="relative font-text" size="md" interactable={isSortable} onKeyDown={handler} onClick={handler}>
           {props?.[`${id}Header` as keyof TableHeaders<T>] ?? title}
           <span className="absolute -right-5 top-1/2 -translate-y-1/2">
             {sortable &&
               id === sortBy &&
-              (order === "desc" ? (
-                <Icon remix={"RiArrowDropDownLine"} />
-              ) : (
-                <Icon remix={"RiArrowDropUpLine"} />
-              ))}
+              (order === "desc" ? <Icon remix={"RiArrowDropDownLine"} /> : <Icon remix={"RiArrowDropUpLine"} />)}
           </span>
         </Text>
       );

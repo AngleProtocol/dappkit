@@ -69,12 +69,7 @@ export default function Button({
       <EventBlocker>
         <Link
           to={to}
-          className={mergeClass(
-            styleProps,
-            styleBold,
-            className,
-            disabled && "disabled"
-          )}
+          className={mergeClass(styleProps, styleBold, className, disabled && "disabled")}
           {...(external && {
             target: "_blank",
             rel: "noopener noreferrer",
@@ -88,12 +83,7 @@ export default function Button({
   return (
     <button
       style={themeVars}
-      className={mergeClass(
-        styleProps,
-        styleBold,
-        className,
-        disabled && "disabled"
-      )}
+      className={mergeClass(styleProps, styleBold, className, disabled && "disabled")}
       type="button"
       disabled={disabled}
       {...props}>

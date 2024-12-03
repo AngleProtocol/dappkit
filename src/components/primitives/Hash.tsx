@@ -45,9 +45,8 @@ export default function Hash({ format, copy, size, children: hash, className, ..
       className={mergeClass(
         "items-center gap-sm cursor-pointer font-text",
         copy && "dim select-none inline-flex",
-        className
-      )}
-    >
+        className,
+      )}>
       {formatted}
       {copyButton}
     </Text>

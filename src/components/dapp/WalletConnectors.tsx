@@ -12,20 +12,14 @@ export default function WalletConnectors() {
   return (
     <Group className="flex-col w-full">
       <div className="grid grid-flow-row gap-sm">
-        {config.connectors.map((connector) => {
+        {config.connectors.map(connector => {
           return (
             <Button
               look={connected?.id === connector.id ? "hype" : "bold"}
               onClick={() => connect(connector.id)}
               size="lg"
-              key={connector.id}
-            >
-              <Image
-                className="h-lg*2 w-lg*2 rounded-md"
-                alt={connector.name}
-                src={connector.icon}
-                fallback="WC"
-              />
+              key={connector.id}>
+              <Image className="h-lg*2 w-lg*2 rounded-md" alt={connector.name} src={connector.icon} fallback="WC" />
               {connector.name}
             </Button>
           );
