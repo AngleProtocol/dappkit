@@ -12,7 +12,6 @@ import Box from "./Box";
 import Icon from "./Icon";
 import List from "./List";
 import Text from "./Text";
-import SCREENS from "../../constants/SCREENS.json";
 import EventBlocker from "./EventBlocker";
 
 export const tableStyles = tv({
@@ -84,7 +83,7 @@ export function Row<T extends Columns>({
   children,
   ...props
 }: RowProps<T>) {
-  const isScreenSmall = useMediaQuery({ maxWidth: 600 });
+  const isScreenSmall = useMediaQuery({ maxWidth: 640 });
   const [ids, grid, compact] = useMemo(() => {
     const cols = Object.keys(columns ?? {}) as (keyof T)[];
     const style: {
@@ -228,7 +227,6 @@ export function Table<T extends Columns>({
   children,
   ...props
 }: TableProps<T>) {
-  const isScreenSmall = useMediaQuery({ maxWidth: SCREENS.md });
   const [_order, setOrder] = useState<"asc" | "desc">("desc");
   const [sortBy, setSortBy] = useState<keyof T | undefined>(sortable?.[0]);
 

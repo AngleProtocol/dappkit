@@ -24,10 +24,23 @@ export const iconsStyles = tv({
   },
 });
 
-type ListElement = ReactElement<{ look: unknown; size: unknown; className?: string; style: unknown }>;
-export type IconsProps = Component<Styled<typeof iconsStyles> & { children: ListElement[] }, HTMLDivElement>;
+type ListElement = ReactElement<{
+  look: unknown;
+  size: unknown;
+  className?: string;
+  style: unknown;
+}>;
+export type IconsProps = Component<
+  Styled<typeof iconsStyles> & { children: ListElement[] },
+  HTMLDivElement
+>;
 
-export default function Icons({ size, children, className, ...props }: IconsProps) {
+export default function Icons({
+  size,
+  children,
+  className,
+  ...props
+}: IconsProps) {
   const { container, item } = iconsStyles({ size });
 
   return (
@@ -40,9 +53,8 @@ export default function Icons({ size, children, className, ...props }: IconsProp
             size: size,
             style: { zIndex: Children.count(children) - index },
             className: mergeClass(index && item(), child.props.className),
-          }),
+          })
       )}
-      {/* <Icon remix="Ri24HoursFill"/> */}
     </Group>
   );
 }

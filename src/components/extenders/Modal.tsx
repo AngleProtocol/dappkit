@@ -16,27 +16,55 @@ export type ModalProps = Component<{
 }> &
   BoxProps;
 
-export default function Modal({ state, title, description, modal, children, className, ...props }: ModalProps) {
+export default function Modal({
+  state,
+  title,
+  description,
+  modal,
+  children,
+  className,
+  ...props
+}: ModalProps) {
   const { vars } = useTheme();
   const [internalState, setInternalState] = useState<boolean>(false);
 
   return (
-    <Dialog.Root open={!state ? internalState : state?.[0]} onOpenChange={!state ? setInternalState : state?.[1]}>
+    <Dialog.Root
+      open={!state ? internalState : state?.[0]}
+      onOpenChange={!state ? setInternalState : state?.[1]}
+    >
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay style={vars} className="bg-main-1 opacity-[0.75] fixed inset-0" />
+        <Dialog.Overlay
+          style={vars}
+          className="bg-main-1 opacity-[0.75] fixed inset-0"
+        />
         <Dialog.Content
           style={vars}
-          className={mergeClass("fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2", className)}>
-          <Box className="shadow-md" {...props}>
+          className={mergeClass(
+            "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
+            className
+          )}
+        >
+          <Box size="xl" className="shadow-md" {...props}>
             {title && (
               <Dialog.Title asChild={!!title}>
-                {typeof title === "string" ? <Title h={2}>{title}</Title> : title}
+                {typeof title === "string" ? (
+                  <Title h={3}>{title}</Title>
+                ) : (
+                  title
+                )}
               </Dialog.Title>
             )}
             {description && (
               <Dialog.Description>
-                {typeof description === "string" ? <Text>{description}</Text> : description}
+                {typeof description === "string" ? (
+                  <Text size={5} className="text-main-11">
+                    {description}
+                  </Text>
+                ) : (
+                  description
+                )}
               </Dialog.Description>
             )}
             {modal}

@@ -26,12 +26,26 @@ export type IconProps = Component<
   HTMLImageElement
 >;
 
-export default function Icon({ rounded, remix, src, alt, className, ...props }: IconProps) {
+export default function Icon({
+  rounded,
+  remix,
+  src,
+  alt,
+  className,
+  ...props
+}: IconProps) {
   const styles = useMemo(() => iconStyles({ rounded }), [rounded]);
 
   const Component = useMemo(() => {
     if (remix) return RemixIcon[remix];
-    return () => <Image className={mergeClass(styles, className)} alt={alt} src={src} {...props} />;
+    return () => (
+      <Image
+        className={mergeClass(styles, className)}
+        alt={alt}
+        src={src}
+        {...props}
+      />
+    );
   }, [remix, alt, src, props]);
 
   return <Component {...props} className={mergeClass(styles, className)} />;

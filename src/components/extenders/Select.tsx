@@ -15,74 +15,81 @@ import Group from "./Group";
 
 export const selectStyles = tv({
   base: [
-    "text-main-11 flex items-center justify-between gap-1 border-1 outline-offset-0 outline-0 text-nowrap font-text font-semibold",
+    "text-main-11 rounded-sm flex items-center dim focus-visible:outline focus-visible:outline-dashed focus-visible:outline-main-12 !leading-none justify-between gap-1 text-nowrap font-text font-semibold",
   ],
   slots: {
-    dropdown: "outline-0 z-50 origin-top animate-drop animate-stretch mt-sm min-w-[var(--popover-anchor-width)]",
-    item: "flex justify-between items-center gap-lg cursor-pointer select-none p-sm outline-offset-0 outline-0 text-nowrap",
-    icon: "border-l-1 h-full flex items-center",
+    dropdown:
+      "outline-0 z-50 origin-top animate-drop animate-stretch mt-sm min-w-[var(--popover-anchor-width)]",
+    item: "rounded-sm flex justify-between items-center gap-lg cursor-pointer select-none p-sm outline-offset-0 outline-0 text-nowrap focus-visible:outline focus-visible:outline-dashed focus-visible:outline-main-12",
+    icon: "flex items-center",
     value: "flex gap-sm items-center",
     check: "",
+    prefixLabel: "",
   },
   variants: {
     look: {
       soft: {
-        base: "bg-main-0 border-main-0 hover:bg-main-4 active:bg-main-3 hover:text-main-12  focus-visible:border-main-9",
+        base: "bg-main-0 border-main-9 active:text-main-12 text-main-11",
         icon: "border-main-0",
-        item: "hover:bg-main-5 data-[active-item]:bg-main-5 active:bg-main-4 text-main-12 focus-visible:border-main-8",
+        item: "hover:bg-main-5 data-[active-item]:bg-main-5 active:bg-main-4 text-main-12",
       },
       base: {
-        base: "bg-main-2 border-main-6 hover:bg-main-4 active:bg-main-3 hover:text-main-12  focus-visible:border-main-9",
-        icon: "border-main-6",
-        item: "hover:bg-main-5 data-[active-item]:bg-main-5 active:bg-main-4 text-main-12 focus-visible:border-main-8",
+        base: "bg-main-1 active:text-main-12 text-main-11",
+        icon: "",
+        item: "hover:bg-main-5 data-[active-item]:bg-main-5 active:bg-main-4 text-main-12",
         check: "text-accent-10",
       },
       bold: {
-        base: "bg-main-4 border-main-4 hover:bg-main-5 active:bg-main-3 text-main-12 focus-visible:border-main-9",
-        icon: "border-main-6",
-        item: "hover:bg-main-6 data-[active-item]:bg-main-6 active:bg-main-5 text-main-12 focus-visible:border-main-8",
+        base: "bg-main-5 active:text-main-12 text-main-11",
+        icon: "",
+        item: "hover:bg-main-3 data-[active-item]:bg-main-6 active:bg-main-5 text-main-12",
       },
       tint: {
-        base: "bg-accent-4 border-accent-4 hover:bg-accent-5 active:bg-accent-3 text-main-12 focus-visible:border-accent-9",
-        icon: "border-accent-6",
-        item: "hover:bg-accent-6 data-[active-item]:bg-accent-6 active:bg-accent-5 text-main-12 focus-visible:border-main-8",
+        base: "bg-main-8 active:text-main-12 text-main-11",
+        icon: "",
+        item: "hover:bg-accent-6 data-[active-item]:bg-accent-6 active:bg-accent-5 text-main-12",
       },
       hype: {
-        base: "bg-accent-9 border-accent-9 hover:bg-accent-10 active:bg-accent-8 text-accent-12 focus-visible:border-accent-10",
-        icon: "border-accent-11",
-        item: "hover:bg-accent-10 data-[active-item]:bg-accent-10 active:bg-accent-4 text-main-12 focus-visible:border-accent-10",
+        base: "bg-accent-5 active:text-main-12 text-accent-11",
+        icon: "",
+        item: "hover:bg-accent-10 data-[active-item]:bg-accent-10 active:bg-accent-4 text-main-12",
       },
     },
     size: {
       xs: {
-        base: "text-xs rounded-xs",
-        value: "px-xs*2 py-xs*2",
-        icon: "px-0",
-        item: "px-sm text-xs rounded-xs",
+        base: "text-xs",
+        value: "px-sm*2 py-xs*2",
+        icon: "text-sm",
+        item: "px-md text-xs",
+        prefixLabel: "text-xs",
       },
       sm: {
-        base: "text-sm rounded-sm",
-        value: "px-sm py-sm/2",
-        icon: "px-xs/2",
-        item: "px-md text-sm rounded-sm",
+        base: "text-sm",
+        value: "px-md py-sm",
+        icon: "text-base",
+        item: "px-md text-sm",
+        prefixLabel: "text-sm",
       },
       md: {
-        base: "text-md rounded-md",
-        value: "px-md text-md py-md/2",
-        icon: "px-md/2",
-        item: "px-md text-md rounded-md",
+        base: "text-md",
+        value: "px-md text-md py-md",
+        icon: "text-lg",
+        item: "px-md text-md",
+        prefixLabel: "text-sm",
       },
       lg: {
-        base: " text-lg rounded-lg",
-        value: "px-lg py-lg/2",
-        icon: "px-md/2",
-        item: "px-lg text-lg rounded-lg",
+        base: "text-lg",
+        value: "px-xl/2 py-lg",
+        icon: "text-xl",
+        item: "px-lg text-lg",
+        prefixLabel: "text-base",
       },
       xl: {
-        base: "text-xl rounded-xl",
-        value: "px-lg py-lg/2",
-        icon: "px-lg/2",
-        item: "px-xl text-xl rounded-xl",
+        base: "text-xl",
+        value: "px-sm*2 py-lg",
+        icon: "text-xl",
+        item: "px-xl text-xl",
+        prefixLabel: "text-lg",
       },
     },
   },
@@ -132,12 +139,14 @@ export type SelectProps<Value> = Component<{
 }> &
   RadixSelect.SelectProps;
 
-type MaybeArray<T, IsArray extends undefined | boolean> = IsArray extends true ? T[] : T;
+type MaybeArray<T, IsArray extends undefined | boolean> = IsArray extends true
+  ? T[]
+  : T;
 
 export default function Select<
   T extends string | number,
   Multiple extends undefined | boolean,
-  Value extends MaybeArray<T, Multiple>,
+  Value extends MaybeArray<T, Multiple>
 >({
   look,
   size,
@@ -161,6 +170,7 @@ export default function Select<
     dropdown,
     item,
     icon,
+    prefixLabel,
     value: valueStyle,
     check,
   } = selectStyles({
@@ -169,35 +179,45 @@ export default function Select<
   });
 
   const value = useMemo(() => getter ?? internal, [getter, internal]);
-  const setValue = useCallback((v: Value) => setter?.(v) ?? setInternal(v), [setter]);
+  const setValue = useCallback(
+    (v: Value) => setter?.(v) ?? setInternal(v),
+    [setter]
+  );
 
   const [searchInput, setSearch] = useState<string>();
 
   const matches = useMemo(() => {
     if (!search) return Object.keys(options ?? {});
     // const textToMatch = Object.keys(options ?? {}).map(option => `${option}_${options[option]?.props?.children?.filter(a => typeof a !== "object").join(" ")}`)
-    const textToMatch = Object.keys(options ?? {}).reduce(
-      (matches, option) => {
-        const opt = options?.[option];
-        const key =
-          typeof opt === "string"
-            ? opt
-            : (
-                options?.[option] as Exclude<ReactNode, string | number | boolean | Iterable<ReactNode>>
-              )?.props?.children
-                ?.filter?.((a: unknown) => typeof a !== "object")
-                ?.join(" ");
+    const textToMatch = Object.keys(options ?? {}).reduce((matches, option) => {
+      const opt = options?.[option];
+      const key =
+        typeof opt === "string"
+          ? opt
+          : (
+              options?.[option] as Exclude<
+                ReactNode,
+                string | number | boolean | Iterable<ReactNode>
+              >
+            )?.props?.children
+              ?.filter?.((a: unknown) => typeof a !== "object")
+              ?.join(" ");
 
-        return Object.assign(matches, { [`${option}`]: option }, { [`${key}`]: option });
-      },
-      {} as { [key: string]: keyof typeof options },
-    );
-    const searchMatches = matchSorter(Object.keys(textToMatch), searchInput ?? "").map(key => textToMatch[key]);
+      return Object.assign(
+        matches,
+        { [`${option}`]: option },
+        { [`${key}`]: option }
+      );
+    }, {} as { [key: string]: keyof typeof options });
+    const searchMatches = matchSorter(
+      Object.keys(textToMatch),
+      searchInput ?? ""
+    ).map((key) => textToMatch[key]);
     const uniqueOptionMatches = Array.from(
       searchMatches.reduce((set, option) => {
         set.add(option);
         return set;
-      }, new Set()),
+      }, new Set())
     ) as (typeof value)[];
 
     return uniqueOptionMatches;
@@ -206,14 +226,22 @@ export default function Select<
   const label = useMemo(() => {
     if (
       value &&
-      (typeof value === "number" || typeof value === "string" || typeof value === "symbol") &&
+      (typeof value === "number" ||
+        typeof value === "string" ||
+        typeof value === "symbol") &&
       options?.[value]
     )
       return options?.[value];
     if (typeof value === "object" && value?.length > 0)
       return (
         <>
-          <Text size="xs" className="rounded-full w-md*2 h-md*2 bg-accent-12 text-main-2">
+          <Text
+            // className="flex items-center justify-center rounded-full w-md*2 h-md*2 bg-main-6 text-main-12"
+            className={mergeClass(
+              prefixLabel(),
+              "w-[1.2em] h-[1.2em] flex items-center justify-center rounded-full bg-main-6 text-main-12"
+            )}
+          >
             {value.length}
           </Text>{" "}
           {placeholder}
@@ -225,17 +253,23 @@ export default function Select<
   return (
     <Ariakit.ComboboxProvider
       resetValueOnHide
-      setValue={value => {
+      setValue={(value) => {
         setSearch(value);
-      }}>
+      }}
+    >
       <Ariakit.SelectProvider
-        setValue={v => setValue(v as Value)}
+        setValue={(v) => setValue(v as Value)}
         value={value as string}
-        defaultValue={multiple ? [] : undefined}>
+        defaultValue={multiple ? [] : undefined}
+      >
         <Ariakit.Select className={mergeClass(base(), className)}>
           <div className={valueStyle()}>{label}</div>
           <div className={icon()}>
-            {loading ? <Icon className="animate-spin" remix="RiLoader4Fill" /> : <Icon remix="RiArrowDropDownLine" />}
+            {loading ? (
+              <Icon className="animate-spin" remix="RiLoader4Fill" />
+            ) : (
+              <Icon remix="RiArrowDropDownLine" />
+            )}
           </div>
         </Ariakit.Select>
         <Ariakit.SelectPopover gutter={4} className={dropdown()}>
@@ -245,7 +279,11 @@ export default function Select<
                 <Ariakit.Combobox
                   autoSelect
                   placeholder="Search..."
-                  className={mergeClass(inputStyles({ size: "sm", look: "base" }), "w-full", !search && "hidden")}
+                  className={mergeClass(
+                    inputStyles({ size: "sm", look: "base" }),
+                    "w-full",
+                    !search && "hidden"
+                  )}
                 />
               </div>
             )}
@@ -265,7 +303,11 @@ export default function Select<
                             key="select"
                             className={mergeClass(
                               check(),
-                              !((typeof value === "object" && value?.length > 0) || value === undefined) && "opacity-0",
+                              !(
+                                (typeof value === "object" &&
+                                  value?.length > 0) ||
+                                value === undefined
+                              ) && "opacity-0"
                             )}
                             size="sm"
                             remix="RiCheckFill"
@@ -275,7 +317,7 @@ export default function Select<
                     }
                   />
                 )}
-                {matches?.map(_value => (
+                {matches?.map((_value) => (
                   <Ariakit.SelectItem
                     key={_value}
                     value={_value}
@@ -290,8 +332,11 @@ export default function Select<
                             key="select"
                             className={mergeClass(
                               check(),
-                              !((typeof value === "object" && value?.includes(_value as T)) || value === _value) &&
-                                "opacity-0",
+                              !(
+                                (typeof value === "object" &&
+                                  value?.includes(_value as T)) ||
+                                value === _value
+                              ) && "opacity-0"
                             )}
                             size="sm"
                             remix="RiCheckFill"
