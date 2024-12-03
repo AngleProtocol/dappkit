@@ -3,6 +3,7 @@ import { tv, type VariantProps } from "tailwind-variants";
 import { mergeClass } from "../../utils/css";
 import type { Component, Themable } from "../../utils/types";
 import EventBlocker from "./EventBlocker";
+import useThemableProps from "../../hooks/theming/useThemableProps";
 
 export const buttonStyles = tv(
   {
