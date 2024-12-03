@@ -6,14 +6,14 @@ import EventBlocker from "./EventBlocker";
 
 export const buttonStyles = tv(
   {
-    base: "flex items-center !leading-none select-none rounded-full text-nowrap font-text ease font-bold text-[clamp(15px,0.4167vw+0.78125rem,20px)]",
+    base: "flex items-center dim !leading-none select-none rounded-full focus-visible:outline focus-visible:outline-dashed focus-visible:outline-main-12 text-nowrap font-text ease font-bold text-[clamp(15px,0.4167vw+0.78125rem,20px)]",
     variants: {
       look: {
-        soft: "text-main-12 !p-0 lg:opacity-100 lg:hover:opacity-70 transition-opacity focus-visible:border-main-9",
-        base: "text-main-12 hover:text-main-12 border-1 border-main-11 hover:bg-main-4 active:bg-main-3 focus-visible:border-main-9",
-        bold: "text-main-1 bg-main-11 hover:bg-main-5 active:bg-main-3 focus-visible:border-main-9",
-        tint: "text-main-1 bg-accent-10 hover:bg-accent-5 active:bg-accent-3 focus-visible:border-accent-9",
-        hype: "text-main-1 bg-accent-11 hover:bg-accent-12 active:bg-accent-8 focus-visible:border-accent-10",
+        soft: "text-main-12 !p-0 active:text-main-11 outline-offset-4",
+        base: "text-main-12 border-1 border-main-11 active:border-main-10",
+        bold: "text-main-1 bg-main-11 active:bg-main-10",
+        tint: "text-main-1 bg-accent-10 active:bg-accent-9",
+        hype: "text-main-1 bg-accent-11 active:bg-accent-10",
       },
       size: {
         xs: "px-sm py-xs gap-sm text-xs",
@@ -28,7 +28,7 @@ export const buttonStyles = tv(
       size: "md",
     },
   },
-  { twMerge: false },
+  { twMerge: false }
 );
 
 type ButtonStyleProps = VariantProps<typeof buttonStyles>;
@@ -80,11 +80,17 @@ export default function Button({
       <EventBlocker>
         <Link
           to={to}
-          className={mergeClass(styleProps, styleBold, className, disabled && "disabled")}
+          className={mergeClass(
+            styleProps,
+            styleBold,
+            className,
+            disabled && "disabled"
+          )}
           {...(external && {
             target: "_blank",
             rel: "noopener noreferrer",
-          })}>
+          })}
+        >
           {children}
         </Link>
       </EventBlocker>
@@ -94,10 +100,16 @@ export default function Button({
   return (
     <button
       style={themeVars}
-      className={mergeClass(styleProps, styleBold, className, disabled && "disabled")}
+      className={mergeClass(
+        styleProps,
+        styleBold,
+        className,
+        disabled && "disabled"
+      )}
       type="button"
       disabled={disabled}
-      {...props}>
+      {...props}
+    >
       {children}
     </button>
   );
