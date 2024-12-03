@@ -20,7 +20,9 @@ export default function Hash({ format, copy, size, children: hash, className, ..
       case "prefix":
         return hash.slice(0, 6);
       case "short":
-        return `${hash?.substring(0, 6)}…${hash.substring(hash.length, hash.length - 4)}`;
+        return `${hash?.substring(0, 6)}…${hash.substring(
+          hash.length - 4
+        )}`;
       default:
         return hash;
     }

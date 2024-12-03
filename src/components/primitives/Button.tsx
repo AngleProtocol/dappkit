@@ -1,6 +1,5 @@
-import { Link } from "@remix-run/react";
-import { type VariantProps, tv } from "tailwind-variants";
-import useThemableProps from "../../hooks/theming/useThemableProps";
+import { Link, useNavigate } from "@remix-run/react";
+import { tv, type VariantProps } from "tailwind-variants";
 import { mergeClass } from "../../utils/css";
 import type { Component, Themable } from "../../utils/types";
 import EventBlocker from "./EventBlocker";
@@ -60,9 +59,21 @@ export default function Button({
   ...props
 }: ButtonProps) {
   const themeVars = useThemableProps(props);
-
+  const navigate = useNavigate();
   const styleProps = buttonStyles({ look, size });
   const styleBold = bold ? "font-bold" : "";
+
+  if (to && external)
+    return (
+      <a
+        href={to}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={() => window.open(to, "_blank", "noopener noreferrer")}
+        className={mergeClass(styleProps, styleBold, className, disabled && "disabled")}>
+        {children}
+      </a>
+    );
 
   if (to) {
     return (

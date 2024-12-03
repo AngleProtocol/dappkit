@@ -5,6 +5,8 @@ import { demoThemes } from "../config/themes";
 import type { Mode, Spacing } from "../theming/variables";
 import ThemeProvider, { type ThemeProviderProps } from "./Theme.context";
 import { WalletProvider } from "./Wallet.context";
+import { type Chain, Explorer } from "@merkl/api";
+import { Mode, Spacing } from "../theming/variables";
 
 export type DAppContextType = { flag?: string };
 
@@ -22,7 +24,7 @@ export type DAppProviderProps = {
   themes?: ThemeProviderProps["themes"];
   sizing: Spacing;
   modes: Mode[];
-  chains: Chain[];
+  chains: (Chain & {explorers: Explorer[]})[];
 };
 
 export function DAppProvider({
