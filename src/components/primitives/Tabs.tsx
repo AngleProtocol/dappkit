@@ -1,11 +1,11 @@
 import { Link, useLocation } from "@remix-run/react";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { ReactNode } from "react";
+import { type VariantProps, tv } from "tailwind-variants";
+import useThemableProps from "../../hooks/theming/useThemableProps";
 import { mergeClass } from "../../utils/css";
 import type { Component, Styled, Themable } from "../../utils/types";
-import EventBlocker from "./EventBlocker";
-import useThemableProps from "../../hooks/theming/useThemableProps";
 import Group from "../extenders/Group";
-import type { ReactNode } from "react";
+import EventBlocker from "./EventBlocker";
 
 export const tabsStyles = tv(
   {
@@ -66,7 +66,7 @@ export const tabsStyles = tv(
       size: "md",
     },
   },
-  { twMerge: false }
+  { twMerge: false },
 );
 
 type TabsStyleProps = VariantProps<typeof tabsStyles>;
@@ -86,15 +86,7 @@ export type TabsProps = Component<
   HTMLButtonElement
 >;
 
-export default function Tabs({
-  look,
-  size,
-  to,
-  theme,
-  className,
-  tabs = [],
-  ...props
-}: TabsProps) {
+export default function Tabs({ look, size, to, theme, className, tabs = [], ...props }: TabsProps) {
   const themeVars = useThemableProps(props);
   const styleProps = tabsStyles({ look, size });
   const location = useLocation();
@@ -106,7 +98,7 @@ export default function Tabs({
 
   return (
     <Group className={mergeClass(line(), "gap-xl*2 items-center w-full")}>
-      {tabs.map((tab) => {
+      {tabs.map(tab => {
         return (
           <>
             {tab.link ? (
@@ -114,13 +106,7 @@ export default function Tabs({
                 <Link
                   to={tab.link}
                   style={themeVars}
-                  className={mergeClass(
-                    styleProps,
-                    base(),
-                    className,
-                    location.pathname === tab.link && active()
-                  )}
-                >
+                  className={mergeClass(styleProps, base(), className, location.pathname === tab.link && active())}>
                   {tab.label}
                 </Link>
               </EventBlocker>
@@ -128,15 +114,9 @@ export default function Tabs({
               <button
                 key={tab.key}
                 style={themeVars}
-                className={mergeClass(
-                  styleProps,
-                  base(),
-                  className,
-                  location.pathname === tab.link && active()
-                )}
+                className={mergeClass(styleProps, base(), className, location.pathname === tab.link && active())}
                 type="button"
-                {...props}
-              >
+                {...props}>
                 {tab.label}
               </button>
             )}
