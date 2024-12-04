@@ -10,7 +10,7 @@ export type Sizing = {
 
 export const variableConfig = generateVariableAssigners();
 
-export const generateTailwindConfig = () =>
+export const generateTailwindConfig = (fonts?: { title: string, text: string, mono: string }) =>
   ({
     extend: {
       width: {
@@ -122,8 +122,8 @@ export const generateTailwindConfig = () =>
       "3xl": "clamp(24px,calc(0.4167vw + 1.46484375rem),30px)",
     },
     fontFamily: {
-      title: ['"Space Grotesk", serif'],
-      text: ['"Mulish", sans-serif'],
-      mono: ['"Space Mono", sans-serif'],
+      title: [fonts?.title ?? '"Space Grotesk", serif'],
+      text: [fonts?.text ??'"Mulish", sans-serif'],
+      mono: [fonts?.mono ?? '"Space Mono", sans-serif'],
     },
   }) satisfies Config["theme"];
