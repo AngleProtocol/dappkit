@@ -1,0 +1,25 @@
+@keyframes collapseDown {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-collapsible-content-height);
+  }
+}
+
+@keyframes collapseUp {
+  from {
+    height: var(--radix-collapsible-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+.animated[data-state="closed"] {
+  animation: collapseUp 0.2s ease-out;
+}
+
+.animated[data-state="open"] {
+  animation: collapseDown 0.2s ease-out;
+}
