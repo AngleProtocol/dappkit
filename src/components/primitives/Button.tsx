@@ -70,7 +70,13 @@ export default function Button({
         target="_blank"
         rel="noopener noreferrer"
         onClick={() => window.open(to, "_blank", "noopener noreferrer")}
-        className={mergeClass(styleProps, styleBold, className, disabled && "disabled")}>
+        className={mergeClass(
+          styleProps,
+          styleBold,
+          className,
+          disabled && "disabled"
+        )}
+      >
         {children}
       </a>
     );
