@@ -11,6 +11,7 @@ export type DropdownProps = Component<
     padding?: BoxProps["content"];
     state?: GetSet<boolean>;
     content?: ReactNode;
+    size?: BoxProps["size"]
   },
   BoxProps
 >;

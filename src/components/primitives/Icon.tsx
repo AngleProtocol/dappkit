@@ -6,8 +6,15 @@ import { tv } from "tailwind-variants";
 import Image from "./Image";
 
 export const iconStyles = tv({
-  base: "flex flex-col border-0 gap-1 rounded-md overflow-hidden self-center rounded-sm w-[calc(1em+2px)] h-[calc(1em+2px)]",
+  base: "flex flex-col border-0 gap-1 overflow-hidden self-center rounded-sm w-[calc(1em+2px)] h-[calc(1em+2px)]",
   variants: {
+    size: {
+      xs: "w-xs h-xs",
+      sm: "w-sm h-sm",
+      md: "w-md h-md rounded-md",
+      lg: "w-lg h-lg rounded-md",
+      xl: "w-xl h-xl rounded-lg",
+    },
     rounded: {
       true: "rounded-full",
       false: "",
@@ -26,27 +33,18 @@ export type IconProps = Component<
   HTMLImageElement
 >;
 
-export default function Icon({
-  rounded,
-  remix,
-  src,
-  alt,
-  className,
-  ...props
-}: IconProps) {
+export default function Icon({ rounded, remix, src, alt, className, ...props }: IconProps) {
   const styles = useMemo(() => iconStyles({ rounded }), [rounded]);
 
   const Component = useMemo(() => {
     if (remix) return RemixIcon[remix];
-    return () => (
-      <Image
-        className={mergeClass(styles, className)}
-        alt={alt}
-        src={src}
-        {...props}
-      />
-    );
-  }, [remix, alt, src, props]);
+    return () => {
+      const { size, ...rest } = props;
+
+      return <Image className={mergeClass(styles, className)} alt={alt} src={src} {...rest} />;
+    };
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  }, [remix, alt, src, className, styles, props]);
 
   return <Component {...props} className={mergeClass(styles, className)} />;
 }
