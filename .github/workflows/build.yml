@@ -1,4 +1,4 @@
-name: Publish
+name: Check Build
 
 on:
   release:
@@ -23,15 +23,3 @@ jobs:
 
       - name: Build
         run: bun run build
-
-      - name: Update package.json version
-        run: |
-          jq '.version = "${{ github.event.release.tag_name }}"' package.json > package.tmp.json
-          mv package.tmp.json package.json
-        env:
-          TAG_NAME: ${{ github.event.release.tag_name }}
-
-      - name: Publish
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
