@@ -37,12 +37,12 @@ export default function Modal({
       <Dialog.Portal>
         <Dialog.Overlay
           style={vars}
-          className="bg-main-1 opacity-[0.75] fixed inset-0"
+          className="bg-main-1 opacity-[0.75] fixed inset-0 z-40"
         />
         <Dialog.Content
           style={vars}
           className={mergeClass(
-            "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
+            "fixed top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2",
             className
           )}
         >

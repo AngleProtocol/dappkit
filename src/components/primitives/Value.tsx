@@ -30,6 +30,7 @@ export default function Value({
   look,
   size,
   value,
+  prefix,
   className,
   format: _format,
   children,
@@ -39,7 +40,7 @@ export default function Value({
   if (value) return format(children, _format, { currency: "USD" });
   return (
     <p className={mergeClass(valueStyles({ size, look }), className)} {...props}>
-      {children && (fallback?.(children) || format(children, _format, { currency: "USD" }))}
+      {children !== null && (fallback?.(children) || format(children, _format, { currency: "USD" }))}
     </p>
   );
 }

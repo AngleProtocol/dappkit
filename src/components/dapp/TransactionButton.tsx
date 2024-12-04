@@ -3,15 +3,16 @@ import { type ResolvedRegister, type UseSendTransactionReturnType, useSendTransa
 import Dropdown from "../extenders/Dropdown";
 import Button, { type ButtonProps } from "../primitives/Button";
 import TransactionHelper from "./TransactionHelper";
+import Icon from "../primitives/Icon";
 
 export type TransactionButtonProps = ButtonProps & {
   tx?: Parameters<UseSendTransactionReturnType<ResolvedRegister["config"], unknown>["sendTransaction"]>["0"];
   name?: ReactNode;
 };
 
-export default function TransactionButton({ tx, name, ...props }: TransactionButtonProps) {
+export default function TransactionButton({ tx, name, children, ...props }: TransactionButtonProps) {
   const sendTxHook = useSendTransaction();
-  const { sendTransaction } = sendTxHook;
+  const { sendTransaction, status} = sendTxHook;
 
   const execute = useCallback(() => {
     if (!tx) return;
@@ -23,8 +24,9 @@ export default function TransactionButton({ tx, name, ...props }: TransactionBut
   }, [tx, sendTransaction]);
 
   return (
-    <Dropdown className="[&>*]:grow flex" content={<TransactionHelper execute={execute} {...sendTxHook} />}>
-      <Button {...props} onClick={execute} />
-    </Dropdown>
+    <Button {...props} onClick={execute} >
+      {children}
+      {status === "pending" && <Icon className="animate-spin" remix="RiLoader2Line"/>}
+    </Button>
   );
 }

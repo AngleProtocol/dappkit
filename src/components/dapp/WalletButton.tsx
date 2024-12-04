@@ -48,7 +48,6 @@ export default function WalletButton(props: ButtonProps) {
     return (
       <Modal
         title="Connect Wallet"
-        description="Available wallets"
         className="mx-auto w-full max-w-[500px]"
         modal={<WalletConnectors />}
       >
