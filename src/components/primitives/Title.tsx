@@ -6,7 +6,7 @@ import { textStyles } from "./Text";
 export const titleStyles = tv(
   {
     extend: textStyles,
-    base: "text-main-12 font-title font-semibold",
+    base: "text-main-12 font-title font-bold",
     variants: {
       look: {
         base: "text-main-12",
