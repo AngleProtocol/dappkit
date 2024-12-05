@@ -1,9 +1,9 @@
-import type { Chain } from "@merkl/api";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import useWalletState from "dappkit/src/hooks/useWalletState";
 import { type PropsWithChildren, createContext, useContext } from "react";
 import { type ResolvedRegister, WagmiProvider } from "wagmi";
-import useWalletState from "dappkit/src/hooks/useWalletState";
+import useWalletState from "../hooks/useWalletState";
+
+//TODO: remove merkl-related typings in favor of redeclarations for better abstraction
 import type { Chain, Explorer } from "@merkl/api";
 
 export type WalletContextType = ReturnType<typeof useWalletState>;
@@ -21,10 +21,13 @@ export function useWalletContext() {
 
 export type WalletProviderProps = {
   config: ResolvedRegister["config"];
-  chains: (Chain & {explorers: Explorer[]})[];
+  chains: (Chain & { explorers: Explorer[] })[];
 };
 
-function WalletStateProvider({ children, chains}: PropsWithChildren & {chains: (Chain & {explorers: Explorer[]})[]}) {
+function WalletStateProvider({
+  children,
+  chains,
+}: PropsWithChildren & { chains: (Chain & { explorers: Explorer[] })[] }) {
   const walletState = useWalletState(chains);
 
   return <WalletContext.Provider value={walletState}>{children}</WalletContext.Provider>;

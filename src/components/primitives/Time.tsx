@@ -6,7 +6,7 @@ export type TimeProps = {
   relative?: "hours" | "day" | "auto";
 };
 
-export default function Time({ timestamp, relative }: TimeProps) {
+export default function Time({ timestamp }: TimeProps) {
   const time = useMemo(() => {
     const then = moment(Number(timestamp)).fromNow();
 
@@ -17,7 +17,7 @@ export default function Time({ timestamp, relative }: TimeProps) {
       .replace(/ hours| hour/g, "h")
       .replace(/ days| day/g, "d")
       .replace(/ months| month/g, "d");
-  }, [timestamp, relative]);
+  }, [timestamp]);
 
   return time;
 }

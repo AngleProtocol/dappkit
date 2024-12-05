@@ -1,6 +1,6 @@
-import { Divider, Group, Text, Title } from "dappkit";
 import type React from "react";
 import { useEffect, useState } from "react";
+import { Divider, Group, Text, Title } from "../..";
 
 interface CountdownProps {
   targetDate: Date;

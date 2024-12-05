@@ -48,7 +48,7 @@ export default function Card({
         {...{ size, look }}
         className={mergeClass(
           cardStyles({
-            look: look === "text" ? "base" : (look ?? "base"),
+            look: look ?? "base",
             size: size ?? "md",
           }),
           className,
@@ -65,7 +65,7 @@ export default function Card({
       style={themeVars}
       className={mergeClass(
         cardStyles({
-          look: look === "text" ? "base" : (look ?? "base"),
+          look: look ?? "base",
           size: size ?? "md",
         }),
         className,

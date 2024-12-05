@@ -1,9 +1,9 @@
-import { Link, useNavigate } from "@remix-run/react";
-import { tv, type VariantProps } from "tailwind-variants";
+import { Link } from "@remix-run/react";
+import { type VariantProps, tv } from "tailwind-variants";
+import useThemableProps from "../../hooks/theming/useThemableProps";
 import { mergeClass } from "../../utils/css";
 import type { Component, Themable } from "../../utils/types";
 import EventBlocker from "./EventBlocker";
-import useThemableProps from "../../hooks/theming/useThemableProps";
 
 export const buttonStyles = tv(
   {
@@ -29,7 +29,7 @@ export const buttonStyles = tv(
       size: "md",
     },
   },
-  { twMerge: false }
+  { twMerge: false },
 );
 
 type ButtonStyleProps = VariantProps<typeof buttonStyles>;
@@ -60,7 +60,6 @@ export default function Button({
   ...props
 }: ButtonProps) {
   const themeVars = useThemableProps(props);
-  const navigate = useNavigate();
   const styleProps = buttonStyles({ look, size });
   const styleBold = bold ? "font-bold" : "";
 
@@ -81,17 +80,11 @@ export default function Button({
       <EventBlocker>
         <Link
           to={to}
-          className={mergeClass(
-            styleProps,
-            styleBold,
-            className,
-            disabled && "disabled"
-          )}
+          className={mergeClass(styleProps, styleBold, className, disabled && "disabled")}
           {...(external && {
             target: "_blank",
             rel: "noopener noreferrer",
-          })}
-        >
+          })}>
           {children}
         </Link>
       </EventBlocker>
@@ -101,16 +94,10 @@ export default function Button({
   return (
     <button
       style={themeVars}
-      className={mergeClass(
-        styleProps,
-        styleBold,
-        className,
-        disabled && "disabled"
-      )}
+      className={mergeClass(styleProps, styleBold, className, disabled && "disabled")}
       type="button"
       disabled={disabled}
-      {...props}
-    >
+      {...props}>
       {children}
     </button>
   );

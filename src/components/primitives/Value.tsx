@@ -1,10 +1,10 @@
-import { mergeClass } from "dappkit";
-import type { Component, Styled } from "dappkit";
 import { format } from "numerable";
 import type { ReactNode } from "react";
 import { textStyles } from "./Text";
 
 import { tv } from "tailwind-variants";
+import { mergeClass } from "../../utils/css";
+import type { Component, Styled } from "../../utils/types";
 
 export const valueStyles = tv({
   base: "text-main-11 font-text font-normal",
@@ -40,7 +40,7 @@ export default function Value({
   if (value) return format(children, _format, { currency: "USD" });
   return (
     <p className={mergeClass(valueStyles({ size, look }), className)} {...props}>
-      {children !== null && (fallback?.(children) || format(children, _format, { currency: "USD" }))}
+      {children != null && (fallback?.(children) || format(children, _format, { currency: "USD" }))}
     </p>
   );
 }

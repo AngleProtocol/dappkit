@@ -31,14 +31,7 @@ export const inputStyles = tv({
   },
 });
 
-export const extensions = [
-  "header",
-  "footer",
-  "prefix",
-  "suffix",
-  "label",
-  "hint",
-] as const;
+export const extensions = ["header", "footer", "prefix", "suffix", "label", "hint"] as const;
 export type InputExtension = (typeof extensions)[number];
 
 export type InputProps<T = string> = Component<
@@ -51,16 +44,9 @@ export type InputProps<T = string> = Component<
 function Input({ look, size, state, className, ...props }: InputProps) {
   const { header, footer, prefix, suffix, label, hint, ...rest } = props;
 
-  if (extensions.some((extension) => !!props?.[extension]))
+  if (extensions.some(extension => !!props?.[extension]))
     return (
-      <label
-        className={mergeClass(
-          inputStyles({ look, size }),
-          className,
-          "flex-col flex"
-        )}
-        htmlFor="input"
-      >
+      <label className={mergeClass(inputStyles({ look, size }), className, "flex-col flex")} htmlFor="input">
         <label htmlFor="input" className="w-full flex">
           {header}
         </label>
@@ -68,13 +54,9 @@ function Input({ look, size, state, className, ...props }: InputProps) {
           {prefix && <label htmlFor="input">{prefix}</label>}
           <input
             id="input"
-            className={mergeClass(
-              inputStyles({ look: "none", size }),
-              className,
-              "w-full !flex-1 !px-0 !py-0"
-            )}
+            className={mergeClass(inputStyles({ look: "none", size }), className, "w-full !flex-1 !px-0 !py-0")}
             value={state?.[0]}
-            onChange={(e) => state?.[1]?.(e?.target?.value)}
+            onChange={e => state?.[1]?.(e?.target?.value)}
             {...rest}
           />
           {suffix && <label htmlFor="input">{suffix}</label>}
@@ -88,27 +70,23 @@ function Input({ look, size, state, className, ...props }: InputProps) {
     <input
       className={mergeClass(inputStyles({ look, size }), className)}
       value={state?.[0]}
-      onChange={(e) => state?.[1]?.(e?.target?.value)}
+      onChange={e => state?.[1]?.(e?.target?.value)}
       {...rest}
     />
   );
 }
 
-Input.BigInt = function InputBigInt({
-  state,
-  base,
-  ...props
-}: InputProps<bigint> & { base: number }) {
+Input.BigInt = function InputBigInt({ state, base, ...props }: InputProps<bigint> & { base: number }) {
   const [internal, setInternal] = useState<bigint>();
   const [displayed, setDisplayed] = useState("0.0");
-  const [getter, setter] = state ?? [];
+  const [_getter, setter] = state ?? [];
 
-  const value = useMemo(() => {
+  const _value = useMemo(() => {
     const _value = !state ? internal : state?.[0];
     const transformed = formatUnits(_value ?? 0n, base);
 
     return displayed ?? transformed;
-  }, [internal, state]);
+  }, [internal, state, displayed, base]);
 
   const setValue = useCallback(
     (v: string | undefined) => {
@@ -120,20 +98,20 @@ Input.BigInt = function InputBigInt({
 
         const raw = v?.replaceAll(",", "") ?? "";
         const isInputtingDecimals =
-          v?.split(".")?.[1]?.[v?.split?.(".")?.[1]?.length - 1] === "0" ||
-          v?.[v.length - 1] === ".";
+          v?.split(".")?.[1]?.[v?.split?.(".")?.[1]?.length - 1] === "0" || v?.[v.length - 1] === ".";
         const transformed = parseUnits(raw, base);
 
         if (raw === "0") setDisplayed("");
         if (v?.split(".")?.length === 1 || v?.split?.(".")?.[1]?.length <= base)
           setDisplayed(isInputtingDecimals ? v : format(raw, "0,0.X"));
         setter?.(transformed) ?? setInternal(transformed);
-      } catch (err) {}
+      } catch (_err) {}
     },
-    [setter, base]
+    [setter, base],
   );
 
-  return <Input state={[displayed, (v) => setValue(v)]} {...props} />;
+  //TODO: implement setter callback
+  return <Input state={[displayed, v => typeof v !== "function" && setValue(v)]} {...props} />;
 };
 
 export default Input;

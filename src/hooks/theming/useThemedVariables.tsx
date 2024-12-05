@@ -28,7 +28,7 @@ export default function useThemedVariables(
 
       return Object.assign({}, v[mode]?.accent, v[mode]?.main);
     }
-  }, [mode, theme, variables, coloring, accent]);
+  }, [mode, _mode, theme, variables, coloring, accent]);
 
   return vars;
 }
