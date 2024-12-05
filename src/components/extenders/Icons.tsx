@@ -1,7 +1,7 @@
-import { mergeClass } from "dappkit/src";
-import type { Component, Styled } from "dappkit/src";
 import { Children, type ReactElement, cloneElement } from "react";
 import { tv } from "tailwind-variants";
+import { mergeClass } from "../..";
+import type { Component, Styled } from "../..";
 import Group from "./Group";
 
 export const iconsStyles = tv({
@@ -30,17 +30,9 @@ type ListElement = ReactElement<{
   className?: string;
   style: unknown;
 }>;
-export type IconsProps = Component<
-  Styled<typeof iconsStyles> & { children: ListElement[] },
-  HTMLDivElement
->;
+export type IconsProps = Component<Styled<typeof iconsStyles> & { children: ListElement[] }, HTMLDivElement>;
 
-export default function Icons({
-  size,
-  children,
-  className,
-  ...props
-}: IconsProps) {
+export default function Icons({ size, children, className, ...props }: IconsProps) {
   const { container, item } = iconsStyles({ size });
 
   return (
@@ -53,7 +45,7 @@ export default function Icons({
             size: size,
             style: { zIndex: Children.count(children) - index },
             className: mergeClass(index && item(), child.props.className),
-          })
+          }),
       )}
     </Group>
   );

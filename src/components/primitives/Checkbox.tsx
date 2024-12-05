@@ -37,7 +37,7 @@ export default function Checkbox({ look, size, state, className }: CheckboxProps
       onCheckedChange={v => setter?.(!v)}
       className={mergeClass(checkboxStyles({ look: look ?? "base", size: size ?? "md" }), className)}
       defaultChecked>
-      <Icon className={!getter && "text-main-0"} size={size} remix="RiCheckFill" />
+      <Icon className={!getter ? "text-main-0" : ""} size={size} remix="RiCheckFill" />
     </Root>
   );
 }

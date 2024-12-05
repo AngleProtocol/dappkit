@@ -16,17 +16,14 @@ export default function useClipboard() {
       };
     }
     return;
-  }, [isCopied, setIsCopied, COPY_TIMEOUT]);
+  }, [isCopied]);
 
-  const copy = useCallback(
-    (value: string | undefined) => {
-      if (!value) return;
+  const copy = useCallback((value: string | undefined) => {
+    if (!value) return;
 
-      navigator.clipboard.writeText(value);
-      setIsCopied(true);
-    },
-    [setIsCopied],
-  );
+    navigator.clipboard.writeText(value);
+    setIsCopied(true);
+  }, []);
 
   return { copy, isCopied };
 }

@@ -1,18 +1,16 @@
+import { switchChain as wagmiCoreSwitchChain } from "@wagmi/core";
 import { useState } from "react";
-import { http, createConfig, useAccount, useConfig, useConnect, useDisconnect, useSwitchChain } from "wagmi";
-import { type Chain as WagmiChain, mainnet, optimism, sepolia } from "wagmi/chains";
-import { coinbaseWallet, walletConnect } from "wagmi/connectors";
-import { switchChain as wagmiCoreSwitchChain } from '@wagmi/core'
-import { Chain, Explorer } from "@merkl/api";
+import { useAccount, useConfig, useConnect, useDisconnect } from "wagmi";
 
-export default function useWalletState(chains: (Chain & {explorers: Explorer[]})[]) {
+//TODO: remove merkl-related typings in favor of redeclarations for better abstraction
+import type { Chain, Explorer } from "@merkl/api";
+
+export default function useWalletState(chains: (Chain & { explorers: Explorer[] })[]) {
   const config = useConfig();
   const wagmiConnect = useConnect();
   const wagmiDisconnect = useDisconnect();
-  const wagmiSwitchChain = useSwitchChain();
   const account = useAccount();
 
-  const [chainId] = useState<WagmiChain["id"]>();
   const [blockNumber] = useState<number>();
 
   async function connect(connectorId: string) {

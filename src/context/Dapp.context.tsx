@@ -1,12 +1,13 @@
-import type { Chain } from "@merkl/api";
 import { type PropsWithChildren, createContext, useContext } from "react";
 import type { ResolvedRegister } from "wagmi";
 import { demoThemes } from "../config/themes";
-import type { Mode, Spacing } from "../theming/variables";
+import type { Mode } from "../theming/variables";
 import ThemeProvider, { type ThemeProviderProps } from "./Theme.context";
 import { WalletProvider } from "./Wallet.context";
-import { type Chain, Explorer } from "@merkl/api";
-import { Mode, Spacing } from "../theming/variables";
+
+//TODO: remove merkl-related typings in favor of redeclarations for better abstraction
+import type { Chain, Explorer } from "@merkl/api";
+import type { SizingConfig } from "../utils/tailwind";
 
 export type DAppContextType = { flag?: string };
 
@@ -22,9 +23,9 @@ export function useDAppContext() {
 export type DAppProviderProps = {
   config: ResolvedRegister["config"];
   themes?: ThemeProviderProps["themes"];
-  sizing: Spacing;
+  sizing: SizingConfig;
   modes: Mode[];
-  chains: (Chain & {explorers: Explorer[]})[];
+  chains: (Chain & { explorers: Explorer[] })[];
 };
 
 export function DAppProvider({

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 const modifiers = ["altKey", "ctrlKey", "shiftKey", "metaKey"] as const satisfies (keyof KeyboardEvent)[];
 
-export function useShortcut(modifier: (typeof modifiers)[number], key: string, callback: () => any) {
+export function useShortcut(modifier: (typeof modifiers)[number], key: string, callback: () => unknown) {
   const keyDownHandler = (event: KeyboardEvent) => {
     if (event[modifier] && event.key === key) {
       callback?.();

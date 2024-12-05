@@ -1,8 +1,6 @@
 import { type ReactNode, useCallback } from "react";
 import { type ResolvedRegister, type UseSendTransactionReturnType, useSendTransaction } from "wagmi";
-import Dropdown from "../extenders/Dropdown";
 import Button, { type ButtonProps } from "../primitives/Button";
-import TransactionHelper from "./TransactionHelper";
 import Icon from "../primitives/Icon";
 
 export type TransactionButtonProps = ButtonProps & {
@@ -12,7 +10,7 @@ export type TransactionButtonProps = ButtonProps & {
 
 export default function TransactionButton({ tx, name, children, ...props }: TransactionButtonProps) {
   const sendTxHook = useSendTransaction();
-  const { sendTransaction, status} = sendTxHook;
+  const { sendTransaction, status } = sendTxHook;
 
   const execute = useCallback(() => {
     if (!tx) return;
@@ -24,9 +22,9 @@ export default function TransactionButton({ tx, name, children, ...props }: Tran
   }, [tx, sendTransaction]);
 
   return (
-    <Button {...props} onClick={execute} >
+    <Button {...props} onClick={execute}>
       {children}
-      {status === "pending" && <Icon className="animate-spin" remix="RiLoader2Line"/>}
+      {status === "pending" && <Icon className="animate-spin" remix="RiLoader2Line" />}
     </Button>
   );
 }

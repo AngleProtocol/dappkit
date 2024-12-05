@@ -3,7 +3,7 @@ import { generateVariableAssigners } from "../theming/tailwind";
 
 export const sizeScale = ["xs", "sm", "md", "lg", "xl"] as const;
 export const lookScale = ["soft", "base", "bold", "tint", "hype"] as const;
-export type Sizing = {
+export type SizingConfig = {
   spacing: { [Size in (typeof sizeScale)[number]]: number };
   radius: { [Size in (typeof sizeScale)[number]]: number };
 };

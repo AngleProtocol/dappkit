@@ -13,7 +13,7 @@ export type TransactionHelperProps = UseSendTransactionReturnType<ResolvedRegist
   execute?: () => void;
 };
 
-export default function TransactionHelper({ status, data, variables, execute }: TransactionHelperProps) {
+export default function TransactionHelper({ status, data, variables }: TransactionHelperProps) {
   const statusBar = useMemo(() => {
     switch (status) {
       case "error":

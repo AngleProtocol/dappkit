@@ -8,12 +8,12 @@ import Input from "../primitives/Input";
 import Text from "../primitives/Text";
 
 export default function WalletConnectors() {
-  const { config, connect, connector: connected } = useWalletContext();
+  const { config, connect, connector: _connected } = useWalletContext();
 
   return (
     <Group className="flex-col w-full">
       <div className="grid grid-flow-row gap-lg">
-        {config.connectors.map((connector) => {
+        {config.connectors.map(connector => {
           return (
             <Button
               look="base"
@@ -22,14 +22,8 @@ export default function WalletConnectors() {
               size="xl"
               bold
               className="gap-sm*2"
-              key={connector.id}
-            >
-              <Image
-                className="h-lg*2 w-lg*2 rounded-md"
-                alt={connector.name}
-                src={connector.icon}
-                fallback="WC"
-              />
+              key={connector.id}>
+              <Image className="h-lg*2 w-lg*2 rounded-md" alt={connector.name} src={connector.icon} fallback="WC" />
               {connector.name}
               <Icon remix="RiArrowRightUpLine" />
             </Button>
@@ -37,12 +31,10 @@ export default function WalletConnectors() {
         })}
       </div>
       <Divider horizontal look="soft" className="my-xl" />
-      <Text size={5} className="text-main-11">Spy address</Text>
-      <Input
-        size="lg"
-        placeholder="Address"
-        suffix={<Icon className="text-main-12" remix="RiSearchLine" />}
-      />
+      <Text size={5} className="text-main-11">
+        Spy address
+      </Text>
+      <Input size="lg" placeholder="Address" suffix={<Icon className="text-main-12" remix="RiSearchLine" />} />
     </Group>
   );
 }

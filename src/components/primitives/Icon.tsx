@@ -1,13 +1,20 @@
 import * as RemixIcon from "@remixicon/react";
-import { mergeClass } from "dappkit";
-import type { Component, Styled } from "dappkit";
-import { useMemo } from "react";
+import { type ReactElement, useMemo } from "react";
 import { tv } from "tailwind-variants";
+import { mergeClass } from "../..";
+import type { Component, Styled } from "../..";
 import Image from "./Image";
 
 export const iconStyles = tv({
-  base: "flex flex-col border-0 gap-1 rounded-md overflow-hidden self-center rounded-sm w-[calc(1em+2px)] h-[calc(1em+2px)]",
+  base: "flex flex-col border-0 gap-1 overflow-hidden self-center rounded-sm w-[calc(1em+2px)] h-[calc(1em+2px)]",
   variants: {
+    size: {
+      xs: "",
+      sm: "",
+      md: "",
+      lg: "",
+      xl: "",
+    },
     rounded: {
       true: "rounded-full",
       false: "",
@@ -26,27 +33,13 @@ export type IconProps = Component<
   HTMLImageElement
 >;
 
-export default function Icon({
-  rounded,
-  remix,
-  src,
-  alt,
-  className,
-  ...props
-}: IconProps) {
-  const styles = useMemo(() => iconStyles({ rounded }), [rounded]);
+export default function Icon({ rounded, remix, size, src, alt, className, ...props }: IconProps) {
+  const styles = useMemo(() => iconStyles({ rounded, size }), [rounded, size]);
 
   const Component = useMemo(() => {
-    if (remix) return RemixIcon[remix];
-    return () => (
-      <Image
-        className={mergeClass(styles, className)}
-        alt={alt}
-        src={src}
-        {...props}
-      />
-    );
-  }, [remix, alt, src, props]);
+    if (remix) return RemixIcon[remix] as () => ReactElement;
+    return (imageProps: Component<unknown>) => <Image alt={alt} src={src} {...imageProps} />;
+  }, [remix, alt, src]);
 
   return <Component {...props} className={mergeClass(styles, className)} />;
 }

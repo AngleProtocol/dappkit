@@ -7,7 +7,7 @@ export type ScrollProps = Component<
 >;
 
 //TODO: add tailwind variants
-export default function Scroll({ horizontal, vertical, children, className, ...props }: ScrollProps) {
+export default function Scroll({ horizontal, vertical, children, className, ..._props }: ScrollProps) {
   return (
     <RadixScrollArea.Root type="always" className="flex overflow-hidden h-full">
       <RadixScrollArea.Viewport className={mergeClass("max-size-full", className)}>{children}</RadixScrollArea.Viewport>

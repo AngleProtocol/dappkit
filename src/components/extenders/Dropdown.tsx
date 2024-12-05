@@ -9,6 +9,7 @@ import EventBlocker from "../primitives/EventBlocker";
 export type DropdownProps = Component<
   {
     padding?: BoxProps["content"];
+    size?: BoxProps["size"];
     state?: GetSet<boolean>;
     content?: ReactNode;
   },

@@ -1,6 +1,6 @@
-import { mergeClass } from "dappkit/src";
-import type { Component, Styled } from "dappkit/src";
 import { tv } from "tailwind-variants";
+import { mergeClass } from "../../utils/css";
+import type { Component, Styled } from "../../utils/types";
 
 export const spaceStyles = tv({
   base: "w-full",

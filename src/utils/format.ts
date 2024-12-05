@@ -1,4 +1,3 @@
-// biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 export abstract class Format {
   public static address(value?: string, format?: "short" | "prefix") {
     if (!value) return;

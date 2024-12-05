@@ -1,0 +1,28 @@
+name: Check code quality
+
+on:
+  pull_request:
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  check-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Check dependencies
+        run: bun install
+
+      - name: Check codebase linting
+        run: bun lint:ci
+
+      - name: Check codebase typing
+        run: bun typecheck
