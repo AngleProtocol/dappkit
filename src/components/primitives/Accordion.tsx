@@ -55,7 +55,7 @@ export default function Accordion({ look, size, items, className }: AccordionPro
                   <Title h={3} className="ease">
                     {item.trigger}
                   </Title>
-                  <Icon remix="RiArrowUpSLine" size="lg" className="ease " alt="cross" aria-hidden />
+                  <Icon remix="RiArrowUpSLine" className="text-2xl ease" alt="cross" aria-hidden />
                 </RadixAccordion.Trigger>
                 <RadixAccordion.Content className="overflow-hidden data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp xl:w-4/5 text-main-12">
                   <div className="pt-xl">{item.content}</div>
