@@ -9,7 +9,7 @@ export const textStyles = tv(
       look: {
         base: "text-main-11",
         soft: "text-main-11",
-        bold: "text-secondary-12",
+        bold: "text-main-12",
         tint: "text-accent-12",
         hype: "text-accent-11",
       },
@@ -19,7 +19,8 @@ export const textStyles = tv(
         md: "text-base",
         lg: "text-lg",
         xl: "text-xl",
-        display1: "font-title font-bold leading-tight italic uppercase !text-[clamp(44px,5vw+0.875rem,104px)]",
+        display1:
+          "font-title font-bold leading-tight italic uppercase !text-[clamp(44px,5vw+0.875rem,104px)]",
         1: "font-title !text-3xl",
         2: "font-title font-bold leading-none italic !text-[clamp(52px,1vw+2.875rem,64px)]",
         3: "font-title font-bold leading-snug italic !text-[clamp(28px,1vw+1.375rem,40px)]",
@@ -49,12 +50,32 @@ export const textStyles = tv(
       { look: "hype", interactable: true, class: "hover:text-main-12" },
     ],
   },
-  { twMerge: false },
+  { twMerge: false }
 );
 
-export type TextProps = Component<Styled<typeof textStyles> & { bold?: boolean }, HTMLParagraphElement>;
+export type TextProps = Component<
+  Styled<typeof textStyles> & { bold?: boolean },
+  HTMLParagraphElement
+>;
 
-export default function Text({ look, size, style, bold, interactable, className, ...props }: TextProps) {
+export default function Text({
+  look,
+  size,
+  style,
+  bold,
+  interactable,
+  className,
+  ...props
+}: TextProps) {
   const styleBold = bold ? "font-bold" : "";
-  return <p className={mergeClass(textStyles({ look, size, interactable }), styleBold, className)} {...props} />;
+  return (
+    <p
+      className={mergeClass(
+        textStyles({ look, size, interactable }),
+        styleBold,
+        className
+      )}
+      {...props}
+    />
+  );
 }
