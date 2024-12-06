@@ -29,6 +29,8 @@ export * from "./components/primitives/Input";
 export { default as Input } from "./components/primitives/Input";
 export * from "./components/primitives/Title";
 export { default as Title } from "./components/primitives/Title";
+export * from "./components/primitives/Tabs";
+export { default as Tabs } from "./components/primitives/Tabs";
 export * from "./components/primitives/List";
 export { default as List } from "./components/primitives/List";
 export * from "./components/primitives/Hash";

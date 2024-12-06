@@ -11,11 +11,11 @@ export const inputStyles = tv({
   variants: {
     look: {
       none: "bg-main-0 border-0",
-      soft: "bg-main-2 border-main-2 hover:border-main-4 active:border-main-7 hover:text-main-12 focus-within:outline focus-within:outline-dashed focus-within:outline-main-12",
-      base: "bg-main-6 focus-within:outline focus-within:outline-dashed focus-within:outline-main-12",
-      bold: "bg-main-3 border-main-4 hover:border-main-4 active:border-main-7 hover:text-main-12 focus-within:outline focus-within:outline-dashed focus-within:outline-main-12",
-      tint: "bg-main-1 border-accent-6 hover:border-accent-8 active:bg-main-2 text-main-12 focus-within:outline focus-within:outline-dashed focus-within:outline-main-12",
-      hype: "bg-main-0 border-accent-8 hover:border-accent-10 active:border-accent-8 hover:text-main-12 focus-within:outline focus-within:outline-dashed focus-within:outline-main-12",
+      soft: "bg-main-2 border-main-2 hover:border-main-4 active:border-main-7 hover:text-main-12 focus-within:outline focus-within:outline-main-12",
+      base: "bg-main-6 focus-within:outline focus-within:outline-main-12",
+      bold: "bg-main-3 border-main-4 hover:border-main-4 active:border-main-7 hover:text-main-12 focus-within:outline focus-within:outline-main-12",
+      tint: "bg-main-1 border-accent-6 hover:border-accent-8 active:bg-main-2 text-main-12 focus-within:outline focus-within:outline-main-12",
+      hype: "bg-main-0 border-accent-8 hover:border-accent-10 active:border-accent-8 hover:text-main-12 focus-within:outline focus-within:outline-main-12",
     },
     size: {
       xs: "px-xs py-xs text-xs rounded-xs",

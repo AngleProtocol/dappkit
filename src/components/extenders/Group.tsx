@@ -2,7 +2,7 @@ import { tv } from "tailwind-variants";
 import type { Component, Styled } from "../../utils/types";
 
 export const groupStyles = tv({
-  base: "flex flex-wrap gap-2",
+  base: "flex flex-wrap",
   variants: {
     size: {
       xs: "gap-xs",

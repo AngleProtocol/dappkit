@@ -74,7 +74,7 @@ export default function ThemeProvider({ themes, sizing, modes, children }: Theme
         data-theme={value?.theme}
         data-mode={value?.mode}
         style={value?.vars}
-        className="bg-background h-[100vh] overflow-auto">
+        className="bg-background overflow-auto">
         {children}
       </div>
     </ThemeContext.Provider>

@@ -24,7 +24,7 @@ export default function Modal({ state, title, description, modal, children, clas
     <Dialog.Root open={!state ? internalState : state?.[0]} onOpenChange={!state ? setInternalState : state?.[1]}>
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay style={vars} className="bg-main-1 opacity-[0.75] fixed inset-0 z-40" />
+        <Dialog.Overlay style={vars} className="bg-main-1 opacity-[0.75] fixed inset-0 z-20" />
         <Dialog.Content
           style={vars}
           className={mergeClass("fixed top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2", className)}>
