@@ -45,13 +45,13 @@ export default function Accordion({ look, size, items, className }: AccordionPro
         return (
           <div className="[&>*]:first:pt-0 w-full overflow-y-hidden" key={item.key}>
             <motion.div
-              className="border-b-2 py-lg*2 border-main-10"
+              className="border-b-2 py-lg*2 border-accent-11"
               initial={{ y: "100%" }}
               whileInView={{ y: 0 }}
               transition={{ delay: 0.2 * index }}
               viewport={{ once: true }}>
               <RadixAccordion.Item value={`item-${index}`} className="faq-item">
-                <RadixAccordion.Trigger className="faq-item__trigger text-left overflow-hidden [&>*]:text-main-10 [&>svg]:data-[state=closed]:rotate-180 [&>svg]:data-[state=open]:rotate-0 w-full flex items-center justify-between">
+                <RadixAccordion.Trigger className="faq-item__trigger text-left overflow-hidden [&>*]:text-accent-11 [&>svg]:data-[state=closed]:rotate-180 [&>svg]:data-[state=open]:rotate-0 w-full flex items-center justify-between">
                   <Title h={3} className="ease">
                     {item.trigger}
                   </Title>
