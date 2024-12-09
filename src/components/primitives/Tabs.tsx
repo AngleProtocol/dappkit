@@ -117,15 +117,30 @@ export default function Tabs({
   });
 
   return (
-    <Container className={mergeClass(container(), "")}>
-      <Group className={mergeClass(line(), "gap-xl*2 items-center w-full")}>
-        {tabs.map((tab) => {
-          return (
-            <>
-              {tab.link ? (
-                <EventBlocker key={tab.key}>
-                  <Link
-                    to={tab.link}
+    <Group className={mergeClass(container(), "w-full")}>
+      <Container>
+        <Group className={mergeClass(line(), "gap-xl*2 items-center w-full")}>
+          {tabs.map((tab) => {
+            return (
+              <>
+                {tab.link ? (
+                  <EventBlocker key={tab.key}>
+                    <Link
+                      to={tab.link}
+                      style={themeVars}
+                      className={mergeClass(
+                        styleProps,
+                        base(),
+                        className,
+                        location.pathname === tab.link && active()
+                      )}
+                    >
+                      {tab.label}
+                    </Link>
+                  </EventBlocker>
+                ) : (
+                  <button
+                    key={tab.key}
                     style={themeVars}
                     className={mergeClass(
                       styleProps,
@@ -133,30 +148,17 @@ export default function Tabs({
                       className,
                       location.pathname === tab.link && active()
                     )}
+                    type="button"
+                    {...props}
                   >
                     {tab.label}
-                  </Link>
-                </EventBlocker>
-              ) : (
-                <button
-                  key={tab.key}
-                  style={themeVars}
-                  className={mergeClass(
-                    styleProps,
-                    base(),
-                    className,
-                    location.pathname === tab.link && active()
-                  )}
-                  type="button"
-                  {...props}
-                >
-                  {tab.label}
-                </button>
-              )}
-            </>
-          );
-        })}
-      </Group>
-    </Container>
+                  </button>
+                )}
+              </>
+            );
+          })}
+        </Group>
+      </Container>
+    </Group>
   );
 }
