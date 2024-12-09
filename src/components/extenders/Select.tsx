@@ -14,7 +14,7 @@ import Group from "./Group";
 
 export const selectStyles = tv({
   base: [
-    "text-main-11 rounded-sm flex items-center dim focus-visible:outline-main-12 !leading-none justify-between gap-1 text-nowrap font-text font-semibold",
+    "text-main-11 rounded-sm flex items-center dim focus-visible:outline-main-12 !leading-none justify-between text-nowrap font-text font-semibold",
   ],
   slots: {
     dropdown: "outline-0 z-50 origin-top animate-drop animate-stretch mt-sm min-w-[var(--popover-anchor-width)]",
@@ -27,25 +27,25 @@ export const selectStyles = tv({
   variants: {
     look: {
       soft: {
-        base: "bg-main-0 border-main-9 active:text-main-12 text-main-11",
+        base: "bg-main-0 active:text-main-12 text-main-11",
         icon: "border-main-0",
         item: "hover:bg-main-5 data-[active-item]:bg-main-5 active:bg-main-4 text-main-12",
       },
       base: {
+        base: "bg-main-0 border-main-9 border-1 active:text-main-12 text-main-11",
+        icon: "border-main-0",
+        item: "hover:bg-main-5 data-[active-item]:bg-main-5 active:bg-main-4 text-main-12",
+      },
+      bold: {
         base: "bg-main-1 active:text-main-12 text-main-11",
         icon: "",
         item: "hover:bg-main-5 data-[active-item]:bg-main-5 active:bg-main-4 text-main-12",
         check: "text-accent-10",
       },
-      bold: {
+      tint: {
         base: "bg-main-5 active:text-main-12 text-main-11",
         icon: "",
         item: "hover:bg-main-3 data-[active-item]:bg-main-6 active:bg-main-5 text-main-12",
-      },
-      tint: {
-        base: "bg-main-8 active:text-main-12 text-main-11",
-        icon: "",
-        item: "hover:bg-accent-6 data-[active-item]:bg-accent-6 active:bg-accent-5 text-main-12",
       },
       hype: {
         base: "bg-accent-5 active:text-main-12 text-accent-11",
@@ -55,35 +55,35 @@ export const selectStyles = tv({
     },
     size: {
       xs: {
-        base: "text-xs",
+        base: "gap-xs text-xs",
         value: "px-sm*2 py-xs*2",
         icon: "text-sm",
         item: "px-md text-xs",
         prefixLabel: "text-xs",
       },
       sm: {
-        base: "text-sm",
+        base: "gap-sm text-sm",
         value: "px-md py-sm",
         icon: "text-base",
         item: "px-md text-sm",
         prefixLabel: "text-sm",
       },
       md: {
-        base: "text-md",
+        base: "gap-md text-md",
         value: "px-md text-md py-md",
         icon: "text-lg",
         item: "px-md text-md",
         prefixLabel: "text-sm",
       },
       lg: {
-        base: "text-lg",
+        base: "gap-lg text-lg",
         value: "px-xl/2 py-lg",
         icon: "text-xl",
         item: "px-lg text-lg",
         prefixLabel: "text-base",
       },
       xl: {
-        base: "text-xl",
+        base: "gap-xl text-xl",
         value: "px-sm*2 py-lg",
         icon: "text-xl",
         item: "px-xl text-xl",
@@ -263,8 +263,10 @@ export default function Select<
                 {allOption && !searchInput && (
                   <Ariakit.SelectItem
                     className={mergeClass(item())}
-                    // biome-ignore lint/suspicious/noExplicitAny: template makes this typing difficult even tough it works
-                    onClick={() => setValue((!!multiple ? [] : undefined) as any as Value)}
+                    onClick={() =>
+                      // biome-ignore lint/suspicious/noExplicitAny: template makes this typing difficult even tough it works
+                      setValue((!!multiple ? [] : undefined) as any as Value)
+                    }
                     render={
                       <Ariakit.ComboboxItem
                         children={[

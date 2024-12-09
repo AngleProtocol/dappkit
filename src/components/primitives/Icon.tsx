@@ -6,7 +6,7 @@ import type { Component, Styled } from "../..";
 import Image from "./Image";
 
 export const iconStyles = tv({
-  base: "flex flex-col border-0 gap-1 overflow-hidden self-center rounded-sm w-[calc(1em+2px)] h-[calc(1em+2px)]",
+  base: "flex flex-col border-0   overflow-hidden self-center rounded-sm w-[1em] h-[1em]",
   variants: {
     size: {
       xs: "",

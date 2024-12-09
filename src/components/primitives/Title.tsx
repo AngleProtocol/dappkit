@@ -11,7 +11,7 @@ export const titleStyles = tv(
       look: {
         base: "text-main-12",
         soft: "text-main-11",
-        bold: "text-secondary-12",
+        bold: "text-main-12",
         hype: "text-accent-12",
       },
     },
