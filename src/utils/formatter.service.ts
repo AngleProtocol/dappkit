@@ -16,9 +16,7 @@ export class FormatterService {
   toNumber(value: bigint | string, decimals = 18): number {
     const bi = BigInt(value);
 
-    const fractionalPart =
-      Number.parseFloat((bi % BigInt(10 ** decimals)).toString()) /
-      10 ** decimals;
+    const fractionalPart = Number.parseFloat((bi % BigInt(10 ** decimals)).toString()) / 10 ** decimals;
     let integerPart = bi / BigInt(10 ** decimals);
 
     // trim the integer part if it's too large to avoid potential overflows
