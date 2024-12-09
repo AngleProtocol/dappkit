@@ -28,7 +28,7 @@ export default function Modal({ state, title, description, modal, children, clas
         <Dialog.Content
           style={vars}
           className={mergeClass("fixed top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2", className)}>
-          <Box size="xl" className="shadow-md" {...props}>
+          <Box size="xl" className="p-lg*4 shadow-md" {...props}>
             {title && (
               <Dialog.Title asChild={!!title}>
                 {typeof title === "string" ? <Title h={3}>{title}</Title> : title}

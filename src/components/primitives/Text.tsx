@@ -23,7 +23,7 @@ export const textStyles = tv(
           "font-title font-bold leading-tight italic uppercase !text-[clamp(44px,5vw+0.875rem,104px)]",
         1: "font-title !text-3xl",
         2: "font-title font-bold leading-none italic !text-[clamp(38px,0.667vw+2.125rem,46px)]",
-        3: "font-title font-bold leading-none italic !text-[clamp(28px,1vw+1.375rem,40px)]",
+        3: "font-title font-bold leading-none italic !text-[clamp(26px,0.667vw+1.375rem,34px)]",
         4: "font-title font-bold leading-[1.18] !text-[clamp(18px,0.667vw+0.875rem,26px)]",
         5: "font-title font-bold leading-normal !text-[clamp(15px,0.25vw+0.84375rem,18px)] uppercase tracking-[1.6px] ",
         6: "font-title !text-sm",
