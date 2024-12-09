@@ -1,6 +1,6 @@
 import { type ReactNode, useMemo } from "react";
 import { useWalletContext } from "../../context/Wallet.context";
-import { Format } from "../../utils/format";
+import { Fmt } from "../../utils/formatter.service";
 import Dropdown from "../extenders/Dropdown";
 import Group from "../extenders/Group";
 import Modal from "../extenders/Modal";
@@ -80,7 +80,7 @@ export default function WalletButton(props: ButtonProps) {
           </>
         }>
         <Button look="tint" className="w-full justify-center">
-          {Format.address(address, "short")}
+          {Fmt.address(address, "short")}
         </Button>
       </Dropdown>
     </>
