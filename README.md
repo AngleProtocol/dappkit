@@ -53,7 +53,7 @@ import { tv } from 'tailwind-variants'
 
 export const buttonStyles = tv({
   base:
-    'text-main-11 flex items-center gap-1 border-1 outline-offset-0 outline-0 text-nowrap',
+    'text-main-11 flex items-center   border-1 outline-offset-0 outline-0 text-nowrap',
   variants: {
     look: {
       base:
