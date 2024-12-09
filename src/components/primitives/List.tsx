@@ -115,9 +115,22 @@ type ListElement = ReactElement<{
   size: unknown;
   className?: string;
 }>;
-export type ListProps = Component<Styled<typeof listStyles> & { indexOffset?: number, dividerClassName?: (index: number) => string; }, HTMLDivElement>;
+export type ListProps = Component<
+  Styled<typeof listStyles> & { indexOffset?: number; dividerClassName?: (index: number) => string },
+  HTMLDivElement
+>;
 
-export default function List({ look, size, flex, content, className, children, indexOffset, dividerClassName, ...props }: ListProps) {
+export default function List({
+  look,
+  size,
+  flex,
+  content,
+  className,
+  children,
+  indexOffset,
+  dividerClassName,
+  ...props
+}: ListProps) {
   const { base, item, divider } = listStyles({ look, size, content: size, flex });
 
   const definedChild = useMemo(() => {
@@ -147,7 +160,7 @@ export default function List({ look, size, flex, content, className, children, i
         ]
       );
     });
-  }, [children, divider, item, look, size, indexOffset]);
+  }, [children, divider, item, look, size, indexOffset, dividerClassName]);
 
   return (
     <div className={mergeClass(base(), className)} {...props}>

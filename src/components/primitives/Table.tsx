@@ -6,7 +6,7 @@ import type { Component, Styled } from "../../utils/types";
 import Box from "./Box";
 import EventBlocker from "./EventBlocker";
 import Icon from "./Icon";
-import List, { ListProps } from "./List";
+import List, { type ListProps } from "./List";
 import Text from "./Text";
 
 export const tableStyles = tv({
@@ -231,8 +231,10 @@ export function Table<T extends Columns>({
 }
 
 export function createTable<T extends Columns>(columns: T) {
-  // biome-ignore lint/suspicious/noExplicitAny: no reasons for it to have type errors
-  const TemplateTable = (props: Omit<TableProps<T>, "columns"> & ListProps) => <Table {...(props as any)} columns={columns} />;
+  const TemplateTable = (props: Omit<TableProps<T>, "columns"> & ListProps) => (
+    // biome-ignore lint/suspicious/noExplicitAny: no reasons for it to have type errors
+    <Table {...(props as any)} columns={columns} />
+  );
 
   // biome-ignore lint/suspicious/noExplicitAny: no reasons for it to have type errors
   const TemplateRow = (props: Omit<RowProps<T>, "columns">) => <Row {...(props as any)} columns={columns} />;

@@ -1,4 +1,4 @@
-import { Modal, Button, WalletConnectors, type ButtonProps } from "../..";
+import { Button, type ButtonProps, Modal, WalletConnectors } from "../..";
 import { useWalletContext } from "../../context/Wallet.context";
 
 export type ConnectedProps = ButtonProps;
