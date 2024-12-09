@@ -6,7 +6,7 @@ import type { Component, Styled } from "../../utils/types";
 import Box from "./Box";
 import EventBlocker from "./EventBlocker";
 import Icon from "./Icon";
-import List from "./List";
+import List, { ListProps } from "./List";
 import Text from "./Text";
 
 export const tableStyles = tv({
@@ -144,6 +144,7 @@ export type TableProps<T extends Columns> = Component<
     header?: ReactNode;
     footer?: ReactNode;
     order?: Order;
+    hideLabels?: boolean;
     sort?: keyof T;
     loading?: boolean;
     sortable?: (keyof T)[];
@@ -197,12 +198,13 @@ export function Table<T extends Columns>({
   header,
   footer,
   order,
+  hideLabels,
   sort,
   onSort,
   className,
   children,
   ...props
-}: TableProps<T>) {
+}: TableProps<T> & { dividerClassName: ListProps["dividerClassName"] }) {
   const [_order, setOrder] = useState<"asc" | "desc">("desc");
   const [sortBy, setSortBy] = useState<keyof T | undefined>(sortable?.[0]);
 
@@ -221,7 +223,7 @@ export function Table<T extends Columns>({
     <List indexOffset={header ? 0 : 1} className={mergeClass(className)} look={look} {...props}>
       {!!header ? <Box className="bg-auto">{header}</Box> : undefined}
       {/* biome-ignore lint/suspicious/noExplicitAny: please forgive this one as well */}
-      <Row {...({ headers } as any)} columns={columns} />
+      {!hideLabels ? <Row {...(headers as any)} columns={columns} /> : undefined}
       {children}
       {!!footer ? <Box className="bg-auto">{footer}</Box> : undefined}
     </List>
@@ -230,7 +232,7 @@ export function Table<T extends Columns>({
 
 export function createTable<T extends Columns>(columns: T) {
   // biome-ignore lint/suspicious/noExplicitAny: no reasons for it to have type errors
-  const TemplateTable = (props: Omit<TableProps<T>, "columns">) => <Table {...(props as any)} columns={columns} />;
+  const TemplateTable = (props: Omit<TableProps<T>, "columns"> & ListProps) => <Table {...(props as any)} columns={columns} />;
 
   // biome-ignore lint/suspicious/noExplicitAny: no reasons for it to have type errors
   const TemplateRow = (props: Omit<RowProps<T>, "columns">) => <Row {...(props as any)} columns={columns} />;
