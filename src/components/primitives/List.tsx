@@ -19,6 +19,7 @@ export const listStyles = tv({
     },
     index: {
       first: "",
+      alone: "",
       last: "",
     },
     look: {
@@ -109,17 +110,36 @@ export const listStyles = tv({
   ],
 });
 
-type ListElement = ReactElement<{ look: unknown; size: unknown; className?: string }>;
-export type ListProps = Component<Styled<typeof listStyles> & { indexOffset?: number }, HTMLDivElement>;
+type ListElement = ReactElement<{
+  look: unknown;
+  size: unknown;
+  className?: string;
+}>;
+export type ListProps = Component<
+  Styled<typeof listStyles> & { indexOffset?: number; dividerClassName?: (index: number) => string },
+  HTMLDivElement
+>;
 
-export default function List({ look, size, flex, content, className, children, indexOffset, ...props }: ListProps) {
+export default function List({
+  look,
+  size,
+  flex,
+  content,
+  className,
+  children,
+  indexOffset,
+  dividerClassName,
+  ...props
+}: ListProps) {
   const { base, item, divider } = listStyles({ look, size, content: size, flex });
 
   const definedChild = useMemo(() => {
     const [first, last] = getDefinedIndexesOfChildren(children);
 
+    //TODO: workaround for borders, might just need to update the coumpound styling
+    if (first === 0 && last === 0) return children;
     return Children.map(children as ListElement | ListElement[], (child, index) => {
-      let position: "first" | "last" | undefined = "first";
+      let position: "first" | "last" | "alone" | undefined = "first";
 
       if (index > (first ?? 0) + (indexOffset ?? 0)) position = undefined;
       if (index >= (last ?? 0) + (indexOffset ?? 0)) position = "last";
@@ -136,11 +156,11 @@ export default function List({ look, size, flex, content, className, children, i
               }),
             ),
           }),
-          index <= (last ?? 0) && <div className={divider()} />,
+          position !== "last" && <div className={mergeClass(divider(), dividerClassName?.(index))} />,
         ]
       );
     });
-  }, [children, divider, item, look, size, indexOffset]);
+  }, [children, divider, item, look, size, indexOffset, dividerClassName]);
 
   return (
     <div className={mergeClass(base(), className)} {...props}>
