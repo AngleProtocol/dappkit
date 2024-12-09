@@ -44,9 +44,7 @@ export type DividerProps = Component<
 >;
 
 export default function Divider({ vertical = false, horizontal = true, look, className, ...props }: DividerProps) {
-  if (horizontal) return <div className={mergeClass(dividerStyles({ look }), className)} {...props} />;
+  if (horizontal && !vertical) return <div className={mergeClass(dividerStyles({ look }), className)} {...props} />;
 
-  return (
-    <div className={mergeClass(dividerStyles({ look, vertical: vertical ?? !horizontal }), className)} {...props} />
-  );
+  return <div className={mergeClass(dividerStyles({ look, vertical: true }), className)} {...props} />;
 }
