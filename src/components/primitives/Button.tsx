@@ -29,7 +29,7 @@ export const buttonStyles = tv(
       size: "md",
     },
   },
-  { twMerge: false },
+  { twMerge: false }
 );
 
 type ButtonStyleProps = VariantProps<typeof buttonStyles>;
@@ -70,7 +70,13 @@ export default function Button({
         target="_blank"
         rel="noopener noreferrer"
         onClick={() => window.open(to, "_blank", "noopener noreferrer")}
-        className={mergeClass(styleProps, styleBold, className, disabled && "disabled")}>
+        className={mergeClass(
+          styleProps,
+          styleBold,
+          className,
+          disabled && "disabled"
+        )}
+      >
         {children}
       </a>
     );
@@ -80,11 +86,17 @@ export default function Button({
       <EventBlocker>
         <Link
           to={to}
-          className={mergeClass(styleProps, styleBold, className, disabled && "disabled")}
+          className={mergeClass(
+            styleProps,
+            styleBold,
+            className,
+            disabled && "disabled"
+          )}
           {...(external && {
             target: "_blank",
             rel: "noopener noreferrer",
-          })}>
+          })}
+        >
           {children}
         </Link>
       </EventBlocker>
@@ -94,10 +106,16 @@ export default function Button({
   return (
     <button
       style={themeVars}
-      className={mergeClass(styleProps, styleBold, className, disabled && "disabled")}
+      className={mergeClass(
+        styleProps,
+        styleBold,
+        className,
+        disabled && "disabled"
+      )}
       type="button"
       disabled={disabled}
-      {...props}>
+      {...props}
+    >
       {children}
     </button>
   );
