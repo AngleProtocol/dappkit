@@ -3,6 +3,7 @@ import { forwardRef } from "react";
 import { tv } from "tailwind-variants";
 import type { Component, Styled } from "../../utils/types";
 import { textStyles } from "./Text";
+import { mergeClass } from "../../utils/css";
 
 export const titleStyles = tv(
   {
@@ -21,7 +22,7 @@ export const titleStyles = tv(
       look: "base",
     },
   },
-  { twMerge: false },
+  { twMerge: false }
 );
 
 export type TitleProps = Component<
