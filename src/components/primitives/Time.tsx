@@ -12,13 +12,12 @@ export default function Time({ timestamp, prefix }: TimeProps) {
     const then = moment(Number(timestamp)).fromNow();
 
     return then
-      .replace("in ", (prefix && `${prefix} `) ?? "in ")
-      .replace("/ minute| minutes/g", "m")
-      .replace(/\ba\b/, "1")
-      .replace(/ seconds| second/g, "s")
-      .replace(/ hours| hour/g, "hours")
-      .replace(/ days| day/g, " days")
-      .replace(/ months| month/g, " months");
+      .replace(/in\s/, prefix ? `${prefix} ` : "in ")
+      .replace(/\bminute(s?)\b/g, "m")
+      .replace(/\bsecond(s?)\b/g, "s")
+      .replace(/\bhour(s?)\b/g, "hours")
+      .replace(/\bday(s?)\b/g, "days")
+      .replace(/\bmonth(s?)\b/g, (match, plural) => (plural ? "months" : "month"));
   }, [timestamp, prefix]);
 
   return time;
