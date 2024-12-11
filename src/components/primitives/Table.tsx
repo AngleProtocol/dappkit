@@ -233,7 +233,7 @@ export function Table<T extends Columns>({
 export function createTable<T extends Columns>(columns: T) {
   const TemplateTable = (props: Omit<TableProps<T>, "columns"> & ListProps) => (
     // biome-ignore lint/suspicious/noExplicitAny: no reasons for it to have type errors
-    <Table {...(props as any)} columns={columns} />
+    <Table size="lg" {...(props as any)} columns={columns} />
   );
 
   // biome-ignore lint/suspicious/noExplicitAny: no reasons for it to have type errors

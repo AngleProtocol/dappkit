@@ -1,3 +1,36 @@
+/**
+ * @component Tabs
+ * @description A flexible and customizable tabs component that supports different visual styles and navigation.
+ *
+ * @features
+ * - Multiple visual styles (soft, base, bold, tint, hype)
+ * - Responsive design with Tailwind CSS
+ * - Built-in navigation support using Remix's Link component
+ * - Customizable themes
+ * - Accessibility features including keyboard navigation
+ *
+ * @usage
+ * ```tsx
+ * <Tabs
+ *   tabs={[
+ *     { label: "Tab 1", link: "/tab1", key: "1" },
+ *     { label: "Tab 2", link: "/tab2", key: "2" }
+ *   ]}
+ *   look="soft"
+ *   theme="custom"
+ * />
+ * ```
+ *
+ * @props
+ * - tabs: Array of tab items with label, link, and key
+ * - look: Visual style variant (soft, base, bold, tint, hype)
+ * - size: Size variant
+ * - theme: Custom theme override
+ * - className: Additional CSS classes
+ * - disabled: Whether the tabs are disabled
+ * - to: Default navigation path
+ */
+
 import { Link, useLocation } from "@remix-run/react";
 
 import type { ReactNode } from "react";
