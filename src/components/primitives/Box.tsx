@@ -1,27 +1,3 @@
-/**
- * Box Component
- *
- * A flexible container component that serves as a fundamental building block for layouts.
- * It provides various visual styles and sizing options through variants.
- *
- * @variants
- * content:
- *  - xs to xl: Content size variants
- *
- * container:
- *  - true/false: Controls container behavior
- *
- * @compoundVariants
- * The component uses compound variants to determine border radius (rounded corners):
- * - When container=true: Uses both size and content values (rounded-${size}+${content})
- * - When container=false: Uses only size value (rounded-${size})
- *
- * @example
- * <Box look="soft" size="md" content="sm" container={true}>
- *   Content goes here
- * </Box>
- */
-
 import { tv } from "tailwind-variants";
 import useThemedVariables from "../../hooks/theming/useThemedVariables";
 import { mergeClass } from "../../utils/css";
@@ -82,6 +58,30 @@ export const boxStyles = tv({
 });
 
 export type BoxProps = Component<Styled<typeof boxStyles> & Themable>;
+
+/**
+ * Box Component
+ *
+ * A flexible container component that serves as a fundamental building block for layouts.
+ * It provides various visual styles and sizing options through variants.
+ *
+ * @variants
+ * content:
+ *  - xs to xl: Content size variants
+ *
+ * container:
+ *  - true/false: Controls container behavior
+ *
+ * @compoundVariants
+ * The component uses compound variants to determine border radius (rounded corners):
+ * - When container=true: Uses both size and content values (rounded-${size}+${content})
+ * - When container=false: Uses only size value (rounded-${size})
+ *
+ * @example
+ * <Box look="soft" size="md" content="sm" container={true}>
+ *   Content goes here
+ * </Box>
+ */
 
 export default function Box({
   look,
