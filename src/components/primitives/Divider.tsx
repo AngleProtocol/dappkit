@@ -10,7 +10,7 @@ export const dividerStyles = tv(
         soft: "border-main-8",
         base: "border-main-11",
         bold: "border-accent-11",
-        tint: "border-t-2 border-main-1",
+        tint: "border-dashed border-main-8",
         hype: "border-t-2 border-accent-11",
       },
       vertical: {
