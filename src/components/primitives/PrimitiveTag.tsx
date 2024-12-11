@@ -4,7 +4,7 @@ import { mergeClass } from "../../utils/css";
 import type { Component, Themable } from "../../utils/types";
 
 export const primitiveTagStyles = tv({
-  base: "flex items-center dim select-none !leading-none rounded-full text-nowrap ease focus-visible:outline focus-visible:outline-dashed focus-visible:outline-main-12 font-text font-bold text-[clamp(15px,0.4167vw+0.78125rem,20px)]",
+  base: "flex items-center select-none !leading-none rounded-full text-nowrap ease focus-visible:outline focus-visible:outline-dashed focus-visible:outline-main-12 font-text font-bold text-[clamp(15px,0.4167vw+0.78125rem,20px)]",
   variants: {
     look: {
       soft: "text-main-12 bg-transparent border-1 border-main-9",
@@ -36,6 +36,7 @@ export type PrimitiveTagProps = Component<
       className?: string;
       type?: "button" | "submit" | "reset";
       disabled?: boolean;
+      noClick?: boolean;
     },
   HTMLButtonElement
 >;
@@ -48,16 +49,18 @@ export default function PrimitiveTag({
   children,
   external,
   disabled,
+  noClick,
   ...props
 }: PrimitiveTagProps) {
   const themeVars = useThemableProps(props);
 
   const styleProps = primitiveTagStyles({ look, size });
+  const styleLabel = noClick ? "active:text-main-12 pointer-events-none" : "dim";
 
   return (
     <button
       style={themeVars}
-      className={mergeClass(styleProps, className)}
+      className={mergeClass(styleProps, styleLabel, className)}
       type="button"
       disabled={disabled}
       {...props}>

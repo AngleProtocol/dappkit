@@ -14,7 +14,7 @@ export const buttonStyles = tv(
         base: "text-main-12 border-1 border-main-11 active:border-main-10",
         bold: "text-main-1 bg-main-11 active:bg-main-10",
         tint: "text-main-1 bg-accent-10 active:bg-accent-9",
-        hype: "text-main-12 bg-accent-9 active:bg-accent-10",
+        hype: "text-main-1 bg-accent-11 active:bg-accent-10",
       },
       size: {
         xs: "px-sm py-xs gap-sm text-xs",
