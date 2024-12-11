@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import { forwardRef } from "react";
 import { tv } from "tailwind-variants";
 import type { Component, Styled } from "../../utils/types";
@@ -35,21 +34,56 @@ export type TitleProps = Component<
 
 const Title = forwardRef<HTMLHeadingElement, TitleProps>(function Title(
   { look, h, size: _size, className, ...props }: TitleProps,
-  ref,
+  ref
 ) {
   const size = _size ?? h;
 
   switch (h) {
     case 1:
-      return <h1 ref={ref} className={clsx(titleStyles({ look, size }), className)} children={" "} {...props} />;
+      return (
+        <h1
+          ref={ref}
+          className={mergeClass(titleStyles({ look, size }), className)}
+          children={" "}
+          {...props}
+        />
+      );
     case 2:
-      return <h2 ref={ref} className={clsx(titleStyles({ look, size }), className)} children={" "} {...props} />;
+      return (
+        <h2
+          ref={ref}
+          className={mergeClass(titleStyles({ look, size }), className)}
+          children={" "}
+          {...props}
+        />
+      );
     case 3:
-      return <h3 ref={ref} className={clsx(titleStyles({ look, size }), className)} children={" "} {...props} />;
+      return (
+        <h3
+          ref={ref}
+          className={mergeClass(titleStyles({ look, size }), className)}
+          children={" "}
+          {...props}
+        />
+      );
     case 4:
-      return <h4 ref={ref} className={clsx(titleStyles({ look, size }), className)} children={" "} {...props} />;
+      return (
+        <h4
+          ref={ref}
+          className={mergeClass(titleStyles({ look, size }), className)}
+          children={" "}
+          {...props}
+        />
+      );
     case 5:
-      return <h5 ref={ref} className={clsx(titleStyles({ look, size }), className)} children={" "} {...props} />;
+      return (
+        <h5
+          ref={ref}
+          className={mergeClass(titleStyles({ look, size }), className)}
+          children={" "}
+          {...props}
+        />
+      );
     default:
       break;
   }
