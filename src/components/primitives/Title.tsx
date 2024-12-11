@@ -1,8 +1,7 @@
-import clsx from "clsx";
 import { tv } from "tailwind-variants";
+import { mergeClass } from "../../utils/css";
 import type { Component, Styled } from "../../utils/types";
 import { textStyles } from "./Text";
-import { mergeClass } from "../../utils/css";
 
 export const titleStyles = tv(
   {
@@ -21,7 +20,7 @@ export const titleStyles = tv(
       look: "base",
     },
   },
-  { twMerge: false }
+  { twMerge: false },
 );
 
 export type TitleProps = Component<
@@ -32,50 +31,19 @@ export type TitleProps = Component<
   HTMLHeadingElement
 >;
 
-export default function Title({
-  look,
-  h,
-  size: _size,
-  className,
-  ...props
-}: TitleProps) {
+export default function Title({ look, h, size: _size, className, ...props }: TitleProps) {
   const size = _size ?? h;
   switch (h) {
     case 1:
-      return (
-        <h1
-          className={mergeClass(titleStyles({ look, size }), className)}
-          {...props}
-        />
-      );
+      return <h1 className={mergeClass(titleStyles({ look, size }), className)} {...props} />;
     case 2:
-      return (
-        <h2
-          className={mergeClass(titleStyles({ look, size }), className)}
-          {...props}
-        />
-      );
+      return <h2 className={mergeClass(titleStyles({ look, size }), className)} {...props} />;
     case 3:
-      return (
-        <h3
-          className={mergeClass(titleStyles({ look, size }), className)}
-          {...props}
-        />
-      );
+      return <h3 className={mergeClass(titleStyles({ look, size }), className)} {...props} />;
     case 4:
-      return (
-        <h4
-          className={mergeClass(titleStyles({ look, size }), className)}
-          {...props}
-        />
-      );
+      return <h4 className={mergeClass(titleStyles({ look, size }), className)} {...props} />;
     case 5:
-      return (
-        <h5
-          className={mergeClass(titleStyles({ look, size }), className)}
-          {...props}
-        />
-      );
+      return <h5 className={mergeClass(titleStyles({ look, size }), className)} {...props} />;
     default:
       break;
   }
