@@ -17,9 +17,7 @@ export default function Time({ timestamp, prefix }: TimeProps) {
       .replace(/\bsecond(s?)\b/g, "s")
       .replace(/\bhour(s?)\b/g, "hours")
       .replace(/\bday(s?)\b/g, "days")
-      .replace(/\bmonth(s?)\b/g, (match, plural) =>
-        plural ? "months" : "month"
-      );
+      .replace(/\bmonth(s?)\b/g, (match, plural) => (plural ? "months" : "month"));
   }, [timestamp, prefix]);
 
   return time;
