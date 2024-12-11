@@ -277,7 +277,8 @@ export default function Select<
                             key="select"
                             className={mergeClass(
                               check(),
-                              !((typeof value === "object" && value?.length > 0) || value === undefined) && "opacity-0",
+                              !((typeof value === "object" && value?.length === 0) || value === undefined) &&
+                                "opacity-0",
                             )}
                             size="sm"
                             remix="RiCheckFill"

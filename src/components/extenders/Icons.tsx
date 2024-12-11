@@ -7,7 +7,7 @@ import Group from "./Group";
 export const iconsStyles = tv({
   base: "",
   slots: {
-    container: "min-w-fit max-w-fit",
+    container: "min-w-fit max-w-fit flex-nowrap",
     item: "",
   },
   variants: {
