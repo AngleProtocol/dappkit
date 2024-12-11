@@ -15,8 +15,8 @@ export default function Time({ timestamp, prefix }: TimeProps) {
       .replace(/in\s/, prefix ? `${prefix} ` : "In ")
       .replace(/\bminute(s?)\b/g, "m")
       .replace(/\bsecond(s?)\b/g, "s")
-      .replace(/\bhour(s?)\b/g, (_match, plural) => (plural ? "hours" : "hour"))
-      .replace(/\bday(s?)\b/g, (_match, plural) => (plural ? "days" : "day"))
+      .replace(/\bhour(s?)\b/g, "hours")
+      .replace(/\bday(s?)\b/g, "days")
       .replace(/\bmonth(s?)\b/g, (_match, plural) => (plural ? "months" : "month"));
   }, [timestamp, prefix]);
 
