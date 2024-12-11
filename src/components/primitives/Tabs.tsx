@@ -1,14 +1,14 @@
 /**
  * @component Tabs
  * @description A flexible and customizable tabs component that supports different visual styles and navigation.
- * 
+ *
  * @features
  * - Multiple visual styles (soft, base, bold, tint, hype)
  * - Responsive design with Tailwind CSS
  * - Built-in navigation support using Remix's Link component
  * - Customizable themes
  * - Accessibility features including keyboard navigation
- * 
+ *
  * @usage
  * ```tsx
  * <Tabs
@@ -20,7 +20,7 @@
  *   theme="custom"
  * />
  * ```
- * 
+ *
  * @props
  * - tabs: Array of tab items with label, link, and key
  * - look: Visual style variant (soft, base, bold, tint, hype)

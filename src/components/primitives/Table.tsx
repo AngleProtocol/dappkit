@@ -1,9 +1,4 @@
-import {
-  type PropsWithChildren,
-  type ReactNode,
-  useMemo,
-  useState,
-} from "react";
+import { type PropsWithChildren, type ReactNode, useMemo, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { tv } from "tailwind-variants";
 import { mergeClass } from "../../utils/css";
@@ -77,12 +72,7 @@ export type RowProps<T extends Columns> = Component<
   >
 >;
 
-export function Row<T extends Columns>({
-  columns,
-  exclude,
-  children,
-  ...props
-}: RowProps<T>) {
+export function Row<T extends Columns>({ columns, exclude, children, ...props }: RowProps<T>) {
   const isScreenSmall = useMediaQuery({ maxWidth: 640 });
   const [ids, grid, compact] = useMemo(() => {
     const cols = Object.keys(columns ?? {}) as (keyof T)[];
@@ -94,7 +84,7 @@ export function Row<T extends Columns>({
       display: "grid",
       rowGap: "0px",
       gridTemplateColumns: cols
-        .map((id) => {
+        .map(id => {
           if (exclude?.includes(id)) return;
           return columns?.[id]?.size ?? "1fr";
         })
@@ -103,8 +93,8 @@ export function Row<T extends Columns>({
     const compactStyle: { display: "grid"; gridTemplateColumns: string } = {
       display: "grid",
       gridTemplateColumns: cols
-        .filter((id) => !columns?.[id]?.main)
-        .map((id) => columns?.[id]?.compactSize ?? "1fr")
+        .filter(id => !columns?.[id]?.main)
+        .map(id => columns?.[id]?.compactSize ?? "1fr")
         .join(" "),
     };
 
@@ -122,10 +112,8 @@ export function Row<T extends Columns>({
 
   return (
     <Box style={isScreenSmall ? compact : grid} {...divProps}>
-      {ids?.map((id) => {
-        const element = props[
-          `${String(id)}Column` as keyof typeof props
-        ] as ReactNode;
+      {ids?.map(id => {
+        const element = props[`${String(id)}Column` as keyof typeof props] as ReactNode;
         const { className, main } = columns[id];
 
         if (exclude?.includes(id)) return;
@@ -135,22 +123,17 @@ export function Row<T extends Columns>({
             style={
               main && isScreenSmall
                 ? {
-                    gridColumn: `span ${ids?.length - 1} / span ${
-                      ids?.length - 1
-                    }`,
+                    gridColumn: `span ${ids?.length - 1} / span ${ids?.length - 1}`,
                   }
                 : {}
             }
             key={String(id)}
-            className={[className, "inline-flex items-center"].join(" ")}
-          >
+            className={[className, "inline-flex items-center"].join(" ")}>
             {element}
           </div>
         );
       })}
-      {children && (
-        <EventBlocker style={{ gridColumn: "1 / -1" }}>{children}</EventBlocker>
-      )}
+      {children && <EventBlocker style={{ gridColumn: "1 / -1" }}>{children}</EventBlocker>}
     </Box>
   );
 }
@@ -178,7 +161,7 @@ export function useHeaders<T extends Columns>(
   onHeaderClick?: (id: keyof T) => void,
   sortBy?: keyof T,
   order?: Order,
-  props?: TableHeaders<T>
+  props?: TableHeaders<T>,
 ) {
   //TODO: assess if props needs to be updated for columns and how to memo all columns
   // biome-ignore lint/correctness/useExhaustiveDependencies: props in dependency would render the memo useless
@@ -189,26 +172,15 @@ export function useHeaders<T extends Columns>(
     for (const id of ids) {
       const { name: title, className: _className } = columns[id];
       const isSortable = sortable?.includes(id);
-      const handler =
-        title && isSortable ? () => onHeaderClick?.(id) : undefined;
+      const handler = title && isSortable ? () => onHeaderClick?.(id) : undefined;
 
       head[`${id}Column` as keyof TableColumns<T>] = (
-        <Text
-          className="relative font-text"
-          size="md"
-          interactable={isSortable}
-          onKeyDown={handler}
-          onClick={handler}
-        >
+        <Text className="relative font-text" size="md" interactable={isSortable} onKeyDown={handler} onClick={handler}>
           {props?.[`${id}Header` as keyof TableHeaders<T>] ?? title}
           <span className="absolute -right-5 top-1/2 -translate-y-1/2">
             {sortable &&
               id === sortBy &&
-              (order === "desc" ? (
-                <Icon remix={"RiArrowDropDownLine"} />
-              ) : (
-                <Icon remix={"RiArrowDropUpLine"} />
-              ))}
+              (order === "desc" ? <Icon remix={"RiArrowDropDownLine"} /> : <Icon remix={"RiArrowDropUpLine"} />)}
           </span>
         </Text>
       );
@@ -237,8 +209,7 @@ export function Table<T extends Columns>({
   const [sortBy, setSortBy] = useState<keyof T | undefined>(sortable?.[0]);
 
   function onHeaderClick(id: keyof T) {
-    const currentOrder =
-      id !== sortBy ? "desc" : _order === "desc" ? "asc" : "desc";
+    const currentOrder = id !== sortBy ? "desc" : _order === "desc" ? "asc" : "desc";
 
     setOrder(currentOrder);
     setSortBy(id);
@@ -246,27 +217,13 @@ export function Table<T extends Columns>({
   }
 
   // biome-ignore lint/suspicious/noExplicitAny: please forgive this any
-  const headers = useHeaders(
-    columns,
-    sortable,
-    onHeaderClick,
-    sort ?? sortBy,
-    order ?? _order,
-    props as any
-  );
+  const headers = useHeaders(columns, sortable, onHeaderClick, sort ?? sortBy, order ?? _order, props as any);
 
   return (
-    <List
-      indexOffset={header ? 0 : 1}
-      className={mergeClass(className)}
-      look={look}
-      {...props}
-    >
+    <List indexOffset={header ? 0 : 1} className={mergeClass(className)} look={look} {...props}>
       {!!header ? <Box className="bg-auto">{header}</Box> : undefined}
       {/* biome-ignore lint/suspicious/noExplicitAny: please forgive this one as well */}
-      {!hideLabels ? (
-        <Row {...(headers as any)} columns={columns} />
-      ) : undefined}
+      {!hideLabels ? <Row {...(headers as any)} columns={columns} /> : undefined}
       {children}
       {!!footer ? <Box className="bg-auto">{footer}</Box> : undefined}
     </List>
@@ -280,13 +237,7 @@ export function createTable<T extends Columns>(columns: T) {
   );
 
   // biome-ignore lint/suspicious/noExplicitAny: no reasons for it to have type errors
-  const TemplateRow = (props: Omit<RowProps<T>, "columns">) => (
-    <Row {...(props as any)} columns={columns} />
-  );
+  const TemplateRow = (props: Omit<RowProps<T>, "columns">) => <Row {...(props as any)} columns={columns} />;
 
-  return [TemplateTable, TemplateRow, Object.keys(columns)] as [
-    typeof TemplateTable,
-    typeof TemplateRow,
-    (keyof T)[]
-  ];
+  return [TemplateTable, TemplateRow, Object.keys(columns)] as [typeof TemplateTable, typeof TemplateRow, (keyof T)[]];
 }

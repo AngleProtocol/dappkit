@@ -35,30 +35,14 @@ export type IconProps = Component<
   HTMLImageElement
 >;
 
-export default function Icon({
-  rounded,
-  remix,
-  size,
-  src,
-  alt,
-  className,
-  ...props
-}: IconProps) {
+export default function Icon({ rounded, remix, size, src, alt, className, ...props }: IconProps) {
   const themeVars = useThemableProps(props);
   const styles = useMemo(() => iconStyles({ rounded, size }), [rounded, size]);
 
   const Component = useMemo(() => {
     if (remix) return RemixIcon[remix] as () => ReactElement;
-    return (imageProps: Component<unknown>) => (
-      <Image alt={alt} src={src} {...imageProps} />
-    );
+    return (imageProps: Component<unknown>) => <Image alt={alt} src={src} {...imageProps} />;
   }, [remix, alt, src]);
 
-  return (
-    <Component
-      {...props}
-      style={themeVars}
-      className={mergeClass(styles, className)}
-    />
-  );
+  return <Component {...props} style={themeVars} className={mergeClass(styles, className)} />;
 }
