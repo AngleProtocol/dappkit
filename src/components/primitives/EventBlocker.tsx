@@ -7,10 +7,6 @@ export default function EventBlocker({ ...props }: EventBlockerProps) {
   return (
     <div
       {...props}
-      onKeyDown={e => {
-        e.preventDefault();
-        e.stopPropagation();
-      }}
       onClick={e => {
         e.preventDefault();
         e.stopPropagation();
