@@ -69,9 +69,7 @@ export default function WalletButton(props: ButtonProps) {
               <Text size="sm">Connected with {connector?.name}</Text>
               <Image className="h-lg*2 w-lg*2" src={connector?.icon} />
             </Group>
-            <Group className="flex-col items-start">
-              {props.children}
-            </Group>
+            <Group className="flex-col items-start">{props.children}</Group>
           </>
         }>
         <Button look="tint" className="w-full justify-center">
