@@ -1,8 +1,8 @@
 import clsx from "clsx";
+import { forwardRef } from "react";
 import { tv } from "tailwind-variants";
 import type { Component, Styled } from "../../utils/types";
 import { textStyles } from "./Text";
-import React, { forwardRef, useEffect, useRef } from "react";
 
 export const titleStyles = tv(
   {

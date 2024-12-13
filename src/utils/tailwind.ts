@@ -71,7 +71,7 @@ export const generateTailwindConfig = () =>
         slideLeftAndFade: "slideLeftAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
         slideUpAndFade: "slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
         slideRightAndFade: "slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
-        textScroll: "textScroll 5s linear"
+        textScroll: "textScroll 5s linear",
       },
     },
     colors: {

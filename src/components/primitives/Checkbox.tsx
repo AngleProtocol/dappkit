@@ -17,7 +17,7 @@ export const checkboxStyles = tv({
     },
     checked: {
       true: "",
-      false: "bg-main-0"
+      false: "bg-main-0",
     },
     size: {
       xs: "min-h-sm px-xs*2 py-x !m-xs text-xs rounded-xs gap-xs",
@@ -30,7 +30,7 @@ export const checkboxStyles = tv({
   defaultVariants: {
     look: "base",
     size: "md",
-  }, 
+  },
 });
 
 export type CheckboxProps = Component<Styled<typeof checkboxStyles> & { state?: GetSet<boolean> }, RadixCheckboxProps>;
