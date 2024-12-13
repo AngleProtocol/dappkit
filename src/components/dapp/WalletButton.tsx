@@ -74,7 +74,7 @@ export default function WalletButton(props: ButtonProps) {
                 <Icon remix="RiArrowRightLine" /> Explorer
               </Button>
               <Button to={`/users/${address}`} size="sm" look="soft">
-                <Icon remix="RiArrowRightLine" /> Dashboard
+                <Icon remix="RiArrowRightLine" /> Claims
               </Button>
             </Group>
           </>

@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { tv } from "tailwind-variants";
 import type { Component, Styled } from "../../utils/types";
 import { textStyles } from "./Text";
+import React, { forwardRef, useEffect, useRef } from "react";
 
 export const titleStyles = tv(
   {
@@ -31,20 +32,26 @@ export type TitleProps = Component<
   HTMLHeadingElement
 >;
 
-export default function Title({ look, h, size: _size, className, ...props }: TitleProps) {
+const Title = forwardRef<HTMLHeadingElement>(function Title(
+  { look, h, size: _size, className, ...props }: TitleProps,
+  ref,
+) {
   const size = _size ?? h;
+
   switch (h) {
     case 1:
-      return <h1 className={clsx(titleStyles({ look, size }), className)} children={" "} {...props} />;
+      return <h1 ref={ref} className={clsx(titleStyles({ look, size }), className)} children={" "} {...props} />;
     case 2:
-      return <h2 className={clsx(titleStyles({ look, size }), className)} children={" "} {...props} />;
+      return <h2 ref={ref} className={clsx(titleStyles({ look, size }), className)} children={" "} {...props} />;
     case 3:
-      return <h3 className={clsx(titleStyles({ look, size }), className)} children={" "} {...props} />;
+      return <h3 ref={ref} className={clsx(titleStyles({ look, size }), className)} children={" "} {...props} />;
     case 4:
-      return <h4 className={clsx(titleStyles({ look, size }), className)} children={" "} {...props} />;
+      return <h4 ref={ref} className={clsx(titleStyles({ look, size }), className)} children={" "} {...props} />;
     case 5:
-      return <h5 className={clsx(titleStyles({ look, size }), className)} children={" "} {...props} />;
+      return <h5 ref={ref} className={clsx(titleStyles({ look, size }), className)} children={" "} {...props} />;
     default:
       break;
   }
-}
+});
+
+export default Title;

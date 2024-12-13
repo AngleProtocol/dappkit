@@ -54,6 +54,12 @@ export const generateTailwindConfig = () =>
           from: { opacity: "0", transform: "translateX(-2px)" },
           to: { opacity: "1", transform: "translateX(0)" },
         },
+        textScroll: {
+          "0%": { transform: "translateX(0%)" },
+          "90%": { transform: "translateX(-100%)" },
+          "95%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(0%)" },
+        },
       },
       animation: {
         drop: "drop 0.1s ease-out",
@@ -65,6 +71,7 @@ export const generateTailwindConfig = () =>
         slideLeftAndFade: "slideLeftAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
         slideUpAndFade: "slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
         slideRightAndFade: "slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
+        textScroll: "textScroll 5s linear"
       },
     },
     colors: {
