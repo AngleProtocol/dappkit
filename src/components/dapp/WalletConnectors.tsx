@@ -23,7 +23,7 @@ export default function WalletConnectors() {
               bold
               className="gap-sm*2"
               key={connector.id}>
-              <Image className="h-lg*2 w-lg*2 rounded-md" alt={connector.name} src={connector.icon} fallback="WC" />
+              <Image className="h-lg*2 w-lg*2 rounded-md" alt={connector.name} src={connector.icon} fallback="" />
               {connector.name}
               <Icon remix="RiArrowRightUpLine" />
             </Button>
