@@ -53,4 +53,4 @@ export type ElementWith<E, T, O extends string | number | symbol = ""> = T &
  * [Getter, Setter] for a given react state
  * @template T type of the state
  */
-export type GetSet<T> = [T | undefined, Dispatch<SetStateAction<T>> | undefined];
+export type GetSet<T> = [T | undefined, (v: T) => void];

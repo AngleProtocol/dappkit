@@ -233,7 +233,7 @@ export default function Select<
 
   return (
     <Ariakit.ComboboxProvider
-      resetValueOnHide
+      // resetValueOnHide
       setValue={value => {
         setSearch(value);
       }}>
