@@ -70,12 +70,7 @@ export default function WalletButton(props: ButtonProps) {
               <Image className="h-lg*2 w-lg*2" src={connector?.icon} />
             </Group>
             <Group className="flex-col items-start">
-              <Button size="sm" look="soft">
-                <Icon remix="RiArrowRightLine" /> Explorer
-              </Button>
-              <Button to={`/users/${address}`} size="sm" look="soft">
-                <Icon remix="RiArrowRightLine" /> Claims
-              </Button>
+              {props.children}
             </Group>
           </>
         }>
