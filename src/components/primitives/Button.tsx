@@ -79,6 +79,7 @@ export default function Button({
     return (
       <EventBlocker>
         <Link
+          prefetch="intent"
           to={to}
           className={mergeClass(styleProps, styleBold, className, disabled && "disabled")}
           {...(external && {
