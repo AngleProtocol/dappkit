@@ -32,7 +32,7 @@ export type TitleProps = Component<
   HTMLHeadingElement
 >;
 
-const Title = forwardRef<HTMLHeadingElement>(function Title(
+const Title = forwardRef<HTMLHeadingElement, TitleProps>(function Title(
   { look, h, size: _size, className, ...props }: TitleProps,
   ref,
 ) {
