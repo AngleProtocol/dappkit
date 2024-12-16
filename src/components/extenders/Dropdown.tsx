@@ -28,7 +28,7 @@ export default function Dropdown({
 }: DropdownProps) {
   const { vars } = useTheme();
   const [internalState, setInternalState] = useState<boolean>(false);
-  const hideTimeout = useRef<NodeJS.Timeout | null>(null);
+  const hideTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const closeModalWithDelay = useCallback(() => {
     if (!internalState || !onHover) return;
