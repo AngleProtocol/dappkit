@@ -1,4 +1,3 @@
-import type { Dispatch, SetStateAction } from "react";
 import type { Coloring, Mode, State } from "../theming/variables";
 
 /**
