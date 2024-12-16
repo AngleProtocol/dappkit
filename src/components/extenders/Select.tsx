@@ -134,6 +134,7 @@ export type SelectProps<Value> = Component<{
   loading?: boolean;
   allOption?: ReactNode;
   options?: { [key: string | number | symbol]: ReactNode };
+  displayOptions?: { [key: string | number | symbol]: ReactNode };
 }> &
   RadixSelect.SelectProps;
 
@@ -148,6 +149,7 @@ export default function Select<
   size,
   state,
   options,
+  displayOptions,
   search,
   multiple,
   loading,
@@ -298,7 +300,7 @@ export default function Select<
                       <Ariakit.ComboboxItem
                         children={[
                           <Group className="flex-nowrap" key="label">
-                            {options?.[_value as string]}
+                            {displayOptions?.[_value as string] ?? options?.[_value as string]}
                           </Group>,
                           <Icon
                             key="select"
