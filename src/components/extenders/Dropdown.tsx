@@ -1,5 +1,5 @@
 import * as Popover from "@radix-ui/react-popover";
-import { type ReactNode, useState } from "react";
+import { type ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import { useTheme } from "../../context/Theme.context";
 import { blockEvent } from "../../utils/event";
 import type { Component, GetSet } from "../../utils/types";
@@ -12,17 +12,58 @@ export type DropdownProps = Component<
     size?: BoxProps["size"];
     state?: GetSet<boolean>;
     content?: ReactNode;
+    onHover?: boolean;
   },
   BoxProps
 >;
 
-export default function Dropdown({ state, padding, content, children, className, ...props }: DropdownProps) {
+export default function Dropdown({
+  state,
+  padding,
+  content,
+  children,
+  className,
+  onHover = false,
+  ...props
+}: DropdownProps) {
   const { vars } = useTheme();
   const [internalState, setInternalState] = useState<boolean>(false);
+  const hideTimeout = useRef<NodeJS.Timeout | null>(null);
+
+  const closeModalWithDelay = useCallback(() => {
+    if (!internalState || !onHover) return;
+    hideTimeout.current = setTimeout(() => {
+      setInternalState(false);
+    }, 100);
+  }, [internalState, onHover]);
+
+  const handleMouseEnter = useCallback(() => {
+    if (!onHover) return;
+    if (hideTimeout.current) {
+      clearTimeout(hideTimeout.current);
+      hideTimeout.current = null;
+    }
+    setInternalState(true);
+  }, [onHover]);
+
+  const cancelClose = useCallback(() => {
+    if (!onHover || !hideTimeout.current) return;
+    clearTimeout(hideTimeout.current);
+    hideTimeout.current = null;
+  }, [onHover]);
+
+  useEffect(() => {
+    if (!onHover || !hideTimeout.current) return;
+    clearTimeout(hideTimeout.current);
+  }, [onHover]);
 
   return (
     <Popover.Root open={!state ? internalState : state?.[0]} onOpenChange={!state ? setInternalState : state?.[1]}>
-      <Popover.Trigger className={className} onClick={blockEvent(() => setInternalState(r => !r))}>
+      <Popover.Trigger
+        className={className}
+        onClick={blockEvent(() => setInternalState(r => !r))}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={closeModalWithDelay}>
         {children}
       </Popover.Trigger>
       <Popover.Portal>
@@ -30,9 +71,11 @@ export default function Dropdown({ state, padding, content, children, className,
           <EventBlocker>
             <Box
               look="bold"
-              className="mt-md mx-lg shadow-md animate-drop z-20 "
+              className="mt-md mx-lg shadow-md animate-drop z-20"
               {...(props as BoxProps)}
-              content={padding}>
+              content={padding}
+              onMouseEnter={cancelClose}
+              onMouseLeave={closeModalWithDelay}>
               {content}
             </Box>
           </EventBlocker>
