@@ -13,7 +13,11 @@ export class FormatterService {
     }
   }
 
-  toNumber(value: bigint | string, decimals = 18): number {
+  public static toPrice(value: bigint | string, token: { price?: number | null; decimals: number }): number {
+    return FormatterService.toNumber(value, token.decimals) * (token.price ?? 0);
+  }
+
+  public static toNumber(value: bigint | string, decimals = 18): number {
     const bi = BigInt(value);
 
     const fractionalPart = Number.parseFloat((bi % BigInt(10 ** decimals)).toString()) / 10 ** decimals;
