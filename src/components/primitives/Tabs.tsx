@@ -33,7 +33,7 @@
 
 import { Link, useLocation } from "@remix-run/react";
 
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 import { type VariantProps, tv } from "tailwind-variants";
 import { Container } from "../..";
 import useThemableProps from "../../hooks/theming/useThemableProps";
@@ -147,32 +147,38 @@ export default function Tabs({ look, size, to, theme, className, tabs = [], ...p
       <Container>
         <Group className={mergeClass(line(), "gap-xl*2 items-center w-full")}>
           {tabs.map(tab => {
-        const relativeUrl = tab.link.split("?")[0];
+            const relativeUrl = tab.link.split("?")[0];
 
-        return (
-          <>
-            {tab.link ? (
-              <EventBlocker key={tab.key}>
-                <Link
-                  to={tab.link}
-                  style={themeVars}
-                  className={mergeClass(styleProps, base(), className, location.pathname === relativeUrl && active())}>
-                  {tab.label}
-                </Link>
-              </EventBlocker>
-            ) : (
-              <button
-                key={tab.key}
-                style={themeVars}
-                className={mergeClass(styleProps, base(), className, location.pathname === relativeUrl && active())}
-                type="button"
-                {...props}>
-                {tab.label}
-              </button>
-            )}
-          </>
-        );
-      })}</Group>
+            return (
+              <>
+                {tab.link ? (
+                  <EventBlocker key={tab.key}>
+                    <Link
+                      to={tab.link}
+                      style={themeVars}
+                      className={mergeClass(
+                        styleProps,
+                        base(),
+                        className,
+                        location.pathname === relativeUrl && active(),
+                      )}>
+                      {tab.label}
+                    </Link>
+                  </EventBlocker>
+                ) : (
+                  <button
+                    key={tab.key}
+                    style={themeVars}
+                    className={mergeClass(styleProps, base(), className, location.pathname === relativeUrl && active())}
+                    type="button"
+                    {...props}>
+                    {tab.label}
+                  </button>
+                )}
+              </>
+            );
+          })}
+        </Group>
       </Container>
     </Group>
   );
