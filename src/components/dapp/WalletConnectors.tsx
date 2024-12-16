@@ -1,3 +1,7 @@
+import { useMemo } from "react";
+import type { Connector } from "wagmi";
+import walletCoinbaseIcon from "../../assets/walletCoinbase.svg";
+import walletConnectIcon from "../../assets/walletConnect.svg";
 import { useWalletContext } from "../../context/Wallet.context";
 import Group from "../extenders/Group";
 import Button from "../primitives/Button";
@@ -10,20 +14,44 @@ import Text from "../primitives/Text";
 export default function WalletConnectors() {
   const { config, connect, connector: _connected } = useWalletContext();
 
+  const sortedConnectors = useMemo(
+    () =>
+      [...config.connectors].sort((a, b) => {
+        const priority = (connector: Connector) => {
+          switch (connector.name.toLowerCase()) {
+            case "metamask":
+              return 0;
+            case "rabby wallet":
+              return 1;
+            case "walletconnect":
+              return 2;
+            default:
+              return 3;
+          }
+        };
+        return priority(a) - priority(b);
+      }),
+    [config.connectors],
+  );
+
   return (
     <Group className="flex-col w-full">
       <div className="grid grid-flow-row gap-lg">
-        {config.connectors.map(connector => {
+        {sortedConnectors.map(connector => {
           return (
             <Button
               look="base"
-              // look={connected?.id === connector.id ? "hype" : "bold"}
               onClick={() => connect(connector.id)}
               size="xl"
               bold
               className="gap-sm*2"
               key={connector.id}>
-              <Image className="h-lg*2 w-lg*2 rounded-md" alt={connector.name} src={connector.icon} fallback="" />
+              <Image
+                className="h-lg*2 w-lg*2 rounded-full overflow-hidden"
+                alt={connector.name}
+                src={overrideIcons(connector)}
+                fallback=""
+              />
               {connector.name}
               <Icon remix="RiArrowRightUpLine" />
             </Button>
@@ -38,3 +66,14 @@ export default function WalletConnectors() {
     </Group>
   );
 }
+
+const overrideIcons = (connector: Connector) => {
+  switch (connector.name.toLowerCase()) {
+    case "coinbase wallet":
+      return walletCoinbaseIcon;
+    case "walletconnect":
+      return walletConnectIcon;
+    default:
+      return connector.icon;
+  }
+};
