@@ -1,3 +1,7 @@
+import { useMemo } from "react";
+import type { Connector } from "wagmi";
+import walletCoinbaseIcon from "../../assets/walletCoinbase.svg";
+import walletConnectIcon from "../../assets/walletConnect.svg";
 import { useWalletContext } from "../../context/Wallet.context";
 import Group from "../extenders/Group";
 import Button from "../primitives/Button";
@@ -6,10 +10,6 @@ import Icon from "../primitives/Icon";
 import Image from "../primitives/Image";
 import Input from "../primitives/Input";
 import Text from "../primitives/Text";
-import type { Connector } from "wagmi";
-import walletConnectIcon from "../../assets/walletConnect.svg";
-import walletCoinbaseIcon from "../../assets/walletCoinbase.svg";
-import { useMemo } from "react";
 
 export default function WalletConnectors() {
   const { config, connect, connector: _connected } = useWalletContext();

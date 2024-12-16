@@ -236,7 +236,8 @@ export default function Select<
       // resetValueOnHide
       setValue={value => {
         setSearch(value);
-      }}>
+      }}
+    >
       <Ariakit.SelectProvider
         setValue={v => setValue(v as Value)}
         value={value as string}
