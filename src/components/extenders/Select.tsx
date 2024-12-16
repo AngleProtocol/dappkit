@@ -14,7 +14,7 @@ import Group from "./Group";
 
 export const selectStyles = tv({
   base: [
-    "text-main-11 rounded-sm flex items-center dim focus-visible:outline-main-12 !leading-none justify-between text-nowrap font-text font-semibold",
+    "rounded-sm ease flex items-center focus-visible:outline-main-12 !leading-none justify-between text-nowrap font-text font-semibold",
   ],
   slots: {
     dropdown: "outline-0 z-50 origin-top animate-drop animate-stretch mt-sm min-w-[var(--popover-anchor-width)]",
@@ -27,28 +27,28 @@ export const selectStyles = tv({
   variants: {
     look: {
       soft: {
-        base: "bg-main-0 active:text-main-12 text-main-11",
+        base: "bg-main-0 text-main-11 border-1 border-main-0 hover:text-main-12 active:border-main-11",
         icon: "border-main-0",
         item: "hover:bg-main-5 data-[active-item]:bg-main-5 active:bg-main-4 text-main-12",
       },
       base: {
-        base: "bg-main-0 border-main-9 border-1 active:text-main-12 text-main-11",
+        base: "bg-main-0 text-main-11 border-1 border-main-9 hover:text-main-12 active:border-main-11",
         icon: "border-main-0",
         item: "hover:bg-main-5 data-[active-item]:bg-main-5 active:bg-main-4 text-main-12",
       },
       bold: {
-        base: "bg-main-1 active:text-main-12 text-main-11",
+        base: "bg-main-1 text-main-11 border-1 border-main-0 hover:text-main-12 active:border-main-8",
         icon: "",
         item: "hover:bg-main-5 data-[active-item]:bg-main-5 active:bg-main-4 text-main-12",
         check: "text-accent-10",
       },
       tint: {
-        base: "bg-main-5 active:text-main-12 text-main-11",
+        base: "bg-main-5 text-main-11 border-1 border-main-0 hover:text-main-12 active:border-main-8",
         icon: "",
         item: "hover:bg-main-3 data-[active-item]:bg-main-6 active:bg-main-5 text-main-12",
       },
       hype: {
-        base: "bg-accent-5 active:text-main-12 text-accent-11",
+        base: "bg-main-8 text-main-12 border-1 border-main-0 hover:bg-main-10 active:border-stroke-11",
         icon: "",
         item: "hover:bg-accent-10 data-[active-item]:bg-accent-10 active:bg-accent-4 text-main-12",
       },

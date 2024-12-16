@@ -4,15 +4,16 @@ import type { Component } from "../../utils/types";
 
 export type ImageProps = Component<
   {
+    imgClassName?: string;
     fallback?: string;
   },
   HTMLImageElement
 >;
 
-export default function Image({ fallback, className, ...props }: ImageProps) {
+export default function Image({ fallback, imgClassName, className, ...props }: ImageProps) {
   return (
     <Avatar.Root className={mergeClass(className)}>
-      <Avatar.Image {...props} style={{ ...props.style, width: "100%", height: "100%" }} />
+      <Avatar.Image className={imgClassName} {...props} style={{ ...props.style, width: "100%", height: "100%" }} />
       <Avatar.Fallback
         data-link={props.src}
         className="bg-main-7 h-full w-full text-auto justify-center flex items-center rounded-full p-sm"
