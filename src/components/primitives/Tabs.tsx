@@ -147,6 +147,8 @@ export default function Tabs({ look, size, to, theme, className, tabs = [], ...p
       <Container>
         <Group className={mergeClass(line(), "gap-xl*2 items-center w-full")}>
           {tabs.map(tab => {
+            const relativeUrl = tab.link.split("?")[0];
+
             return (
               <>
                 {tab.link ? (
@@ -154,7 +156,12 @@ export default function Tabs({ look, size, to, theme, className, tabs = [], ...p
                     <Link
                       to={tab.link}
                       style={themeVars}
-                      className={mergeClass(styleProps, base(), className, location.pathname === tab.link && active())}>
+                      className={mergeClass(
+                        styleProps,
+                        base(),
+                        className,
+                        location.pathname === relativeUrl && active(),
+                      )}>
                       {tab.label}
                     </Link>
                   </EventBlocker>
@@ -162,7 +169,7 @@ export default function Tabs({ look, size, to, theme, className, tabs = [], ...p
                   <button
                     key={tab.key}
                     style={themeVars}
-                    className={mergeClass(styleProps, base(), className, location.pathname === tab.link && active())}
+                    className={mergeClass(styleProps, base(), className, location.pathname === relativeUrl && active())}
                     type="button"
                     {...props}>
                     {tab.label}
