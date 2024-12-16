@@ -38,7 +38,7 @@ export function DAppProvider({
 }: PropsWithChildren<DAppProviderProps>) {
   return (
     <ThemeProvider sizing={sizing} themes={themes ?? demoThemes} modes={modes}>
-      <WalletProvider chains={chains} config={config}>
+      <WalletProvider chains={chains.filter(({ id }) => id !== 1337)} config={config}>
         {children}
       </WalletProvider>
     </ThemeProvider>
