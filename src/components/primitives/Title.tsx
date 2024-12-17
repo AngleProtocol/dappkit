@@ -1,6 +1,6 @@
-import clsx from "clsx";
 import { forwardRef } from "react";
 import { tv } from "tailwind-variants";
+import { mergeClass } from "../../utils/css";
 import type { Component, Styled } from "../../utils/types";
 import { textStyles } from "./Text";
 
@@ -40,15 +40,15 @@ const Title = forwardRef<HTMLHeadingElement, TitleProps>(function Title(
 
   switch (h) {
     case 1:
-      return <h1 ref={ref} className={clsx(titleStyles({ look, size }), className)} children={" "} {...props} />;
+      return <h1 ref={ref} className={mergeClass(titleStyles({ look, size }), className)} children={" "} {...props} />;
     case 2:
-      return <h2 ref={ref} className={clsx(titleStyles({ look, size }), className)} children={" "} {...props} />;
+      return <h2 ref={ref} className={mergeClass(titleStyles({ look, size }), className)} children={" "} {...props} />;
     case 3:
-      return <h3 ref={ref} className={clsx(titleStyles({ look, size }), className)} children={" "} {...props} />;
+      return <h3 ref={ref} className={mergeClass(titleStyles({ look, size }), className)} children={" "} {...props} />;
     case 4:
-      return <h4 ref={ref} className={clsx(titleStyles({ look, size }), className)} children={" "} {...props} />;
+      return <h4 ref={ref} className={mergeClass(titleStyles({ look, size }), className)} children={" "} {...props} />;
     case 5:
-      return <h5 ref={ref} className={clsx(titleStyles({ look, size }), className)} children={" "} {...props} />;
+      return <h5 ref={ref} className={mergeClass(titleStyles({ look, size }), className)} children={" "} {...props} />;
     default:
       break;
   }
