@@ -50,6 +50,10 @@ export const textStyles = tv(
       true: "cursor-pointer select-none",
       false: "",
     },
+    defaultVariants: {
+      look: "base",
+      size: "md",
+    },
   },
   { twMerge: false },
 );
