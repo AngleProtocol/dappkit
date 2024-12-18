@@ -6,20 +6,23 @@ import Icon from "../primitives/Icon";
 export type TransactionButtonProps = ButtonProps & {
   tx?: Parameters<UseSendTransactionReturnType<ResolvedRegister["config"], unknown>["sendTransaction"]>["0"];
   name?: ReactNode;
+  onExecute?: (hash: string) => void;
 };
 
-export default function TransactionButton({ tx, name, children, ...props }: TransactionButtonProps) {
+export default function TransactionButton({ tx, name, children, onExecute, ...props }: TransactionButtonProps) {
   const sendTxHook = useSendTransaction();
-  const { sendTransaction, status } = sendTxHook;
+  const { sendTransactionAsync, status } = sendTxHook;
 
-  const execute = useCallback(() => {
+  const execute = useCallback(async () => {
     if (!tx) return;
 
-    sendTransaction({
+    const hash = await sendTransactionAsync({
       to: tx.to as `0x${string}`,
       data: tx.data as `0x${string}`,
     });
-  }, [tx, sendTransaction]);
+
+    onExecute?.(hash);
+  }, [tx, sendTransactionAsync, onExecute]);
 
   return (
     <Button {...props} onClick={execute}>

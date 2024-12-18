@@ -85,7 +85,7 @@ Input.BigInt = function InputBigInt({ state, base, ...props }: InputProps<bigint
     const _value = !state ? internal : state?.[0];
     const transformed = formatUnits(_value ?? 0n, base);
 
-    return displayed ?? transformed;
+    return transformed ?? displayed;
   }, [internal, state, displayed, base]);
 
   const setValue = useCallback(
@@ -111,7 +111,7 @@ Input.BigInt = function InputBigInt({ state, base, ...props }: InputProps<bigint
   );
 
   //TODO: implement setter callback
-  return <Input state={[displayed, v => typeof v !== "function" && setValue(v)]} {...props} />;
+  return <Input state={[_value, v => typeof v !== "function" && setValue(v)]} {...props} />;
 };
 
 export default Input;

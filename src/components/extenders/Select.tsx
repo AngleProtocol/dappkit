@@ -134,6 +134,8 @@ export type SelectProps<Value> = Component<{
   loading?: boolean;
   allOption?: ReactNode;
   options?: { [key: string | number | symbol]: ReactNode };
+  displayOptions?: { [key: string | number | symbol]: ReactNode };
+  searchOptions?: { [key: string | number | symbol]: ReactNode };
 }> &
   RadixSelect.SelectProps;
 
@@ -148,6 +150,8 @@ export default function Select<
   size,
   state,
   options,
+  displayOptions,
+  searchOptions,
   search,
   multiple,
   loading,
@@ -179,17 +183,15 @@ export default function Select<
   const [searchInput, setSearch] = useState<string>();
 
   const matches = useMemo(() => {
-    if (!search) return Object.keys(options ?? {});
+    if (!search || !searchInput || searchInput === "") return Object.keys(options ?? {});
     // const textToMatch = Object.keys(options ?? {}).map(option => `${option}_${options[option]?.props?.children?.filter(a => typeof a !== "object").join(" ")}`)
     const textToMatch = Object.keys(options ?? {}).reduce(
       (matches, option) => {
-        const opt = options?.[option];
+        const opt = searchOptions?.[option] ?? options?.[option];
         const key =
           typeof opt === "string"
             ? opt
-            : (
-                options?.[option] as Exclude<ReactNode, string | number | boolean | Iterable<ReactNode>>
-              )?.props?.children
+            : (opt as Exclude<ReactNode, string | number | boolean | Iterable<ReactNode>>)?.props?.children
                 ?.filter?.((a: unknown) => typeof a !== "object")
                 ?.join(" ");
 
@@ -206,7 +208,7 @@ export default function Select<
     ) as (typeof value)[];
 
     return uniqueOptionMatches;
-  }, [options, searchInput, search]);
+  }, [options, searchOptions, searchInput, search]);
 
   const label = useMemo(() => {
     if (
@@ -298,7 +300,7 @@ export default function Select<
                       <Ariakit.ComboboxItem
                         children={[
                           <Group className="flex-nowrap" key="label">
-                            {options?.[_value as string]}
+                            {displayOptions?.[_value as string] ?? options?.[_value as string]}
                           </Group>,
                           <Icon
                             key="select"
