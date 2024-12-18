@@ -25,8 +25,8 @@ export const buttonStyles = tv(
       },
       center: {
         true: "justify-center",
-        false: ""
-      }
+        false: "",
+      },
     },
     defaultVariants: {
       look: "base",

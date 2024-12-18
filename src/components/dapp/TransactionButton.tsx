@@ -11,7 +11,7 @@ export type TransactionButtonProps = ButtonProps & {
 
 export default function TransactionButton({ tx, name, children, onExecute, ...props }: TransactionButtonProps) {
   const sendTxHook = useSendTransaction();
-  const { sendTransaction, sendTransactionAsync, status } = sendTxHook;
+  const { sendTransactionAsync, status } = sendTxHook;
 
   const execute = useCallback(async () => {
     if (!tx) return;
