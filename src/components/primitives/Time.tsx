@@ -13,6 +13,7 @@ export default function Time({ timestamp, prefix }: TimeProps) {
 
     return then
       .replace(/in\s/, prefix ? `${prefix} ` : "In ")
+      .replace(/a\s/, "1 ")
       .replace(/\bminute(s?)\b/g, "m")
       .replace(/\bsecond(s?)\b/g, "s")
       .replace(/\bhour(s?)\b/g, (_match, plural) => (plural ? "hours" : "hour"))
