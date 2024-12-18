@@ -7,15 +7,15 @@ import type { Component, GetSet, Styled } from "../../utils/types";
 import Group from "../extenders/Group";
 
 export const inputStyles = tv({
-  base: "flex items-center placeholder:text-main-11 text-nowrap font-text",
+  base: "flex items-center text-nowrap font-text",
   variants: {
     look: {
       none: "text-main-12 bg-main-0 border-0",
-      soft: "text-main-11 bg-main-0 border-main-9 border-1 active:border-main-7 focus-within:outline focus-within:outline-main-12",
-      base: "text-main-12 bg-main-6 focus-within:outline focus-within:outline-main-12",
-      bold: "text-main-12 bg-main-3 border-main-4 hover:border-main-4 active:border-main-7 hover:text-main-12 focus-within:outline focus-within:outline-main-12",
-      tint: "text-main-12 bg-main-1 border-accent-6 hover:border-accent-8 active:bg-main-2 focus-within:outline focus-within:outline-main-12",
-      hype: "text-main-12 bg-main-0 border-accent-8 hover:border-accent-10 active:border-accent-8 hover:text-main-12 focus-within:outline focus-within:outline-main-12",
+      soft: "placeholder:text-main-11 text-main-12 bg-main-0 border-main-0 border-1 active:border-main-7 hover:text-main-11 focus-within:outline focus-within:outline-main-12",
+      base: "placeholder:text-main-11 text-main-12 bg-main-0 border-main-8 border-1 active:border-main-7 hover:text-main-11 focus-within:outline focus-within:outline-main-12",
+      bold: "placeholder:text-main-11 text-main-12 bg-main-2 border-main-0 border-1 active:border-main-7 hover:text-main-11 focus-within:outline focus-within:outline-main-12",
+      tint: "placeholder:text-main-11 text-main-12 bg-main-5 border-main-0 border-1 active:border-main-7 hover:text-main-11 focus-within:outline focus-within:outline-main-12",
+      hype: "placeholder:text-main-2 text-main-1 bg-main-12 border-main-0 border-1 active:border-accent-9 hover:text-main-2 focus-within:outline focus-within:outline-main-12",
     },
     size: {
       xs: "px-xs py-xs text-xs rounded-xs",

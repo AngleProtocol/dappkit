@@ -62,7 +62,12 @@ export default function WalletConnectors() {
       <Text size={5} className="text-main-11">
         Spy address
       </Text>
-      <Input size="lg" placeholder="Address" suffix={<Icon className="text-main-12" remix="RiSearchLine" />} />
+      <Input
+        look="tint"
+        size="lg"
+        placeholder="Address"
+        suffix={<Icon className="text-main-12" remix="RiSearchLine" />}
+      />
     </Group>
   );
 }
