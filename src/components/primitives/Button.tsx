@@ -7,7 +7,7 @@ import EventBlocker from "./EventBlocker";
 
 export const buttonStyles = tv(
   {
-    base: "flex items-center dim !leading-none select-none rounded-full focus-visible:outline focus-visible:outline-main-12 text-nowrap font-text ease font-bold text-[clamp(15px,0.4167vw+0.78125rem,20px)]",
+    base: "flex items-center dim !leading-none  select-none rounded-full focus-visible:outline focus-visible:outline-main-12 text-nowrap font-text ease font-bold text-[clamp(15px,0.4167vw+0.78125rem,20px)]",
     variants: {
       look: {
         soft: "text-main-12 !p-0 active:text-main-11 outline-offset-4",
@@ -23,6 +23,10 @@ export const buttonStyles = tv(
         lg: "px-lg py-lg gap-sm text-lg",
         xl: "px-xl py-xl gap-sm text-xl",
       },
+      center: {
+        true: "justify-center",
+        false: ""
+      }
     },
     defaultVariants: {
       look: "base",
@@ -50,6 +54,7 @@ export type ButtonProps = Component<
 export default function Button({
   look,
   size,
+  center,
   to,
   theme,
   className,
@@ -60,7 +65,7 @@ export default function Button({
   ...props
 }: ButtonProps) {
   const themeVars = useThemableProps(props);
-  const styleProps = buttonStyles({ look, size });
+  const styleProps = buttonStyles({ look, size, center });
   const styleBold = bold ? "font-bold" : "";
 
   if (to && external)
