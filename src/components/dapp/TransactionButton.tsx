@@ -1,5 +1,6 @@
 import { type ReactNode, useCallback } from "react";
 import { type ResolvedRegister, type UseSendTransactionReturnType, useSendTransaction } from "wagmi";
+import { useWalletContext } from "../../context/Wallet.context";
 import Button, { type ButtonProps } from "../primitives/Button";
 import Icon from "../primitives/Icon";
 
@@ -11,18 +12,26 @@ export type TransactionButtonProps = ButtonProps & {
 
 export default function TransactionButton({ tx, name, children, onExecute, ...props }: TransactionButtonProps) {
   const sendTxHook = useSendTransaction();
-  const { sendTransactionAsync, status } = sendTxHook;
+  const { status } = sendTxHook;
+  const { address: user, client, sendTransaction } = useWalletContext();
 
   const execute = useCallback(async () => {
-    if (!tx) return;
+    console.log("CLIENT", client);
 
-    const hash = await sendTransactionAsync({
-      to: tx.to as `0x${string}`,
-      data: tx.data as `0x${string}`,
-    });
+    if (!tx || !user || !client) return;
 
-    onExecute?.(hash);
-  }, [tx, sendTransactionAsync, onExecute]);
+    const hash = await sendTransaction?.([
+      {
+        chain: client.chain,
+        account: user,
+        to: tx.to,
+        data: tx.data,
+        value: tx.value,
+      },
+    ]);
+
+    hash && onExecute?.(hash);
+  }, [tx, client, user, sendTransaction, onExecute]);
 
   return (
     <Button {...props} onClick={execute}>
