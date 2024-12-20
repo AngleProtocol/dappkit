@@ -7,6 +7,7 @@ import { WalletProvider } from "./Wallet.context";
 
 //TODO: remove merkl-related typings in favor of redeclarations for better abstraction
 import type { Chain, Explorer } from "@merkl/api";
+import type { WalletOptions } from "../hooks/useWalletState";
 import type { SizingConfig } from "../utils/tailwind";
 
 export type DAppContextType = { flag?: string };
@@ -26,6 +27,7 @@ export type DAppProviderProps = {
   sizing: SizingConfig;
   modes: Mode[];
   chains: (Chain & { explorers: Explorer[] })[];
+  walletOptions?: WalletOptions;
 };
 
 export function DAppProvider({
@@ -35,10 +37,11 @@ export function DAppProvider({
   modes,
   children,
   chains,
+  walletOptions,
 }: PropsWithChildren<DAppProviderProps>) {
   return (
     <ThemeProvider sizing={sizing} themes={themes ?? demoThemes} modes={modes}>
-      <WalletProvider chains={chains.filter(({ id }) => id !== 1337)} config={config}>
+      <WalletProvider walletOptions={walletOptions} chains={chains.filter(({ id }) => id !== 1337)} config={config}>
         {children}
       </WalletProvider>
     </ThemeProvider>

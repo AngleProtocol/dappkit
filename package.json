@@ -49,7 +49,7 @@
     "moment": "^2.30.1",
     "numerable": "^0.3.15",
     "qs": "^6.13.0",
-    "react": "^18.2.0",
+    "react": "^18.3.1",
     "react-dom": "^18.2.0",
     "react-responsive": "^10.0.0",
     "recharts": "^2.12.7",
@@ -61,9 +61,9 @@
     "tailwindcss": "^3.4.12",
     "tailwindcss-animate": "^1.0.7",
     "typedoc": "^0.26.7",
-    "viem": "2.x",
     "vite-plugin-dts": "^4.2.1",
-    "wagmi": "^2.12.10",
+    "viem": "2.21.54",
+    "wagmi": "^2.14.1",
     "zustand": "^5.0.0-rc.2"
   },
   "devDependencies": {
