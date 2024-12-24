@@ -13,9 +13,13 @@ import Image from "../primitives/Image";
 import Text from "../primitives/Text";
 import WalletConnectors from "./WalletConnectors";
 
-export type WalletButton = ButtonProps;
+export type WalletButtonProps = ButtonProps & {
+  select?: ReactNode;
+  connect?: ReactNode;
+  status?: ReactNode;
+};
 
-export default function WalletButton(props: ButtonProps) {
+export default function WalletButton({ select, connect, status, ...props }: WalletButtonProps) {
   const { address, disconnect, connected, connector, chainId, switchChain, chains } = useWalletContext();
 
   const chainOptions = useMemo(() => {
@@ -37,15 +41,17 @@ export default function WalletButton(props: ButtonProps) {
   if (!connected)
     return (
       <Modal title="CONNECT WALLET" className="mx-auto w-full max-w-[500px]" modal={<WalletConnectors />}>
-        <Button look="hype" size="lg" {...props}>
-          Connect wallet
-        </Button>
+        {connect || (
+          <Button look="hype" size="lg" {...props}>
+            Connect wallet
+          </Button>
+        )}
       </Modal>
     );
 
   return (
     <>
-      <Select state={[chainId, c => switchChain(+c)]} options={chainOptions} />
+      {select || <Select state={[chainId, c => switchChain(+c)]} options={chainOptions} />}
       <Dropdown
         size="lg"
         padding="xs"
@@ -72,9 +78,11 @@ export default function WalletButton(props: ButtonProps) {
             <Group className="flex-col items-start">{props.children}</Group>
           </>
         }>
-        <Button look="tint" className="w-full justify-center">
-          {Fmt.address(address, "short")}
-        </Button>
+        {status || (
+          <Button look="tint" className="w-full justify-center">
+            {Fmt.address(address, "short")}
+          </Button>
+        )}
       </Dropdown>
     </>
   );
