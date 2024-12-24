@@ -78,13 +78,14 @@ function Input({ look, size, state, className, ...props }: InputProps) {
 
 Input.BigInt = function InputBigInt({ state, base, ...props }: InputProps<bigint> & { base: number }) {
   const [internal, setInternal] = useState<bigint>();
-  const [displayed, setDisplayed] = useState("0.0");
+  const [displayed, setDisplayed] = useState<string>();
   const [_getter, setter] = state ?? [];
 
   const _value = useMemo(() => {
     const _value = !state ? internal : state?.[0];
     const transformed = formatUnits(_value ?? 0n, base);
 
+    if (_value === undefined || _value === 0n) return displayed;
     return transformed ?? displayed;
   }, [internal, state, displayed, base]);
 
@@ -92,7 +93,7 @@ Input.BigInt = function InputBigInt({ state, base, ...props }: InputProps<bigint
     (v: string | undefined) => {
       try {
         if (v === undefined) {
-          setter?.(0n) ?? setInternal(0n);
+          setter?.(v) ?? setInternal(v);
           return;
         }
 
