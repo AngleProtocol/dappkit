@@ -34,8 +34,9 @@ export default function Dropdown({
     if (!internalState || !onHover) return;
     hideTimeout.current = setTimeout(() => {
       setInternalState(false);
+      state?.[1]?.(false);
     }, 100);
-  }, [internalState, onHover]);
+  }, [internalState, onHover, state]);
 
   const handleMouseEnter = useCallback(() => {
     if (!onHover) return;
@@ -44,7 +45,8 @@ export default function Dropdown({
       hideTimeout.current = null;
     }
     setInternalState(true);
-  }, [onHover]);
+    state?.[1]?.(true);
+  }, [onHover, state]);
 
   const cancelClose = useCallback(() => {
     if (!onHover || !hideTimeout.current) return;
@@ -57,11 +59,20 @@ export default function Dropdown({
     clearTimeout(hideTimeout.current);
   }, [onHover]);
 
+  const toggle = useCallback(
+    () =>
+      blockEvent(() => {
+        setInternalState(!internalState);
+        state?.[1]?.(!state?.[0]);
+      }),
+    [internalState, state],
+  );
+
   return (
     <Popover.Root open={!state ? internalState : state?.[0]} onOpenChange={!state ? setInternalState : state?.[1]}>
       <Popover.Trigger
         className={className}
-        onClick={blockEvent(() => setInternalState(r => !r))}
+        onClick={toggle}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={closeModalWithDelay}>
         {children}
