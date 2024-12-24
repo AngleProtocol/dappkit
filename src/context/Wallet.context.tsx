@@ -8,7 +8,7 @@ import useWalletState, { type WalletOptions } from "../hooks/useWalletState";
 export type WalletContextType = ReturnType<typeof useWalletState>;
 
 const WalletContext = createContext<WalletContextType | null>(null);
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 export function useWalletContext() {
   const data = useContext(WalletContext);
@@ -37,11 +37,11 @@ function WalletStateProvider({
 export function WalletProvider({ config, children, chains, walletOptions }: PropsWithChildren<WalletProviderProps>) {
   return (
     <WagmiProvider config={config}>
-        <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}>
         <WalletStateProvider options={walletOptions} chains={chains}>
           {children}
         </WalletStateProvider>
-    </QueryClientProvider>
-      </WagmiProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
   );
 }
