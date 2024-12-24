@@ -63,7 +63,7 @@
     "typedoc": "^0.26.7",
     "vite-plugin-dts": "^4.2.1",
     "viem": "2.21.54",
-    "wagmi": "^2.14.1",
+    "wagmi": "^2.14.6",
     "zustand": "^5.0.0-rc.2"
   },
   "devDependencies": {
