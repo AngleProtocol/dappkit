@@ -1,5 +1,5 @@
 import { format } from "numerable";
-import { type ReactNode, useCallback, useMemo, useState } from "react";
+import { type ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { tv } from "tailwind-variants";
 import { formatUnits, parseUnits } from "viem";
 import { mergeClass } from "../../utils/css";
@@ -78,13 +78,15 @@ function Input({ look, size, state, className, ...props }: InputProps) {
 
 Input.BigInt = function InputBigInt({ state, base, ...props }: InputProps<bigint> & { base: number }) {
   const [internal, setInternal] = useState<bigint>();
-  const [displayed, setDisplayed] = useState("0.0");
+  const [displayed, setDisplayed] = useState();
   const [_getter, setter] = state ?? [];
 
   const _value = useMemo(() => {
     const _value = !state ? internal : state?.[0];
+    // if (_value === undefined)
     const transformed = formatUnits(_value ?? 0n, base);
 
+    if (!_value) return displayed;
     return transformed ?? displayed;
   }, [internal, state, displayed, base]);
 

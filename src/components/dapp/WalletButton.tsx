@@ -15,7 +15,7 @@ import WalletConnectors from "./WalletConnectors";
 
 export type WalletButton = ButtonProps;
 
-export default function WalletButton(props: ButtonProps) {
+export default function WalletButton(props: ButtonProps & { disableChainSelector?: boolean }) {
   const { address, disconnect, connected, connector, chainId, switchChain, chains } = useWalletContext();
 
   const chainOptions = useMemo(() => {
@@ -45,7 +45,7 @@ export default function WalletButton(props: ButtonProps) {
 
   return (
     <>
-      <Select state={[chainId, c => switchChain(+c)]} options={chainOptions} />
+      {!props.disableChainSelector && <Select state={[chainId, c => switchChain(+c)]} options={chainOptions} />}
       <Dropdown
         size="lg"
         padding="xs"

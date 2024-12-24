@@ -16,8 +16,6 @@ export default function TransactionButton({ tx, name, children, onExecute, ...pr
   const { address: user, client, sendTransaction } = useWalletContext();
 
   const execute = useCallback(async () => {
-    console.log("CLIENT", client);
-
     if (!tx || !user || !client) return;
 
     const hash = await sendTransaction?.([
