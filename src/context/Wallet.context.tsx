@@ -36,12 +36,12 @@ function WalletStateProvider({
 
 export function WalletProvider({ config, children, chains, walletOptions }: PropsWithChildren<WalletProviderProps>) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <WagmiProvider config={config}>
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
         <WalletStateProvider options={walletOptions} chains={chains}>
           {children}
         </WalletStateProvider>
-      </WagmiProvider>
-    </QueryClientProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
   );
 }
