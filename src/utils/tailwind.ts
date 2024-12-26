@@ -10,6 +10,13 @@ export type SizingConfig = {
 
 export const variableConfig = generateVariableAssigners();
 
+export const SCREEN_BREAKDOWNS = {
+  MD: 640,
+  LG: 1024,
+  XL: 1536,
+  XXL: 2065,
+};
+
 export const generateTailwindConfig = (fonts?: { title: string[]; text: string[]; mono: string[] }) =>
   ({
     extend: {
@@ -77,12 +84,9 @@ export const generateTailwindConfig = (fonts?: { title: string[]; text: string[]
     colors: {
       ...variableConfig?.colors,
     },
-    screens: {
-      md: "640px",
-      lg: "1024px",
-      xl: "1536px",
-      xxl: "2065px",
-    },
+    screens: Object.fromEntries(
+      Object.entries(SCREEN_BREAKDOWNS).map(([key, value]) => [key.toLowerCase(), `${value}px`]),
+    ),
     borderRadius: {
       0: "0",
       full: "100vmax",
