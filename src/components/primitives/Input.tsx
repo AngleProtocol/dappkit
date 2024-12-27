@@ -85,7 +85,11 @@ Input.BigInt = function InputBigInt({ state, base, ...props }: InputProps<bigint
     const _value = !state ? internal : state?.[0];
     const transformed = formatUnits(_value ?? 0n, base);
 
-    if (_value === undefined || _value === 0n) return displayed;
+    const isInputtingDecimals =
+      displayed?.split(".")?.[1]?.[displayed?.split?.(".")?.[1]?.length - 1] === "0" ||
+      displayed?.[displayed.length - 1] === ".";
+
+    if (_value === undefined || _value === 0n || isInputtingDecimals) return displayed;
     return transformed ?? displayed;
   }, [internal, state, displayed, base]);
 

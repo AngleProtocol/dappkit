@@ -7,6 +7,7 @@ import type { Chain, Explorer } from "@merkl/api";
 import type { WalletClient } from "viem";
 
 export type WalletOptions = {
+  sponsorTransactions?: boolean;
   client?: (c: WalletClient) => Promise<WalletClient>;
   transaction?: (
     tx: Parameters<WalletClient["sendTransaction"]>,
@@ -22,6 +23,7 @@ export default function useWalletState(chains: (Chain & { explorers: Explorer[] 
 
   const [blockNumber] = useState<number>();
   const [client, setClient] = useState<WalletClient>();
+  const [sponsorTransactions, setSponsorTransactions] = useState(!!options?.sponsorTransactions);
 
   const wrapClient = useCallback(async () => {
     const _client = await getWalletClient<typeof config, 1>(config);
@@ -41,7 +43,10 @@ export default function useWalletState(chains: (Chain & { explorers: Explorer[] 
   const wrapTransaction = useCallback(
     async (tx: Parameters<WalletClient["sendTransaction"]>) => {
       if (!client) return;
-      return (await options?.transaction?.(tx, { client, config })) ?? client.sendTransaction(...tx);
+      const configWrappedTx = await options?.transaction?.(tx, { client, config });
+
+      if (configWrappedTx) return configWrappedTx;
+      return client.sendTransaction(...tx);
     },
     [client, options?.transaction, config],
   );
@@ -69,6 +74,8 @@ export default function useWalletState(chains: (Chain & { explorers: Explorer[] 
     chainId: account.chainId,
     switchChain,
     blockNumber,
+    sponsorTransactions,
+    setSponsorTransactions,
     sendTransaction: wrapTransaction,
     address: account.address,
     connected: account.isConnected,

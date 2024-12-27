@@ -18,7 +18,7 @@ export default function TransactionButton({ tx, name, children, onExecute, ...pr
   const execute = useCallback(async () => {
     if (!tx || !user || !client) return;
 
-    const hash = await client.sendTransaction?.([
+    const hash = await sendTransaction?.([
       {
         chain: client.chain,
         account: user,
