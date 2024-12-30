@@ -23,7 +23,8 @@ export default function TransactionButton({ tx, name, children, onExecute, ...pr
         chain: client.chain,
         account: user,
         ...tx,
-      },
+        // biome-ignore lint/suspicious/noExplicitAny: Todo wrong type @Clement
+      } as any,
     ]);
 
     hash && onExecute?.(hash);

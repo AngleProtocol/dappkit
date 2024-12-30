@@ -69,29 +69,31 @@ export default function Dropdown({
   );
 
   return (
-    <Popover.Root open={!state ? internalState : state?.[0]} onOpenChange={!state ? setInternalState : state?.[1]}>
-      <Popover.Trigger
-        className={className}
-        onClick={toggle}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={closeModalWithDelay}>
-        {children}
-      </Popover.Trigger>
-      <Popover.Portal>
-        <Popover.Content asChild style={vars}>
-          <EventBlocker>
-            <Box
-              look="bold"
-              className="mt-md mx-lg shadow-md animate-drop z-20"
-              {...(props as BoxProps)}
-              content={padding}
-              onMouseEnter={cancelClose}
-              onMouseLeave={closeModalWithDelay}>
-              {content}
-            </Box>
-          </EventBlocker>
-        </Popover.Content>
-      </Popover.Portal>
-    </Popover.Root>
+    <EventBlocker>
+      <Popover.Root open={!state ? internalState : state?.[0]} onOpenChange={!state ? setInternalState : state?.[1]}>
+        <Popover.Trigger
+          className={className}
+          onClick={toggle}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={closeModalWithDelay}>
+          {children}
+        </Popover.Trigger>
+        <Popover.Portal>
+          <Popover.Content asChild style={vars}>
+            <EventBlocker>
+              <Box
+                look="bold"
+                className="mt-md mx-lg shadow-md animate-drop z-20"
+                {...(props as BoxProps)}
+                content={padding}
+                onMouseEnter={cancelClose}
+                onMouseLeave={closeModalWithDelay}>
+                {content}
+              </Box>
+            </EventBlocker>
+          </Popover.Content>
+        </Popover.Portal>
+      </Popover.Root>
+    </EventBlocker>
   );
 }
