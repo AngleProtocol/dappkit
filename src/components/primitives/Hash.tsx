@@ -5,7 +5,7 @@ import Text, { type TextProps } from "./Text";
 
 import type { textStyles } from "./Text";
 
-export type HashProps = Omit<TextProps, "children"> & {
+export type HashProps = Omit<TextProps, "children" | "value"> & {
   format: "full" | "short" | "prefix";
   children?: string;
   size?: Styled<typeof textStyles>["size"];
