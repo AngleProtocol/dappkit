@@ -5,14 +5,15 @@ import Text, { type TextProps } from "./Text";
 
 import type { textStyles } from "./Text";
 
-export type HashProps = Omit<TextProps, "children"> & {
+export type HashProps = Omit<TextProps, "children" | "value"> & {
   format: "full" | "short" | "prefix";
   children?: string;
   size?: Styled<typeof textStyles>["size"];
   copy?: boolean;
+  value?: boolean;
 };
 
-export default function Hash({ format, copy, size, children: hash, className, ...props }: HashProps) {
+export default function Hash({ value, format, copy, size, children: hash, className, ...props }: HashProps) {
   const formatted: string = useMemo(() => {
     if (!hash) return "";
 
@@ -37,6 +38,7 @@ export default function Hash({ format, copy, size, children: hash, className, ..
     [copy, isCopied],
   );
 
+  if (value) return formatted;
   return (
     <Text
       size={size}
