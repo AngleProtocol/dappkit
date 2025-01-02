@@ -8,7 +8,7 @@ import type { ButtonProps } from "../primitives/Button";
 
 export const cardStyles = tv({
   extend: boxStyles,
-  base: "text-main-11 flex !justify-start items-center outline-offset-0 outline-0 text-nowrap font-text font-bold",
+  base: "text-main-11 flex !justify-start items-center outline-offset-0 outline-0 font-text font-bold",
   variants: {
     look: {
       soft: "",
