@@ -1,10 +1,9 @@
 import { type PropsWithChildren, createContext, useContext, useMemo, useState } from "react";
+import Notifications from "../components/primitives/Notifications";
 import { type Theme, type Themes, reduceColorIntoVariables } from "../theming/coloring";
 import { reduceSpacingIntoVariables } from "../theming/spacing";
 import type { Mode } from "../theming/variables";
 import type { SizingConfig } from "../utils/tailwind";
-import "react-toastify/dist/ReactToastify.css";
-import Notifications from "../components/primitives/Notifications";
 
 const ThemeContext = createContext<ReturnType<typeof useThemeState> | null>(null);
 
