@@ -42,8 +42,8 @@ export default function WalletButton({ select, connect, status, ...props }: Wall
     return (
       <Modal title="CONNECT WALLET" className="mx-auto w-full max-w-[500px]" modal={<WalletConnectors />}>
         {connect || (
-          <Button look="hype" size="lg" {...props}>
-            Connect wallet
+          <Button look="hype" size="md" {...props}>
+            Connect
           </Button>
         )}
       </Modal>
