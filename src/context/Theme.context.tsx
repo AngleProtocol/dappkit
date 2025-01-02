@@ -3,6 +3,8 @@ import { type Theme, type Themes, reduceColorIntoVariables } from "../theming/co
 import { reduceSpacingIntoVariables } from "../theming/spacing";
 import type { Mode } from "../theming/variables";
 import type { SizingConfig } from "../utils/tailwind";
+import "react-toastify/dist/ReactToastify.css";
+import Notifications from "../components/primitives/Notifications";
 
 const ThemeContext = createContext<ReturnType<typeof useThemeState> | null>(null);
 
@@ -75,6 +77,7 @@ export default function ThemeProvider({ themes, sizing, modes, children }: Theme
         data-mode={value?.mode}
         style={value?.vars}
         className="bg-background overflow-auto">
+        <Notifications />
         {children}
       </div>
     </ThemeContext.Provider>
