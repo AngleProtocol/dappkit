@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 export function NotificationText({ title, subtitle }: { title: ReactNode; subtitle: ReactNode }) {
   return (
-    <Group size="xs" className="flex-col">
+    <Group size="xs" className="flex-col select-none">
       <Text look="bold" className="font-bold">
         {title}
       </Text>
@@ -50,6 +50,16 @@ export class Notifier {
       render: this.#content(),
       isLoading: content.loading,
       icon: <NotificationIcon coloring={content.state} {...content.icon} />,
+      draggable: !content.loading,
+      closeButton({ closeToast }) {
+        if (content.loading) return;
+        return (
+          //TODO: fix the button so it has same padding in "soft" and remove "border-0"
+          <Button look="base" className="border-0" onClick={closeToast}>
+            <Icon remix="RiCloseFill" />
+          </Button>
+        );
+      },
     });
   }
 

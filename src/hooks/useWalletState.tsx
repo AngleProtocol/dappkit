@@ -4,7 +4,8 @@ import { type Config, useAccount, useConfig, useConnect, useDisconnect } from "w
 
 //TODO: remove merkl-related typings in favor of redeclarations for better abstraction
 import type { Chain, Explorer } from "@merkl/api";
-import type { WalletClient } from "viem";
+import { http, type WalletClient, createPublicClient, createWalletClient, custom } from "viem";
+import { eip712WalletActions, zksync } from "viem/zksync";
 
 export type WalletOptions = {
   sponsorTransactions?: boolean;
@@ -46,9 +47,38 @@ export default function useWalletState(chains: (Chain & { explorers: Explorer[] 
       const configWrappedTx = await options?.transaction?.(tx, { client, config });
 
       if (configWrappedTx) return configWrappedTx;
+      if (sponsorTransactions && tx[0].chain?.id === zksync.id) {
+        const nonce = await createPublicClient({
+          chain: client.chain,
+          transport: http(),
+        });
+
+        const payload = {
+          account,
+          to: `${tx[0].to}`,
+          from: account.address,
+          value: BigInt(tx[0].value!),
+          gas: BigInt(tx[0].gas),
+          gasPerPubdata: BigInt(tx[0].gasPerPubdata),
+          maxPriorityFeePerGas: BigInt(0),
+          maxFeePerGas: BigInt(tx[0].maxFeePerGas),
+          nonce: await nonce.getTransactionCount({ address: account.address }),
+          data: tx[0].data,
+
+          paymaster: tx[0].paymaster,
+          paymasterInput: tx[0].paymasterInput,
+        };
+
+        return createWalletClient({
+          chain: zksync,
+          transport: custom(window.ethereum!),
+        })
+          .extend(eip712WalletActions())
+          .sendTransaction(payload);
+      }
       return client.sendTransaction(...tx);
     },
-    [client, options?.transaction, config],
+    [client, options?.transaction, config, sponsorTransactions, account],
   );
 
   async function connect(connectorId: string) {
