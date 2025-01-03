@@ -1,4 +1,5 @@
 import { type PropsWithChildren, createContext, useContext, useMemo, useState } from "react";
+import Notifications from "../components/primitives/Notifications";
 import { type Theme, type Themes, reduceColorIntoVariables } from "../theming/coloring";
 import { reduceSpacingIntoVariables } from "../theming/spacing";
 import type { Mode } from "../theming/variables";
@@ -75,6 +76,7 @@ export default function ThemeProvider({ themes, sizing, modes, children }: Theme
         data-mode={value?.mode}
         style={value?.vars}
         className="bg-background overflow-auto">
+        <Notifications />
         {children}
       </div>
     </ThemeContext.Provider>
