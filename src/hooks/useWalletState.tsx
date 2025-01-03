@@ -9,6 +9,7 @@ import { eip712WalletActions, zksync } from "viem/zksync";
 
 export type WalletOptions = {
   sponsorTransactions?: boolean;
+  hideInjectedWallets?: string[];
   client?: (c: WalletClient) => Promise<WalletClient>;
   transaction?: (
     tx: Parameters<WalletClient["sendTransaction"]>,
@@ -25,6 +26,7 @@ export default function useWalletState(chains: (Chain & { explorers: Explorer[] 
   const [blockNumber] = useState<number>();
   const [client, setClient] = useState<WalletClient>();
   const [sponsorTransactions, setSponsorTransactions] = useState(!!options?.sponsorTransactions);
+  const [hiddenInjectedWallets] = useState(options?.hideInjectedWallets);
 
   const wrapClient = useCallback(async () => {
     const _client = await getWalletClient<typeof config, 1>(config);
@@ -110,6 +112,7 @@ export default function useWalletState(chains: (Chain & { explorers: Explorer[] 
     address: account.address,
     connected: account.isConnected,
     connector: account.connector,
+    hiddenInjectedWallets,
     connect,
     disconnect,
   };
