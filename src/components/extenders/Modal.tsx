@@ -4,6 +4,8 @@ import { mergeClass } from "../..";
 import { useTheme } from "../../context/Theme.context";
 import type { Component, GetSet } from "../../utils/types";
 import Box, { type BoxProps } from "../primitives/Box";
+import Button from "../primitives/Button";
+import Icon from "../primitives/Icon";
 import Text from "../primitives/Text";
 import Title from "../primitives/Title";
 
@@ -37,9 +39,16 @@ export default function Modal({ state, title, description, modal, children, clas
           )}>
           <Box size="lg" className="p-xl*2 shadow-md" {...props}>
             {title && (
-              <Dialog.Title asChild={!!title}>
-                {typeof title === "string" ? <Title h={3}>{title}</Title> : title}
-              </Dialog.Title>
+              <div className="flex justify-between items-center gap-md">
+                <Dialog.Title asChild={!!title}>
+                  {typeof title === "string" ? <Title h={3}>{title}</Title> : title}
+                </Dialog.Title>
+                <Dialog.Close asChild>
+                  <Button look="soft" className="text-3xl !border-0">
+                    <Icon remix="RiCloseLine" className="text-accent-11" />
+                  </Button>
+                </Dialog.Close>
+              </div>
             )}
             {description && (
               <Dialog.Description>
