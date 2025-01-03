@@ -11,7 +11,7 @@ import Image from "../primitives/Image";
 import Input from "../primitives/Input";
 import Text from "../primitives/Text";
 
-export default function WalletConnectors() {
+export default function WalletConnectors({ hideSpyMode = false }) {
   const { config, connect, connector: _connected } = useWalletContext();
 
   const sortedConnectors = useMemo(
@@ -31,13 +31,13 @@ export default function WalletConnectors() {
         };
         return priority(a) - priority(b);
       }),
-    [config.connectors],
+    [config.connectors]
   );
 
   return (
     <Group className="flex-col w-full">
       <div className="grid grid-flow-row gap-lg">
-        {sortedConnectors.map(connector => {
+        {sortedConnectors.map((connector) => {
           return (
             <Button
               look="base"
@@ -45,7 +45,8 @@ export default function WalletConnectors() {
               size="xl"
               bold
               className="gap-sm*2"
-              key={connector.id}>
+              key={connector.id}
+            >
               <Image
                 className="h-lg*2 w-lg*2 rounded-full overflow-hidden"
                 alt={connector.name}
@@ -58,16 +59,20 @@ export default function WalletConnectors() {
           );
         })}
       </div>
-      <Divider horizontal look="soft" className="my-xl" />
-      <Text size={5} className="text-main-11">
-        Spy address
-      </Text>
-      <Input
-        look="tint"
-        size="lg"
-        placeholder="Address"
-        suffix={<Icon className="text-main-12" remix="RiSearchLine" />}
-      />
+      {!hideSpyMode && (
+        <>
+          <Divider horizontal look="soft" className="my-xl" />
+          <Text size={5} className="text-main-11">
+            Spy address
+          </Text>
+          <Input
+            look="tint"
+            size="lg"
+            placeholder="Address"
+            suffix={<Icon className="text-main-12" remix="RiSearchLine" />}
+          />
+        </>
+      )}
     </Group>
   );
 }
