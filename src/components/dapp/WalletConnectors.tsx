@@ -12,26 +12,30 @@ import Input from "../primitives/Input";
 import Text from "../primitives/Text";
 
 export default function WalletConnectors({ hideSpyMode = false }) {
-  const { config, connect, connector: _connected } = useWalletContext();
+  const { config, connect, connector: _connected, hiddenInjectedWallets } = useWalletContext();
 
   const sortedConnectors = useMemo(
     () =>
-      [...config.connectors].sort((a, b) => {
-        const priority = (connector: Connector) => {
-          switch (connector.name.toLowerCase()) {
-            case "metamask":
-              return 0;
-            case "rabby wallet":
-              return 1;
-            case "walletconnect":
-              return 2;
-            default:
-              return 3;
-          }
-        };
-        return priority(a) - priority(b);
-      }),
-    [config.connectors],
+      [...config.connectors]
+        .sort((a, b) => {
+          const priority = (connector: Connector) => {
+            switch (connector.name.toLowerCase()) {
+              case "metamask":
+                return 0;
+              case "rabby wallet":
+                return 1;
+              case "walletconnect":
+                return 2;
+              default:
+                return 3;
+            }
+          };
+          return priority(a) - priority(b);
+        })
+        .filter(
+          ({ name }) => !hiddenInjectedWallets?.length || !hiddenInjectedWallets?.some(n => name.toLowerCase() === n),
+        ),
+    [config.connectors, hiddenInjectedWallets],
   );
 
   return (
