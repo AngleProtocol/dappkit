@@ -10,7 +10,10 @@ export default function Connected({ hideSpyMode = false, children, ...props }: C
 
   if (!connected)
     return (
-      <Modal title="Connect Wallet" className="mx-auto w-full max-w-[500px]" modal={<WalletConnectors hideSpyMode={hideSpyMode} />}>
+      <Modal
+        title="Connect Wallet"
+        className="mx-auto w-full max-w-[500px]"
+        modal={<WalletConnectors hideSpyMode={hideSpyMode} />}>
         <Button look="hype" size="md" {...props}>
           Connect
         </Button>
