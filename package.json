@@ -53,6 +53,7 @@
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.5.1",
     "react-responsive": "^10.0.0",
+    "react-toastify": "^11.0.2",
     "recharts": "^2.12.7",
     "remix-utils": "^7.7.0",
     "remixicon": "^4.3.0",
