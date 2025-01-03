@@ -31,13 +31,13 @@ export default function WalletConnectors({ hideSpyMode = false }) {
         };
         return priority(a) - priority(b);
       }),
-    [config.connectors]
+    [config.connectors],
   );
 
   return (
     <Group className="flex-col w-full">
       <div className="grid grid-flow-row gap-lg">
-        {sortedConnectors.map((connector) => {
+        {sortedConnectors.map(connector => {
           return (
             <Button
               look="base"
@@ -45,8 +45,7 @@ export default function WalletConnectors({ hideSpyMode = false }) {
               size="xl"
               bold
               className="gap-sm*2"
-              key={connector.id}
-            >
+              key={connector.id}>
               <Image
                 className="h-lg*2 w-lg*2 rounded-full overflow-hidden"
                 alt={connector.name}
