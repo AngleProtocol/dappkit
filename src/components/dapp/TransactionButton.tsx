@@ -63,8 +63,17 @@ export default function TransactionButton({
       hash && onExecute?.(hash);
 
       if (!hash) return;
+      const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
 
-      const receipt = await getTransactionReceipt(client, { hash });
+      let receipt = null;
+      while (receipt === null) {
+        try {
+          const res = await getTransactionReceipt(client, { hash });
+          receipt = res;
+        } catch {
+          delay(1000);
+        }
+      }
 
       if (receipt.status === "reverted") {
         onError?.(hash);
