@@ -7,7 +7,7 @@ import type { Component, GetSet, Styled } from "../../utils/types";
 import Group from "../extenders/Group";
 
 export const inputStyles = tv({
-  base: "flex items-center text-nowrap font-text",
+  base: "flex items-center text-nowrap font-text text-ellipsis",
   variants: {
     look: {
       none: "text-main-12 bg-main-0 border-0",
@@ -37,33 +37,43 @@ export type InputExtension = (typeof extensions)[number];
 export type InputProps<T = string> = Component<
   Styled<typeof inputStyles> & { [Extension in InputExtension]?: ReactNode } & {
     state?: GetSet<T | undefined>;
+    inputClassName?: string;
   },
   HTMLInputElement
 >;
 
-function Input({ look, size, state, className, ...props }: InputProps) {
+function Input({ look, size, state, inputClassName, className, ...props }: InputProps) {
   const { header, footer, prefix, suffix, label, hint, ...rest } = props;
 
   if (extensions.some(extension => !!props?.[extension]))
     return (
       <label className={mergeClass(inputStyles({ look, size }), className, "flex-col flex")} htmlFor="input">
-        <label htmlFor="input" className="w-full flex">
-          {header}
-        </label>
+        {header && (
+          <label htmlFor="input" className="w-full flex">
+            {header}
+          </label>
+        )}
         <Group className="w-full flex-row flex-nowrap items-center">
           {prefix && <label htmlFor="input">{prefix}</label>}
           <input
             id="input"
-            className={mergeClass(inputStyles({ look: "none", size }), className, "w-full !flex-1 !px-0 !py-0")}
+            className={mergeClass(
+              inputStyles({ look: "none", size }),
+              className,
+              inputClassName,
+              "w-full !flex-1 !px-0 !py-0",
+            )}
             value={state?.[0]}
             onChange={e => state?.[1]?.(e?.target?.value)}
             {...rest}
           />
           {suffix && <label htmlFor="input">{suffix}</label>}
         </Group>
-        <label htmlFor="input" className="w-full flex">
-          {footer}
-        </label>
+        {footer && (
+          <label htmlFor="input" className="w-full flex">
+            {footer}
+          </label>
+        )}
       </label>
     );
   return (
