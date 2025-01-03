@@ -17,9 +17,10 @@ export type WalletButtonProps = ButtonProps & {
   select?: ReactNode;
   connect?: ReactNode;
   status?: ReactNode;
+  hideSpyMode?: boolean;
 };
 
-export default function WalletButton({ select, connect, status, ...props }: WalletButtonProps) {
+export default function WalletButton({ select, connect, status, hideSpyMode = false, ...props }: WalletButtonProps) {
   const { address, disconnect, connected, connector, chainId, switchChain, chains } = useWalletContext();
 
   const chainOptions = useMemo(() => {
@@ -40,7 +41,7 @@ export default function WalletButton({ select, connect, status, ...props }: Wall
 
   if (!connected)
     return (
-      <Modal title="CONNECT WALLET" className="mx-auto w-full max-w-[500px]" modal={<WalletConnectors />}>
+      <Modal title="CONNECT WALLET" className="mx-auto w-full max-w-[500px]" modal={<WalletConnectors hideSpyMode />}>
         {connect || (
           <Button look="hype" size="md" {...props}>
             Connect

@@ -11,7 +11,7 @@ import Image from "../primitives/Image";
 import Input from "../primitives/Input";
 import Text from "../primitives/Text";
 
-export default function WalletConnectors() {
+export default function WalletConnectors({ hideSpyMode = false }) {
   const { config, connect, connector: _connected } = useWalletContext();
 
   const sortedConnectors = useMemo(
@@ -58,16 +58,20 @@ export default function WalletConnectors() {
           );
         })}
       </div>
-      <Divider horizontal look="soft" className="my-xl" />
-      <Text size={5} className="text-main-11">
-        Spy address
-      </Text>
-      <Input
-        look="tint"
-        size="lg"
-        placeholder="Address"
-        suffix={<Icon className="text-main-12" remix="RiSearchLine" />}
-      />
+      {!hideSpyMode && (
+        <>
+          <Divider horizontal look="soft" className="my-xl" />
+          <Text size={5} className="text-main-11">
+            Spy address
+          </Text>
+          <Input
+            look="tint"
+            size="lg"
+            placeholder="Address"
+            suffix={<Icon className="text-main-12" remix="RiSearchLine" />}
+          />
+        </>
+      )}
     </Group>
   );
 }
