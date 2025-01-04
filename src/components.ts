@@ -37,6 +37,8 @@ export * from "./components/primitives/Hash";
 export { default as Hash } from "./components/primitives/Hash";
 export * from "./components/primitives/Text";
 export { default as Text } from "./components/primitives/Text";
+export * from "./components/primitives/EventBlocker";
+export { default as EventBlocker } from "./components/primitives/EventBlocker";
 export * from "./components/dapp/WalletButton";
 export { default as WalletButton } from "./components/dapp/WalletButton";
 export * from "./components/dapp/WalletConnectors";
