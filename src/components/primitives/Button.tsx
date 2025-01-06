@@ -7,7 +7,7 @@ import EventBlocker from "./EventBlocker";
 
 export const buttonStyles = tv(
   {
-    base: "flex items-center dim !leading-none select-none rounded-full focus-visible:outline focus-visible:outline-main-12 text-nowrap font-text ease font-bold text-[clamp(15px,0.4167vw+0.78125rem,20px)]",
+    base: "flex items-center dim !leading-none select-none rounded-full focus-visible:outline focus-visible:outline-main-12 font-text ease font-bold text-[clamp(15px,0.4167vw+0.78125rem,20px)]",
     variants: {
       look: {
         soft: "text-main-12 !p-0 active:text-main-11 outline-offset-4",

@@ -34,10 +34,10 @@ export default function Modal({ state, title, description, modal, children, clas
             zIndex: "var(--modal-zIndex)",
           }}
           className={mergeClass(
-            "fixed w-[90vw] md:w-[75vw] lg:w-auto top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
+            "fixed w-[90vw] md:w-[75vw] lg:w-[40vw] xl:w-[40vw] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-h-[90vh]",
             className,
           )}>
-          <Box size="lg" className="p-xl*2 shadow-md" {...props}>
+          <Box size="lg" className="p-lg*2 md:p-xl*2 shadow-md overflow-y-auto max-h-[inherit]" {...props}>
             {title && (
               <div className="flex justify-between items-center gap-md">
                 <Dialog.Title asChild={!!title}>

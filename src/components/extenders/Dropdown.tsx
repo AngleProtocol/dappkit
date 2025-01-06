@@ -79,7 +79,7 @@ export default function Dropdown({
           {children}
         </Popover.Trigger>
         <Popover.Portal>
-          <Popover.Content asChild style={vars}>
+          <Popover.Content className="!pointer-events-auto" asChild style={vars}>
             <EventBlocker>
               <Box
                 look="bold"
