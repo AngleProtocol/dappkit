@@ -139,7 +139,7 @@ export default function TransactionButton({
           {status === "pending" && <Icon className="animate-spin" remix="RiLoader2Line" />}
         </Button>
         {
-          <Button onClick={() => setSponsorTransactions(s => !s)} look="hype">
+          <Button {...props} onClick={() => setSponsorTransactions(s => !s)} look="hype">
             <Tooltip icon={false} helper={<>Enable sponsoring of the transaction</>}>
               <Icon remix={sponsorTransactions ? "RiCheckboxCircleLine" : "RiCheckboxBlankCircleLine"} />
             </Tooltip>
