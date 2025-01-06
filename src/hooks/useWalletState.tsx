@@ -63,7 +63,7 @@ export default function useWalletState(chains: (Chain & { explorers: Explorer[] 
           gas: tx[0].gas ? BigInt(tx[0].gas ?? "0") : undefined,
           gasPerPubdata: tx[0].gasPerPubdata ? BigInt(tx[0].gasPerPubdata) : undefined,
           maxPriorityFeePerGas: BigInt(0),
-          maxFeePerGas: tx[0].maxFeePerGas ? BigInt(tx[0].maxFeePerGas): undefined,
+          maxFeePerGas: tx[0].maxFeePerGas ? BigInt(tx[0].maxFeePerGas) : undefined,
           nonce: await nonce.getTransactionCount({ address: account.address }),
           data: tx[0].data,
 

@@ -30,7 +30,14 @@ export default function TransactionButton({
 }: TransactionButtonProps) {
   const sendTxHook = useSendTransaction();
   const { status } = sendTxHook;
-  const { address: user, chainId, client, sendTransaction, sponsorTransactions, setSponsorTransactions } = useWalletContext();
+  const {
+    address: user,
+    chainId,
+    client,
+    sendTransaction,
+    sponsorTransactions,
+    setSponsorTransactions,
+  } = useWalletContext();
   const execute = useCallback(async () => {
     if (!tx || !user || !client) return;
 
@@ -126,7 +133,7 @@ export default function TransactionButton({
   //TODO: remove hardcoded chainId check in favor of more integrated and generic implem
   if (enableSponsorCheckbox && chainId === 324)
     return (
-      <List flex="row" {...{size: props.size, look: props.look}}>
+      <List flex="row" {...{ size: props.size, look: props.look }}>
         <Button {...props} onClick={execute}>
           {children}
           {status === "pending" && <Icon className="animate-spin" remix="RiLoader2Line" />}
