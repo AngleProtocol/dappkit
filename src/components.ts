@@ -63,3 +63,5 @@ export * from "./components/primitives/Bar";
 export { default as Bar } from "./components/primitives/Bar";
 export * from "./components/dapp/Connected";
 export { default as Connected } from "./components/dapp/Connected";
+export * from "./components/primitives/Scroll";
+export { default as Scroll } from "./components/primitives/Scroll";
