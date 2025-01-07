@@ -11,11 +11,11 @@ export const inputStyles = tv({
   variants: {
     look: {
       none: "text-main-12 bg-main-0 border-0",
-      soft: "placeholder:text-main-11 text-main-12 bg-main-0 border-main-0 border-1 active:border-main-7 hover:text-main-11 focus-within:outline focus-within:outline-main-12",
-      base: "placeholder:text-main-11 text-main-12 bg-main-0 border-main-8 border-1 active:border-main-7 hover:text-main-11 focus-within:outline focus-within:outline-main-12",
-      bold: "placeholder:text-main-11 text-main-12 bg-main-2 border-main-0 border-1 active:border-main-7 hover:text-main-11 focus-within:outline focus-within:outline-main-12",
-      tint: "placeholder:text-main-11 text-main-12 bg-main-5 border-main-0 border-1 active:border-main-7 hover:text-main-11 focus-within:outline focus-within:outline-main-12",
-      hype: "placeholder:text-main-2 text-main-1 bg-main-12 border-main-0 border-1 active:border-accent-9 hover:text-main-2 focus-within:outline focus-within:outline-main-12",
+      soft: "placeholder:text-main-11 text-main-12 bg-main-0 border-main-0 border-1 active:border-main-7 hover:text-main-11 focus-within:border-main-12",
+      base: "placeholder:text-main-11 text-main-12 bg-main-0 border-main-8 border-1 active:border-main-7 hover:text-main-11 focus-within:border-main-12",
+      bold: "placeholder:text-main-11 text-main-12 bg-main-2 border-main-0 border-1 active:border-main-7 hover:text-main-11 focus-within:border-main-8",
+      tint: "placeholder:text-main-11 text-main-12 bg-main-5 border-main-0 border-1 active:border-main-7 hover:text-main-11 focus-within:border-main-12",
+      hype: "placeholder:text-main-2 text-main-1 bg-main-12 border-main-0 border-1 active:border-accent-9 hover:text-main-2 focus-within:border-main-12",
     },
     size: {
       xs: "px-xs py-xs text-xs rounded-xs",
@@ -57,6 +57,7 @@ function Input({ look, size, state, inputClassName, className, ...props }: Input
           {prefix && <label htmlFor="input">{prefix}</label>}
           <input
             id="input"
+            autoComplete="off"
             className={mergeClass(
               inputStyles({ look: "none", size }),
               className,
@@ -78,6 +79,7 @@ function Input({ look, size, state, inputClassName, className, ...props }: Input
     );
   return (
     <input
+      autoComplete="off"
       className={mergeClass(inputStyles({ look, size }), className)}
       value={state?.[0]}
       onChange={e => state?.[1]?.(e?.target?.value)}
@@ -92,22 +94,24 @@ Input.BigInt = function InputBigInt({ state, base, ...props }: InputProps<bigint
   const [_getter, setter] = state ?? [];
 
   const _value = useMemo(() => {
-    const _value = !state ? internal : state?.[0];
-    const transformed = formatUnits(_value ?? 0n, base);
+    const _chosenValue = !state ? internal : _getter;
+    const transformed = formatUnits(_chosenValue ?? 0n, base);
 
     const isInputtingDecimals =
       displayed?.split(".")?.[1]?.[displayed?.split?.(".")?.[1]?.length - 1] === "0" ||
       displayed?.[displayed.length - 1] === ".";
 
-    if (_value === undefined || _value === 0n || isInputtingDecimals) return displayed;
+    if (_chosenValue === undefined || _chosenValue === "") return "";
+    if (displayed === "0" || isInputtingDecimals) return displayed;
     return transformed ?? displayed;
-  }, [internal, state, displayed, base]);
+  }, [internal, state, displayed, base, _getter]);
 
   const setValue = useCallback(
     (v: string | undefined) => {
       try {
-        if (v === undefined) {
+        if (v === undefined || v === "") {
           setter?.(v) ?? setInternal(v);
+          setDisplayed(undefined);
           return;
         }
 
@@ -116,8 +120,9 @@ Input.BigInt = function InputBigInt({ state, base, ...props }: InputProps<bigint
           v?.split(".")?.[1]?.[v?.split?.(".")?.[1]?.length - 1] === "0" || v?.[v.length - 1] === ".";
         const transformed = parseUnits(raw, base);
 
-        if (raw === "0") setDisplayed("");
-        if (v?.split(".")?.length === 1 || v?.split?.(".")?.[1]?.length <= base)
+        if (v === "") setDisplayed(undefined);
+        if (raw === "0") setDisplayed(undefined);
+        else if (v?.split(".")?.length === 1 || v?.split?.(".")?.[1]?.length <= base)
           setDisplayed(isInputtingDecimals ? v : format(raw, "0,0.X"));
         setter?.(transformed) ?? setInternal(transformed);
       } catch (_err) {}

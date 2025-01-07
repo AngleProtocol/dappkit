@@ -1,7 +1,7 @@
-import { type ReactNode, useCallback } from "react";
+import { type ReactNode, useCallback, useState } from "react";
 import { getTransactionReceipt } from "viem/actions";
-import { type ResolvedRegister, type UseSendTransactionReturnType, useSendTransaction } from "wagmi";
-import { Hash } from "../..";
+import type { ResolvedRegister, UseSendTransactionReturnType } from "wagmi";
+import { Hash, type IconProps } from "../..";
 import { useWalletContext } from "../../context/Wallet.context";
 import Button, { type ButtonProps } from "../primitives/Button";
 import Icon from "../primitives/Icon";
@@ -13,6 +13,7 @@ export type TransactionButtonProps = ButtonProps & {
   enableSponsorCheckbox?: boolean;
   tx?: Parameters<UseSendTransactionReturnType<ResolvedRegister["config"], unknown>["sendTransaction"]>["0"];
   name?: ReactNode;
+  iconProps?: IconProps;
   onExecute?: (hash: string) => void;
   onSuccess?: (hash: string) => void;
   onError?: (hash: string) => void;
@@ -25,11 +26,11 @@ export default function TransactionButton({
   onExecute,
   onSuccess,
   enableSponsorCheckbox,
+  iconProps,
   onError,
   ...props
 }: TransactionButtonProps) {
-  const sendTxHook = useSendTransaction();
-  const { status } = sendTxHook;
+  const [status, setStatus] = useState<"idle" | "pending" | "success">("idle");
   const {
     address: user,
     chainId,
@@ -49,6 +50,7 @@ export default function TransactionButton({
     });
 
     try {
+      setStatus("pending");
       const hash = await sendTransaction?.([
         {
           chain: client.chain,
@@ -68,6 +70,7 @@ export default function TransactionButton({
             sent
           </>
         ),
+        icon: { className: "animate-spin", remix: "RiLoader2Fill" },
         loading: true,
       });
 
@@ -87,6 +90,7 @@ export default function TransactionButton({
       }
 
       if (receipt.status === "reverted") {
+        setStatus("idle");
         onError?.(hash);
         notification.update({
           subtitle: (
@@ -103,6 +107,7 @@ export default function TransactionButton({
           loading: false,
         });
       } else if (receipt.status === "success") {
+        setStatus("success");
         onSuccess?.(hash);
         notification.update({
           subtitle: (
@@ -120,6 +125,7 @@ export default function TransactionButton({
         });
       }
     } catch (_error) {
+      setStatus("idle");
       console.error(_error);
       notification.update({
         subtitle: "Transaction Rejected",
@@ -148,9 +154,13 @@ export default function TransactionButton({
       </List>
     );
   return (
-    <Button {...props} onClick={execute}>
+    <Button {...props} onClick={execute} disabled={status === "idle" ? props.disabled : true}>
+      {status === "pending" ? (
+        <Icon className="animate-spin" remix="RiLoader2Line" />
+      ) : (
+        iconProps && <Icon {...iconProps} />
+      )}
       {children}
-      {status === "pending" && <Icon className="animate-spin" remix="RiLoader2Line" />}
     </Button>
   );
 }

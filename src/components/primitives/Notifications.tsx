@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 export function NotificationText({ title, subtitle }: { title: ReactNode; subtitle: ReactNode }) {
   return (
-    <Group size="xs" className="flex-col select-none">
+    <Group size="xs" className="flex-col select-none grow">
       <Text look="bold" className="font-bold">
         {title}
       </Text>
@@ -15,9 +15,13 @@ export function NotificationText({ title, subtitle }: { title: ReactNode; subtit
   );
 }
 
-export function NotificationIcon({ ...props }: IconProps) {
-  return <Icon coloring={"harm"} className="ml-md text-main-11" remix="RiSpam2Fill" {...props} />;
+export function NotificationIcon({ className, ...props }: IconProps) {
+  return (
+    <Icon coloring={"harm"} className={mergeClass("ml-md text-main-11", className)} remix="RiSpam2Fill" {...props} />
+  );
 }
+
+const NOTIFICATION_DURATION = 5 * 1000;
 
 export type NotificationOptions = Parameters<typeof toast.promise>[1];
 export type NotificationContent = {
@@ -49,6 +53,7 @@ export class Notifier {
     toast.update(this.id, {
       render: this.#content(),
       isLoading: content.loading,
+      autoClose: !content.loading ? NOTIFICATION_DURATION : undefined,
       icon: <NotificationIcon coloring={content.state} {...content.icon} />,
       draggable: !content.loading,
       closeButton({ closeToast }) {
@@ -85,7 +90,7 @@ export default function Notifications() {
     <ToastContainer
       stacked
       draggable
-      draggablePercent={40}
+      draggablePercent={20}
       hideProgressBar={true}
       position="bottom-right"
       toastStyle={{ zIndex: 10000 }}
