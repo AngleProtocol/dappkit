@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { Button, Group, Icon, type IconProps, Text, mergeClass } from "../..";
+import type { State } from "../../theming/variables";
 import { boxStyles } from "./Box";
-import type {State} from "../../theming/variables";
 import "react-toastify/dist/ReactToastify.css";
 
 export function NotificationText({ title, subtitle }: { title: ReactNode; subtitle: ReactNode }) {

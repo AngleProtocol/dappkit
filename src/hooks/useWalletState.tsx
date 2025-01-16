@@ -6,7 +6,7 @@ import { type Config, useAccount, useConfig, useConnect, useDisconnect } from "w
 import type { Chain, Explorer } from "@merkl/api";
 import { http, type WalletClient, createPublicClient, createWalletClient, custom } from "viem";
 import { eip712WalletActions, zksync } from "viem/zksync";
-import 'viem/window';
+import "viem/window";
 
 export type WalletOptions = {
   sponsorTransactions?: boolean;
