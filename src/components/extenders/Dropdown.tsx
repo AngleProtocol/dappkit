@@ -84,7 +84,8 @@ export default function Dropdown({
               <Box
                 look="bold"
                 className="mt-md mx-lg shadow-md animate-drop z-20"
-                {...(props as BoxProps)}
+                // biome-ignore lint/suspicious/noExplicitAny: props typing is false in this case
+                {...(props as any as BoxProps)}
                 content={padding}
                 onMouseEnter={cancelClose}
                 onMouseLeave={closeModalWithDelay}>

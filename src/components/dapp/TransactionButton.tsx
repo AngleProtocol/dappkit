@@ -82,7 +82,8 @@ export default function TransactionButton({
       let receipt = null;
       while (receipt === null) {
         try {
-          const res = await getTransactionReceipt(client, { hash });
+          // biome-ignore lint/suspicious/noExplicitAny: trust me bro
+          const res = await getTransactionReceipt(client as any, { hash });
           receipt = res;
         } catch {
           delay(1000);

@@ -101,7 +101,8 @@ Input.BigInt = function InputBigInt({ state, base, ...props }: InputProps<bigint
       displayed?.split(".")?.[1]?.[displayed?.split?.(".")?.[1]?.length - 1] === "0" ||
       displayed?.[displayed.length - 1] === ".";
 
-    if (_chosenValue === undefined || _chosenValue === "") return "";
+    // biome-ignore lint/suspicious/noExplicitAny: making sure === "" assertion works
+    if (_chosenValue === undefined || (_chosenValue as any as string) === "") return "";
     if (displayed === "0" || isInputtingDecimals) return displayed;
     return transformed ?? displayed;
   }, [internal, state, displayed, base, _getter]);
@@ -110,7 +111,7 @@ Input.BigInt = function InputBigInt({ state, base, ...props }: InputProps<bigint
     (v: string | undefined) => {
       try {
         if (v === undefined || v === "") {
-          setter?.(v) ?? setInternal(v);
+          setter?.(undefined) ?? setInternal(undefined);
           setDisplayed(undefined);
           return;
         }

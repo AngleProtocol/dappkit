@@ -24,7 +24,7 @@ export default function useThemedVariables(
       return Object.assign({}, currentTheme(coloring).accent, currentTheme(coloring).main);
 
     if (coloring) {
-      const v = reduceColorIntoVariables(coloring);
+      const v = reduceColorIntoVariables(coloring as Coloring);
 
       return Object.assign({}, v[mode]?.accent, v[mode]?.main);
     }

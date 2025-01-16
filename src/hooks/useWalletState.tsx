@@ -6,6 +6,7 @@ import { type Config, useAccount, useConfig, useConnect, useDisconnect } from "w
 import type { Chain, Explorer } from "@merkl/api";
 import { http, type WalletClient, createPublicClient, createWalletClient, custom } from "viem";
 import { eip712WalletActions, zksync } from "viem/zksync";
+import 'viem/window';
 
 export type WalletOptions = {
   sponsorTransactions?: boolean;
@@ -56,8 +57,9 @@ export default function useWalletState(chains: (Chain & { explorers: Explorer[] 
         });
 
         const payload = {
-          account,
-          to: `${tx[0].to}`,
+          account: account.address,
+          chain: zksync,
+          to: `${tx[0].to}` as `0x${string}`,
           from: account.address,
           value: BigInt(tx[0].value ?? "0"),
           gas: tx[0].gas ? BigInt(tx[0].gas ?? "0") : undefined,
@@ -66,7 +68,7 @@ export default function useWalletState(chains: (Chain & { explorers: Explorer[] 
           maxFeePerGas: tx[0].maxFeePerGas ? BigInt(tx[0].maxFeePerGas) : undefined,
           nonce: await nonce.getTransactionCount({ address: account.address }),
           data: tx[0].data,
-
+          kzg: undefined,
           paymaster: tx[0].paymaster,
           paymasterInput: tx[0].paymasterInput,
         };
