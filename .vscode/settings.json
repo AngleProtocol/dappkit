@@ -9,4 +9,5 @@
 	"editor.foldingHighlight": true,
 	"editor.foldingStrategy": "auto",
 	"files.eol": "\n",
+	"typescript.disableAutomaticTypeAcquisition": true
 }
