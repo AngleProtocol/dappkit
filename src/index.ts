@@ -154,6 +154,8 @@ export * from "./components/primitives/Hash";
 export { default as Hash } from "./components/primitives/Hash";
 export * from "./components/primitives/Text";
 export { default as Text } from "./components/primitives/Text";
+export * from "./components/primitives/Show";
+export { default as Show } from "./components/primitives/Show";
 
 /**
  * utils

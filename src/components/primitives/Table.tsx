@@ -67,8 +67,9 @@ export type RowProps<T extends Columns> = Component<
   PropsWithChildren<
     {
       columns: T;
+      size: ListProps["size"];
       exclude?: (keyof T)[];
-    } & TableColumns<T>
+    } & Partial<TableColumns<T>>
   >
 >;
 
