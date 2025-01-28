@@ -15,15 +15,33 @@ export type ModalProps = Component<{
   description?: ReactNode;
   modal?: ReactNode;
   state?: GetSet<boolean>;
+  onClose?: () => void;
 }> &
   Omit<BoxProps, "title">;
 
-export default function Modal({ state, title, description, modal, children, className, ...props }: ModalProps) {
+export default function Modal({
+  state,
+  title,
+  description,
+  modal,
+  children,
+  className,
+  onClose,
+  ...props
+}: ModalProps) {
   const { vars } = useTheme();
   const [internalState, setInternalState] = useState<boolean>(false);
 
+  const handleOpenChange = (open: boolean) => {
+    if (!open && onClose) onClose();
+    if (!state) setInternalState(open);
+    else {
+      state[1](open);
+    }
+  };
+
   return (
-    <Dialog.Root open={!state ? internalState : state?.[0]} onOpenChange={!state ? setInternalState : state?.[1]}>
+    <Dialog.Root open={!state ? internalState : state?.[0]} onOpenChange={handleOpenChange}>
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay style={vars} className="bg-main-1 opacity-[0.75] fixed inset-0 z-20" />

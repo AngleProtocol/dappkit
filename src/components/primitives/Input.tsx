@@ -135,4 +135,6 @@ Input.BigInt = function InputBigInt({ state, base, ...props }: InputProps<bigint
   return <Input state={[_value, v => typeof v !== "function" && setValue(v)]} {...props} />;
 };
 
+Input.Date = (props: InputProps<string>) => <Input type="date" {...props} />;
+
 export default Input;

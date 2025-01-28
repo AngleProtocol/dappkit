@@ -159,6 +159,7 @@ export default function Select<
   placeholder,
   className,
   defaultValue,
+  onChange,
   ..._props
 }: SelectProps<Value> & { multiple?: Multiple }) {
   const [internal, setInternal] = useState<Value>();
@@ -178,7 +179,14 @@ export default function Select<
   });
 
   const value = useMemo(() => getter ?? internal, [getter, internal]);
-  const setValue = useCallback((v: Value) => setter?.(v) ?? setInternal(v), [setter]);
+
+  const setValue = useCallback(
+    (v: Value) => {
+      setter?.(v) ?? setInternal(v);
+      if (onChange) onChange(v);
+    },
+    [setter, onChange],
+  );
 
   const [searchInput, setSearch] = useState<string>();
 
