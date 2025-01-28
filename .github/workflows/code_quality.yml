@@ -7,22 +7,45 @@ defaults:
   run:
     shell: bash
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  check-lint:
+  install-dependencies:
+    if: ${{ always() }}
     runs-on: ubuntu-latest
+    name: 'Dependencies'
+    outputs:
+     RUNNER: ${{ runner.name }}
     steps:
-      - uses: actions/checkout@v3
+      - run: echo "Using runner ${{ runner.name }}"
+
+      - name: Checkout repository 
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
 
       - name: Set up Bun
-        uses: oven-sh/setup-bun@v1
+        uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
 
       - name: Check dependencies
         run: bun install
 
+  check-lint:
+    name: 'Linting'
+    needs: install-dependencies
+    runs-on: ${{needs.install-dependencies.outputs.RUNNER}}
+    steps:
       - name: Check codebase linting
         run: bun lint:ci
 
+  check-type:
+    name: 'Typing'
+    needs: install-dependencies
+    runs-on: ${{needs.install-dependencies.outputs.RUNNER}}
+    steps:
       - name: Check codebase typing
         run: bun typecheck
