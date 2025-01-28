@@ -4,8 +4,8 @@ import { type Config, useAccount, useConfig, useConnect, useDisconnect } from "w
 
 //TODO: remove merkl-related typings in favor of redeclarations for better abstraction
 import type { Chain, Explorer } from "@merkl/api";
-import { http, type WalletClient, createPublicClient, createWalletClient, custom } from "viem";
-import { eip712WalletActions, zksync } from "viem/zksync";
+import { http, SendTransactionRequest, type WalletClient, createPublicClient, createWalletClient, custom } from "viem";
+import { ChainEIP712, Eip712WalletActions, SendTransactionParameters, eip712WalletActions, zksync } from "viem/zksync";
 
 export type WalletOptions = {
   sponsorTransactions?: boolean;
@@ -44,7 +44,7 @@ export default function useWalletState(chains: (Chain & { explorers: Explorer[] 
   }, [account, wrapClient]);
 
   const wrapTransaction = useCallback(
-    async (tx: Parameters<WalletClient["sendTransaction"]>) => {
+    async (tx: [SendTransactionParameters & {paymaster?: string, paymasterInput?: string, gasPerPubdata?: string}]) => {
       if (!client) return;
       const configWrappedTx = await options?.transaction?.(tx, { client, config });
 
@@ -56,24 +56,27 @@ export default function useWalletState(chains: (Chain & { explorers: Explorer[] 
         });
 
         const payload = {
-          account,
-          to: `${tx[0].to}`,
+          account: account.address as `0x${string}`,
+          to: `${tx[0].to}` as `0x${string}`,
+          chain: client.chain,
           from: account.address,
           value: BigInt(tx[0].value ?? "0"),
           gas: tx[0].gas ? BigInt(tx[0].gas ?? "0") : undefined,
           gasPerPubdata: tx[0].gasPerPubdata ? BigInt(tx[0].gasPerPubdata) : undefined,
           maxPriorityFeePerGas: BigInt(0),
           maxFeePerGas: tx[0].maxFeePerGas ? BigInt(tx[0].maxFeePerGas) : undefined,
-          nonce: await nonce.getTransactionCount({ address: account.address }),
+          nonce: await nonce.getTransactionCount({ address: account.address! }),
           data: tx[0].data,
-
+          kzg: undefined,
           paymaster: tx[0].paymaster,
           paymasterInput: tx[0].paymasterInput,
         };
 
         return createWalletClient({
           chain: zksync,
-          transport: custom(window.ethereum!),
+          //TODO: refactor transaction pipeline and embed this in clietn somehow
+          // biome-ignore lint/suspicious/noExplicitAny: Delete this in favor of using same as wallet client
+          transport: custom((window as any).ethereum!),
         })
           .extend(eip712WalletActions())
           .sendTransaction(payload);

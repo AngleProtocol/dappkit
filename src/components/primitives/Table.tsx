@@ -67,7 +67,7 @@ export type RowProps<T extends Columns> = Component<
   PropsWithChildren<
     {
       columns: T;
-      size: ListProps["size"];
+      size?: ListProps["size"];
       exclude?: (keyof T)[];
     } & Partial<TableColumns<T>>
   >
@@ -142,6 +142,7 @@ export function Row<T extends Columns>({ columns, exclude, children, ...props }:
 export type TableProps<T extends Columns> = Component<
   Styled<typeof tableStyles> & {
     columns: T;
+    exclude?: (keyof T)[];
     header?: ReactNode;
     footer?: ReactNode;
     order?: Order;
