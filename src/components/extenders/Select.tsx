@@ -181,7 +181,8 @@ export default function Select<
   const value = useMemo(() => getter ?? internal, [getter, internal]);
 
   const setValue = useCallback(
-    (v: Value) => {
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    (v: any) => {
       setter?.(v) ?? setInternal(v);
       if (onChange) onChange(v);
     },
