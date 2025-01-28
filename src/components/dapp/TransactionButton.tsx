@@ -9,9 +9,11 @@ import List from "../primitives/List";
 import { Notifier } from "../primitives/Notifications";
 import Tooltip from "../primitives/Tooltip";
 
+type WagmiTx = Parameters<UseSendTransactionReturnType<ResolvedRegister["config"], unknown>["sendTransaction"]>["0"];
+
 export type TransactionButtonProps = ButtonProps & {
   enableSponsorCheckbox?: boolean;
-  tx?: Parameters<UseSendTransactionReturnType<ResolvedRegister["config"], unknown>["sendTransaction"]>["0"];
+  tx?: { [K in keyof WagmiTx]: K extends "data" | "to" ? string : WagmiTx[K] };
   name?: ReactNode;
   iconProps?: IconProps;
   onExecute?: (hash: string) => void;
@@ -82,7 +84,8 @@ export default function TransactionButton({
       let receipt = null;
       while (receipt === null) {
         try {
-          const res = await getTransactionReceipt(client, { hash });
+          // biome-ignore lint/suspicious/noExplicitAny: TODO: tx clients overall
+          const res = await getTransactionReceipt(client as any, { hash });
           receipt = res;
         } catch {
           delay(1000);

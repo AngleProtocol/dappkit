@@ -16,7 +16,7 @@ export type ModalProps = Component<{
   modal?: ReactNode;
   state?: GetSet<boolean>;
 }> &
-  BoxProps;
+  Omit<BoxProps, "title">;
 
 export default function Modal({ state, title, description, modal, children, className, ...props }: ModalProps) {
   const { vars } = useTheme();

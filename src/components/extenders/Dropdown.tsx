@@ -13,9 +13,11 @@ export type DropdownProps = Component<
     state?: GetSet<boolean>;
     content?: ReactNode;
     onHover?: boolean;
+    children?: ReactNode;
   },
-  BoxProps
->;
+  HTMLButtonElement
+> &
+  Omit<BoxProps, "content">;
 
 export default function Dropdown({
   state,
