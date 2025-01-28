@@ -50,7 +50,6 @@ export type Columns<C extends string = string> = {
   [id in C]: {
     name: ReactNode;
     size?: string;
-    compactSize?: string;
     className?: string;
     main?: boolean;
   };
