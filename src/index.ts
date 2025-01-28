@@ -31,22 +31,6 @@ export * from "./components/VisuallyHidden";
 export { default as VisuallyHidden } from "./components/VisuallyHidden";
 
 /**
- * hooks/events
- */
-export * from "./hooks/events/useShortcut";
-export * from "./hooks/events/useOverflowing";
-
-/**
- * hooks/theming
- */
-export * from "./hooks/theming/useThemedVariables";
-export { default as useThemedVariables } from "./hooks/theming/useThemedVariables";
-export * from "./hooks/theming/useThemableProps";
-export { default as useThemableProps } from "./hooks/theming/useThemableProps";
-export * from "./hooks/theming/OverrideTheme";
-export { default as OverrideTheme } from "./hooks/theming/OverrideTheme";
-
-/**
  * components/extenders
  */
 export * from "./components/extenders/Modal";
@@ -61,42 +45,6 @@ export * from "./components/extenders/Dropdown";
 export { default as Dropdown } from "./components/extenders/Dropdown";
 export * from "./components/extenders/Icons";
 export { default as Icons } from "./components/extenders/Icons";
-
-/**
- * config
- */
-export * from "./config/themes";
-
-/**
- * components/dapp
- */
-export * from "./components/dapp/WalletButton";
-export { default as WalletButton } from "./components/dapp/WalletButton";
-export * from "./components/dapp/TransactionButton";
-export { default as TransactionButton } from "./components/dapp/TransactionButton";
-export * from "./components/dapp/WalletConnectors";
-export { default as WalletConnectors } from "./components/dapp/WalletConnectors";
-export * from "./components/dapp/TransactionHelper";
-export { default as TransactionHelper } from "./components/dapp/TransactionHelper";
-export * from "./components/dapp/Connected";
-export { default as Connected } from "./components/dapp/Connected";
-export * from "./components/dapp/Countdown";
-export { default as Countdown } from "./components/dapp/Countdown";
-
-/**
- * theming
- */
-// export * from "./theming/variables";
-export * from "./theming/spacing";
-export * from "./theming/tailwind";
-export * from "./theming/static";
-export * from "./theming/coloring";
-
-/**
- * components/layout
- */
-export * from "./components/layout/Container";
-export { default as Container } from "./components/layout/Container";
 
 /**
  * components/primitives
@@ -125,6 +73,8 @@ export * from "./components/primitives/Button";
 export { default as Button } from "./components/primitives/Button";
 export * from "./components/primitives/Checkbox";
 export { default as Checkbox } from "./components/primitives/Checkbox";
+export * from "./components/primitives/Show";
+export { default as Show } from "./components/primitives/Show";
 export * from "./components/primitives/Icon";
 export { default as Icon } from "./components/primitives/Icon";
 export * from "./components/primitives/EventBlocker";
@@ -154,8 +104,36 @@ export * from "./components/primitives/Hash";
 export { default as Hash } from "./components/primitives/Hash";
 export * from "./components/primitives/Text";
 export { default as Text } from "./components/primitives/Text";
-export * from "./components/primitives/Show";
-export { default as Show } from "./components/primitives/Show";
+
+/**
+ * components/dapp
+ */
+export * from "./components/dapp/WalletButton";
+export { default as WalletButton } from "./components/dapp/WalletButton";
+export * from "./components/dapp/TransactionButton";
+export { default as TransactionButton } from "./components/dapp/TransactionButton";
+export * from "./components/dapp/WalletConnectors";
+export { default as WalletConnectors } from "./components/dapp/WalletConnectors";
+export * from "./components/dapp/TransactionHelper";
+export { default as TransactionHelper } from "./components/dapp/TransactionHelper";
+export * from "./components/dapp/Connected";
+export { default as Connected } from "./components/dapp/Connected";
+export * from "./components/dapp/Countdown";
+export { default as Countdown } from "./components/dapp/Countdown";
+
+/**
+ * components/layout
+ */
+export * from "./components/layout/Container";
+export { default as Container } from "./components/layout/Container";
+
+/**
+ * theming
+ */
+export * from "./theming/spacing";
+export * from "./theming/tailwind";
+export * from "./theming/static";
+export * from "./theming/coloring";
 
 /**
  * utils
@@ -166,3 +144,24 @@ export * from "./utils/css";
 export * from "./utils/formatter.service";
 export * from "./utils/types";
 export * from "./utils/react";
+
+/**
+ * config
+ */
+export * from "./config/themes";
+
+/**
+ * hooks/events
+ */
+export * from "./hooks/events/useShortcut";
+export * from "./hooks/events/useOverflowing";
+
+/**
+ * hooks/theming
+ */
+export * from "./hooks/theming/useThemedVariables";
+export { default as useThemedVariables } from "./hooks/theming/useThemedVariables";
+export * from "./hooks/theming/useThemableProps";
+export { default as useThemableProps } from "./hooks/theming/useThemableProps";
+export * from "./hooks/theming/OverrideTheme";
+export { default as OverrideTheme } from "./hooks/theming/OverrideTheme";
