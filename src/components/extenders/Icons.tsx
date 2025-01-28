@@ -27,16 +27,23 @@ export const iconsStyles = tv({
 type ListElement = ReactElement<{
   look: unknown;
   size: unknown;
+  containerClassName?: string;
   className?: string;
   style: unknown;
 }>;
-export type IconsProps = Component<Styled<typeof iconsStyles> & { children: ListElement[] }, HTMLDivElement>;
+export type IconsProps = Component<
+  Styled<typeof iconsStyles> & {
+    children: ListElement[];
+    containerClassName?: string;
+  },
+  HTMLDivElement
+>;
 
-export default function Icons({ size, children, className, ...props }: IconsProps) {
+export default function Icons({ size, children, className, containerClassName, ...props }: IconsProps) {
   const { container, item } = iconsStyles({ size });
 
   return (
-    <Group size={size} className={mergeClass(container())} {...props}>
+    <Group size={size} className={mergeClass(containerClassName, container())} {...props}>
       {Children.map(
         children as ListElement | ListElement[],
         (child, index) =>

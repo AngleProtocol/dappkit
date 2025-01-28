@@ -1,5 +1,4 @@
 import { type PropsWithChildren, type ReactNode, useMemo, useState } from "react";
-import { useMediaQuery } from "react-responsive";
 import { tv } from "tailwind-variants";
 import { mergeClass } from "../../utils/css";
 import type { Component, Styled } from "../../utils/types";
@@ -51,7 +50,6 @@ export type Columns<C extends string = string> = {
   [id in C]: {
     name: ReactNode;
     size?: string;
-    compactSize?: string;
     className?: string;
     main?: boolean;
   };
@@ -74,8 +72,7 @@ export type RowProps<T extends Columns> = Component<
 >;
 
 export function Row<T extends Columns>({ columns, exclude, children, ...props }: RowProps<T>) {
-  const isScreenSmall = useMediaQuery({ maxWidth: 640 });
-  const [ids, grid, compact] = useMemo(() => {
+  const [ids, grid] = useMemo(() => {
     const cols = Object.keys(columns ?? {}) as (keyof T)[];
     const style: {
       display: "grid";
@@ -91,15 +88,8 @@ export function Row<T extends Columns>({ columns, exclude, children, ...props }:
         })
         .join(" ") as string,
     };
-    const compactStyle: { display: "grid"; gridTemplateColumns: string } = {
-      display: "grid",
-      gridTemplateColumns: cols
-        .filter(id => !columns?.[id]?.main)
-        .map(id => columns?.[id]?.compactSize ?? "1fr")
-        .join(" "),
-    };
 
-    return [cols, style, compactStyle];
+    return [cols, style];
   }, [columns, exclude]);
 
   const divProps = { ...props };
@@ -112,24 +102,17 @@ export function Row<T extends Columns>({ columns, exclude, children, ...props }:
   // const headers = useHeaders(columns);
 
   return (
-    <Box style={isScreenSmall ? compact : grid} {...divProps}>
+    <Box style={grid} className="whitespace-nowrap" {...divProps}>
       {ids?.map(id => {
         const element = props[`${String(id)}Column` as keyof typeof props] as ReactNode;
-        const { className, main } = columns[id];
+        const { className } = columns[id];
 
         if (exclude?.includes(id)) return;
 
         return (
           <div
-            style={
-              main && isScreenSmall
-                ? {
-                    gridColumn: `span ${ids?.length - 1} / span ${ids?.length - 1}`,
-                  }
-                : {}
-            }
             key={String(id)}
-            className={[className, "inline-flex items-center"].join(" ")}>
+            className={[className, "inline-flex items-center overflow-hidden text-ellipsis"].join(" ")}>
             {element}
           </div>
         );
@@ -234,8 +217,12 @@ export function Table<T extends Columns>({
 
 export function createTable<T extends Columns>(columns: T) {
   const TemplateTable = (props: Omit<TableProps<T>, "columns"> & ListProps) => (
-    // biome-ignore lint/suspicious/noExplicitAny: no reasons for it to have type errors
-    <Table size="lg" {...(props as any)} columns={columns} />
+    <div className="w-full overflow-x-visible -mx-lg md:-mx-xl lg:mx-0">
+      <div className="min-w-fit lg:w-auto px-lg md:px-xl lg:px-0">
+        {/* biome-ignore lint/suspicious/noExplicitAny: no reasons for it to have type errors */}
+        <Table size="lg" {...(props as any)} columns={columns} />
+      </div>
+    </div>
   );
 
   // biome-ignore lint/suspicious/noExplicitAny: no reasons for it to have type errors
