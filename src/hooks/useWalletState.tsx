@@ -4,8 +4,8 @@ import { type Config, useAccount, useConfig, useConnect, useDisconnect } from "w
 
 //TODO: remove merkl-related typings in favor of redeclarations for better abstraction
 import type { Chain, Explorer } from "@merkl/api";
-import { http, SendTransactionRequest, type WalletClient, createPublicClient, createWalletClient, custom } from "viem";
-import { ChainEIP712, Eip712WalletActions, SendTransactionParameters, eip712WalletActions, zksync } from "viem/zksync";
+import { http, type WalletClient, createPublicClient, createWalletClient, custom } from "viem";
+import { type SendTransactionParameters, eip712WalletActions, zksync } from "viem/zksync";
 
 export type WalletOptions = {
   sponsorTransactions?: boolean;
@@ -44,7 +44,9 @@ export default function useWalletState(chains: (Chain & { explorers: Explorer[] 
   }, [account, wrapClient]);
 
   const wrapTransaction = useCallback(
-    async (tx: [SendTransactionParameters & {paymaster?: string, paymasterInput?: string, gasPerPubdata?: string}]) => {
+    async (
+      tx: [SendTransactionParameters & { paymaster?: string; paymasterInput?: string; gasPerPubdata?: string }],
+    ) => {
       if (!client) return;
       const configWrappedTx = await options?.transaction?.(tx, { client, config });
 

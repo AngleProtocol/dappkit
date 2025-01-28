@@ -13,7 +13,7 @@ type WagmiTx = Parameters<UseSendTransactionReturnType<ResolvedRegister["config"
 
 export type TransactionButtonProps = ButtonProps & {
   enableSponsorCheckbox?: boolean;
-  tx?: {[K in keyof WagmiTx]: K extends "data" | "to" ? string : WagmiTx[K]};
+  tx?: { [K in keyof WagmiTx]: K extends "data" | "to" ? string : WagmiTx[K] };
   name?: ReactNode;
   iconProps?: IconProps;
   onExecute?: (hash: string) => void;

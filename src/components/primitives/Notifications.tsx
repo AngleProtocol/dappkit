@@ -3,7 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { Button, Group, Icon, type IconProps, Text, mergeClass } from "../..";
 import { boxStyles } from "./Box";
 import "react-toastify/dist/ReactToastify.css";
-import { State } from "../../theming/variables";
+import type { State } from "../../theming/variables";
 
 export function NotificationText({ title, subtitle }: { title: ReactNode; subtitle: ReactNode }) {
   return (
