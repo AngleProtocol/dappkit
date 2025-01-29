@@ -270,7 +270,7 @@ export default function Select<
                 />
               </div>
             )}
-            <Scroll vertical className="max-h-[200px] w-full">
+            <Scroll vertical className="max-h-[200px] w-full max-w-[90vw] lg:max-w-full">
               <Ariakit.ComboboxList>
                 {allOption && !searchInput && (
                   <Ariakit.SelectItem
@@ -308,7 +308,7 @@ export default function Select<
                     render={
                       <Ariakit.ComboboxItem
                         children={[
-                          <Group className="flex-nowrap" key="label">
+                          <Group className="flex-wrap" key="label">
                             {displayOptions?.[_value as string] ?? options?.[_value as string]}
                           </Group>,
                           <Icon
