@@ -128,6 +128,7 @@ export type TableProps<T extends Columns> = Component<
     exclude?: (keyof T)[];
     header?: ReactNode;
     footer?: ReactNode;
+    responsive?: boolean;
     order?: Order;
     hideLabels?: boolean;
     sort?: keyof T;
@@ -185,6 +186,7 @@ export function Table<T extends Columns>({
   order,
   hideLabels,
   sort,
+  responsive = false,
   onSort,
   className,
   children,
@@ -216,14 +218,18 @@ export function Table<T extends Columns>({
 }
 
 export function createTable<T extends Columns>(columns: T) {
-  const TemplateTable = (props: Omit<TableProps<T>, "columns"> & ListProps) => (
-    <div className="w-full overflow-x-visible -mx-lg md:-mx-xl lg:mx-0">
-      <div className="min-w-fit lg:w-auto px-lg md:px-xl lg:px-0">
-        {/* biome-ignore lint/suspicious/noExplicitAny: no reasons for it to have type errors */}
-        <Table size="lg" {...(props as any)} columns={columns} />
+  const TemplateTable = (props: Omit<TableProps<T>, "columns"> & ListProps) =>
+    props.responsive ? (
+      <div className="w-full overflow-x-visible -mx-lg md:-mx-xl lg:mx-0">
+        <div className="min-w-fit lg:w-auto px-lg md:px-xl lg:px-0">
+          {/* biome-ignore lint/suspicious/noExplicitAny: no reasons for it to have type errors */}
+          <Table size="lg" {...(props as any)} columns={columns} />
+        </div>
       </div>
-    </div>
-  );
+    ) : (
+      /* biome-ignore lint/suspicious/noExplicitAny: no reasons for it to have type errors */
+      <Table size="lg" {...(props as any)} columns={columns} />
+    );
 
   // biome-ignore lint/suspicious/noExplicitAny: no reasons for it to have type errors
   const TemplateRow = (props: Omit<RowProps<T>, "columns">) => <Row {...(props as any)} columns={columns} />;
