@@ -220,8 +220,8 @@ export function Table<T extends Columns>({
 export function createTable<T extends Columns>(columns: T) {
   const TemplateTable = (props: Omit<TableProps<T>, "columns"> & ListProps) =>
     props.responsive ? (
-      <div className="w-full overflow-x-visible -mx-lg md:-mx-xl lg:mx-0">
-        <div className="min-w-fit lg:w-auto px-lg md:px-xl lg:px-0">
+      <div className="w-full overflow-x-visible lg:mx-0">
+        <div className="min-w-fit w-full lg:w-auto lg:px-0">
           {/* biome-ignore lint/suspicious/noExplicitAny: no reasons for it to have type errors */}
           <Table size="lg" {...(props as any)} columns={columns} />
         </div>
