@@ -207,7 +207,7 @@ export function Table<T extends Columns>({
   const headers = useHeaders(columns, sortable, onHeaderClick, sort ?? sortBy, order ?? _order, props as any);
 
   return (
-    <List indexOffset={header ? 0 : 1} className={mergeClass(className)} look={look} {...props}>
+    <List indexOffset={hideLabels ? 2 : header ? 0 : 1} className={mergeClass(className)} look={look} {...props}>
       {!!header ? <Box className="bg-auto">{header}</Box> : undefined}
       {/* biome-ignore lint/suspicious/noExplicitAny: please forgive this one as well */}
       {!hideLabels ? <Row {...(headers as any)} columns={columns} /> : undefined}
