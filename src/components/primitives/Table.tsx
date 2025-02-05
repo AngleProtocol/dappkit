@@ -205,7 +205,7 @@ export function Table<T extends Columns>({
   const headers = useHeaders(columns, sortable, onHeaderClick, sort ?? sortBy, order ?? _order, props as any);
 
   return (
-    <List indexOffset={header ? 0 : 1} className={mergeClass(className)} look={look} {...props}>
+    <List indexOffset={hideLabels ? 2 : header ? 0 : 1} className={mergeClass(className)} look={look} {...props}>
       {!!header ? <Box className="bg-auto">{header}</Box> : undefined}
       {/* biome-ignore lint/suspicious/noExplicitAny: please forgive this one as well */}
       {!hideLabels ? <Row {...(headers as any)} columns={columns} /> : undefined}
@@ -217,8 +217,8 @@ export function Table<T extends Columns>({
 
 export function createTable<T extends Columns>(columns: T) {
   const TemplateTable = (props: Omit<TableProps<T>, "columns"> & ListProps) => (
-    <div className="w-full overflow-x-visible -mx-lg md:-mx-xl lg:mx-0">
-      <div className="min-w-fit lg:w-auto px-lg md:px-xl lg:px-0">
+    <div className="w-full overflow-x-visible lg:mx-0">
+      <div className="min-w-fit lg:w-auto pr-lg lg:px-0">
         {/* biome-ignore lint/suspicious/noExplicitAny: no reasons for it to have type errors */}
         <Table size="lg" {...(props as any)} columns={columns} />
       </div>

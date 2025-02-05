@@ -1,6 +1,7 @@
 import { tv } from "tailwind-variants";
+import useThemableProps from "../../hooks/theming/useThemableProps";
 import { mergeClass } from "../../utils/css";
-import type { Component, Styled } from "../../utils/types";
+import type { Component, Styled, Themable } from "../../utils/types";
 
 export const textStyles = tv(
   {
@@ -40,9 +41,17 @@ export const textStyles = tv(
   { twMerge: false },
 );
 
-export type TextProps = Component<Styled<typeof textStyles> & { bold?: boolean }, HTMLParagraphElement>;
+export type TextProps = Component<Styled<typeof textStyles> & { bold?: boolean } & Themable, HTMLParagraphElement>;
 
 export default function Text({ look, size, style, bold, interactable, className, ...props }: TextProps) {
+  const themeVars = useThemableProps(props);
   const styleBold = bold ? "font-bold" : "";
-  return <p className={mergeClass(textStyles({ look, size, interactable }), styleBold, className)} {...props} />;
+
+  return (
+    <p
+      style={themeVars}
+      className={mergeClass(textStyles({ look, size, interactable }), styleBold, className)}
+      {...props}
+    />
+  );
 }
