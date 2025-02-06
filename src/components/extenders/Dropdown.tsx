@@ -70,6 +70,7 @@ export default function Dropdown({
     [internalState, state],
   );
 
+  if (typeof document === "undefined") return children
   return (
     <EventBlocker>
       <Popover.Root open={!state ? internalState : state?.[0]} onOpenChange={!state ? setInternalState : state?.[1]}>

@@ -1,7 +1,7 @@
 import { type ReactNode, useCallback, useState } from "react";
 import { getTransactionReceipt } from "viem/actions";
 import type { ResolvedRegister, UseSendTransactionReturnType } from "wagmi";
-import { Hash, type IconProps } from "../..";
+import { Hash, type IconProps, WalletButton } from "../..";
 import { useWalletContext } from "../../context/Wallet.context";
 import Button, { type ButtonProps } from "../primitives/Button";
 import Icon from "../primitives/Icon";
@@ -14,6 +14,7 @@ type WagmiTx = Parameters<UseSendTransactionReturnType<ResolvedRegister["config"
 export type TransactionButtonProps = ButtonProps & {
   enableSponsorCheckbox?: boolean;
   tx?: { [K in keyof WagmiTx]: K extends "data" | "to" ? string : WagmiTx[K] };
+  error?: { label: ReactNode; onClick: () => void };
   name?: ReactNode;
   iconProps?: IconProps;
   onExecute?: (hash: string) => void;
@@ -24,6 +25,7 @@ export type TransactionButtonProps = ButtonProps & {
 export default function TransactionButton({
   tx,
   name,
+  error,
   children,
   onExecute,
   onSuccess,
@@ -155,6 +157,14 @@ export default function TransactionButton({
           </Button>
         }
       </List>
+    );
+
+  if (!user) return <WalletButton {...props} />;
+  if (error)
+    return (
+      <Button {...props} disabled={!error.onClick} onClick={error.onClick}>
+        {error.label}
+      </Button>
     );
   return (
     <Button {...props} onClick={execute} disabled={status === "idle" ? props.disabled : true}>
