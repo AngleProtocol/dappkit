@@ -38,7 +38,7 @@ export type PrimitiveTagProps = Component<
       disabled?: boolean;
       noClick?: boolean;
     },
-  HTMLButtonElement
+  HTMLButtonElement | HTMLDivElement
 >;
 
 export default function PrimitiveTag({
@@ -57,6 +57,12 @@ export default function PrimitiveTag({
   const styleProps = primitiveTagStyles({ look, size });
   const styleLabel = noClick ? "active:text-main-12 pointer-events-none" : "dim";
 
+  if (noClick || !props.onClick)
+    return (
+      <div style={themeVars} className={mergeClass(styleProps, styleLabel, className)} {...props}>
+        {children}
+      </div>
+    );
   return (
     <button
       style={themeVars}

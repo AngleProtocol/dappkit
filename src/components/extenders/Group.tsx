@@ -1,8 +1,9 @@
 import { tv } from "tailwind-variants";
+import { mergeClass } from "../../utils/css";
 import type { Component, Styled } from "../../utils/types";
 
 export const groupStyles = tv({
-  base: "flex flex-wrap",
+  base: "flex flex-row flex-wrap",
   variants: {
     size: {
       xs: "gap-xs",
@@ -19,6 +20,10 @@ export const groupStyles = tv({
 
 export type GroupProps = Component<Styled<typeof groupStyles>, HTMLDivElement>;
 
-export default function Group({ size, className, ...props }: GroupProps) {
-  return <div className={[groupStyles({ size }), className].join(" ")} {...props} />;
+export default function Group({ size, className, children, ...props }: GroupProps) {
+  return (
+    <div className={mergeClass(groupStyles({ size }), className)} {...props}>
+      {children}
+    </div>
+  );
 }
