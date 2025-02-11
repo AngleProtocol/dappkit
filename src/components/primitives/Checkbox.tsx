@@ -20,9 +20,9 @@ export const checkboxStyles = tv({
       false: "bg-main-0",
     },
     size: {
-      xs: "min-h-sm px-xs*2 py-x !m-xs text-xs rounded-xs gap-xs",
-      sm: "min-h-sm px-sm py-sm/2 !m-sm text-sm rounded-sm gap-sm",
-      md: " px-md py-md/2 text-md !m-md rounded-md gap-md",
+      xs: "min-h-sm px-xs*2 py-x m-xs text-xs rounded-xs gap-xs",
+      sm: "min-h-sm px-sm py-sm/2 m-sm text-sm rounded-sm gap-sm",
+      md: " px-md py-md/2 text-md m-md rounded-md gap-md",
       lg: "min-h-sm px-lg py-lg/2 text-lg rounded-lg gap-lg",
       xl: "min-h-sm px-xl py-xl/2 text-xl rounded-xl gap-xl",
     },
