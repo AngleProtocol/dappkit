@@ -4,7 +4,11 @@ import { tv } from "tailwind-variants";
 import { formatUnits, parseUnits } from "viem";
 import { mergeClass } from "../../utils/css";
 import type { Component, GetSet, Styled } from "../../utils/types";
+import Dropdown from "../extenders/Dropdown";
 import Group from "../extenders/Group";
+import Select from "../extenders/Select";
+import { Calendar } from "./Calendar";
+import Text from "./Text";
 
 export const inputStyles = tv({
   base: "flex items-center text-nowrap font-text text-ellipsis",
@@ -30,6 +34,22 @@ export const inputStyles = tv({
     look: "base",
   },
 });
+
+const HOURS = {
+  "0": "00:00",
+  "1": "01:00",
+  "2": "02:00",
+  "3": "03:00",
+  "4": "04:00",
+  "5": "05:00",
+  "6": "06:00",
+  "7": "07:00",
+  "8": "08:00",
+  "9": "09:00",
+  "10": "10:00",
+  "11": "11:00",
+  "12": "12:00",
+};
 
 export const extensions = ["header", "footer", "prefix", "suffix", "label", "hint"] as const;
 export type InputExtension = (typeof extensions)[number];
@@ -136,5 +156,75 @@ Input.BigInt = function InputBigInt({ state, base, ...props }: InputProps<bigint
 };
 
 Input.Date = (props: InputProps<string>) => <Input type="date" {...props} />;
+
+Input.DateTime = function InputDateTime({ state, ...props }: InputProps<Date>) {
+  const [open, setOpen] = useState<boolean>(false);
+  const [amPm, setAmPm] = useState<"am" | "pm">("am");
+  const [date, setDate] = state;
+
+  const placeholder = useMemo(() => {
+    if (!date) return "Please select a date";
+    return date?.toString();
+  }, [date]);
+
+  const onDateChange = useCallback(
+    (_date: Date) => {
+      const newDate = new Date(_date.getTime());
+      newDate.setHours(Number.parseInt(date.getHours()?.toString()));
+      setDate(newDate);
+    },
+    [date, setDate],
+  );
+
+  const onHoursChange = useCallback(
+    (e: string) => {
+      if (!date) return;
+      const newDate = new Date(date.getTime());
+      let hours = Number.parseInt(e, 10);
+      if (amPm === "pm" && hours < 12) {
+        hours += 12;
+      } else if (amPm === "am" && hours === 12) {
+        hours = 0; // Midnight case
+      }
+      newDate.setHours(hours, 0);
+      setDate(newDate);
+    },
+    [date, amPm, setDate],
+  );
+
+  const renderHourOptions = useMemo(() => {
+    return Object.entries(HOURS).map(([key, label]) => {
+      let selectedHour = date?.getHours();
+      if (amPm === "pm") selectedHour -= 12;
+      const isActive = selectedHour.toString() === key;
+      return (
+        <Text
+          key={key}
+          className={mergeClass("text-md", isActive && "text-accent-12 bg-main-6")}
+          onClick={() => onHoursChange(key)}>
+          {label}
+        </Text>
+      );
+    });
+  }, [date, amPm, onHoursChange]);
+
+  return (
+    <Dropdown
+      className="w-full"
+      padding="xs"
+      content={
+        <Group>
+          <Calendar captionLayout="dropdown" state={{ state: date, setter: onDateChange }} />
+          <Group className="flex-col">
+            <Select state={[amPm, setAmPm]} options={{ am: "AM", pm: "PM" }} />
+            <Group className="flex-col ">{renderHourOptions}</Group>
+          </Group>
+        </Group>
+      }
+      state={[open, setOpen]}>
+      <Input placeholder={placeholder} className="w-full" {...props} />
+    </Dropdown>
+  );
+};
 
 export default Input;
