@@ -1,14 +1,13 @@
 "use client";
 import * as React from "react";
 import { DayPicker, type DropdownProps } from "react-day-picker";
-import { mergeClass } from "../../utils/css";
 import Select from "../extenders/Select";
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
 type IProps = {
   state: {
-    state: Date | null;
+    state: Date | undefined;
     setter: React.Dispatch<React.SetStateAction<Date | null>>;
   };
 } & CalendarProps;
@@ -42,9 +41,8 @@ export function Calendar({ className, classNames, showOutsideDays = true, ...pro
   const [internalMonth, setInternalMonth] = React.useState(state?.getMonth() ?? 0);
 
   React.useEffect(() => {
-    if (state) {
-      setInternalMonth(state.getMonth());
-    }
+    if (!state) return;
+    setInternalMonth(state.getMonth());
   }, [state]);
 
   return (
@@ -57,15 +55,15 @@ export function Calendar({ className, classNames, showOutsideDays = true, ...pro
       classNames={{
         months: "text-main-11 flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",
-        day: mergeClass("h-9 w-9 p-0 font-normal aria-selected:opacity-100 cursor-pointer"),
+        day: "h-9 w-9 p-0 font-normal aria-selected:opacity-100 cursor-pointer",
         selected: "text-accent-12 bg-main-6",
       }}
       components={{
         MonthsDropdown: ({ onChange }: DropdownProps) => {
-          const handleChange = (value: string) => {
+          const handleChange = (value: React.FormEvent<HTMLDivElement>) => {
             const changeEvent = {
               target: { value },
-            } as React.ChangeEvent<HTMLSelectElement>;
+            } as unknown as React.ChangeEvent<HTMLSelectElement>;
             onChange?.(changeEvent);
           };
           return (
@@ -77,10 +75,10 @@ export function Calendar({ className, classNames, showOutsideDays = true, ...pro
           );
         },
         YearsDropdown: ({ onChange }: DropdownProps) => {
-          const handleChange = (value: string) => {
+          const handleChange = (value: React.FormEvent<HTMLDivElement>) => {
             const changeEvent = {
               target: { value },
-            } as React.ChangeEvent<HTMLSelectElement>;
+            } as unknown as React.ChangeEvent<HTMLSelectElement>;
             onChange?.(changeEvent);
           };
           return (
