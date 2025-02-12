@@ -208,6 +208,8 @@ Input.DateTime = function InputDateTime({ state, ...props }: InputProps<Date>) {
     });
   }, [date, amPm, onHoursChange]);
 
+  const setAmPmWrapper = useCallback((value: "am" | "pm") => setAmPm(value), []);
+
   return (
     <Dropdown
       className="w-full"
@@ -216,7 +218,7 @@ Input.DateTime = function InputDateTime({ state, ...props }: InputProps<Date>) {
         <Group>
           <Calendar captionLayout="dropdown" state={{ state: date, setter: onDateChange }} />
           <Group className="flex-col">
-            <Select state={[amPm, setAmPm]} options={{ am: "AM", pm: "PM" }} />
+            <Select state={[amPm, setAmPmWrapper]} options={{ am: "AM", pm: "PM" }} />
             <Group className="flex-col ">{renderHourOptions}</Group>
           </Group>
         </Group>
