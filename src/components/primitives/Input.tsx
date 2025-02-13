@@ -168,9 +168,9 @@ Input.DateTime = function InputDateTime({
   const [date, setDate] = state ?? [undefined, () => {}];
 
   const onDateChange = useCallback(
-    (_date: Date) => {
+    (_date: Date | undefined) => {
       const newDate = new Date(_date.getTime());
-      newDate.setHours(Number.parseInt(date?.getHours()?.toString()));
+      newDate.setHours(Number.parseInt(date?.getHours()?.toString() ?? "0"));
       setDate(newDate);
     },
     [date, setDate],
@@ -195,7 +195,7 @@ Input.DateTime = function InputDateTime({
   const renderHourOptions = useMemo(() => {
     return Object.entries(HOURS).map(([key, label]) => {
       let selectedHour = date?.getHours();
-      if (amPm === "pm") selectedHour -= 12;
+      if (amPm === "pm") selectedHour = (selectedHour ?? 0) + 12;
       const isActive = selectedHour?.toString() === key;
       return (
         <Text
