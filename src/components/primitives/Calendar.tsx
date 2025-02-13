@@ -8,7 +8,7 @@ export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 type IProps = {
   state: {
     state: Date;
-    setter: React.Dispatch<React.SetStateAction<Date>>;
+    setter: (date: Date) => void;
   };
 } & CalendarProps;
 
