@@ -157,20 +157,21 @@ Input.BigInt = function InputBigInt({ state, base, ...props }: InputProps<bigint
 
 Input.Date = (props: InputProps<string>) => <Input type="date" {...props} />;
 
-Input.DateTime = function InputDateTime({ state, ...props }: InputProps<Date>) {
+Input.DateTime = function InputDateTime({
+  state,
+  defaultMonth,
+  placeholder,
+  ...props
+}: InputProps<Date> & { defaultMonth?: Date }) {
   const [open, setOpen] = useState<boolean>(false);
   const [amPm, setAmPm] = useState<"am" | "pm">("am");
   const [date, setDate] = state ?? [undefined, () => {}];
 
-  const placeholder = useMemo(() => {
-    if (!date) return "Please select a date";
-    return date?.toString();
-  }, [date]);
-
   const onDateChange = useCallback(
-    (_date: Date) => {
+    (_date: Date | undefined) => {
+      if (!_date) return;
       const newDate = new Date(_date.getTime());
-      newDate.setHours(Number.parseInt(date.getHours()?.toString()));
+      newDate.setHours(Number.parseInt(date?.getHours()?.toString() ?? "0"));
       setDate(newDate);
     },
     [date, setDate],
@@ -195,8 +196,8 @@ Input.DateTime = function InputDateTime({ state, ...props }: InputProps<Date>) {
   const renderHourOptions = useMemo(() => {
     return Object.entries(HOURS).map(([key, label]) => {
       let selectedHour = date?.getHours();
-      if (amPm === "pm") selectedHour -= 12;
-      const isActive = selectedHour.toString() === key;
+      if (amPm === "pm") selectedHour = (selectedHour ?? 0) + 12;
+      const isActive = selectedHour?.toString() === key;
       return (
         <Text
           key={key}
@@ -210,13 +211,31 @@ Input.DateTime = function InputDateTime({ state, ...props }: InputProps<Date>) {
 
   const setAmPmWrapper = useCallback((value: "am" | "pm") => setAmPm(value), []);
 
+  const formattedDate = useMemo(() => {
+    if (!date) return;
+    return date
+      .toLocaleString("en-GB", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      })
+      .replace(",", "");
+  }, [date]);
+
   return (
     <Dropdown
       className="w-full"
       padding="xs"
       content={
         <Group>
-          <Calendar captionLayout="dropdown" state={{ state: date, setter: onDateChange }} />
+          <Calendar
+            captionLayout="dropdown"
+            state={{ state: date, setter: onDateChange }}
+            defaultMonth={defaultMonth}
+          />
           <Group className="flex-col">
             <Select state={[amPm, setAmPmWrapper]} options={{ am: "AM", pm: "PM" }} />
             <Group className="flex-col ">{renderHourOptions}</Group>
@@ -224,7 +243,7 @@ Input.DateTime = function InputDateTime({ state, ...props }: InputProps<Date>) {
         </Group>
       }
       state={[open, setOpen]}>
-      <Input placeholder={placeholder} className="w-full" {...props} />
+      <Input placeholder={placeholder ?? "Please select a date"} value={formattedDate} className="w-full" {...props} />
     </Dropdown>
   );
 };
