@@ -7,8 +7,8 @@ export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
 type IProps = {
   state: {
-    state: Date | undefined;
-    setter: React.Dispatch<React.SetStateAction<Date | null>>;
+    state: Date;
+    setter: (date: Date) => void;
   };
 } & CalendarProps;
 
@@ -48,10 +48,10 @@ export function Calendar({ className, classNames, showOutsideDays = true, ...pro
   return (
     <DayPicker
       mode="single"
+      required={false}
       selected={state}
       onSelect={setter}
       defaultMonth={state}
-      timeZone="UTC"
       classNames={{
         months: "text-main-11 flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",

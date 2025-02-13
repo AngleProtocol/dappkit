@@ -160,7 +160,7 @@ Input.Date = (props: InputProps<string>) => <Input type="date" {...props} />;
 Input.DateTime = function InputDateTime({ state, ...props }: InputProps<Date>) {
   const [open, setOpen] = useState<boolean>(false);
   const [amPm, setAmPm] = useState<"am" | "pm">("am");
-  const [date, setDate] = state;
+  const [date, setDate] = state ?? [undefined, () => {}];
 
   const placeholder = useMemo(() => {
     if (!date) return "Please select a date";
