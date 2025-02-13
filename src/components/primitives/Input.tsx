@@ -169,7 +169,8 @@ Input.DateTime = function InputDateTime({
 
   const onDateChange = useCallback(
     (_date: Date | undefined) => {
-      const newDate = new Date(_date?.getTime());
+      if (!_date) return;
+      const newDate = new Date(_date.getTime());
       newDate.setHours(Number.parseInt(date?.getHours()?.toString() ?? "0"));
       setDate(newDate);
     },
