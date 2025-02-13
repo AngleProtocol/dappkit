@@ -38,7 +38,9 @@ const YEARS = {
 
 export function Calendar({ className, classNames, showOutsideDays = true, ...props }: IProps) {
   const { state, setter } = props.state;
-  const [internalMonth, setInternalMonth] = React.useState(state?.getMonth() ?? 0);
+
+  const currentDate = React.useMemo(() => new Date(), []);
+  const [internalMonth, setInternalMonth] = React.useState(state?.getMonth() ?? currentDate.getMonth());
 
   React.useEffect(() => {
     if (!state) return;
@@ -83,7 +85,7 @@ export function Calendar({ className, classNames, showOutsideDays = true, ...pro
           };
           return (
             <Select
-              state={[state?.getFullYear(), year => setter(new Date(year, internalMonth))]}
+              state={[state?.getFullYear() ?? currentDate.getFullYear(), year => setter(new Date(year, internalMonth))]}
               onChange={handleChange}
               options={YEARS}
             />
