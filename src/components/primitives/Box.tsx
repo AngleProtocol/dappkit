@@ -92,6 +92,7 @@ export default function Box({
   container,
   content,
   className,
+  children,
   ...props
 }: BoxProps) {
   const themeVars = useThemedVariables(coloring, accent);
@@ -100,7 +101,8 @@ export default function Box({
     <div
       style={Object.assign(style ?? {}, themeVars)}
       className={mergeClass(boxStyles({ look, size, content, container: container !== false }), className)}
-      {...props}
-    />
+      {...props}>
+      {children}
+    </div>
   );
 }

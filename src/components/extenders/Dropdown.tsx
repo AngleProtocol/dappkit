@@ -70,6 +70,7 @@ export default function Dropdown({
     [internalState, state],
   );
 
+  if (typeof document === "undefined") return children;
   return (
     <EventBlocker>
       <Popover.Root open={!state ? internalState : state?.[0]} onOpenChange={!state ? setInternalState : state?.[1]}>
@@ -85,7 +86,7 @@ export default function Dropdown({
             <EventBlocker>
               <Box
                 look="bold"
-                className="mt-md mx-lg shadow-md animate-drop z-20"
+                className="mt-md mx-lg max-h-[content] shadow-md animate-drop z-20"
                 {...(props as BoxProps)}
                 content={padding}
                 onMouseEnter={cancelClose}
