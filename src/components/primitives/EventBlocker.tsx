@@ -10,8 +10,7 @@ export default function EventBlocker({ children, ...props }: EventBlockerProps) 
       onClick={e => {
         e.preventDefault();
         e.stopPropagation();
-      }}
-    >
+      }}>
       {children}
     </div>
   );
