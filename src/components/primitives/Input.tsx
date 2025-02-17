@@ -1,9 +1,8 @@
-import { format } from "numerable";
-import { type ReactNode, useCallback, useMemo, useState } from "react";
+import {} from "react";
 import { tv } from "tailwind-variants";
-import { formatUnits, parseUnits } from "viem";
+import {} from "viem";
 import { mergeClass } from "../../utils/css";
-import type { Component, GetSet, Styled } from "../../utils/types";
+import type {} from "../../utils/types";
 import Dropdown from "../extenders/Dropdown";
 import Group from "../extenders/Group";
 import Select from "../extenders/Select";
@@ -36,7 +35,6 @@ export const inputStyles = tv({
 });
 
 const HOURS = {
-  "0": "00:00",
   "1": "01:00",
   "2": "02:00",
   "3": "03:00",
@@ -196,12 +194,16 @@ Input.DateTime = function InputDateTime({
   const renderHourOptions = useMemo(() => {
     return Object.entries(HOURS).map(([key, label]) => {
       let selectedHour = date?.getHours();
-      if (amPm === "pm") selectedHour = (selectedHour ?? 0) + 12;
+      if (amPm === "pm" && selectedHour !== undefined) selectedHour = (selectedHour % 12) + 12;
       const isActive = selectedHour?.toString() === key;
+
       return (
         <Text
           key={key}
-          className={mergeClass("text-md", isActive && "text-accent-12 bg-main-6")}
+          className={mergeClass(
+            "ease p-sm text-center cursor-pointer rounded-md hover:bg-main-6 border-1 border-main-6",
+            isActive && "text-main-6 !bg-main-12",
+          )}
           onClick={() => onHoursChange(key)}>
           {label}
         </Text>
@@ -236,9 +238,13 @@ Input.DateTime = function InputDateTime({
             state={{ state: date, setter: onDateChange }}
             defaultMonth={defaultMonth}
           />
-          <Group className="flex-col">
-            <Select state={[amPm, setAmPmWrapper]} options={{ am: "AM", pm: "PM" }} />
-            <Group className="flex-col ">{renderHourOptions}</Group>
+          <Group className="relative overflow-hidden h-[17rem]">
+            <Group className="flex-col flex-nowrap h-full overflow-x-hidden overflow-y-scroll">
+              <Select state={[amPm, setAmPmWrapper]} options={{ am: "AM", pm: "PM" }} />
+              <Group className="flex-col overflow-x-hidden overflow-y-scroll h-full" size="sm">
+                {renderHourOptions}
+              </Group>
+            </Group>
           </Group>
         </Group>
       }
