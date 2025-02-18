@@ -49,7 +49,8 @@ export function Calendar({ className, classNames, showOutsideDays = true, ...pro
         months: "text-main-11 flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",
         day: "aria-selected:opacity-100",
-        day_button: "text-center leading-normal w-9 aspect-square bg-main-0 ease hover:bg-main-4 cursor-pointer rounded-md",
+        day_button:
+          "text-center leading-normal w-9 aspect-square bg-main-0 ease hover:bg-main-4 cursor-pointer rounded-md",
         selected: "[&>button]:!text-main-6 [&>button]:!bg-main-12",
         dropdowns: "flex gap-sm md:gap-md",
         today: "[&>button]:text-main-12 [&>button]:bg-main-4",
