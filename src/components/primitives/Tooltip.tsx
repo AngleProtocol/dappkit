@@ -18,7 +18,7 @@ export default function Tooltip({ helper, children, icon = true }: TooltipProps)
         <RadixTooltip.Trigger asChild>
           <span className="flex items-center gap-sm">
             <div>{children}</div>
-            {!!icon && <Icon className="text-main-12" remix="RiQuestionLine" alt="Tooltip" />}
+            {!!icon && <Icon className="text-main-12" remix="RiQuestionFill" alt="Tooltip" />}
           </span>
         </RadixTooltip.Trigger>
         <RadixTooltip.Portal>
