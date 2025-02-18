@@ -195,12 +195,18 @@ Input.DateTime = function InputDateTime({
   const renderHourOptions = useMemo(() => {
     return Object.entries(HOURS).map(([key, label]) => {
       let selectedHour = date?.getHours();
-      if (amPm === "pm" && selectedHour !== undefined) selectedHour = (selectedHour % 12) + 12;
-      const isActive = selectedHour?.toString() === key;
+      let customKey = +key;
+
+      // Only displaying purpose handle 12am/pm
+      if (selectedHour === 12) selectedHour = 24;
+      if (selectedHour === 0) selectedHour = 12;
+
+      if (amPm === "pm") customKey = customKey + 12;
+      const isActive = selectedHour === customKey;
 
       return (
         <Text
-          key={key}
+          key={customKey}
           className={mergeClass(
             "ease p-sm text-center cursor-pointer rounded-md hover:bg-main-6 border-1 border-main-6",
             isActive && "text-main-6 !bg-main-12",
