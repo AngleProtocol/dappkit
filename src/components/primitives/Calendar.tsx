@@ -48,10 +48,11 @@ export function Calendar({ className, classNames, showOutsideDays = true, ...pro
       classNames={{
         months: "text-main-11 flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",
-        day: "p-sm md:p-md bg-main-0 ease text-center hover:bg-main-4 leading-normal aria-selected:opacity-100 cursor-pointer rounded-md",
-        selected: "text-main-6 !bg-main-12",
+        day: "aria-selected:opacity-100",
+        day_button: "text-center leading-normal w-9 aspect-square bg-main-0 ease hover:bg-main-4 cursor-pointer rounded-md",
+        selected: "[&>button]:!text-main-6 [&>button]:!bg-main-12",
         dropdowns: "flex gap-sm md:gap-md",
-        today: "text-main-12 bg-main-4",
+        today: "[&>button]:text-main-12 [&>button]:bg-main-4",
       }}
       disabled={{ before: new Date() }}
       styles={{
