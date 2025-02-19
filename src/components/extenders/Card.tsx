@@ -8,12 +8,12 @@ import type { ButtonProps } from "../primitives/Button";
 
 export const cardStyles = tv({
   extend: boxStyles,
-  base: "text-accent-11 flex !justify-start items-center outline-offset-0 outline-0 font-text font-bold",
+  base: "text-main-11 flex !justify-start items-center outline-offset-0 outline-0 font-text font-bold",
   variants: {
     look: {
       soft: "",
       base: "",
-      bold: "bg-accent-2 border-accent-2",
+      bold: "bg-main-2 border-main-2",
       tint: "",
       hype: "",
     },

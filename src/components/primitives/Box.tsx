@@ -8,11 +8,11 @@ export const boxStyles = tv({
   base: "flex flex-col border-1",
   variants: {
     look: {
-      soft: "bg-accent-1 border-accent-0",
-      base: "bg-accent-3 border-accent-0 text-accent-12",
-      bold: "bg-accent-2 border-accent-6 text-accent-12",
-      tint: "bg-gray-4 border-accent-0 text-accent-12",
-      hype: "bg-gray-4 border-gray-6 text-accent-12",
+      soft: "bg-main-1 border-main-0",
+      base: "bg-main-3 border-main-0 text-main-12",
+      bold: "bg-main-2 border-main-6 text-main-12",
+      tint: "bg-accent-4 border-main-0 text-main-12",
+      hype: "bg-accent-4 border-accent-6 text-main-12",
     },
     size: {
       xs: "p-xs gap-xs",

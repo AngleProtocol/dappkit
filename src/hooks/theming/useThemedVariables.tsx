@@ -13,7 +13,7 @@ export default function useThemedVariables(
 
   const vars = useMemo(() => {
     if (!coloring && !!_mode)
-      return Object.assign({}, variables?.[theme]?.base?.[mode].accent, variables?.[theme]?.base?.[mode].gray);
+      return Object.assign({}, variables?.[theme]?.base?.[mode].accent, variables?.[theme]?.base?.[mode].main);
 
     if (!coloring && !accent) return {};
 
@@ -21,12 +21,12 @@ export default function useThemedVariables(
 
     if (accent && typeof accent === "string") return currentTheme(accent).accent;
     if (coloring && typeof coloring === "string")
-      return Object.assign({}, currentTheme(coloring).accent, currentTheme(coloring).gray);
+      return Object.assign({}, currentTheme(coloring).accent, currentTheme(coloring).main);
 
     if (coloring) {
       const v = reduceColorIntoVariables(coloring as Coloring);
 
-      return Object.assign({}, v[mode]?.accent, v[mode]?.gray);
+      return Object.assign({}, v[mode]?.accent, v[mode]?.main);
     }
   }, [mode, _mode, theme, variables, coloring, accent]);
 

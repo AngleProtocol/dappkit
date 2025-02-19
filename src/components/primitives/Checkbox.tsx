@@ -6,18 +6,18 @@ import type { Component, GetSet, Styled } from "../../utils/types";
 import Icon from "./Icon";
 
 export const checkboxStyles = tv({
-  base: "text-accent-11 aspect-square flex items-center bg-gradient-to-tr border-1 outline-offset-0 outline-0 text-nowrap font-text font-bold",
+  base: "text-main-11 aspect-square flex items-center bg-gradient-to-tr border-1 outline-offset-0 outline-0 text-nowrap font-text font-bold",
   variants: {
     look: {
-      soft: "bg-accent-0 border-accent-0 hover:bg-accent-4 active:bg-accent-3 hover:text-accent-12  focus-visible:border-accent-9",
-      base: "bg-accent-0 border-accent-6 hover:bg-accent-4 active:bg-accent-3 hover:text-accent-12  focus-visible:border-accent-9",
-      bold: "bg-accent-4 border-accent-4 hover:bg-accent-5 active:bg-accent-3 text-accent-12 focus-visible:border-accent-9",
-      tint: "bg-gray-3 border-gray-3 hover:bg-gray-5 active:bg-gray-3 text-gray-11 focus-visible:border-gray-9",
-      hype: "bg-gray-11 border-gray-11 text-gray-1 focus-visible:border-gray-10",
+      soft: "bg-main-0 border-main-0 hover:bg-main-4 active:bg-main-3 hover:text-main-12  focus-visible:border-main-9",
+      base: "bg-main-0 border-main-6 hover:bg-main-4 active:bg-main-3 hover:text-main-12  focus-visible:border-main-9",
+      bold: "bg-main-4 border-main-4 hover:bg-main-5 active:bg-main-3 text-main-12 focus-visible:border-main-9",
+      tint: "bg-accent-3 border-accent-3 hover:bg-accent-5 active:bg-accent-3 text-accent-11 focus-visible:border-accent-9",
+      hype: "bg-accent-11 border-accent-11 text-accent-1 focus-visible:border-accent-10",
     },
     checked: {
       true: "",
-      false: "bg-accent-0",
+      false: "bg-main-0",
     },
     size: {
       xs: "min-h-sm px-xs*2 py-x m-xs text-xs rounded-xs gap-xs",
@@ -45,7 +45,7 @@ export default function Checkbox({ look, size, state, className }: CheckboxProps
       onCheckedChange={v => setter?.(!v)}
       className={mergeClass(checkboxStyles({ look: look ?? "base", size: size ?? "md", checked: getter }), className)}
       defaultChecked>
-      <Icon className={!getter ? "text-accent-0" : ""} size={size} remix="RiCheckFill" />
+      <Icon className={!getter ? "text-main-0" : ""} size={size} remix="RiCheckFill" />
     </Root>
   );
 }

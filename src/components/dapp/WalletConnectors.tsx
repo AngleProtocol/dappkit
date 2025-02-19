@@ -65,14 +65,14 @@ export default function WalletConnectors({ hideSpyMode = false }) {
       {!hideSpyMode && (
         <>
           <Divider horizontal look="soft" className="my-xl" />
-          <Text size={5} className="text-accent-11">
+          <Text size={5} className="text-main-11">
             Spy address
           </Text>
           <Input
             look="tint"
             size="lg"
             placeholder="Address"
-            suffix={<Icon className="text-accent-12" remix="RiSearchLine" />}
+            suffix={<Icon className="text-main-12" remix="RiSearchLine" />}
           />
         </>
       )}

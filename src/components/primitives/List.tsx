@@ -23,17 +23,17 @@ export const listStyles = tv({
       last: "",
     },
     look: {
-      soft: { base: "bg-accent-0 border-accent-0" },
+      soft: { base: "bg-main-0 border-main-0" },
       base: {
-        base: "border-accent-0 border-accent-0  text-accent-12",
-        item: "border-accent-0",
-        divider: "bg-accent-0 border-accent-0",
+        base: "border-main-0 border-main-0  text-main-12",
+        item: "border-main-0",
+        divider: "bg-main-0 border-main-0",
       },
       bold: {
-        base: "bg-accent-0 border-accent-0 text-accent-12",
+        base: "bg-main-0 border-main-0 text-main-12",
       },
-      tint: { base: "bg-accent-0 border-gray-0 text-gray-12" },
-      hype: { base: "border-gray-0 text-gray-12" },
+      tint: { base: "bg-main-0 border-accent-0 text-accent-12" },
+      hype: { base: "border-accent-0 text-accent-12" },
     },
     size: {
       xs: "",

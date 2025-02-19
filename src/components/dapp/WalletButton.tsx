@@ -64,14 +64,14 @@ export default function WalletButton({ select, connect, status, hideSpyMode = fa
             <Group className="items-center justify-between" size="xl">
               <Group className="items-center">
                 {/* TODO: Show the account icon by default if there is no ENS icon */}
-                <Icon className="text-accent-11 !w-xl*2 !h-xl*2" remix="RiAccountCircleFill" />
+                <Icon className="text-main-11 !w-xl*2 !h-xl*2" remix="RiAccountCircleFill" />
                 <Image className="h-lg*2 w-lg*2" src={connector?.icon} />
                 <Hash size="lg" bold copy format="short">
                   {address}
                 </Hash>
               </Group>
-              <Button look="soft" onClick={disconnect} className="bg-accent-5 !p-sm">
-                <Icon className="text-accent-11" remix="RiShutDownLine" />
+              <Button look="soft" onClick={disconnect} className="bg-main-5 !p-sm">
+                <Icon className="text-main-11" remix="RiShutDownLine" />
               </Button>
             </Group>
             <Divider horizontal look="soft" />

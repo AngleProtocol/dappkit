@@ -7,11 +7,11 @@ export const textStyles = tv(
     base: "font-text text-[clamp(15px,0.4167vw+0.78125rem,20px)]",
     variants: {
       look: {
-        base: "text-accent-11",
-        soft: "text-accent-11",
-        bold: "text-accent-12",
-        tint: "text-gray-12",
-        hype: "text-gray-11",
+        base: "text-main-11",
+        soft: "text-main-11",
+        bold: "text-main-12",
+        tint: "text-accent-12",
+        hype: "text-accent-11",
       },
       size: {
         xs: "text-xs",

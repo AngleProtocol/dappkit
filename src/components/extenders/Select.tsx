@@ -14,11 +14,11 @@ import Group from "./Group";
 
 export const selectStyles = tv({
   base: [
-    "rounded-sm ease flex items-center focus-visible:outline-accent-12 !leading-none justify-between text-nowrap font-text font-normal",
+    "rounded-sm ease flex items-center focus-visible:outline-main-12 !leading-none justify-between text-nowrap font-text font-normal",
   ],
   slots: {
     dropdown: "outline-0 z-50 origin-top animate-drop animate-stretch mt-sm min-w-[var(--popover-anchor-width)]",
-    item: "rounded-sm flex justify-between items-center gap-lg cursor-pointer select-none p-sm outline-offset-0 outline-0 text-nowrap focus-visible:outline-accent-12",
+    item: "rounded-sm flex justify-between items-center gap-lg cursor-pointer select-none p-sm outline-offset-0 outline-0 text-nowrap focus-visible:outline-main-12",
     icon: "flex items-center",
     value: "flex gap-sm items-center",
     check: "",
@@ -27,30 +27,30 @@ export const selectStyles = tv({
   variants: {
     look: {
       soft: {
-        base: "bg-accent-0 text-accent-11 border-1 border-accent-0 hover:text-accent-12 active:border-accent-11",
-        icon: "border-accent-0",
-        item: "hover:bg-accent-5 data-[active-item]:bg-accent-5 active:bg-accent-4 text-accent-12",
+        base: "bg-main-0 text-main-11 border-1 border-main-0 hover:text-main-12 active:border-main-11",
+        icon: "border-main-0",
+        item: "hover:bg-main-5 data-[active-item]:bg-main-5 active:bg-main-4 text-main-12",
       },
       base: {
-        base: "bg-accent-0 text-accent-11 border-1 border-accent-9 hover:text-accent-12 active:border-accent-11",
-        icon: "border-accent-0",
-        item: "hover:bg-accent-5 data-[active-item]:bg-accent-5 active:bg-accent-4 text-accent-12",
+        base: "bg-main-0 text-main-11 border-1 border-main-9 hover:text-main-12 active:border-main-11",
+        icon: "border-main-0",
+        item: "hover:bg-main-5 data-[active-item]:bg-main-5 active:bg-main-4 text-main-12",
       },
       bold: {
-        base: "bg-accent-1 text-accent-11 border-1 border-accent-0 hover:text-accent-12 active:border-accent-8",
+        base: "bg-main-1 text-main-11 border-1 border-main-0 hover:text-main-12 active:border-main-8",
         icon: "",
-        item: "hover:bg-accent-5 data-[active-item]:bg-accent-5 active:bg-accent-4 text-accent-12",
-        check: "text-gray-10",
+        item: "hover:bg-main-5 data-[active-item]:bg-main-5 active:bg-main-4 text-main-12",
+        check: "text-accent-10",
       },
       tint: {
-        base: "bg-accent-5 text-accent-11 border-1 border-accent-0 hover:text-accent-12 active:border-accent-8",
+        base: "bg-main-5 text-main-11 border-1 border-main-0 hover:text-main-12 active:border-main-8",
         icon: "",
-        item: "hover:bg-accent-3 data-[active-item]:bg-accent-6 active:bg-accent-5 text-accent-12",
+        item: "hover:bg-main-3 data-[active-item]:bg-main-6 active:bg-main-5 text-main-12",
       },
       hype: {
-        base: "bg-accent-8 text-accent-12 border-1 border-accent-0 hover:bg-accent-10 active:border-stroke-11",
+        base: "bg-main-8 text-main-12 border-1 border-main-0 hover:bg-main-10 active:border-stroke-11",
         icon: "",
-        item: "hover:bg-gray-10 data-[active-item]:bg-gray-10 active:bg-gray-4 text-accent-12",
+        item: "hover:bg-accent-10 data-[active-item]:bg-accent-10 active:bg-accent-4 text-main-12",
       },
     },
     size: {
@@ -232,7 +232,7 @@ export default function Select<
           <Text
             className={mergeClass(
               prefixLabel(),
-              "w-[1.2em] h-[1.2em] flex items-center justify-center rounded-full bg-accent-6 text-accent-12",
+              "w-[1.2em] h-[1.2em] flex items-center justify-center rounded-full bg-main-6 text-main-12",
             )}>
             {value.length}
           </Text>{" "}

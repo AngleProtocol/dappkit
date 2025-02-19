@@ -19,21 +19,21 @@ export type Themes = { [name: string]: Theme };
  * @returns a coloring
  */
 export function createColoring(
-  dark: [accent: string, gray: string, background: string],
-  light: [accent: string, gray: string, background: string],
+  dark: [main: string, accent: string, background: string],
+  light: [main: string, accent: string, background: string],
 ): Coloring {
-  const [accentDark, grayDark, backgroundDark] = dark;
-  const [accentLight, grayLight, backgroundLight] = light;
+  const [mainDark, accentDark, backgroundDark] = dark;
+  const [mainLight, accentLight, backgroundLight] = light;
 
   return {
     dark: {
+      main: mainDark,
       accent: accentDark,
-      gray: grayDark,
       background: backgroundDark,
     },
     light: {
+      main: mainLight,
       accent: accentLight,
-      gray: grayLight,
       background: backgroundLight,
     },
   };
@@ -48,12 +48,12 @@ export function extractColorScale(theme: Coloring) {
     generateRadixColors({
       appearance: mode,
       accent: theme[mode].accent,
-      gray: theme[mode].gray,
+      gray: theme[mode].main,
       background: theme[mode].background ?? "blue",
     }),
   );
 
-  const extract = ({ accentScale: accent, grayScale: gray, background }: typeof darkOutput | typeof lightOutput) => {
+  const extract = ({ accentScale: accent, grayScale: main, background }: typeof darkOutput | typeof lightOutput) => {
     // Convert background color to RGB components
     const getRGB = (color: string) => {
       const hex = color.replace("#", "");
@@ -65,7 +65,7 @@ export function extractColorScale(theme: Coloring) {
 
     return {
       accent,
-      gray,
+      main,
       background: getRGB(background),
     };
   };
@@ -75,12 +75,12 @@ export function extractColorScale(theme: Coloring) {
 
 /**
  * Assigns color scales to the corresponding css variables
- * @returns returns css variables for each mode (dark, light) and each color (accent, gray)
+ * @returns returns css variables for each mode (dark, light) and each color (main, accent)
  */
-export function reduceColorIntoVariables(theme: Coloring, accentVarName = "accent", grayVarName = "gray") {
+export function reduceColorIntoVariables(theme: Coloring, mainVarName = "main", accentVarName = "accent") {
   const [dark, light] = extractColorScale(theme);
 
-  const assignToVariable = <N extends string>(name: N, scale: (typeof dark)["accent" | "gray"]) =>
+  const assignToVariable = <N extends string>(name: N, scale: (typeof dark)["accent" | "main"]) =>
     scale.reduce(
       (obj, color, index) => Object.assign(obj, { [`--${name}-${index + 1}`]: color }),
       {} as { [I in 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 as `--${N}-${I}`]: string },
@@ -89,12 +89,12 @@ export function reduceColorIntoVariables(theme: Coloring, accentVarName = "accen
   return {
     dark: {
       accent: assignToVariable(accentVarName, dark.accent),
-      gray: assignToVariable(grayVarName, dark.gray),
+      main: assignToVariable(mainVarName, dark.main),
       background: { "--background": dark.background },
     },
     light: {
       accent: assignToVariable(accentVarName, light.accent),
-      gray: assignToVariable(grayVarName, light.gray),
+      main: assignToVariable(mainVarName, light.main),
       background: { "--background": light.background },
     },
   };

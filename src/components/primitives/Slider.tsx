@@ -6,44 +6,41 @@ import type { Component, GetSet, Styled } from "../../utils/types";
 
 export const sliderStyles = tv({
   base: [
-    "relative text-accent-11 flex items-center justify-between   border-1 outline-offset-0 outline-0 text-nowrap font-text font-bold",
+    "relative text-main-11 flex items-center justify-between   border-1 outline-offset-0 outline-0 text-nowrap font-text font-bold",
   ],
   slots: {
-    thumb: "aspect-square text-xs border-1 bg-accent-4 mt-sm shadow-md font-text font-normal",
+    thumb: "aspect-square text-xs border-1 bg-main-4 mt-sm shadow-md font-text font-normal",
     track: "p-sm outline-offset-0 outline-0 text-nowrap",
     range: "border-l-1 h-full flex items-center",
   },
   variants: {
     look: {
       base: {
-        base: "bg-accent-2 border-accent-6 hover:bg-accent-4 active:bg-accent-3 hover:text-accent-12  focus-visible:border-accent-9",
-        thumb: "bg-accent-2 border-accent-6",
-        track:
-          "hover:bg-accent-5 data-[highlighted]:bg-accent-5 active:bg-accent-4 text-accent-12 focus-visible:border-accent-8",
+        base: "bg-main-2 border-main-6 hover:bg-main-4 active:bg-main-3 hover:text-main-12  focus-visible:border-main-9",
+        thumb: "bg-main-2 border-main-6",
+        track: "hover:bg-main-5 data-[highlighted]:bg-main-5 active:bg-main-4 text-main-12 focus-visible:border-main-8",
       },
       soft: {
-        base: "bg-accent-0 border-accent-0 hover:bg-accent-4 active:bg-accent-3 hover:text-accent-12  focus-visible:border-accent-9",
-        thumb: "bg-accent-2 border-accent-6",
-        track:
-          "hover:bg-accent-5 data-[highlighted]:bg-accent-5 active:bg-accent-4 text-accent-12 focus-visible:border-accent-8",
+        base: "bg-main-0 border-main-0 hover:bg-main-4 active:bg-main-3 hover:text-main-12  focus-visible:border-main-9",
+        thumb: "bg-main-2 border-main-6",
+        track: "hover:bg-main-5 data-[highlighted]:bg-main-5 active:bg-main-4 text-main-12 focus-visible:border-main-8",
       },
       bold: {
-        base: "bg-accent-4 border-accent-4 hover:bg-accent-5 active:bg-accent-3 text-accent-12 focus-visible:border-accent-9",
-        thumb: "bg-accent-4 border-accent-6",
-        track:
-          "hover:bg-accent-6 data-[highlighted]:bg-accent-6 active:bg-accent-5 text-accent-12 focus-visible:border-accent-8",
+        base: "bg-main-4 border-main-4 hover:bg-main-5 active:bg-main-3 text-main-12 focus-visible:border-main-9",
+        thumb: "bg-main-4 border-main-6",
+        track: "hover:bg-main-6 data-[highlighted]:bg-main-6 active:bg-main-5 text-main-12 focus-visible:border-main-8",
       },
       tint: {
-        base: "bg-gray-4 border-gray-4 hover:bg-gray-5 active:bg-gray-3 text-accent-12 focus-visible:border-gray-9",
-        thumb: "bg-gray-4 border-gray-6",
+        base: "bg-accent-4 border-accent-4 hover:bg-accent-5 active:bg-accent-3 text-main-12 focus-visible:border-accent-9",
+        thumb: "bg-accent-4 border-accent-6",
         track:
-          "hover:bg-gray-6 data-[highlighted]:bg-gray-6 active:bg-gray-5 text-accent-12 focus-visible:border-accent-8",
+          "hover:bg-accent-6 data-[highlighted]:bg-accent-6 active:bg-accent-5 text-main-12 focus-visible:border-main-8",
       },
       hype: {
-        base: "bg-gray-9 border-gray-9 hover:bg-gray-10 active:bg-gray-8 text-gray-12 focus-visible:border-gray-10",
-        thumb: "bg-gray-9 border-gray-6",
+        base: "bg-accent-9 border-accent-9 hover:bg-accent-10 active:bg-accent-8 text-accent-12 focus-visible:border-accent-10",
+        thumb: "bg-accent-9 border-accent-6",
         track:
-          "hover:bg-gray-10 data-[highlighted]:bg-gray-10 active:bg-gray-4 text-accent-12 focus-visible:border-gray-10",
+          "hover:bg-accent-10 data-[highlighted]:bg-accent-10 active:bg-accent-4 text-main-12 focus-visible:border-accent-10",
       },
     },
     size: {

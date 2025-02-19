@@ -4,14 +4,14 @@ import type { Component, Styled } from "../../utils/types";
 
 export const dividerStyles = tv(
   {
-    base: "border-t-1 border-b-0 box-border bg-accent-0",
+    base: "border-t-1 border-b-0 box-border bg-main-0",
     variants: {
       look: {
-        soft: "border-accent-8",
-        base: "border-accent-11",
-        bold: "border-gray-11",
-        tint: "border-dashed border-accent-8",
-        hype: "border-t-2 border-gray-11",
+        soft: "border-main-8",
+        base: "border-main-11",
+        bold: "border-accent-11",
+        tint: "border-dashed border-main-8",
+        hype: "border-t-2 border-accent-11",
       },
       vertical: {
         true: "self-stretch w-px h-auto border-t-0",

@@ -3,7 +3,7 @@ import { mergeClass } from "../../utils/css";
 import type { Component, GetSet, Styled } from "../../utils/types";
 
 export const colorPickerStyles = tv({
-  base: "bg-accent-0 border-none p-0 h-6 w-6",
+  base: "bg-main-0 border-none p-0 h-6 w-6",
   variants: {
     look: {
       soft: "h-1",

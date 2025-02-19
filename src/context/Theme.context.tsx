@@ -40,7 +40,7 @@ function useThemeState(themes: Themes, sizing: SizingConfig, modes?: Mode[]) {
     const spacing = reduceSpacingIntoVariables(sizing.spacing, "spacing");
     const radius = reduceSpacingIntoVariables(sizing.radius, "radius");
 
-    return Object.assign({}, colors.accent, colors.gray, colors.background, spacing, radius);
+    return Object.assign({}, colors.accent, colors.main, colors.background, spacing, radius);
   }, [mode, theme, variables, sizing]);
 
   return {

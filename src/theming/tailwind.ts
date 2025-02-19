@@ -8,9 +8,9 @@ import { generateColorScale, generateRadiusScale, generateSpacingScale } from ".
 export function generateVariableAssigners(): TailwindConfig["theme"] {
   return {
     colors: {
-      accent: { 0: "transparent", ...generateColorScale("accent") },
+      main: { 0: "transparent", ...generateColorScale("main") },
       background: "rgb(var(--background) / <alpha-value>)",
-      gray: { 0: "transparent", ...generateColorScale("gray") },
+      accent: { 0: "transparent", ...generateColorScale("accent") },
     },
     borderRadius: generateRadiusScale("radius"),
     padding: generateSpacingScale("spacing"),

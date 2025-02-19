@@ -21,7 +21,7 @@ export const tableStyles = tv({
         row: "",
       },
       base: {
-        table: "bg-gray-1",
+        table: "bg-accent-1",
         row: "",
       },
       bold: {

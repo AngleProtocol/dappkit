@@ -46,7 +46,7 @@ export function Calendar({ className, classNames, showOutsideDays = true, ...pro
       onSelect={setter}
       defaultMonth={state}
       classNames={{
-        months: "text-accent-11 flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
+        months: "text-main-11 flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",
         day: "aria-selected:opacity-100",
         day_button:

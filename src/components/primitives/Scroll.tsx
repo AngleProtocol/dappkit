@@ -16,7 +16,7 @@ export default function Scroll({ horizontal, vertical, children, className, ..._
           style={{ position: "unset" }}
           className="flex touch-none select-none w-sm*2 pl-sm transition-colors duration-[160ms] ease-out hover:bg-blackA5 data-[orientation=horizontal]:h-2.5  data-[orientation=horizontal]:flex-col data-[state=hidden]:hidden"
           orientation="vertical">
-          <RadixScrollArea.Thumb className="bg-accent-9 flex-1 rounded-[10px]" />
+          <RadixScrollArea.Thumb className="bg-main-9 flex-1 rounded-[10px]" />
         </RadixScrollArea.Scrollbar>
       )}
       {/* TODO: add horizontal 

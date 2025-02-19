@@ -7,7 +7,7 @@ import { mergeClass } from "../../utils/css";
 import type { Component, Styled } from "../../utils/types";
 
 export const valueStyles = tv({
-  base: "text-accent-11 font-text font-normal",
+  base: "text-main-11 font-text font-normal",
   variants: {
     look: textStyles.variants.look,
     size: textStyles.variants.size,
