@@ -136,6 +136,7 @@ export type SelectProps<Value> = Component<{
   options?: { [key: string | number | symbol]: ReactNode };
   displayOptions?: { [key: string | number | symbol]: ReactNode };
   searchOptions?: { [key: string | number | symbol]: ReactNode };
+  error?: ReactNode;
 }> &
   RadixSelect.SelectProps;
 
@@ -159,6 +160,7 @@ export default function Select<
   placeholder,
   className,
   defaultValue,
+  error,
   onChange,
   ..._props
 }: SelectProps<Value> & { multiple?: Multiple }) {
@@ -331,6 +333,7 @@ export default function Select<
           </Box>
         </Ariakit.SelectPopover>
       </Ariakit.SelectProvider>
+      {error}
     </Ariakit.ComboboxProvider>
   );
 }

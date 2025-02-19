@@ -57,53 +57,60 @@ export type InputProps<T = string> = Component<
   Styled<typeof inputStyles> & { [Extension in InputExtension]?: ReactNode } & {
     state?: GetSet<T | undefined>;
     inputClassName?: string;
+    error?: ReactNode;
   },
   HTMLInputElement
 >;
 
 function Input({ look, size, state, inputClassName, className, ...props }: InputProps) {
-  const { header, footer, prefix, suffix, label, hint, ...rest } = props;
+  const { header, footer, prefix, suffix, label, hint, error, ...rest } = props;
 
   if (extensions.some(extension => !!props?.[extension]))
     return (
-      <label className={mergeClass(inputStyles({ look, size }), className, "flex-col flex")} htmlFor="input">
-        {header && (
-          <label htmlFor="input" className="w-full flex">
-            {header}
-          </label>
-        )}
-        <Group className="w-full flex-row flex-nowrap items-center">
-          {prefix && <label htmlFor="input">{prefix}</label>}
-          <input
-            id="input"
-            autoComplete="off"
-            className={mergeClass(
-              inputStyles({ look: "none", size }),
-              className,
-              inputClassName,
-              "w-full !flex-1 !px-0 !py-0",
-            )}
-            value={state?.[0]}
-            onChange={e => state?.[1]?.(e?.target?.value)}
-            {...rest}
-          />
-          {suffix && <label htmlFor="input">{suffix}</label>}
-        </Group>
-        {footer && (
-          <label htmlFor="input" className="w-full flex">
-            {footer}
-          </label>
-        )}
-      </label>
+      <>
+        <label className={mergeClass(inputStyles({ look, size }), className, "flex-col flex")} htmlFor="input">
+          {header && (
+            <label htmlFor="input" className="w-full flex">
+              {header}
+            </label>
+          )}
+          <Group className="w-full flex-row flex-nowrap items-center">
+            {prefix && <label htmlFor="input">{prefix}</label>}
+            <input
+              id="input"
+              autoComplete="off"
+              className={mergeClass(
+                inputStyles({ look: "none", size }),
+                className,
+                inputClassName,
+                "w-full !flex-1 !px-0 !py-0",
+              )}
+              value={state?.[0]}
+              onChange={e => state?.[1]?.(e?.target?.value)}
+              {...rest}
+            />
+            {suffix && <label htmlFor="input">{suffix}</label>}
+          </Group>
+          {footer && (
+            <label htmlFor="input" className="w-full flex">
+              {footer}
+            </label>
+          )}
+        </label>
+        {error}
+      </>
     );
   return (
-    <input
-      autoComplete="off"
-      className={mergeClass(inputStyles({ look, size }), className)}
-      value={state?.[0]}
-      onChange={e => state?.[1]?.(e?.target?.value)}
-      {...rest}
-    />
+    <>
+      <input
+        autoComplete="off"
+        className={mergeClass(inputStyles({ look, size }), className)}
+        value={state?.[0]}
+        onChange={e => state?.[1]?.(e?.target?.value)}
+        {...rest}
+      />
+      {error}
+    </>
   );
 }
 
