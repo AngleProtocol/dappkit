@@ -11,7 +11,7 @@ import { Calendar } from "./Calendar";
 import Text from "./Text";
 
 export const inputStyles = tv({
-  base: "flex items-center text-nowrap font-text text-ellipsis",
+  base: "flex ease items-center text-nowrap font-text text-ellipsis",
   variants: {
     look: {
       none: "text-main-12 bg-main-0 border-0",
