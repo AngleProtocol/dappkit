@@ -46,7 +46,7 @@ export default function WalletButton({ select, connect, status, hideSpyMode = fa
         className="mx-auto w-full max-w-[500px]"
         modal={<WalletConnectors hideSpyMode={hideSpyMode} />}>
         {connect || (
-          <Button look="hype" size="md" {...props}>
+          <Button look="hype" size="lg" {...props}>
             Connect
           </Button>
         )}
