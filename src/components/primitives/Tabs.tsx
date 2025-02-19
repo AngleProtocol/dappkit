@@ -46,7 +46,7 @@ export const tabsStyles = tv(
   {
     base: "",
     slots: {
-      base: "flex items-center ease !leading-none text-xl border-main-0 font-bold select-none focus-visible:outline focus-visible:outline-dashed focus-visible:outline-main-12 text-nowrap font-text",
+      base: "flex items-center ease !leading-none text-xl border-accent-0 font-bold select-none focus-visible:outline focus-visible:outline-dashed focus-visible:outline-accent-12 text-nowrap font-text",
       line: "",
       active: "",
       container: "",
@@ -54,33 +54,33 @@ export const tabsStyles = tv(
     variants: {
       look: {
         soft: {
-          base: "text-main-12",
-          line: "border-accent-11",
-          active: "border-accent-11",
+          base: "text-accent-12",
+          line: "border-gray-11",
+          active: "border-gray-11",
           container: "",
         },
         base: {
-          base: "text-main-12",
-          line: "border-accent-11",
-          active: "border-accent-11",
-          container: "bg-main-3",
+          base: "text-accent-12",
+          line: "border-gray-11",
+          active: "border-gray-11",
+          container: "bg-accent-3",
         },
         bold: {
-          base: "text-main-12",
-          line: "border-accent-11",
-          active: "border-accent-11",
+          base: "text-accent-12",
+          line: "border-gray-11",
+          active: "border-gray-11",
           container: "",
         },
         tint: {
-          base: "text-main-12",
-          line: "border-accent-11",
-          active: "border-accent-11",
+          base: "text-accent-12",
+          line: "border-gray-11",
+          active: "border-gray-11",
           container: "",
         },
         hype: {
-          base: "text-main-12",
-          line: "border-accent-11",
-          active: "border-accent-11",
+          base: "text-accent-12",
+          line: "border-gray-11",
+          active: "border-gray-11",
           container: "",
         },
       },

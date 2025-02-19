@@ -18,7 +18,7 @@ export function NotificationText({ title, subtitle }: { title: ReactNode; subtit
 
 export function NotificationIcon({ className, ...props }: IconProps) {
   return (
-    <Icon coloring={"harm"} className={mergeClass("ml-md text-main-11", className)} remix="RiSpam2Fill" {...props} />
+    <Icon coloring={"harm"} className={mergeClass("ml-md text-accent-11", className)} remix="RiSpam2Fill" {...props} />
   );
 }
 

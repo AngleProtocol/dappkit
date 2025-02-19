@@ -13,7 +13,7 @@ export type Look = (typeof looks)[number];
 /**
  * Colors that needs to be defined in a theme
  */
-export const colors = ["main", "accent", "background"] as const;
+export const colors = ["accent", "gray", "background"] as const;
 export type Color = (typeof colors)[number];
 
 /**

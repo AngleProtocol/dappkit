@@ -4,7 +4,7 @@ import useThemedVariables from "../../hooks/theming/useThemedVariables";
 
 export const barStyles = tv({
   slots: {
-    base: "bg-main-1 rounded-full flex",
+    base: "bg-accent-1 rounded-full flex",
     bar: "",
   },
   variants: {

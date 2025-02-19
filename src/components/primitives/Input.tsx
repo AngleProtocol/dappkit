@@ -14,12 +14,12 @@ export const inputStyles = tv({
   base: "flex ease items-center text-nowrap font-text text-ellipsis",
   variants: {
     look: {
-      none: "text-main-12 bg-main-0 border-0",
-      soft: "placeholder:text-main-11 text-main-12 bg-main-0 border-main-0 border-1 active:border-main-7 hover:text-main-11 focus-within:border-main-12",
-      base: "placeholder:text-main-11 text-main-11 bg-main-0 border-main-11 border-1 active:border-main-7 hover:text-main-11 focus-within:border-main-12",
-      bold: "placeholder:text-main-11 text-main-12 bg-main-2 border-main-0 border-1 active:border-main-7 hover:text-main-11 focus-within:border-main-8",
-      tint: "placeholder:text-main-11 text-main-12 bg-main-5 border-main-0 border-1 active:border-main-7 hover:text-main-11 focus-within:border-main-12",
-      hype: "placeholder:text-main-2 text-main-1 bg-main-12 border-main-0 border-1 active:border-accent-9 hover:text-main-2 focus-within:border-main-12",
+      none: "text-accent-12 bg-accent-0 border-0",
+      soft: "placeholder:text-accent-11 text-accent-12 bg-accent-0 border-accent-0 border-1 active:border-accent-7 hover:text-accent-11 focus-within:border-accent-12",
+      base: "placeholder:text-accent-11 text-accent-11 bg-accent-0 border-accent-11 border-1 active:border-accent-7 hover:text-accent-11 focus-within:border-accent-12",
+      bold: "placeholder:text-accent-11 text-accent-12 bg-accent-2 border-accent-0 border-1 active:border-accent-7 hover:text-accent-11 focus-within:border-accent-8",
+      tint: "placeholder:text-accent-11 text-accent-12 bg-accent-5 border-accent-0 border-1 active:border-accent-7 hover:text-accent-11 focus-within:border-accent-12",
+      hype: "placeholder:text-accent-2 text-accent-1 bg-accent-12 border-accent-0 border-1 active:border-gray-9 hover:text-accent-2 focus-within:border-accent-12",
     },
     size: {
       xs: "px-xs py-xs text-xs rounded-xs",
@@ -208,8 +208,8 @@ Input.DateTime = function InputDateTime({
         <Text
           key={customKey}
           className={mergeClass(
-            "ease p-sm text-center cursor-pointer rounded-md hover:bg-main-6 border-1 border-main-6",
-            isActive && "text-main-6 !bg-main-12",
+            "ease p-sm text-center cursor-pointer rounded-md hover:bg-accent-6 border-1 border-accent-6",
+            isActive && "text-accent-6 !bg-accent-12",
           )}
           onClick={() => onHoursChange(key)}>
           {label}

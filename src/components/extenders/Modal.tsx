@@ -44,7 +44,7 @@ export default function Modal({
     <Dialog.Root open={!state ? internalState : state?.[0]} onOpenChange={handleOpenChange}>
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay style={vars} className="bg-main-1 opacity-[0.75] fixed inset-0 z-20" />
+        <Dialog.Overlay style={vars} className="bg-accent-1 opacity-[0.75] fixed inset-0 z-20" />
         <Dialog.Content
           style={{
             ...vars,
@@ -63,7 +63,7 @@ export default function Modal({
                 </Dialog.Title>
                 <Dialog.Close asChild>
                   <Button look="soft" className="text-3xl !border-0">
-                    <Icon remix="RiCloseLine" className="text-accent-11" />
+                    <Icon remix="RiCloseLine" className="text-gray-11" />
                   </Button>
                 </Dialog.Close>
               </div>
@@ -71,7 +71,7 @@ export default function Modal({
             {description && (
               <Dialog.Description>
                 {typeof description === "string" ? (
-                  <Text size={5} className="text-main-11">
+                  <Text size={5} className="text-accent-11">
                     {description}
                   </Text>
                 ) : (

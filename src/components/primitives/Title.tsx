@@ -10,10 +10,10 @@ export const titleStyles = tv(
     base: "font-title font-bold",
     variants: {
       look: {
-        base: "text-main-12",
-        soft: "text-main-11",
-        bold: "text-main-12",
-        hype: "text-accent-12",
+        base: "text-accent-12",
+        soft: "text-accent-11",
+        bold: "text-accent-12",
+        hype: "text-gray-12",
       },
     },
     defaultVariants: {
