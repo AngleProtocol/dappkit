@@ -14,7 +14,7 @@ import Group from "./Group";
 
 export const selectStyles = tv({
   base: [
-    "rounded-sm ease flex items-center focus-visible:outline-main-12 !leading-none justify-between text-nowrap font-text font-normal",
+    "rounded-sm ease flex items-center focus-visible:outline-main-12 !leading-none justify-between text-nowrap font-text font-semibold",
   ],
   slots: {
     dropdown: "outline-0 z-50 origin-top animate-drop animate-stretch mt-sm min-w-[var(--popover-anchor-width)]",

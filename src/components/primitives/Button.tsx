@@ -10,7 +10,7 @@ export const buttonStyles = tv(
     base: "flex items-center dim !leading-none select-none rounded-full focus-visible:outline focus-visible:outline-main-12 font-text ease font-bold text-[clamp(15px,0.4167vw+0.78125rem,20px)]",
     variants: {
       look: {
-        soft: "text-accent-12 !p-0 active:text-main-11 outline-offset-4",
+        soft: "text-main-12 !p-0 active:text-main-11 outline-offset-4",
         base: "text-main-12 border-1 border-main-11 active:border-main-10",
         bold: "text-main-1 bg-main-11 active:bg-main-10",
         tint: "text-main-1 bg-accent-10 active:bg-accent-9",

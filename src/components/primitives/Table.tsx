@@ -163,7 +163,7 @@ export function useHeaders<T extends Columns>(
       head[`${id}Column` as keyof TableColumns<T>] = (
         <Text className="relative font-text" size="md" interactable={isSortable} onKeyDown={handler} onClick={handler}>
           {props?.[`${id}Header` as keyof TableHeaders<T>] ?? title}
-          <span className="absolute -right-5 top-1/2 -translate-y-1/2 [&>svg]:w-[1.25em] [&>svg]:h-[1.25em]">
+          <span className="absolute -right-5 top-1/2 -translate-y-1/2">
             {sortable &&
               id === sortBy &&
               (order === "desc" ? <Icon remix={"RiArrowDropDownLine"} /> : <Icon remix={"RiArrowDropUpLine"} />)}
