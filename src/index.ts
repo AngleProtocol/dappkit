@@ -146,11 +146,6 @@ export * from "./utils/types";
 export * from "./utils/react";
 
 /**
- * config
- */
-export * from "./config/themes";
-
-/**
  * hooks/events
  */
 export * from "./hooks/events/useShortcut";
