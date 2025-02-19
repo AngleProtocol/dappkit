@@ -57,7 +57,7 @@ export type InputProps<T = string> = Component<
   Styled<typeof inputStyles> & { [Extension in InputExtension]?: ReactNode } & {
     state?: GetSet<T | undefined>;
     inputClassName?: string;
-    error: ReactNode;
+    error?: ReactNode;
   },
   HTMLInputElement
 >;
