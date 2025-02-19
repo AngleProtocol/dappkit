@@ -1,5 +1,6 @@
 import * as Ariakit from "@ariakit/react";
 import type * as RadixSelect from "@radix-ui/react-select";
+import type { ValidationError } from "class-validator";
 import { matchSorter } from "match-sorter";
 import { type ReactNode, useCallback, useMemo, useState } from "react";
 import { tv } from "tailwind-variants";
@@ -7,7 +8,7 @@ import { mergeClass } from "../..";
 import type { Component, GetSet, Variant } from "../../utils/types";
 import Box from "../primitives/Box";
 import Icon from "../primitives/Icon";
-import { inputStyles } from "../primitives/Input";
+import { inputStyles, renderErrors } from "../primitives/Input";
 import Scroll from "../primitives/Scroll";
 import Text from "../primitives/Text";
 import Group from "./Group";
@@ -136,6 +137,8 @@ export type SelectProps<Value> = Component<{
   options?: { [key: string | number | symbol]: ReactNode };
   displayOptions?: { [key: string | number | symbol]: ReactNode };
   searchOptions?: { [key: string | number | symbol]: ReactNode };
+  errors?: ValidationError[];
+  errorProperties?: string[];
 }> &
   RadixSelect.SelectProps;
 
@@ -331,6 +334,7 @@ export default function Select<
           </Box>
         </Ariakit.SelectPopover>
       </Ariakit.SelectProvider>
+      {renderErrors(_props.errors, _props.errorProperties)}
     </Ariakit.ComboboxProvider>
   );
 }

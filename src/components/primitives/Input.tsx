@@ -1,5 +1,6 @@
+import type { ValidationError } from "class-validator";
 import { format } from "numerable";
-import { type ReactNode, useCallback, useMemo, useState } from "react";
+import React, { type ReactNode, useCallback, useMemo, useState } from "react";
 import { tv } from "tailwind-variants";
 import { formatUnits, parseUnits } from "viem";
 import { mergeClass } from "../../utils/css";
@@ -8,6 +9,7 @@ import Dropdown from "../extenders/Dropdown";
 import Group from "../extenders/Group";
 import Select from "../extenders/Select";
 import { Calendar } from "./Calendar";
+import Icon from "./Icon";
 import Text from "./Text";
 
 export const inputStyles = tv({
@@ -57,6 +59,8 @@ export type InputProps<T = string> = Component<
   Styled<typeof inputStyles> & { [Extension in InputExtension]?: ReactNode } & {
     state?: GetSet<T | undefined>;
     inputClassName?: string;
+    errors?: ValidationError[];
+    errorProperties?: string[];
   },
   HTMLInputElement
 >;
@@ -66,44 +70,50 @@ function Input({ look, size, state, inputClassName, className, ...props }: Input
 
   if (extensions.some(extension => !!props?.[extension]))
     return (
-      <label className={mergeClass(inputStyles({ look, size }), className, "flex-col flex")} htmlFor="input">
-        {header && (
-          <label htmlFor="input" className="w-full flex">
-            {header}
-          </label>
-        )}
-        <Group className="w-full flex-row flex-nowrap items-center">
-          {prefix && <label htmlFor="input">{prefix}</label>}
-          <input
-            id="input"
-            autoComplete="off"
-            className={mergeClass(
-              inputStyles({ look: "none", size }),
-              className,
-              inputClassName,
-              "w-full !flex-1 !px-0 !py-0",
-            )}
-            value={state?.[0]}
-            onChange={e => state?.[1]?.(e?.target?.value)}
-            {...rest}
-          />
-          {suffix && <label htmlFor="input">{suffix}</label>}
-        </Group>
-        {footer && (
-          <label htmlFor="input" className="w-full flex">
-            {footer}
-          </label>
-        )}
-      </label>
+      <>
+        <label className={mergeClass(inputStyles({ look, size }), className, "flex-col flex")} htmlFor="input">
+          {header && (
+            <label htmlFor="input" className="w-full flex">
+              {header}
+            </label>
+          )}
+          <Group className="w-full flex-row flex-nowrap items-center">
+            {prefix && <label htmlFor="input">{prefix}</label>}
+            <input
+              id="input"
+              autoComplete="off"
+              className={mergeClass(
+                inputStyles({ look: "none", size }),
+                className,
+                inputClassName,
+                "w-full !flex-1 !px-0 !py-0",
+              )}
+              value={state?.[0]}
+              onChange={e => state?.[1]?.(e?.target?.value)}
+              {...rest}
+            />
+            {suffix && <label htmlFor="input">{suffix}</label>}
+          </Group>
+          {footer && (
+            <label htmlFor="input" className="w-full flex">
+              {footer}
+            </label>
+          )}
+        </label>
+        {renderErrors(props?.errors, props?.errorProperties)}
+      </>
     );
   return (
-    <input
-      autoComplete="off"
-      className={mergeClass(inputStyles({ look, size }), className)}
-      value={state?.[0]}
-      onChange={e => state?.[1]?.(e?.target?.value)}
-      {...rest}
-    />
+    <>
+      <input
+        autoComplete="off"
+        className={mergeClass(inputStyles({ look, size }), className)}
+        value={state?.[0]}
+        onChange={e => state?.[1]?.(e?.target?.value)}
+        {...rest}
+      />
+      {renderErrors(props?.errors, props?.errorProperties)}
+    </>
   );
 }
 
@@ -262,3 +272,33 @@ Input.DateTime = function InputDateTime({
 };
 
 export default Input;
+
+export function renderErrors(errors: ValidationError[] | null, errorProperties: string[]) {
+  if (!errors) return null;
+  return (
+    Array.isArray(errors) &&
+    errors.map(error => {
+      // Render current constraints if the error property matches the name
+      const constraints = errorProperties?.includes(error.property) ? error.constraints : null;
+
+      return (
+        <React.Fragment key={error.property}>
+          {/* Render the constraints for the current error */}
+          {constraints &&
+            Object.keys(constraints).map(constraint => {
+              if (constraints[constraint] === "null") return;
+              return (
+                <Group className={"flex-nowrap"} key={constraint}>
+                  <Icon key="icon-error" remix="RiErrorWarningFill" className="dark:text-pink-700" />
+                  <Text className="dark:text-pink-700 text-sm">{constraints[constraint]}</Text>
+                </Group>
+              );
+            })}
+
+          {/* Recursively check for nested children errors */}
+          {error.children && error.children.length > 0 && renderErrors(error.children, errorProperties)}
+        </React.Fragment>
+      );
+    })
+  );
+}
