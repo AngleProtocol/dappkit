@@ -65,7 +65,7 @@ export default function WalletConnectors({ hideSpyMode = false }) {
       {!hideSpyMode && (
         <>
           <Divider horizontal look="soft" className="my-xl" />
-          <Text size={5} className="text-main-11">
+          <Text size={5} look="soft">
             Spy address
           </Text>
           <Input

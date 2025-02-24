@@ -118,8 +118,6 @@ export * from "./components/dapp/TransactionHelper";
 export { default as TransactionHelper } from "./components/dapp/TransactionHelper";
 export * from "./components/dapp/Connected";
 export { default as Connected } from "./components/dapp/Connected";
-export * from "./components/dapp/Countdown";
-export { default as Countdown } from "./components/dapp/Countdown";
 
 /**
  * components/layout

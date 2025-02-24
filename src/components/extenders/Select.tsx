@@ -127,6 +127,7 @@ export const selectStyles = tv({
 export type SelectProps<Value> = Component<{
   size?: Variant<typeof selectStyles, "size">;
   look?: Variant<typeof selectStyles, "look">;
+  placeholderIcon?: ReactNode;
   value?: Value;
   placeholder?: string;
   state?: GetSet<Value>;
@@ -150,6 +151,7 @@ export default function Select<
   look,
   size,
   state,
+  placeholderIcon,
   options,
   displayOptions,
   searchOptions,
@@ -241,8 +243,13 @@ export default function Select<
           {placeholder}
         </>
       );
-    return placeholder;
-  }, [options, value, placeholder, prefixLabel]);
+    return (
+      <>
+        {!!placeholderIcon && placeholderIcon}
+        {placeholder}
+      </>
+    );
+  }, [options, value, placeholder, prefixLabel, placeholderIcon]);
 
   return (
     <Ariakit.ComboboxProvider

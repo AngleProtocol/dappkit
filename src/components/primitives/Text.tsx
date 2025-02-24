@@ -7,7 +7,7 @@ export const textStyles = tv(
     base: "font-text text-[clamp(15px,0.4167vw+0.78125rem,20px)]",
     variants: {
       look: {
-        base: "text-main-11",
+        base: "text-main-12",
         soft: "text-main-11",
         bold: "text-main-12",
         tint: "text-accent-12",
@@ -33,7 +33,7 @@ export const textStyles = tv(
       },
     },
     defaultVariants: {
-      look: "base",
+      look: "soft",
       size: "md",
     },
   },
