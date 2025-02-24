@@ -83,7 +83,7 @@ export default function WalletButton({ select, connect, status, hideSpyMode = fa
           </>
         }>
         {status || (
-          <Button look="tint" className="w-full justify-center">
+          <Button look="hype" size="lg" className="w-full justify-center">
             {Fmt.address(address, "short")}
           </Button>
         )}
