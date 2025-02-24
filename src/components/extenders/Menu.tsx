@@ -35,12 +35,15 @@ export function SubMenu({ children, options, size, look, className }: Component<
     <DropdownMenu.Sub>
       <DropdownMenu.SubTrigger>
         <Group size="xl" className="w-full justify-between">
-          {children} <Icon remix="RiArrowRightWideLine" />
+          {children} <Icon remix="RiArrowRightSLine" />
         </Group>
       </DropdownMenu.SubTrigger>
       <DropdownMenu.Portal>
         <DropdownMenu.SubContent asChild className="!pointer-events-auto animate-drop p-md" style={vars}>
-          <Box {...{ size, look, className }}>
+          <Box
+            size={size || "lg"}
+            look={look || "soft"}
+            className={mergeClass("animate-drop text-main-12 bg-main-2 min-w-[24ch] m-lg", className)}>
             {Object.entries(options)
               .map(([key, { label, options: subOptions }]) => {
                 if (subOptions && Object.keys(subOptions).length > 0)
