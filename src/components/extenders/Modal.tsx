@@ -71,7 +71,7 @@ export default function Modal({
             {description && (
               <Dialog.Description>
                 {typeof description === "string" ? (
-                  <Text size={5} className="text-main-11">
+                  <Text size={5} look="soft">
                     {description}
                   </Text>
                 ) : (
