@@ -74,6 +74,8 @@ export default function Button({
         href={to}
         target="_blank"
         rel="noopener noreferrer"
+        aria-disabled={disabled}
+        tabIndex={disabled ? -1 : undefined}
         onClick={() => window.open(to, "_blank", "noopener noreferrer")}
         className={mergeClass(styleProps, styleBold, className, disabled && "disabled")}>
         {children}
@@ -86,6 +88,8 @@ export default function Button({
         <Link
           prefetch="intent"
           to={to}
+          aria-disabled={disabled}
+          tabIndex={disabled ? -1 : undefined}
           className={mergeClass(styleProps, styleBold, className, disabled && "disabled")}
           {...(external && {
             target: "_blank",
@@ -102,7 +106,9 @@ export default function Button({
       style={themeVars}
       className={mergeClass(styleProps, styleBold, className, disabled && "disabled")}
       type="button"
+      aria-disabled={disabled}
       disabled={disabled}
+      tabIndex={disabled ? -1 : undefined}
       {...props}>
       {children}
     </button>
