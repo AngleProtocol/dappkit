@@ -1,8 +1,8 @@
 import { useMemo } from "react";
-import { Icon, OverrideTheme, type Styled, mergeClass } from "../..";
-import useClipboard from "../../hooks/useClipboard";
+import { type Styled, mergeClass } from "../..";
 import Text, { type TextProps } from "./Text";
 
+import Copy from "./Copy";
 import type { textStyles } from "./Text";
 
 export type HashProps = Omit<TextProps, "children" | "value"> & {
@@ -27,30 +27,14 @@ export default function Hash({ value, format, copy, size, children: hash, classN
     }
   }, [hash, format]);
 
-  const { copy: copyCall, isCopied } = useClipboard();
-  const copyButton = useMemo(
-    () =>
-      copy && (
-        <OverrideTheme coloring={isCopied ? "good" : undefined}>
-          <Icon className="text-main-11" remix={isCopied ? "RiCheckboxCircleFill" : "RiFileCopyFill"} />
-        </OverrideTheme>
-      ),
-    [copy, isCopied],
-  );
-
   if (value) return formatted;
   return (
     <Text
       size={size}
-      onClick={() => copyCall(hash)}
       {...props}
-      className={mergeClass(
-        "items-center gap-sm cursor-pointer font-text",
-        copy && "dim select-none inline-flex",
-        className,
-      )}>
+      className={mergeClass("items-center gap-sm font-text", copy && "select-none inline-flex", className)}>
       {formatted}
-      {copyButton}
+      {copy && <Copy value={hash} />}
     </Text>
   );
 }
