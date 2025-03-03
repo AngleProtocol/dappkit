@@ -7,7 +7,7 @@ export const textStyles = tv(
     base: "font-text text-[clamp(15px,0.4167vw+0.78125rem,20px)]",
     variants: {
       look: {
-        base: "text-main-11",
+        base: "text-main-12",
         soft: "text-main-11",
         bold: "text-main-12",
         tint: "text-accent-12",
@@ -22,9 +22,9 @@ export const textStyles = tv(
         display1: "font-title font-bold leading-tight uppercase !text-[clamp(44px,5vw+0.875rem,104px)]",
         1: "font-title font-bold leading-none !text-[clamp(44px,4.333vw+1.125rem,96px)]",
         2: "font-title font-bold leading-none !text-[clamp(38px,0.667vw+2.125rem,46px)]",
-        3: "font-title font-bold leading-none !text-[clamp(26px,0.667vw+1.375rem,34px)]",
-        4: "font-title font-bold leading-[1.18] !text-[clamp(18px,0.667vw+0.875rem,26px)]",
-        5: "font-title font-bold leading-normal !text-[clamp(15px,0.25vw+0.84375rem,18px)] uppercase tracking-[0.8px] ",
+        3: "font-text font-bold leading-none !text-[clamp(26px,0.667vw+1.375rem,34px)]",
+        4: "font-text font-bold leading-[1.18] !text-[clamp(18px,0.667vw+0.875rem,26px)]",
+        5: "font-text font-bold leading-normal !text-[clamp(15px,0.25vw+0.84375rem,18px)] uppercase tracking-[0.8px] ",
         6: "font-title !text-sm",
       },
       interactable: {
@@ -33,7 +33,7 @@ export const textStyles = tv(
       },
     },
     defaultVariants: {
-      look: "base",
+      look: "soft",
       size: "md",
     },
   },

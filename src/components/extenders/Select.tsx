@@ -14,11 +14,11 @@ import Group from "./Group";
 
 export const selectStyles = tv({
   base: [
-    "rounded-sm ease flex items-center focus-visible:outline-main-12 !leading-none justify-between text-nowrap font-text font-semibold",
+    "rounded-sm ease flex items-center focus-visible:outline-main-12 !leading-none justify-between text-nowrap font-text font-normal",
   ],
   slots: {
     dropdown: "outline-0 z-50 origin-top animate-drop animate-stretch mt-sm min-w-[var(--popover-anchor-width)]",
-    item: "rounded-sm flex justify-between items-center gap-lg cursor-pointer select-none p-sm outline-offset-0 outline-0 text-nowrap focus-visible:outline-main-12",
+    item: "rounded-sm flex justify-between items-center gap-md cursor-pointer select-none p-sm outline-offset-0 outline-0 text-nowrap focus-visible:outline-main-12",
     icon: "flex items-center",
     value: "flex gap-sm items-center",
     check: "",
@@ -55,35 +55,35 @@ export const selectStyles = tv({
     },
     size: {
       xs: {
-        base: "gap-xs text-xs",
+        base: "text-xs",
         value: "px-sm*2 py-xs*2",
         icon: "text-sm",
         item: "px-md text-xs",
         prefixLabel: "text-xs",
       },
       sm: {
-        base: "gap-sm text-sm",
+        base: "text-sm",
         value: "px-md py-sm",
         icon: "text-base",
         item: "px-md text-sm",
         prefixLabel: "text-sm",
       },
       md: {
-        base: "gap-md text-md",
+        base: "text-md",
         value: "px-md text-md py-md",
         icon: "text-lg",
         item: "px-md text-md",
         prefixLabel: "text-sm",
       },
       lg: {
-        base: "gap-lg text-lg",
+        base: "text-lg",
         value: "px-xl/2 py-lg",
         icon: "text-xl",
         item: "px-lg text-lg",
         prefixLabel: "text-base",
       },
       xl: {
-        base: "gap-xl text-xl",
+        base: "text-xl",
         value: "px-sm*2 py-lg",
         icon: "text-xl",
         item: "px-xl text-xl",
@@ -127,6 +127,7 @@ export const selectStyles = tv({
 export type SelectProps<Value> = Component<{
   size?: Variant<typeof selectStyles, "size">;
   look?: Variant<typeof selectStyles, "look">;
+  placeholderIcon?: ReactNode;
   value?: Value;
   placeholder?: string;
   state?: GetSet<Value>;
@@ -136,6 +137,7 @@ export type SelectProps<Value> = Component<{
   options?: { [key: string | number | symbol]: ReactNode };
   displayOptions?: { [key: string | number | symbol]: ReactNode };
   searchOptions?: { [key: string | number | symbol]: ReactNode };
+  error?: ReactNode;
 }> &
   RadixSelect.SelectProps;
 
@@ -149,6 +151,7 @@ export default function Select<
   look,
   size,
   state,
+  placeholderIcon,
   options,
   displayOptions,
   searchOptions,
@@ -159,6 +162,7 @@ export default function Select<
   placeholder,
   className,
   defaultValue,
+  error,
   onChange,
   ..._props
 }: SelectProps<Value> & { multiple?: Multiple }) {
@@ -239,8 +243,13 @@ export default function Select<
           {placeholder}
         </>
       );
-    return placeholder;
-  }, [options, value, placeholder, prefixLabel]);
+    return (
+      <>
+        {!!placeholderIcon && placeholderIcon}
+        {placeholder}
+      </>
+    );
+  }, [options, value, placeholder, prefixLabel, placeholderIcon]);
 
   return (
     <Ariakit.ComboboxProvider
@@ -331,6 +340,7 @@ export default function Select<
           </Box>
         </Ariakit.SelectPopover>
       </Ariakit.SelectProvider>
+      {error}
     </Ariakit.ComboboxProvider>
   );
 }

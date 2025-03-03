@@ -8,14 +8,15 @@ export const titleStyles = tv(
   {
     extend: textStyles,
     base: "font-title font-bold",
-    variants: {
-      look: {
-        base: "text-main-12",
-        soft: "text-main-11",
-        bold: "text-main-12",
-        hype: "text-accent-12",
-      },
-    },
+    // variants: {
+    //   look: {
+    //     base: "text-main-12",
+    //     soft: "text-main-11",
+    //     bold: "text-main-12",
+    //     tint: "text-accent-12",
+    //     hype: "text-accent-11",
+    //   },
+    // },
     defaultVariants: {
       size: "md",
       look: "base",
@@ -28,6 +29,7 @@ export type TitleProps = Component<
   Styled<typeof titleStyles> & {
     h?: 1 | 2 | 3 | 4 | 5 | 6;
     size?: Styled<typeof textStyles>["size"];
+    look?: Styled<typeof textStyles>["look"];
   },
   HTMLHeadingElement
 >;

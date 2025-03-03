@@ -11,12 +11,12 @@ import { Calendar } from "./Calendar";
 import Text from "./Text";
 
 export const inputStyles = tv({
-  base: "flex items-center text-nowrap font-text text-ellipsis",
+  base: "flex ease items-center text-nowrap font-text text-ellipsis",
   variants: {
     look: {
       none: "text-main-12 bg-main-0 border-0",
       soft: "placeholder:text-main-11 text-main-12 bg-main-0 border-main-0 border-1 active:border-main-7 hover:text-main-11 focus-within:border-main-12",
-      base: "placeholder:text-main-11 text-main-12 bg-main-0 border-main-8 border-1 active:border-main-7 hover:text-main-11 focus-within:border-main-12",
+      base: "placeholder:text-main-11 text-main-11 bg-main-0 border-main-11 border-1 active:border-main-7 hover:text-main-11 focus-within:border-main-12",
       bold: "placeholder:text-main-11 text-main-12 bg-main-2 border-main-0 border-1 active:border-main-7 hover:text-main-11 focus-within:border-main-8",
       tint: "placeholder:text-main-11 text-main-12 bg-main-5 border-main-0 border-1 active:border-main-7 hover:text-main-11 focus-within:border-main-12",
       hype: "placeholder:text-main-2 text-main-1 bg-main-12 border-main-0 border-1 active:border-accent-9 hover:text-main-2 focus-within:border-main-12",
@@ -36,7 +36,6 @@ export const inputStyles = tv({
 });
 
 const HOURS = {
-  "0": "00:00",
   "1": "01:00",
   "2": "02:00",
   "3": "03:00",
@@ -58,53 +57,60 @@ export type InputProps<T = string> = Component<
   Styled<typeof inputStyles> & { [Extension in InputExtension]?: ReactNode } & {
     state?: GetSet<T | undefined>;
     inputClassName?: string;
+    error?: ReactNode;
   },
   HTMLInputElement
 >;
 
 function Input({ look, size, state, inputClassName, className, ...props }: InputProps) {
-  const { header, footer, prefix, suffix, label, hint, ...rest } = props;
+  const { header, footer, prefix, suffix, label, hint, error, ...rest } = props;
 
   if (extensions.some(extension => !!props?.[extension]))
     return (
-      <label className={mergeClass(inputStyles({ look, size }), className, "flex-col flex")} htmlFor="input">
-        {header && (
-          <label htmlFor="input" className="w-full flex">
-            {header}
-          </label>
-        )}
-        <Group className="w-full flex-row flex-nowrap items-center">
-          {prefix && <label htmlFor="input">{prefix}</label>}
-          <input
-            id="input"
-            autoComplete="off"
-            className={mergeClass(
-              inputStyles({ look: "none", size }),
-              className,
-              inputClassName,
-              "w-full !flex-1 !px-0 !py-0",
-            )}
-            value={state?.[0]}
-            onChange={e => state?.[1]?.(e?.target?.value)}
-            {...rest}
-          />
-          {suffix && <label htmlFor="input">{suffix}</label>}
-        </Group>
-        {footer && (
-          <label htmlFor="input" className="w-full flex">
-            {footer}
-          </label>
-        )}
-      </label>
+      <>
+        <label className={mergeClass(inputStyles({ look, size }), className, "flex-col flex")} htmlFor="input">
+          {header && (
+            <label htmlFor="input" className="w-full flex">
+              {header}
+            </label>
+          )}
+          <Group className="w-full flex-row flex-nowrap items-center">
+            {prefix && <label htmlFor="input">{prefix}</label>}
+            <input
+              id="input"
+              autoComplete="off"
+              className={mergeClass(
+                inputStyles({ look: "none", size }),
+                className,
+                inputClassName,
+                "w-full !flex-1 !px-0 !py-0",
+              )}
+              value={state?.[0]}
+              onChange={e => state?.[1]?.(e?.target?.value)}
+              {...rest}
+            />
+            {suffix && <label htmlFor="input">{suffix}</label>}
+          </Group>
+          {footer && (
+            <label htmlFor="input" className="w-full flex">
+              {footer}
+            </label>
+          )}
+        </label>
+        {error}
+      </>
     );
   return (
-    <input
-      autoComplete="off"
-      className={mergeClass(inputStyles({ look, size }), className)}
-      value={state?.[0]}
-      onChange={e => state?.[1]?.(e?.target?.value)}
-      {...rest}
-    />
+    <>
+      <input
+        autoComplete="off"
+        className={mergeClass(inputStyles({ look, size }), className)}
+        value={state?.[0]}
+        onChange={e => state?.[1]?.(e?.target?.value)}
+        {...rest}
+      />
+      {error}
+    </>
   );
 }
 
@@ -196,12 +202,22 @@ Input.DateTime = function InputDateTime({
   const renderHourOptions = useMemo(() => {
     return Object.entries(HOURS).map(([key, label]) => {
       let selectedHour = date?.getHours();
-      if (amPm === "pm") selectedHour = (selectedHour ?? 0) + 12;
-      const isActive = selectedHour?.toString() === key;
+      let customKey = +key;
+
+      // Only displaying purpose handle 12am/pm
+      if (selectedHour === 12) selectedHour = 24;
+      if (selectedHour === 0) selectedHour = 12;
+
+      if (amPm === "pm") customKey = customKey + 12;
+      const isActive = selectedHour === customKey;
+
       return (
         <Text
-          key={key}
-          className={mergeClass("text-md", isActive && "text-accent-12 bg-main-6")}
+          key={customKey}
+          className={mergeClass(
+            "ease p-sm text-center cursor-pointer rounded-md hover:bg-main-6 border-1 border-main-6",
+            isActive && "text-main-6 !bg-main-12",
+          )}
           onClick={() => onHoursChange(key)}>
           {label}
         </Text>
@@ -236,9 +252,13 @@ Input.DateTime = function InputDateTime({
             state={{ state: date, setter: onDateChange }}
             defaultMonth={defaultMonth}
           />
-          <Group className="flex-col">
-            <Select state={[amPm, setAmPmWrapper]} options={{ am: "AM", pm: "PM" }} />
-            <Group className="flex-col ">{renderHourOptions}</Group>
+          <Group className="relative overflow-hidden h-[17rem]">
+            <Group className="flex-col flex-nowrap h-full overflow-x-hidden overflow-y-scroll">
+              <Select state={[amPm, setAmPmWrapper]} options={{ am: "AM", pm: "PM" }} />
+              <Group className="flex-col overflow-x-hidden overflow-y-scroll h-full" size="sm">
+                {renderHourOptions}
+              </Group>
+            </Group>
           </Group>
         </Group>
       }

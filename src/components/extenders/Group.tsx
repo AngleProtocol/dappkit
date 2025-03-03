@@ -1,4 +1,5 @@
 import { tv } from "tailwind-variants";
+import { mergeClass } from "../../utils/css";
 import type { Component, Styled } from "../../utils/types";
 
 export const groupStyles = tv({
@@ -20,5 +21,5 @@ export const groupStyles = tv({
 export type GroupProps = Component<Styled<typeof groupStyles>, HTMLDivElement>;
 
 export default function Group({ size, className, ...props }: GroupProps) {
-  return <div className={[groupStyles({ size }), className].join(" ")} {...props} />;
+  return <div className={mergeClass(groupStyles({ size }), className)} {...props} />;
 }

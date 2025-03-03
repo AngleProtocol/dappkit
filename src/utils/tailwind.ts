@@ -133,8 +133,8 @@ export const generateTailwindConfig = (fonts?: { title: string[]; text: string[]
       "3xl": "clamp(24px,calc(0.4167vw + 1.46484375rem),30px)",
     },
     fontFamily: {
-      title: fonts?.title ?? ['"Obviously", serif'],
-      text: fonts?.text ?? ['"Mulish", sans-serif'],
+      title: fonts?.title ?? ['"Aeonik Extended", serif'],
+      text: fonts?.text ?? ['"Aeonik", sans-serif'],
       mono: fonts?.mono ?? ['"Space Mono", sans-serif'],
     },
   }) satisfies Config["theme"];

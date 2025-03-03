@@ -27,15 +27,6 @@ const MONTHS = {
   11: "December",
 };
 
-const YEARS = {
-  2020: "2020",
-  2021: "2021",
-  2022: "2022",
-  2023: "2023",
-  2024: "2024",
-  2025: "2025",
-};
-
 export function Calendar({ className, classNames, showOutsideDays = true, ...props }: IProps) {
   const { state, setter } = props.state;
 
@@ -57,8 +48,16 @@ export function Calendar({ className, classNames, showOutsideDays = true, ...pro
       classNames={{
         months: "text-main-11 flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",
-        day: "h-9 w-9 p-0 font-normal aria-selected:opacity-100 cursor-pointer",
-        selected: "text-accent-12 bg-main-6",
+        day: "aria-selected:opacity-100",
+        day_button:
+          "text-center leading-normal w-9 aspect-square bg-main-0 ease hover:bg-main-4 cursor-pointer rounded-md",
+        selected: "[&>button]:!text-main-6 [&>button]:!bg-main-12",
+        dropdowns: "flex gap-sm md:gap-md",
+        today: "[&>button]:text-main-12 [&>button]:bg-main-4",
+      }}
+      disabled={{ before: new Date() }}
+      styles={{
+        day_disabled: { opacity: 0.5 },
       }}
       components={{
         MonthsDropdown: ({ onChange }: DropdownProps) => {
@@ -87,7 +86,12 @@ export function Calendar({ className, classNames, showOutsideDays = true, ...pro
             <Select
               state={[state?.getFullYear() ?? currentDate.getFullYear(), year => setter(new Date(year, internalMonth))]}
               onChange={handleChange}
-              options={YEARS}
+              options={Object.fromEntries(
+                Array.from({ length: 20 }, (_, i) => [
+                  String(currentDate.getFullYear() + i),
+                  String(currentDate.getFullYear() + i),
+                ]),
+              )}
             />
           );
         },

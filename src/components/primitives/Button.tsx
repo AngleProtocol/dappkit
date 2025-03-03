@@ -7,14 +7,14 @@ import EventBlocker from "./EventBlocker";
 
 export const buttonStyles = tv(
   {
-    base: "flex items-center dim !leading-none select-none rounded-full focus-visible:outline focus-visible:outline-main-12 font-text ease font-bold text-[clamp(15px,0.4167vw+0.78125rem,20px)]",
+    base: "flex items-center dim !leading-none select-none rounded-full disabled:opacity-60 disabled:pointer-events-none focus-visible:outline focus-visible:outline-main-12 font-text ease font-bold text-[clamp(15px,0.4167vw+0.78125rem,20px)]",
     variants: {
       look: {
-        soft: "text-main-12 !p-0 active:text-main-11 outline-offset-4",
-        base: "text-main-12 border-1 border-main-11 active:border-main-10",
-        bold: "text-main-1 bg-main-11 active:bg-main-10",
-        tint: "text-main-1 bg-accent-10 active:bg-accent-9",
-        hype: "text-main-1 bg-accent-11 active:bg-accent-10",
+        soft: "bg-main-0 !p-0 text-accent-12 border-1 border-main-0 active:text-accent-11 disabled:text-main-11 outline-offset-4",
+        base: "bg-main-0 text-accent-12 border-1 border-accent-10 active:text-accent-11 disabled:border-main-11 disabled:text-accent-12",
+        bold: "bg-accent-10 text-accent-12 border-1 border-main-0 active:bg-accent-7 active:text-main-12 disabled:bg-main-11 disabled:text-accent-1",
+        tint: "bg-accent-7 text-accent-12 border-1 border-main-0 active:bg-accent-7 active:text-main-12 disabled:bg-main-11 disabled:text-accent-1",
+        hype: "bg-accent-11 text-accent-1 border-1 border-main-0 active:bg-accent-12 active:text-main-1 disabled:bg-main-11 disabled:text-accent-1",
       },
       size: {
         xs: "px-sm py-sm gap-sm text-xs",
@@ -74,6 +74,8 @@ export default function Button({
         href={to}
         target="_blank"
         rel="noopener noreferrer"
+        aria-disabled={disabled}
+        tabIndex={disabled ? -1 : undefined}
         onClick={() => window.open(to, "_blank", "noopener noreferrer")}
         className={mergeClass(styleProps, styleBold, className, disabled && "disabled")}>
         {children}
@@ -86,6 +88,8 @@ export default function Button({
         <Link
           prefetch="intent"
           to={to}
+          aria-disabled={disabled}
+          tabIndex={disabled ? -1 : undefined}
           className={mergeClass(styleProps, styleBold, className, disabled && "disabled")}
           {...(external && {
             target: "_blank",
@@ -102,7 +106,9 @@ export default function Button({
       style={themeVars}
       className={mergeClass(styleProps, styleBold, className, disabled && "disabled")}
       type="button"
+      aria-disabled={disabled}
       disabled={disabled}
+      tabIndex={disabled ? -1 : undefined}
       {...props}>
       {children}
     </button>

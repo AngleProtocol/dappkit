@@ -1,4 +1,4 @@
-import { Button, type ButtonProps, Modal, WalletConnectors } from "../..";
+import { Button, type ButtonProps, Icon, Modal, WalletConnectors } from "../..";
 import { useWalletContext } from "../../context/Wallet.context";
 
 export type ConnectedProps = ButtonProps & {
@@ -15,7 +15,7 @@ export default function Connected({ hideSpyMode = false, children, ...props }: C
         className="mx-auto w-full max-w-[500px]"
         modal={<WalletConnectors hideSpyMode={hideSpyMode} />}>
         <Button look="hype" size="md" {...props}>
-          Connect
+          Connect Wallet <Icon remix="RiArrowRightUpLine" />
         </Button>
       </Modal>
     );

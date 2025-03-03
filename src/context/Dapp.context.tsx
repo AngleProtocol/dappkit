@@ -1,6 +1,5 @@
 import { type PropsWithChildren, createContext, useContext } from "react";
 import type { ResolvedRegister } from "wagmi";
-import { demoThemes } from "../config/themes";
 import type { Mode } from "../theming/variables";
 import ThemeProvider, { type ThemeProviderProps } from "./Theme.context";
 import { WalletProvider } from "./Wallet.context";
@@ -40,7 +39,7 @@ export function DAppProvider({
   walletOptions,
 }: PropsWithChildren<DAppProviderProps>) {
   return (
-    <ThemeProvider sizing={sizing} themes={themes ?? demoThemes} modes={modes}>
+    <ThemeProvider sizing={sizing} themes={themes} modes={modes}>
       <WalletProvider walletOptions={walletOptions} chains={chains.filter(({ id }) => id !== 1337)} config={config}>
         {children}
       </WalletProvider>
