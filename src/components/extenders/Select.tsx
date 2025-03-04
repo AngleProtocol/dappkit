@@ -29,28 +29,28 @@ export const selectStyles = tv({
       soft: {
         base: "bg-main-0 text-main-11 border-1 border-main-0 hover:text-main-12 active:border-main-11",
         icon: "border-main-0",
-        item: "hover:bg-main-5 data-[active-item]:bg-main-5 active:bg-main-4 text-main-12",
+        item: "font-text hover:bg-main-5 data-[active-item]:bg-main-5 active:bg-main-4 text-main-12",
       },
       base: {
         base: "bg-main-0 text-main-11 border-1 border-main-9 hover:text-main-12 active:border-main-11",
         icon: "border-main-0",
-        item: "hover:bg-main-5 data-[active-item]:bg-main-5 active:bg-main-4 text-main-12",
+        item: "font-text hover:bg-main-5 data-[active-item]:bg-main-5 active:bg-main-4 text-main-12",
       },
       bold: {
         base: "bg-main-1 text-main-11 border-1 border-main-0 hover:text-main-12 active:border-main-8",
         icon: "",
-        item: "hover:bg-main-5 data-[active-item]:bg-main-5 active:bg-main-4 text-main-12",
+        item: "font-text hover:bg-main-5 data-[active-item]:bg-main-5 active:bg-main-4 text-main-12",
         check: "text-accent-10",
       },
       tint: {
         base: "bg-main-5 text-main-11 border-1 border-main-0 hover:text-main-12 active:border-main-8",
         icon: "",
-        item: "hover:bg-main-3 data-[active-item]:bg-main-6 active:bg-main-5 text-main-12",
+        item: "font-text hover:bg-main-3 data-[active-item]:bg-main-6 active:bg-main-5 text-main-12",
       },
       hype: {
         base: "bg-main-8 text-main-12 border-1 border-main-0 hover:bg-main-10 active:border-stroke-11",
         icon: "",
-        item: "hover:bg-accent-10 data-[active-item]:bg-accent-10 active:bg-accent-4 text-main-12",
+        item: "font-text hover:bg-accent-3 data-[active-item]:bg-accent-3 active:bg-accent-4 text-main-12",
       },
     },
     size: {
