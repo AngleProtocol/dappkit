@@ -13,12 +13,6 @@ export default function Connected({ hideSpyMode = false, children, chain: onlyOn
     return chains?.find(({ id }) => id === onlyOnChain);
   }, [chains, onlyOnChain]);
 
-  if (chain && chainId !== onlyOnChain)
-    return (
-      <Button look="hype" size="md" {...props} onClick={() => switchChain(onlyOnChain)}>
-        Switch to {chain.name}
-      </Button>
-    );
   if (!connected)
     return (
       <Modal
@@ -29,6 +23,12 @@ export default function Connected({ hideSpyMode = false, children, chain: onlyOn
           Connect Wallet <Icon remix="RiArrowRightUpLine" />
         </Button>
       </Modal>
+    );
+  if (chain && chainId !== onlyOnChain)
+    return (
+      <Button look="hype" size="md" {...props} onClick={() => switchChain(onlyOnChain)}>
+        Switch to {chain.name}
+      </Button>
     );
   return children;
 }
