@@ -7,8 +7,8 @@ export const primitiveTagStyles = tv({
   base: "flex items-center select-none !leading-none rounded-full text-nowrap ease focus-visible:outline focus-visible:outline-dashed focus-visible:outline-main-12 font-text font-bold text-[clamp(15px,0.4167vw+0.78125rem,20px)]",
   variants: {
     look: {
-      soft: "text-accent-12 bg-transparent border-1 border-main-9",
-      base: "text-accent-12 bg-main-5",
+      soft: "text-main-12 bg-transparent border-1 border-main-9",
+      base: "text-main-12 bg-main-5",
       bold: "text-main-12 bg-main-8",
       tint: "text-accent-1 bg-main-11",
       hype: "text-accent-1 bg-accent-11",

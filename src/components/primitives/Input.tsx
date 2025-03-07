@@ -15,11 +15,11 @@ export const inputStyles = tv({
   variants: {
     look: {
       none: "text-main-12 bg-main-0 border-0",
-      soft: "placeholder:text-main-11 text-main-12 bg-main-0 border-main-0 border-1 active:border-main-7 hover:text-main-11 focus-within:border-main-8",
-      base: "placeholder:text-main-11 text-main-11 bg-main-0 border-main-11 border-1 active:border-main-7 hover:text-main-11 focus-within:border-main-8",
-      bold: "placeholder:text-main-11 text-main-12 bg-main-2 border-main-0 border-1 active:border-main-7 hover:text-main-11 focus-within:border-main-8",
-      tint: "placeholder:text-main-11 text-main-12 bg-main-5 border-main-0 border-1 active:border-main-7 hover:text-main-11 focus-within:border-main-8",
-      hype: "placeholder:text-main-2 text-main-1 bg-main-12 border-main-0 border-1 active:border-accent-9 hover:text-main-2 focus-within:border-main-8",
+      soft: "placeholder:items-center placeholder:text-main-11 text-main-12 bg-main-0 border-main-0 border-1 active:border-main-7 hover:text-main-11 focus-within:border-main-8",
+      base: "placeholder:items-center placeholder:text-main-11 text-main-11 bg-main-0 border-main-11 border-1 active:border-main-7 hover:text-main-11 focus-within:border-main-8",
+      bold: "placeholder:items-center placeholder:text-main-11 text-main-12 bg-main-2 border-main-0 border-1 active:border-main-7 hover:text-main-11 focus-within:border-main-8",
+      tint: "placeholder:items-center placeholder:text-main-11 text-main-12 bg-main-5 border-main-0 border-1 active:border-main-7 hover:text-main-11 focus-within:border-main-8",
+      hype: "placeholder:items-center placeholder:text-main-2 text-main-1 bg-main-12 border-main-0 border-1 active:border-accent-9 hover:text-main-2 focus-within:border-main-8",
     },
     size: {
       xs: "px-xs py-xs text-xs rounded-xs",
