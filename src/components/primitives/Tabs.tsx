@@ -41,6 +41,7 @@ import type { Component, Styled, Themable } from "../../utils/types";
 import Group from "../extenders/Group";
 import Container from "../layout/Container";
 import EventBlocker from "./EventBlocker";
+import React from "react";
 
 export const tabsStyles = tv(
   {
@@ -150,7 +151,7 @@ export default function Tabs({ look, size, to, theme, className, tabs = [], ...p
             const relativeUrl = tab.link.split("?")[0];
 
             return (
-              <>
+              <React.Fragment key={`${tab.link}-${tab.label}`}>
                 {tab.link ? (
                   <EventBlocker key={tab.key}>
                     <Link
@@ -175,7 +176,7 @@ export default function Tabs({ look, size, to, theme, className, tabs = [], ...p
                     {tab.label}
                   </button>
                 )}
-              </>
+              </React.Fragment>
             );
           })}
         </Group>
