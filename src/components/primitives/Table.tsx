@@ -206,9 +206,16 @@ export function Table<T extends Columns>({
   // biome-ignore lint/suspicious/noExplicitAny: please forgive this any
   const headers = useHeaders(columns, sortable, onHeaderClick, sort ?? sortBy, order ?? _order, props as any);
 
+  const indexOffset = useMemo(() => {
+    if (!!header && !hideLabels) return 0;
+    if (!header && !hideLabels) return 1;
+    if (!!header && hideLabels) return 1;
+    return 0;
+  }, [header, hideLabels]);
+
   return (
-    <List indexOffset={header ? 0 : 1} className={mergeClass(className)} look={look} {...props}>
-      {!!header ? <Box className="bg-auto">{header}</Box> : undefined}
+    <List indexOffset={indexOffset} className={mergeClass(className)} look={look} {...props}>
+      {!!header ? header : undefined}
       {/* biome-ignore lint/suspicious/noExplicitAny: please forgive this one as well */}
       {!hideLabels ? <Row {...(headers as any)} columns={columns} /> : undefined}
       {children}

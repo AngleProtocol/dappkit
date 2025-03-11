@@ -12,7 +12,7 @@ export default function Time({ timestamp, prefix }: TimeProps) {
     const then = moment(Number(timestamp)).fromNow();
 
     return then
-      .replace(/in\s/, prefix ? `${prefix} ` : "In ")
+      .replace(/in\s/, prefix ? `${prefix} ` : "End in ")
       .replace(/a\s/, "1 ")
       .replace(/\bminute(s?)\b/g, "m")
       .replace(/\bsecond(s?)\b/g, "s")
