@@ -44,5 +44,5 @@ export type TextProps = Component<Styled<typeof textStyles> & { bold?: boolean }
 
 export default function Text({ look, size, style, bold, interactable, className, ...props }: TextProps) {
   const styleBold = bold ? "font-bold" : "";
-  return <p className={mergeClass(textStyles({ look, size, interactable }), styleBold, className)} {...props} />;
+  return <span className={mergeClass(textStyles({ look, size, interactable }), styleBold, className)} {...props} />;
 }

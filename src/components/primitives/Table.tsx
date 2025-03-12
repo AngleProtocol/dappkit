@@ -98,9 +98,6 @@ export function Row<T extends Columns>({ columns, exclude, children, ...props }:
       delete divProps[`${String(id)}Column` as keyof typeof divProps];
   }
 
-  // TODO: add headers to wrapped table when isScreenSmall
-  // const headers = useHeaders(columns);
-
   return (
     <Box style={grid} className="whitespace-nowrap" {...divProps}>
       {ids?.map(id => {
@@ -213,9 +210,15 @@ export function Table<T extends Columns>({
     return 0;
   }, [header, hideLabels]);
 
+  const propsWithoutHeaders = { ...props };
+  for (const id of Object.keys(columns ?? {})) {
+    Object.keys(propsWithoutHeaders)?.includes(`${String(id)}Header`) &&
+      delete propsWithoutHeaders[`${String(id)}Header` as keyof typeof propsWithoutHeaders];
+  }
+
   return (
-    <List indexOffset={indexOffset} className={mergeClass(className)} look={look} {...props}>
-      {!!header ? header : undefined}
+    <List indexOffset={indexOffset} className={mergeClass(className)} look={look} {...propsWithoutHeaders}>
+      {!!header ? <Box className="bg-auto">{header}</Box> : undefined}
       {/* biome-ignore lint/suspicious/noExplicitAny: please forgive this one as well */}
       {!hideLabels ? <Row {...(headers as any)} columns={columns} /> : undefined}
       {children}
