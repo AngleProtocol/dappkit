@@ -1,6 +1,6 @@
 import * as RadixAccordion from "@radix-ui/react-accordion";
 
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { tv } from "tailwind-variants";
 import { mergeClass } from "../../utils/css";
 import type { Component, Styled } from "../../utils/types";
@@ -48,10 +48,10 @@ export default function Accordion({ look, size, items, className }: AccordionPro
               className="border-b-2 py-lg*2 border-accent-11"
               initial={{ y: "100%" }}
               whileInView={{ y: 0 }}
-              transition={{ delay: 0.1 * index }}
+              transition={{ delay: 0.075 * index }}
               viewport={{ once: true }}>
               <RadixAccordion.Item value={`item-${index}`} className="faq-item">
-                <RadixAccordion.Trigger className="faq-item__trigger text-left overflow-hidden [&>*]:text-accent-11 [&>svg]:data-[state=closed]:rotate-180 [&>svg]:data-[state=open]:rotate-0 w-full flex items-center justify-between">
+                <RadixAccordion.Trigger className="text-left overflow-hidden [&>*]:text-accent-11 [&>h3]:data-[state=open]:text-accent-12  [&>svg]:data-[state=closed]:rotate-180 [&>svg]:data-[state=open]:rotate-0 w-full flex items-center justify-between">
                   <Title h={3} className="ease">
                     {item.trigger}
                   </Title>
