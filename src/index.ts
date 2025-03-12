@@ -85,6 +85,8 @@ export * from "./components/primitives/Value";
 export { default as Value } from "./components/primitives/Value";
 export * from "./components/primitives/Divider";
 export { default as Divider } from "./components/primitives/Divider";
+export * from "./components/animations";
+export { default as Animations } from "./components/Animations";
 export * from "./components/primitives/Table";
 export * from "./components/primitives/Input";
 export { default as Input } from "./components/primitives/Input";

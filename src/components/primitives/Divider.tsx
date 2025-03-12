@@ -1,6 +1,9 @@
 import { tv } from "tailwind-variants";
 import { mergeClass } from "../../utils/css";
 import type { Component, Styled } from "../../utils/types";
+import { motion } from "motion/react";
+import type { HTMLMotionProps } from "motion/react";
+import { Animations } from "dappkit";
 
 export const dividerStyles = tv(
   {
@@ -36,15 +39,34 @@ export const dividerStyles = tv(
   { twMerge: false },
 );
 
-export type DividerProps = Component<
-  Styled<typeof dividerStyles> & {
-    vertical?: boolean;
-    horizontal?: boolean;
-  }
->;
+type StyledProps = Styled<typeof dividerStyles> & {
+  vertical?: boolean;
+  horizontal?: boolean;
+};
+
+export type DividerProps = HTMLMotionProps<"div"> & Component<StyledProps>;
 
 export default function Divider({ vertical = false, horizontal = true, look, className, ...props }: DividerProps) {
-  if (horizontal && !vertical) return <div className={mergeClass(dividerStyles({ look }), className)} {...props} />;
+  if (horizontal && !vertical)
+    return (
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={Animations.extendX}
+        className={mergeClass(dividerStyles({ look }), className)}
+        {...props}
+      />
+    );
 
-  return <div className={mergeClass(dividerStyles({ look, vertical: true }), className)} {...props} />;
+  return (
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      variants={Animations.extendY}
+      className={mergeClass(dividerStyles({ look, vertical: true }), className)}
+      {...props}
+    />
+  );
 }

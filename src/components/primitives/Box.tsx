@@ -3,6 +3,7 @@ import useThemedVariables from "../../hooks/theming/useThemedVariables";
 import { mergeClass } from "../../utils/css";
 import { sizeScale } from "../../utils/tailwind";
 import type { Component, Styled, Themable } from "../../utils/types";
+import { forwardRef } from "react";
 
 export const boxStyles = tv({
   base: "flex flex-col border-1",
@@ -83,24 +84,21 @@ export type BoxProps = Component<Styled<typeof boxStyles> & Themable>;
  * </Box>
  */
 
-export default function Box({
-  look,
-  size,
-  coloring,
-  accent,
-  style,
-  container,
-  content,
-  className,
-  ...props
-}: BoxProps) {
-  const themeVars = useThemedVariables(coloring, accent);
+const Box = forwardRef<HTMLDivElement, BoxProps>(
+  ({ look, size, coloring, accent, style, container, content, className, ...props }, ref) => {
+    const themeVars = useThemedVariables(coloring, accent);
 
-  return (
-    <div
-      style={Object.assign(style ?? {}, themeVars)}
-      className={mergeClass(boxStyles({ look, size, content, container: container !== false }), className)}
-      {...props}
-    />
-  );
-}
+    return (
+      <div
+        ref={ref}
+        style={Object.assign(style ?? {}, themeVars)}
+        className={mergeClass(boxStyles({ look, size, content, container: container !== false }), className)}
+        {...props}
+      />
+    );
+  },
+);
+
+Box.displayName = "Box";
+
+export default Box;

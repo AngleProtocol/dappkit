@@ -7,6 +7,10 @@ import EventBlocker from "./EventBlocker";
 import Icon from "./Icon";
 import List, { type ListProps } from "./List";
 import Text from "./Text";
+import { motion } from "motion/react";
+import Animations from "../animations";
+
+const MotionBox = motion.create(Box);
 
 export const tableStyles = tv({
   base: "",
@@ -102,7 +106,7 @@ export function Row<T extends Columns>({ columns, exclude, children, ...props }:
   // const headers = useHeaders(columns);
 
   return (
-    <Box style={grid} className="whitespace-nowrap" {...divProps}>
+    <MotionBox style={grid} className="whitespace-nowrap" {...divProps} variants={Animations.fadeIn}>
       {ids?.map(id => {
         const element = props[`${String(id)}Column` as keyof typeof props] as ReactNode;
         const { className } = columns[id];
@@ -118,7 +122,7 @@ export function Row<T extends Columns>({ columns, exclude, children, ...props }:
         );
       })}
       {children && <EventBlocker style={{ gridColumn: "1 / -1" }}>{children}</EventBlocker>}
-    </Box>
+    </MotionBox>
   );
 }
 
@@ -207,13 +211,27 @@ export function Table<T extends Columns>({
   const headers = useHeaders(columns, sortable, onHeaderClick, sort ?? sortBy, order ?? _order, props as any);
 
   return (
-    <List indexOffset={header ? 0 : 1} className={mergeClass(className)} look={look} {...props}>
-      {!!header ? <Box className="bg-auto">{header}</Box> : undefined}
-      {/* biome-ignore lint/suspicious/noExplicitAny: please forgive this one as well */}
-      {!hideLabels ? <Row {...(headers as any)} columns={columns} /> : undefined}
-      {children}
-      {!!footer ? <Box className="bg-auto">{footer}</Box> : undefined}
-    </List>
+    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={Animations.container}>
+      <List indexOffset={header ? 0 : 1} className={mergeClass(className)} look={look} {...props}>
+        {!!header ? (
+          <Box className="bg-auto">
+            <motion.span className="inline-block" variants={Animations.slideYfadeIn}>
+              {header}
+            </motion.span>
+          </Box>
+        ) : undefined}
+        {/* biome-ignore lint/suspicious/noExplicitAny: please forgive this one as well */}
+        {!hideLabels ? <Row {...(headers as any)} columns={columns} /> : undefined}
+        {children}
+        {!!footer ? (
+          <Box className="bg-auto">
+            <motion.span className="inline-block" variants={Animations.slideYfadeIn}>
+              {footer}
+            </motion.span>
+          </Box>
+        ) : undefined}
+      </List>
+    </motion.div>
   );
 }
 
