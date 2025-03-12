@@ -1,8 +1,10 @@
 <svg version="1.0" id="katman_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
     viewBox="156 53 512 512" xml:space="preserve">
 <style type="text/css">
-    .st0{fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_1_);}
-    .st1{fill:#FFFFFF;}
+    <![CDATA[
+    .st0 { fill-rule:evenodd; clip-rule:evenodd; fill:url(#SVGID_1_); }
+    .st1 { fill:#FFFFFF; }
+    ]]>
 </style>
 <g>
     <radialGradient id="SVGID_1_" cx="13.2793" cy="609.416" r="1" gradientTransform="matrix(512 0 0 -512 -6643 312330)" gradientUnits="userSpaceOnUse">
