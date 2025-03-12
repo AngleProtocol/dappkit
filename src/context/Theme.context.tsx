@@ -75,7 +75,7 @@ export default function ThemeProvider({ themes, sizing, modes, children }: Theme
         data-theme={value?.theme}
         data-mode={value?.mode}
         style={value?.vars}
-        className="bg-background overflow-auto">
+        className="bg-background overflow-auto ease">
         <Notifications />
         {children}
       </div>
