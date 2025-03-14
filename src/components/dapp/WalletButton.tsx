@@ -39,6 +39,22 @@ export default function WalletButton({ select, connect, status, hideSpyMode = fa
     );
   }, [chains]);
 
+  const chainSearchOptions = useMemo(() => {
+    if (!chains) return {};
+    return chains.reduce(
+      (obj, chain) => {
+        obj[chain.id] = (
+          <Group>
+            <Icon src={chain?.icon} />
+            {chain.name}
+          </Group>
+        );
+        return obj;
+      },
+      {} as { [chainId: number]: ReactNode },
+    );
+  }, [chains]);
+
   if (!connected)
     return (
       <Modal
@@ -55,7 +71,9 @@ export default function WalletButton({ select, connect, status, hideSpyMode = fa
 
   return (
     <>
-      {select || <Select state={[chainId, c => switchChain(+c)]} options={chainOptions} />}
+      {select || (
+        <Select state={[chainId, c => switchChain(+c)]} searchOptions={chainSearchOptions} options={chainOptions} />
+      )}
       <Dropdown
         size="lg"
         padding="xs"

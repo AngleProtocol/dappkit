@@ -51,7 +51,7 @@ export default function Accordion({ look, size, items, className }: AccordionPro
               transition={{ delay: 0.1 * index }}
               viewport={{ once: true }}>
               <RadixAccordion.Item value={`item-${index}`} className="faq-item">
-                <RadixAccordion.Trigger className="faq-item__trigger text-left overflow-hidden [&>*]:text-accent-11 [&>svg]:data-[state=closed]:rotate-180 [&>svg]:data-[state=open]:rotate-0 w-full flex items-center justify-between">
+                <RadixAccordion.Trigger className="text-left overflow-hidden [&>*]:text-accent-11 [&>svg]:data-[state=closed]:rotate-180 [&>svg]:data-[state=open]:rotate-0 w-full flex items-center justify-between">
                   <Title h={3} className="ease">
                     {item.trigger}
                   </Title>
