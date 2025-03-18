@@ -137,6 +137,7 @@ export type SelectProps<Value> = Component<{
   options?: { [key: string | number | symbol]: ReactNode };
   displayOptions?: { [key: string | number | symbol]: ReactNode };
   searchOptions?: { [key: string | number | symbol]: ReactNode };
+  indexOptions?: { [key: string | number | symbol]: number };
   error?: ReactNode;
 }> &
   RadixSelect.SelectProps;
@@ -155,6 +156,7 @@ export default function Select<
   options,
   displayOptions,
   searchOptions,
+  indexOptions,
   search,
   multiple,
   loading,
@@ -196,7 +198,8 @@ export default function Select<
   const [searchInput, setSearch] = useState<string>();
 
   const matches = useMemo(() => {
-    if (!search || !searchInput || searchInput === "") return Object.keys(options ?? {});
+    if (!search || !searchInput || searchInput === "")
+      return Object.keys(options ?? {}).sort((keyA, keyB) => (indexOptions?.[keyA] ?? 0) - (indexOptions?.[keyB] ?? 0));
     // const textToMatch = Object.keys(options ?? {}).map(option => `${option}_${options[option]?.props?.children?.filter(a => typeof a !== "object").join(" ")}`)
     const textToMatch = Object.keys(options ?? {}).reduce(
       (matches, option) => {
@@ -221,7 +224,7 @@ export default function Select<
     ) as (typeof value)[];
 
     return uniqueOptionMatches;
-  }, [options, searchOptions, searchInput, search]);
+  }, [options, searchOptions, indexOptions, searchInput, search]);
 
   const label = useMemo(() => {
     if (

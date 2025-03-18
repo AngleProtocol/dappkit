@@ -52,7 +52,7 @@ export default function Accordion({ look, size, items, className }: AccordionPro
               viewport={{ once: true }}>
               <RadixAccordion.Item value={`item-${index}`} className="faq-item">
                 <RadixAccordion.Trigger className="text-left overflow-hidden [&>*]:text-accent-11 [&>svg]:data-[state=closed]:rotate-180 [&>svg]:data-[state=open]:rotate-0 w-full flex items-center justify-between">
-                  <Title h={3} className="ease">
+                  <Title h={3} className="ease leading-[1.2em]">
                     {item.trigger}
                   </Title>
                   <Icon remix="RiArrowUpSLine" className="text-2xl ease" alt="cross" aria-hidden />
