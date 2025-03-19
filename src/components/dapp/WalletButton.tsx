@@ -4,7 +4,6 @@ import { Fmt } from "../../utils/formatter.service";
 import Dropdown from "../extenders/Dropdown";
 import Group from "../extenders/Group";
 import Modal from "../extenders/Modal";
-import Select from "../extenders/Select";
 import Button, { type ButtonProps } from "../primitives/Button";
 import Divider from "../primitives/Divider";
 import Hash from "../primitives/Hash";
@@ -21,39 +20,7 @@ export type WalletButtonProps = ButtonProps & {
 };
 
 export default function WalletButton({ select, connect, status, hideSpyMode = false, ...props }: WalletButtonProps) {
-  const { address, disconnect, connected, connector, chainId, switchChain, chains } = useWalletContext();
-
-  const chainOptions = useMemo(() => {
-    if (!chains) return [];
-    return chains.reduce(
-      (obj, chain) => {
-        obj[chain.id] = (
-          <Group>
-            <Icon src={chain?.icon} />
-            {chain.name}
-          </Group>
-        );
-        return obj;
-      },
-      {} as { [chainId: number]: ReactNode },
-    );
-  }, [chains]);
-
-  const chainSearchOptions = useMemo(() => {
-    if (!chains) return {};
-    return chains.reduce(
-      (obj, chain) => {
-        obj[chain.id] = (
-          <Group>
-            <Icon src={chain?.icon} />
-            {chain.name}
-          </Group>
-        );
-        return obj;
-      },
-      {} as { [chainId: number]: ReactNode },
-    );
-  }, [chains]);
+  const { address, disconnect, connected, connector, chainId, chains } = useWalletContext();
 
   const connectedChain = useMemo(() => {
     if (!chainId) return null;
