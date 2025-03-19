@@ -55,6 +55,11 @@ export default function WalletButton({ select, connect, status, hideSpyMode = fa
     );
   }, [chains]);
 
+  const connectedChain = useMemo(() => {
+    if (!chainId) return null;
+    return chains.find(chain => chain.id === chainId);
+  }, [chainId, chains]);
+
   if (!connected)
     return (
       <Modal
@@ -62,7 +67,7 @@ export default function WalletButton({ select, connect, status, hideSpyMode = fa
         className="mx-auto w-full max-w-[500px]"
         modal={<WalletConnectors hideSpyMode={hideSpyMode} />}>
         {connect || (
-          <Button look="hype" size="md" {...props}>
+          <Button look="hype" size="lg" {...props}>
             Connect
           </Button>
         )}
@@ -71,9 +76,6 @@ export default function WalletButton({ select, connect, status, hideSpyMode = fa
 
   return (
     <>
-      {select || (
-        <Select state={[chainId, c => switchChain(+c)]} searchOptions={chainSearchOptions} options={chainOptions} />
-      )}
       <Dropdown
         size="lg"
         padding="xs"
@@ -82,8 +84,7 @@ export default function WalletButton({ select, connect, status, hideSpyMode = fa
             <Group className="items-center justify-between" size="xl">
               <Group className="items-center">
                 {/* TODO: Show the account icon by default if there is no ENS icon */}
-                <Icon className="text-main-11 !w-xl*2 !h-xl*2" remix="RiAccountCircleFill" />
-                <Image className="h-lg*2 w-lg*2" src={connector?.icon} />
+                <Icon className="text-main-11 h-lg*2 w-lg*2 " src={connectedChain?.icon} />
                 <Hash size="lg" bold copy format="short">
                   {address}
                 </Hash>
@@ -101,7 +102,8 @@ export default function WalletButton({ select, connect, status, hideSpyMode = fa
           </>
         }>
         {status || (
-          <Button look="hype" size="md" className="w-full justify-center">
+          <Button look="hype" size="lg" className="w-full justify-center">
+            <Icon className="text-main-11 h-md*2 w-md*2" src={connectedChain?.icon} />
             {Fmt.address(address, "short")}
           </Button>
         )}
