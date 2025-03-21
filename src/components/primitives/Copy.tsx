@@ -17,7 +17,12 @@ export default function Copy({ size, value, className, ...props }: CopyProps) {
         <Icon
           className="text-main-11"
           remix={isCopied ? "RiCheckboxCircleFill" : "RiFileCopyFill"}
-          onClick={() => copyCall(value)}
+          onClick={e => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            copyCall(value);
+          }}
         />
       </OverrideTheme>
     </Text>
