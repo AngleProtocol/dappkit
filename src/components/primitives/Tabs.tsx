@@ -39,8 +39,9 @@ import useThemableProps from "../../hooks/theming/useThemableProps";
 import { mergeClass } from "../../utils/css";
 import type { Component, Styled, Themable } from "../../utils/types";
 import Group from "../extenders/Group";
-import Container from "../layout/Container";
+import Box from "./Box";
 import EventBlocker from "./EventBlocker";
+import React from "react";
 
 export const tabsStyles = tv(
   {
@@ -87,23 +88,23 @@ export const tabsStyles = tv(
       size: {
         xs: {
           base: "pb-xs gap-sm text-xs",
-          container: "mb-xs pt-xs*2",
+          container: "pt-xs*2",
         },
         sm: {
           base: "border-b-2 pb-sm gap-sm text-sm",
-          container: "mb-sm pt-sm*2",
+          container: "pt-sm*2",
         },
         md: {
-          base: "border-b-4 pb-md gap-sm text-base",
-          container: "mb-md pt-md*2",
+          base: "border-b-2 pb-md gap-sm text-base",
+          container: "pt-md*2",
         },
         lg: {
-          base: "border-b-5 pb-lg gap-sm text-lg",
-          container: "mb-lg pt-lg*2",
+          base: "border-b-3 pb-lg gap-sm text-lg",
+          container: "pt-lg*2",
         },
         xl: {
           base: "border-b-6 pb-xl gap-sm text-xl",
-          container: "mb-xl pt-xl*2",
+          container: "pt-xl*2",
         },
       },
     },
@@ -137,49 +138,47 @@ export default function Tabs({ look, size, to, theme, className, tabs = [], ...p
   const styleProps = tabsStyles({ look, size });
   const location = useLocation();
 
-  const { base, active, line, container } = tabsStyles({
+  const { base, active, line } = tabsStyles({
     look: look ?? "base",
     size: size ?? "md",
   });
 
   return (
-    <Group className={mergeClass(container(), "w-full")}>
-      <Container>
-        <Group className={mergeClass(line(), "gap-xl*2 items-center w-full")}>
-          {tabs.map(tab => {
-            const relativeUrl = tab.link.split("?")[0];
+    <Box className="!pb-0">
+      <Group className={mergeClass(line(), "gap-xl*2 px-xl pt-md items-center w-full")}>
+        {tabs.map(tab => {
+          const relativeUrl = tab.link.split("?")[0];
 
-            return (
-              <>
-                {tab.link ? (
-                  <EventBlocker key={tab.key}>
-                    <Link
-                      to={tab.link}
-                      style={themeVars}
-                      className={mergeClass(
-                        styleProps,
-                        base(),
-                        className,
-                        location.pathname === relativeUrl && active(),
-                      )}>
-                      {tab.label}
-                    </Link>
-                  </EventBlocker>
-                ) : (
-                  <button
-                    key={tab.key}
+          return (
+            <React.Fragment key={tab.link}>
+              {tab.link ? (
+                <EventBlocker key={tab.key}>
+                  <Link
+                    to={tab.link}
                     style={themeVars}
-                    className={mergeClass(styleProps, base(), className, location.pathname === relativeUrl && active())}
-                    type="button"
-                    {...props}>
+                    className={mergeClass(
+                      styleProps,
+                      base(),
+                      className,
+                      location.pathname === relativeUrl && active(),
+                    )}>
                     {tab.label}
-                  </button>
-                )}
-              </>
-            );
-          })}
-        </Group>
-      </Container>
-    </Group>
+                  </Link>
+                </EventBlocker>
+              ) : (
+                <button
+                  key={tab.key}
+                  style={themeVars}
+                  className={mergeClass(styleProps, base(), className, location.pathname === relativeUrl && active())}
+                  type="button"
+                  {...props}>
+                  {tab.label}
+                </button>
+              )}
+            </React.Fragment>
+          );
+        })}
+      </Group>
+    </Box>
   );
 }
