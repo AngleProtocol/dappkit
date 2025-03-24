@@ -157,7 +157,7 @@ export default {
 
 ## Development
 
-You can preview and develop component using the included [Remix](https://remix.run/) app.
+You can preview and develop components.
 
 ```shellscript
 npm run dev
