@@ -1,4 +1,3 @@
-"use client";
 import * as React from "react";
 import { DayPicker, type DropdownProps } from "react-day-picker";
 import Select from "../extenders/Select";
