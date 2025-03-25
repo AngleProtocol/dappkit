@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import type { Connector } from "wagmi";
 import walletCoinbaseIcon from "../../assets/walletCoinbase.svg";
 import walletConnectIcon from "../../assets/walletConnect.svg";
+import walletSafeIcon from "../../assets/walletSafe.jpg";
 import { useWalletContext } from "../../context/Wallet.context";
 import Group from "../extenders/Group";
 import Button from "../primitives/Button";
@@ -86,6 +87,8 @@ const overrideIcons = (connector: Connector) => {
       return walletCoinbaseIcon;
     case "walletconnect":
       return walletConnectIcon;
+    case "safe":
+      return walletSafeIcon;
     default:
       return connector.icon;
   }
