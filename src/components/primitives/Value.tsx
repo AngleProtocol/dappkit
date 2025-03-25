@@ -40,8 +40,8 @@ export default function Value({
   const formatDecimals = (_format.match(/#/g) || []).length;
   const formatIsCurrency = _format.includes("$");
   const formatOrShow = (v: typeof children) => {
-    if (Number(v) < 1 / 10 ** formatDecimals && !(Number(v) <= 0))
-      return `<${`${formatIsCurrency ? "$" : ""}0.${"0".repeat(formatDecimals - 1)}1`}`;
+    if (Number(v) < 1 / 10 ** formatDecimals && !(Number(v) <= 0) && formatDecimals > 0)
+      return `<${`${formatIsCurrency ? "$" : ""}0.${"0".repeat(Math.max(formatDecimals - 1))}1`}`;
     return format(v, _format, { currency: "USD" });
   };
 

@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { Fragment } from "react";
 import { useTheme } from "../../context/Theme.context";
 import { mergeClass } from "../../utils/css";
-import type { Component } from "../../utils/types";
+import type { Component, GetSet } from "../../utils/types";
 import Box, { type BoxProps } from "../primitives/Box";
 import Divider from "../primitives/Divider";
 import EventBlocker from "../primitives/EventBlocker";
@@ -19,6 +19,7 @@ export interface MenuOptions {
 export interface MenuProps {
   options: { [optionKey: string]: MenuOptions };
   onSelect?: (optionKey: string) => void;
+  state?: GetSet<boolean>;
 }
 
 const divide = (element: JSX.Element, index: number, arr: JSX.Element[]) => (
@@ -62,7 +63,15 @@ export function SubMenu({ children, options, size, look, className }: Component<
   );
 }
 
-export default function Menu({ children, options, size, look, className, ...props }: Component<MenuProps & BoxProps>) {
+export default function Menu({
+  children,
+  state,
+  options,
+  size,
+  look,
+  className,
+  ...props
+}: Component<MenuProps & BoxProps>) {
   const { vars } = useTheme();
 
   const menu = useMemo(() => {
@@ -80,7 +89,7 @@ export default function Menu({ children, options, size, look, className, ...prop
   }, [options, size, look, className]);
 
   return (
-    <DropdownMenu.Root>
+    <DropdownMenu.Root open={state?.[0]}>
       <DropdownMenu.Trigger>{children}</DropdownMenu.Trigger>
 
       <DropdownMenu.Portal>
