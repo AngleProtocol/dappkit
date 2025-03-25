@@ -1,4 +1,4 @@
-import { type PropsWithChildren, type ReactNode, useMemo, useState } from "react";
+import { type PropsWithChildren, type ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { tv } from "tailwind-variants";
 import { mergeClass } from "../../utils/css";
 import type { Component, Styled } from "../../utils/types";
@@ -228,18 +228,61 @@ export function Table<T extends Columns>({
 }
 
 export function createTable<T extends Columns>(columns: T) {
-  const TemplateTable = (props: Omit<TableProps<T>, "columns"> & ListProps) =>
-    props.responsive ? (
-      <div className="w-full lg:mx-0 overflow-x-scroll">
-        <div className="min-w-fit w-full lg:w-auto lg:px-0">
-          {/* biome-ignore lint/suspicious/noExplicitAny: no reasons for it to have type errors */}
-          <Table size="lg" {...(props as any)} columns={columns} />
+  const TemplateTable = (props: Omit<TableProps<T>, "columns"> & ListProps) => {
+    const scrollableRef = useRef<HTMLDivElement>(null);
+    const [scrollStatus, setScrollStatus] = useState<"left" | "right" | "both" | "none">("none");
+
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+    useEffect(() => {
+      const scrollableElement = scrollableRef.current;
+
+      if (scrollableElement === null || typeof document === "undefined") return;
+
+      const onScroll = () => {
+        const isScrolledToLeft = scrollableElement.scrollLeft === 0;
+        const isScrolledToRight =
+          Math.abs(scrollableElement.scrollLeft + scrollableElement.clientWidth - scrollableElement.scrollWidth) <= 1;
+
+        if (scrollableElement.scrollWidth <= scrollableElement.clientWidth) setScrollStatus("none");
+        else if (isScrolledToLeft) setScrollStatus("left");
+        else if (isScrolledToRight) setScrollStatus("right");
+        else setScrollStatus("both");
+      };
+
+      onScroll();
+
+      scrollableElement.addEventListener("scroll", onScroll);
+      window.addEventListener("resize", onScroll);
+
+      // Clean up the event listener when the component unmounts
+      return () => {
+        scrollableElement.removeEventListener("scroll", onScroll);
+        window.removeEventListener("resize", onScroll);
+      };
+    }, [scrollableRef]);
+
+    return props.responsive ? (
+      <div className="w-full lg:mx-0 relative overflow-x-auto">
+        <div
+          data-scroll={scrollStatus}
+          className="data-[scroll=left]:opacity-0 data-[scroll=none]:opacity-0 transition duration-150 ease-out absolute inset-y-0 left-0 w-4 bg-gradient-to-r from-main-1 to-main-0"
+        />
+        <div
+          data-scroll={scrollStatus}
+          className="data-[scroll=right]:opacity-0 data-[scroll=none]:opacity-0 transition duration-150 ease-out absolute inset-y-0 right-0 w-4 bg-gradient-to-l from-main-1 to-main-0"
+        />
+        <div className="w-full lg:mx-0 overflow-x-auto" ref={scrollableRef}>
+          <div className="min-w-fit w-full lg:w-auto lg:px-0">
+            {/* biome-ignore lint/suspicious/noExplicitAny: no reasons for it to have type errors */}
+            <Table size="lg" {...(props as any)} columns={columns} />
+          </div>
         </div>
       </div>
     ) : (
       /* biome-ignore lint/suspicious/noExplicitAny: no reasons for it to have type errors */
       <Table size="lg" {...(props as any)} columns={columns} />
     );
+  };
 
   // biome-ignore lint/suspicious/noExplicitAny: no reasons for it to have type errors
   const TemplateRow = (props: Omit<RowProps<T>, "columns">) => <Row {...(props as any)} columns={columns} />;

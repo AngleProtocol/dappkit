@@ -71,7 +71,7 @@ export default function WalletButton({ select, connect, status, hideSpyMode = fa
         {status || (
           <Button look="hype" size="lg" className="w-full justify-center">
             <Icon className="text-main-11 h-md*2 w-md*2" src={connectedChain?.icon} />
-            {Fmt.address(address, "short")}
+            {Fmt.address(address, "prefix")}
           </Button>
         )}
       </Dropdown>

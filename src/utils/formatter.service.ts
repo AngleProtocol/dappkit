@@ -7,7 +7,7 @@ export class FormatterService {
       case "short":
         return `${value?.slice(0, 2 + 5)}...${value?.slice(-5)}`;
       case "prefix":
-        return value?.slice(0, 5);
+        return value?.slice(0, 7);
       default:
         return value;
     }
