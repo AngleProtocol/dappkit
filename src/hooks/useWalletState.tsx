@@ -6,6 +6,7 @@ import { type Config, useAccount, useConfig, useConnect, useDisconnect } from "w
 import type { Chain, Explorer } from "@merkl/api";
 import { http, type WalletClient, createPublicClient, createWalletClient, custom } from "viem";
 import { type SendTransactionParameters, eip712WalletActions, zksync } from "viem/zksync";
+import useSafe from "./useSafe";
 
 export type WalletOptions = {
   sponsorTransactions?: boolean;
@@ -18,6 +19,8 @@ export type WalletOptions = {
 };
 
 export default function useWalletState(chains: (Chain & { explorers: Explorer[] })[], options?: WalletOptions) {
+  useSafe();
+
   const config = useConfig<Config>();
   const wagmiConnect = useConnect();
   const wagmiDisconnect = useDisconnect();

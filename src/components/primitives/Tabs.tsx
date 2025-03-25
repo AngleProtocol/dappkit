@@ -34,6 +34,7 @@
 import { Link, useLocation } from "@remix-run/react";
 
 import type { ReactNode } from "react";
+import React from "react";
 import { type VariantProps, tv } from "tailwind-variants";
 import useThemableProps from "../../hooks/theming/useThemableProps";
 import { mergeClass } from "../../utils/css";
@@ -41,7 +42,6 @@ import type { Component, Styled, Themable } from "../../utils/types";
 import Group from "../extenders/Group";
 import Box from "./Box";
 import EventBlocker from "./EventBlocker";
-import React from "react";
 
 export const tabsStyles = tv(
   {

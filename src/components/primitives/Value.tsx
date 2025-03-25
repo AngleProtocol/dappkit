@@ -37,7 +37,15 @@ export default function Value({
   fallback,
   ...props
 }: ValueProps) {
-  if (value) return format(children, _format, { currency: "USD" });
+  const formatDecimals = (_format.match(/#/g) || []).length;
+  const formatIsCurrency = _format.includes("$");
+  const formatOrShow = (v: typeof children) => {
+    if (Number(v) < 1 / 10 ** formatDecimals)
+      return `<${`${formatIsCurrency ? "$" : ""}0.${"0".repeat(formatDecimals - 1)}1`}`;
+    return format(v, _format, { currency: "USD" });
+  };
+
+  if (value) return formatOrShow(children);
   return (
     <p className={mergeClass(valueStyles({ size, look }), className)} {...props}>
       {children != null && (fallback?.(children) || format(children, _format, { currency: "USD" }))}
