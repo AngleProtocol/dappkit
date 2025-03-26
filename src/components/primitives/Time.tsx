@@ -10,8 +10,6 @@ export type TimeProps = {
 export default function Time({ timestamp, prefix }: TimeProps) {
   const time = useMemo(() => {
     const targetTime = moment(Number(timestamp));
-    const isPast = targetTime.isBefore(moment());
-
     const then = targetTime
       .fromNow()
       .replace(/in\s/, prefix ? `${prefix} ` : "End in ")
@@ -22,7 +20,7 @@ export default function Time({ timestamp, prefix }: TimeProps) {
       .replace(/\bday(s?)\b/g, (_match, plural) => (plural ? "days" : "day"))
       .replace(/\bmonth(s?)\b/g, (_match, plural) => (plural ? "months" : "month"));
 
-    return isPast ? `Ended ${then}` : then;
+    return then;
   }, [timestamp, prefix]);
 
   return time;
