@@ -45,6 +45,7 @@ export type ButtonProps = Component<
       external?: boolean;
       className?: string;
       type?: "button" | "submit" | "reset";
+      onLink?: () => void;
       bold?: boolean;
       disabled?: boolean;
     },
@@ -59,6 +60,7 @@ export default function Button({
   theme,
   className,
   bold,
+  onLink,
   children,
   external,
   disabled,
@@ -76,7 +78,10 @@ export default function Button({
         rel="noopener noreferrer"
         aria-disabled={disabled}
         tabIndex={disabled ? -1 : undefined}
-        onClick={() => window.open(to, "_blank", "noopener noreferrer")}
+        onClick={() => {
+          onLink?.();
+          return window.open(to, "_blank", "noopener noreferrer");
+        }}
         className={mergeClass(styleProps, styleBold, className, disabled && "disabled")}>
         {children}
       </a>
@@ -88,6 +93,9 @@ export default function Button({
         <Link
           prefetch="intent"
           to={to}
+          onClick={() => {
+            onLink?.();
+          }}
           aria-disabled={disabled}
           tabIndex={disabled ? -1 : undefined}
           className={mergeClass(styleProps, styleBold, className, disabled && "disabled")}

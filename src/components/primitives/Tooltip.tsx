@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
 import * as RadixTooltip from "@radix-ui/react-tooltip";
+import { useEffect, useState } from "react";
 import { useTheme } from "../../context/Theme.context";
 import type { Component } from "../../utils/types";
 import Text from "../primitives/Text";
@@ -9,9 +9,10 @@ export type TooltipProps = Component<{
   helper: string | React.ReactNode;
   icon?: boolean;
   className?: string;
+  onOpen?: () => void;
 }>;
 
-export default function Tooltip({ helper, children, icon = true, className }: TooltipProps) {
+export default function Tooltip({ helper, onOpen, children, icon = true, className }: TooltipProps) {
   const { vars } = useTheme();
   const [open, setOpen] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
@@ -25,7 +26,10 @@ export default function Tooltip({ helper, children, icon = true, className }: To
     <RadixTooltip.Provider delayDuration={0}>
       <RadixTooltip.Root
         open={isTouchDevice ? open : undefined}
-        onOpenChange={isTouchDevice ? setOpen : undefined}
+        onOpenChange={isOpen => {
+          if (isTouchDevice) setOpen(isOpen);
+          if (isOpen) onOpen?.();
+        }}
         delayDuration={0}>
         <RadixTooltip.Trigger asChild>
           {/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
