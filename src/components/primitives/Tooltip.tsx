@@ -18,6 +18,7 @@ export default function Tooltip({ helper, onOpen, children, icon = true, classNa
   const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   useEffect(() => {
+    if (typeof document === "undefined") return;
     if (!("ontouchstart" in window)) return;
     setIsTouchDevice(true);
   }, []);
