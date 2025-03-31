@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import * as RadixTooltip from "@radix-ui/react-tooltip";
 import { useTheme } from "../../context/Theme.context";
 import type { Component } from "../../utils/types";
@@ -12,12 +13,26 @@ export type TooltipProps = Component<{
 
 export default function Tooltip({ helper, children, icon = true, className }: TooltipProps) {
   const { vars } = useTheme();
+  const [open, setOpen] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  useEffect(() => {
+    if (!("ontouchstart" in window)) return;
+    const checkTouch = () => setIsTouchDevice(true);
+    checkTouch();
+    window.addEventListener("resize", checkTouch);
+    return () => window.removeEventListener("resize", checkTouch);
+  }, []);
 
   return (
     <RadixTooltip.Provider delayDuration={0}>
-      <RadixTooltip.Root>
+      <RadixTooltip.Root
+        open={isTouchDevice ? open : undefined}
+        onOpenChange={isTouchDevice ? setOpen : undefined}
+        delayDuration={0}>
         <RadixTooltip.Trigger asChild>
-          <span className="flex items-center gap-sm">
+          {/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
+          <span className="flex items-center gap-sm" onClick={isTouchDevice ? () => setOpen(prev => !prev) : undefined}>
             <div>{children}</div>
             {!!icon && <Icon className="text-main-12" remix="RiQuestionFill" alt="Tooltip" />}
           </span>
