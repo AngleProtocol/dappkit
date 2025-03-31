@@ -18,10 +18,7 @@ export default function Tooltip({ helper, children, icon = true, className }: To
 
   useEffect(() => {
     if (!("ontouchstart" in window)) return;
-    const checkTouch = () => setIsTouchDevice(true);
-    checkTouch();
-    window.addEventListener("resize", checkTouch);
-    return () => window.removeEventListener("resize", checkTouch);
+    setIsTouchDevice(true);
   }, []);
 
   return (
