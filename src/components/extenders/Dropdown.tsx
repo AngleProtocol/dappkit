@@ -13,6 +13,7 @@ export type DropdownProps = Component<
     state?: GetSet<boolean>;
     content?: ReactNode;
     onHover?: boolean;
+    onOpen?: () => void;
     children?: ReactNode;
   },
   HTMLButtonElement
@@ -23,6 +24,7 @@ export default function Dropdown({
   state,
   padding,
   content,
+  onOpen,
   children,
   className,
   onHover = false,
@@ -72,7 +74,12 @@ export default function Dropdown({
 
   return (
     <EventBlocker>
-      <Popover.Root open={!state ? internalState : state?.[0]} onOpenChange={!state ? setInternalState : state?.[1]}>
+      <Popover.Root
+        open={!state ? internalState : state?.[0]}
+        onOpenChange={o => {
+          onOpen?.();
+          return !state ? setInternalState(o) : state?.[1]?.(o);
+        }}>
         <Popover.Trigger
           className={className}
           onClick={toggle}

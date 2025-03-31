@@ -8,14 +8,15 @@ export type TooltipProps = Component<{
   helper: string | React.ReactNode;
   icon?: boolean;
   className?: string;
+  onOpen?: () => void;
 }>;
 
-export default function Tooltip({ helper, children, icon = true, className }: TooltipProps) {
+export default function Tooltip({ helper, onOpen, children, icon = true, className }: TooltipProps) {
   const { vars } = useTheme();
 
   return (
     <RadixTooltip.Provider delayDuration={0}>
-      <RadixTooltip.Root>
+      <RadixTooltip.Root onOpenChange={open => open && onOpen?.()}>
         <RadixTooltip.Trigger asChild>
           <span className="flex items-center gap-sm">
             <div>{children}</div>

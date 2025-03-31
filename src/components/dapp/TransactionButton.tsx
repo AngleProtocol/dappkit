@@ -19,6 +19,7 @@ export type TransactionButtonProps = ButtonProps & {
   onExecute?: (hash: string) => void;
   onSuccess?: (hash: string) => void;
   onError?: (hash: string) => void;
+  onClick?: () => void;
 };
 
 export default function TransactionButton({
@@ -27,6 +28,7 @@ export default function TransactionButton({
   children,
   onExecute,
   onSuccess,
+  onClick,
   enableSponsorCheckbox,
   iconProps,
   onError,
@@ -44,6 +46,7 @@ export default function TransactionButton({
   const execute = useCallback(async () => {
     if (!tx || !user || !client) return;
 
+    onClick?.();
     const notification = new Notifier({
       title: name,
       subtitle: "Sign transaction in your wallet",
@@ -137,7 +140,7 @@ export default function TransactionButton({
         loading: false,
       });
     }
-  }, [tx, client, user, sendTransaction, onExecute, onSuccess, onError, name]);
+  }, [tx, client, user, sendTransaction, onExecute, onSuccess, onError, name, onClick]);
 
   //TODO: remove hardcoded chainId check in favor of more integrated and generic implem
   if (enableSponsorCheckbox && chainId === 324)

@@ -138,6 +138,7 @@ export type SelectProps<Value> = Component<{
   displayOptions?: { [key: string | number | symbol]: ReactNode };
   searchOptions?: { [key: string | number | symbol]: ReactNode };
   indexOptions?: { [key: string | number | symbol]: number };
+  onOpen?: () => void;
   error?: ReactNode;
 }> &
   RadixSelect.SelectProps;
@@ -162,6 +163,7 @@ export default function Select<
   loading,
   allOption,
   placeholder,
+  onOpen,
   className,
   defaultValue,
   error,
@@ -260,7 +262,7 @@ export default function Select<
       setValue={value => {
         setSearch(value);
       }}
-    >
+      setOpen={o => o && onOpen?.()}>
       <Ariakit.SelectProvider
         setValue={v => setValue(v as Value)}
         value={value as string}
