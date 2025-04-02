@@ -31,7 +31,7 @@
  * - to: Default navigation path
  */
 
-import { Link, useLocation } from "@remix-run/react";
+import { Link, useLocation } from "react-router";
 
 import type { ReactNode } from "react";
 import React from "react";
