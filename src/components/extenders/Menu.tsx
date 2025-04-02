@@ -116,7 +116,7 @@ export default function Menu({
 }: Component<MenuProps & BoxProps>) {
   const { vars } = useTheme();
 
-  const menuDesktop = useMemo(() => {
+  const desktopMenuItems = useMemo(() => {
     return Object.entries(options)
       .map(([key, { label, options: subOptions }]) => {
         if (subOptions && Object.keys(subOptions).length > 0)
@@ -130,7 +130,7 @@ export default function Menu({
       .map(divide);
   }, [options, size, look, className]);
 
-  const menuResponsiv = useMemo(() => {
+  const responsiveMenuItems = useMemo(() => {
     return Object.entries(options)
       .map(([key, { label, options: subOptions }]) => {
         if (subOptions && Object.keys(subOptions).length > 0)
@@ -157,12 +157,12 @@ export default function Menu({
             look={look || "soft"}
             className={mergeClass("animate-drop text-main-12 bg-main-2 min-w-[24ch] m-lg", className)}
             {...props}>
-            {menuDesktop}
+            {desktopMenuItems}
           </Box>
         </EventBlocker>
       </DropdownMenu.Content>
     );
-  }, [options, size, look, className, vars, menuDesktop]);
+  }, [options, size, look, className, vars, desktopMenuItems]);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   const responsivMenu = useMemo(() => {
@@ -177,12 +177,12 @@ export default function Menu({
             look={look || "soft"}
             className={mergeClass("animate-drop text-main-12 bg-main-2 min-w-[100vw] min-h-[92vh] !rounded-0")}
             {...props}>
-            {menuResponsiv}
+            {responsiveMenuItems}
           </Box>
         </EventBlocker>
       </DropdownMenu.Content>
     );
-  }, [options, size, look, className, vars, menuDesktop]);
+  }, [options, size, look, className, vars, desktopMenuItems]);
 
   return (
     <DropdownMenu.Root open={state?.[0]}>
