@@ -1,4 +1,4 @@
-import { Link } from "@remix-run/react";
+import { Link } from "react-router";
 import { tv } from "tailwind-variants";
 import useThemedVariables from "../../hooks/theming/useThemedVariables";
 import { mergeClass } from "../../utils/css";
