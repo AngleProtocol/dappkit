@@ -164,7 +164,6 @@ export default function TransactionButton({
       </List>
     );
 
-  console.log({ status });
   return (
     <Button {...props} onClick={execute} disabled={status === "idle" ? props.disabled : true}>
       {status === "pending" ? (
