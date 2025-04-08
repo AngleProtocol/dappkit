@@ -82,7 +82,7 @@ export default function Button({
           tabIndex={disabled ? -1 : undefined}
           onClick={() => {
             onLink?.();
-            return window.open(to, "_blank", "noopener noreferrer");
+            return window.open(to, "_blank", "noopener,noreferrer");
           }}
           className={mergeClass(styleProps, styleBold, className, disabled && "disabled")}>
           {children}
