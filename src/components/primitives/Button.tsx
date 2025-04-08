@@ -72,18 +72,22 @@ export default function Button({
 
   if (to && external)
     return (
-      <a
-        href={to}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-disabled={disabled}
-        tabIndex={disabled ? -1 : undefined}
-        onClick={() => {
-          onLink?.();
-        }}
-        className={mergeClass(styleProps, styleBold, className, disabled && "disabled")}>
-        {children}
-      </a>
+      <EventBlocker>
+        <Link
+          prefetch="intent"
+          to={to}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-disabled={disabled}
+          tabIndex={disabled ? -1 : undefined}
+          onClick={() => {
+            onLink?.();
+            return window.open(to, "_blank", "noopener noreferrer");
+          }}
+          className={mergeClass(styleProps, styleBold, className, disabled && "disabled")}>
+          {children}
+        </Link>
+      </EventBlocker>
     );
 
   if (to) {
