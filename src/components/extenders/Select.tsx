@@ -263,10 +263,7 @@ export default function Select<
         setSearch(value);
       }}
       setOpen={o => o && onOpen?.()}>
-      <Ariakit.SelectProvider
-        setValue={v => setValue(v as Value)}
-        value={value as string}
-        defaultValue={multiple ? [] : undefined}>
+      <Ariakit.SelectProvider setValue={v => setValue(v as Value)} value={value as string} defaultValue="">
         <Ariakit.Select className={mergeClass(base(), className)}>
           <div className={valueStyle()}>{label}</div>
           <div className={icon()}>
