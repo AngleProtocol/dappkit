@@ -48,7 +48,7 @@ export default function Modal({
         <Dialog.Content
           style={{
             ...vars,
-            "--modal-zIndex": "50",
+            "--modal-zIndex": "25",
             zIndex: "var(--modal-zIndex)",
           }}
           className={mergeClass(
