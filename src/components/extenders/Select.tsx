@@ -1,7 +1,7 @@
 import * as Ariakit from "@ariakit/react";
 import type * as RadixSelect from "@radix-ui/react-select";
 import { matchSorter } from "match-sorter";
-import { type ReactNode, useCallback, useMemo, useState } from "react";
+import { type ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { tv } from "tailwind-variants";
 import { mergeClass } from "../..";
 import type { Component, GetSet, Variant } from "../../utils/types";
@@ -140,6 +140,7 @@ export type SelectProps<Value> = Component<{
   indexOptions?: { [key: string | number | symbol]: number };
   onOpen?: () => void;
   error?: ReactNode;
+  allowCustomValue?: boolean;
 }> &
   RadixSelect.SelectProps;
 
@@ -168,6 +169,7 @@ export default function Select<
   defaultValue,
   error,
   onChange,
+  allowCustomValue = false,
   ..._props
 }: SelectProps<Value> & { multiple?: Multiple }) {
   const [internal, setInternal] = useState<Value>();
@@ -197,7 +199,7 @@ export default function Select<
     [setter, onChange],
   );
 
-  const [searchInput, setSearch] = useState<string>();
+  const [searchInput, setSearchInput] = useState<string>();
 
   const matches = useMemo(() => {
     if (!search || !searchInput || searchInput === "")
@@ -229,13 +231,16 @@ export default function Select<
   }, [options, searchOptions, indexOptions, searchInput, search]);
 
   const label = useMemo(() => {
-    if (
-      value &&
-      (typeof value === "number" || typeof value === "string" || typeof value === "symbol") &&
-      options?.[value]
-    )
-      return options?.[value];
-    if (typeof value === "object" && value?.length > 0)
+    if (value && (typeof value === "number" || typeof value === "string" || typeof value === "symbol")) {
+      if (options?.[value]) return options[value];
+      if (displayOptions?.[value]) return displayOptions[value];
+
+      // If allowCustomValue, just show the raw value
+      if (allowCustomValue) {
+        return <Text className={mergeClass(prefixLabel(), "text-main-12")}>{String(value)}</Text>;
+      }
+    }
+    if (Array.isArray(value) && value.length > 0)
       return (
         <>
           <Text
@@ -254,14 +259,27 @@ export default function Select<
         {placeholder}
       </>
     );
-  }, [options, value, placeholder, prefixLabel, placeholderIcon]);
+  }, [options, displayOptions, value, placeholder, prefixLabel, placeholderIcon, allowCustomValue]);
+
+  const handleInputValueChange = (inputValue: string) => {
+    setSearchInput(inputValue);
+    if (allowCustomValue && inputValue && !options?.[inputValue as T]) {
+      // Custom value entered, update form state
+      setValue(inputValue as Value);
+    }
+  };
+
+  useEffect(() => {
+    if (getter === undefined && internal !== undefined) {
+      setInternal(undefined);
+      setSearchInput(undefined);
+    }
+  }, [getter, internal]);
 
   return (
     <Ariakit.ComboboxProvider
       // resetValueOnHide
-      setValue={value => {
-        setSearch(value);
-      }}
+      setValue={handleInputValueChange}
       setOpen={o => o && onOpen?.()}>
       <Ariakit.SelectProvider setValue={v => setValue(v as Value)} value={value as string} defaultValue="">
         <Ariakit.Select className={mergeClass(base(), className)}>
@@ -276,7 +294,7 @@ export default function Select<
               <div className="combobox-wrapper">
                 <Ariakit.Combobox
                   autoSelect
-                  placeholder="Search..."
+                  placeholder={allowCustomValue ? "Search or enter new value" : "Search..."}
                   className={mergeClass(inputStyles({ size: "sm", look: "base" }), "w-full", !search && "hidden")}
                 />
               </div>
