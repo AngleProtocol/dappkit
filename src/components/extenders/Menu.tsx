@@ -8,7 +8,6 @@ import type { Component, GetSet } from "../../utils/types";
 import Box, { type BoxProps } from "../primitives/Box";
 import Collapsible from "../primitives/Collapsible";
 import Divider from "../primitives/Divider";
-import EventBlocker from "../primitives/EventBlocker";
 import Icon from "../primitives/Icon";
 import Space from "../primitives/Space";
 import Text from "../primitives/Text";
