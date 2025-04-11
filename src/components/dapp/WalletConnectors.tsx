@@ -50,7 +50,7 @@ export default function WalletConnectors({
             <Button
               look="base"
               onClick={() => {
-                onConnect(connector.id);
+                onConnect?.(connector.id);
                 return connect(connector.id);
               }}
               size="xl"
