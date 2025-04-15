@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { tv } from "tailwind-variants";
 import useDebounce from "../../hooks/useDebounce";
 import { mergeClass } from "../../utils/css";
@@ -179,6 +179,7 @@ export default function PaginatedSelect({
   }, []);
 
   useEffect(() => {
+    console.log("RELEASED");
     onSearchProps?.(debouncedSearch);
   }, [debouncedSearch, onSearchProps]);
 
@@ -223,14 +224,19 @@ export default function PaginatedSelect({
     scrollRef.current?.release();
   }, [debouncedSearch]);
 
-  const toggleModal = useCallback(() => setIsModalOpen(prev => !prev), []);
+  const toggleModal = useCallback(() => setIsModalOpenWrapper(!isModalOpen), [isModalOpen]);
+
+  const setIsModalOpenWrapper = useCallback((bool: boolean) => {
+    setSearch("");
+    setIsModalOpen(bool);
+  }, []);
   return (
     <>
       <Modal
-        state={[isModalOpen, setIsModalOpen]}
+        state={[isModalOpen, setIsModalOpenWrapper]}
         title={<Text look="bold">Select a token</Text>}
         modal={
-          <Group className={mergeClass("h-[65vh]")}>
+          <Group className={mergeClass("h-[65vh] overflow-y-hidden")}>
             <Input
               type={"string"}
               state={[search, onSearch]}
