@@ -223,27 +223,30 @@ export default function PaginatedSelect({
     scrollRef.current?.release();
   }, [debouncedSearch]);
 
+  const toggleModal = useCallback(() => setIsModalOpen(prev => !prev), []);
   return (
-    <Modal
-      state={[isModalOpen, setIsModalOpen]}
-      title={<Text look="bold">Select a token</Text>}
-      modal={
-        <Group className={mergeClass("h-[65vh]")}>
-          <Input
-            type={"string"}
-            state={[search, onSearch]}
-            placeholder={"Search a token"}
-            className="w-full h-[fit-content]"
-            size="lg"
-            prefix={<Icon remix="RiSearch2Line" />}
-          />
-          <InfiniteScroll onNext={onNext} ref={scrollRef}>
-            <div className="overflow-y-auto w-full h-full">{renderOptions}</div>
-          </InfiniteScroll>
-        </Group>
-      }>
+    <>
+      <Modal
+        state={[isModalOpen, setIsModalOpen]}
+        title={<Text look="bold">Select a token</Text>}
+        modal={
+          <Group className={mergeClass("h-[65vh]")}>
+            <Input
+              type={"string"}
+              state={[search, onSearch]}
+              placeholder={"Search a token"}
+              className="w-full h-[fit-content]"
+              size="lg"
+              prefix={<Icon remix="RiSearch2Line" />}
+            />
+            <InfiniteScroll onNext={onNext} ref={scrollRef}>
+              <div className="overflow-y-auto w-full h-full">{renderOptions}</div>
+            </InfiniteScroll>
+          </Group>
+        }
+      />
       <Group className={mergeClass("w-full", className)}>
-        <Group className={mergeClass(base(), "w-full h-[58px]")}>
+        <Group className={mergeClass(base(), "w-full h-[58px]")} onClick={toggleModal}>
           <Group className={valueStyle()}>
             {!selectedValueDisplay && <Group>{prefix}</Group>}
             <Text>{selectedValueDisplay ?? placeholder}</Text>
@@ -252,6 +255,6 @@ export default function PaginatedSelect({
         </Group>
         {error}
       </Group>
-    </Modal>
+    </>
   );
 }

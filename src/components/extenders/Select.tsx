@@ -268,89 +268,91 @@ export default function Select<
         setSearch(value);
       }}
       setOpen={o => o && onOpen?.()}>
-      <Ariakit.SelectProvider
-        setValue={v => setValue(v as Value)}
-        value={value as string}
-        defaultValue={multiple ? [] : undefined}>
-        <Ariakit.Select className={mergeClass(base(), className)}>
-          <div className={valueStyle()}>{label}</div>
-          <div className={icon()}>
-            {loading ? <Icon className="animate-spin" remix="RiLoader4Fill" /> : <Icon remix="RiArrowDropDownLine" />}
-          </div>
-        </Ariakit.Select>
-        <Ariakit.SelectPopover gutter={4} className={dropdown()}>
-          <Box look="bold" size="sm" content="sm">
-            {search && (
-              <div className="combobox-wrapper">
-                <Ariakit.Combobox
-                  autoSelect
-                  placeholder="Search..."
-                  className={mergeClass(inputStyles({ size: "sm", look: "base" }), "w-full", !search && "hidden")}
-                />
-              </div>
-            )}
-            <Scroll vertical className="max-h-[200px] w-full max-w-[90vw] lg:max-w-full">
-              <Ariakit.ComboboxList>
-                {allOption && !searchInput && (
-                  <Ariakit.SelectItem
-                    className={mergeClass(item())}
-                    onClick={() =>
-                      // biome-ignore lint/suspicious/noExplicitAny: template makes this typing difficult even tough it works
-                      setValue((!!multiple ? [] : undefined) as any as Value)
-                    }
-                    render={
-                      <Ariakit.ComboboxItem
-                        children={[
-                          <Group className="flex-nowrap" key="label">
-                            {allOption}
-                          </Group>,
-                          <Icon
-                            key="select"
-                            className={mergeClass(
-                              check(),
-                              !((typeof value === "object" && value?.length === 0) || value === undefined) &&
-                                "opacity-0",
-                            )}
-                            size="sm"
-                            remix="RiCheckFill"
-                          />,
-                        ]}
-                      />
-                    }
+      <Group className={mergeClass("flex-col", className)} size={"xs"}>
+        <Ariakit.SelectProvider
+          setValue={v => setValue(v as Value)}
+          value={value as string}
+          defaultValue={multiple ? [] : undefined}>
+          <Ariakit.Select className={mergeClass(base(), className)}>
+            <div className={valueStyle()}>{label}</div>
+            <div className={icon()}>
+              {loading ? <Icon className="animate-spin" remix="RiLoader4Fill" /> : <Icon remix="RiArrowDropDownLine" />}
+            </div>
+          </Ariakit.Select>
+          <Ariakit.SelectPopover gutter={4} className={dropdown()}>
+            <Box look="bold" size="sm" content="sm">
+              {search && (
+                <div className="combobox-wrapper">
+                  <Ariakit.Combobox
+                    autoSelect
+                    placeholder="Search..."
+                    className={mergeClass(inputStyles({ size: "sm", look: "base" }), "w-full", !search && "hidden")}
                   />
-                )}
-                {matches?.map(_value => (
-                  <Ariakit.SelectItem
-                    key={_value as string}
-                    value={_value as string}
-                    className={mergeClass(item())}
-                    render={
-                      <Ariakit.ComboboxItem
-                        children={[
-                          <Group className="flex-wrap" key="label">
-                            {displayOptions?.[_value as string] ?? options?.[_value as string]}
-                          </Group>,
-                          <Icon
-                            key="select"
-                            className={mergeClass(
-                              check(),
-                              !((typeof value === "object" && value?.includes(_value as T)) || value === _value) &&
-                                "opacity-0",
-                            )}
-                            size="sm"
-                            remix="RiCheckFill"
-                          />,
-                        ]}
-                      />
-                    }
-                  />
-                ))}
-              </Ariakit.ComboboxList>
-            </Scroll>
-          </Box>
-        </Ariakit.SelectPopover>
-      </Ariakit.SelectProvider>
-      {error}
+                </div>
+              )}
+              <Scroll vertical className="max-h-[200px] w-full max-w-[90vw] lg:max-w-full">
+                <Ariakit.ComboboxList>
+                  {allOption && !searchInput && (
+                    <Ariakit.SelectItem
+                      className={mergeClass(item())}
+                      onClick={() =>
+                        // biome-ignore lint/suspicious/noExplicitAny: template makes this typing difficult even tough it works
+                        setValue((!!multiple ? [] : undefined) as any as Value)
+                      }
+                      render={
+                        <Ariakit.ComboboxItem
+                          children={[
+                            <Group className="flex-nowrap" key="label">
+                              {allOption}
+                            </Group>,
+                            <Icon
+                              key="select"
+                              className={mergeClass(
+                                check(),
+                                !((typeof value === "object" && value?.length === 0) || value === undefined) &&
+                                  "opacity-0",
+                              )}
+                              size="sm"
+                              remix="RiCheckFill"
+                            />,
+                          ]}
+                        />
+                      }
+                    />
+                  )}
+                  {matches?.map(_value => (
+                    <Ariakit.SelectItem
+                      key={_value as string}
+                      value={_value as string}
+                      className={mergeClass(item())}
+                      render={
+                        <Ariakit.ComboboxItem
+                          children={[
+                            <Group className="flex-wrap" key="label">
+                              {displayOptions?.[_value as string] ?? options?.[_value as string]}
+                            </Group>,
+                            <Icon
+                              key="select"
+                              className={mergeClass(
+                                check(),
+                                !((typeof value === "object" && value?.includes(_value as T)) || value === _value) &&
+                                  "opacity-0",
+                              )}
+                              size="sm"
+                              remix="RiCheckFill"
+                            />,
+                          ]}
+                        />
+                      }
+                    />
+                  ))}
+                </Ariakit.ComboboxList>
+              </Scroll>
+            </Box>
+          </Ariakit.SelectPopover>
+        </Ariakit.SelectProvider>
+        {error}
+      </Group>
     </Ariakit.ComboboxProvider>
   );
 }
