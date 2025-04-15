@@ -37,7 +37,7 @@ export default function Value({
   fallback,
   ...props
 }: ValueProps) {
-  const formatDecimals = (_format.match(/#/g) || []).length;
+  const formatDecimals = (_format.match(/#/g) || []).length + (_format.includes("%") ? 2 : 0);
   const formatIsCurrency = _format.includes("$");
   const formatOrShow = (v: typeof children) => {
     if (Number(v) < 1 / 10 ** formatDecimals && !(Number(v) <= 0) && formatDecimals > 0)
