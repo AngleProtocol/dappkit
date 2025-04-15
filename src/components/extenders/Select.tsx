@@ -186,7 +186,12 @@ export default function Select<
     size: size ?? "md",
   });
 
-  const value = useMemo(() => getter ?? internal ?? "", [getter, internal]);
+  const value = useMemo(() => {
+    if (!!getter) return getter;
+    if (!!internal) return internal;
+    if (!!multiple) return [];
+    return "";
+  }, [getter, internal, multiple]);
 
   const setValue = useCallback(
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>

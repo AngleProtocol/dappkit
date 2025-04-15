@@ -1,5 +1,3 @@
-import React from "react";
-
 /**
  * @Documentation
  * This component is used to create an infinite scroll effect.
@@ -46,60 +44,86 @@ import React from "react";
 	}, []);
  * 
  */
-export type IPagination = {
-  take: number;
-  skip: number;
-};
+import React from "react";
 
-type IProps = {
+export interface InfiniteScrollRef {
+  release: () => void;
+}
+
+export type IProps = {
   offset?: number;
   orientation?: "vertical" | "horizontal";
   /**
-   * @description
-   * If `onNext` is set to `null`, it indicates that there is no pagination and the infinite scroll effect will not be triggered.
+   * @description If `onNext` is set to `null`, it indicates that there is no pagination and the infinite scroll effect will not be triggered.
    */
   onNext?: ((release: () => void, reset?: () => void) => Promise<void> | void) | null;
   children: React.ReactElement;
 };
 
-export default function InfiniteScroll({ children, onNext, offset = 20, orientation = "vertical" }: IProps) {
-  const isWaiting = React.useRef<boolean>(false);
-  const elementRef = React.useRef<HTMLElement>();
+const InfiniteScroll = React.forwardRef<InfiniteScrollRef, IProps>(
+  ({ children, onNext, offset = 20, orientation = "vertical" }, ref) => {
+    const isWaiting = React.useRef<boolean>(false);
+    const elementRef = React.useRef<HTMLElement>();
 
-  const onChange = React.useCallback(() => {
-    if (!onNext) return;
-    const element = elementRef.current;
-    if (!element || isWaiting.current) return;
-    const { scrollTop, scrollLeft, clientHeight, clientWidth, scrollHeight, scrollWidth } = element;
-    let isChange = false;
+    // Expose a release method to the parent via the ref
+    React.useImperativeHandle(
+      ref,
+      () => ({
+        release: () => {
+          isWaiting.current = false;
+        },
+      }),
+      [],
+    );
 
-    if (orientation === "vertical") isChange = scrollTop + clientHeight >= scrollHeight - offset;
-    if (orientation === "horizontal") isChange = scrollLeft + clientWidth >= scrollWidth - offset;
+    const onChange = React.useCallback(() => {
+      if (!onNext) return;
+      const element = elementRef.current;
+      if (!element || isWaiting.current) return;
+      const { scrollTop, scrollLeft, clientHeight, clientWidth, scrollHeight, scrollWidth } = element;
+      let isChange = false;
 
-    if (isChange) {
-      isWaiting.current = true;
-      onNext(() => (isWaiting.current = false));
-    }
-  }, [onNext, offset, orientation]);
+      if (orientation === "vertical") {
+        isChange = scrollTop + clientHeight >= scrollHeight - offset;
+      }
+      if (orientation === "horizontal") {
+        isChange = scrollLeft + clientWidth >= scrollWidth - offset;
+      }
 
-  React.useEffect(() => onChange(), [onChange]);
+      if (isChange) {
+        isWaiting.current = true;
+        // We pass the release function to onNext. The parent can complete its async operation and then call release manually.
+        onNext(() => {
+          isWaiting.current = false;
+        });
+      }
+    }, [onNext, offset, orientation]);
 
-  React.useEffect(() => {
-    const observer = new MutationObserver(onChange);
-    elementRef.current && observer.observe(elementRef.current, { childList: true, subtree: true });
-    window.addEventListener("resize", onChange);
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("resize", onChange);
-    };
-  }, [onChange]);
+    React.useEffect(() => {
+      onChange();
+    }, [onChange]);
 
-  if (!onNext) return children;
+    React.useEffect(() => {
+      const observer = new MutationObserver(onChange);
+      if (elementRef.current) {
+        observer.observe(elementRef.current, { childList: true, subtree: true });
+      }
+      window.addEventListener("resize", onChange);
+      return () => {
+        observer.disconnect();
+        window.removeEventListener("resize", onChange);
+      };
+    }, [onChange]);
 
-  const clonedChild = React.cloneElement(children, {
-    onScroll: onChange,
-    ref: elementRef,
-  });
+    if (!onNext) return children;
 
-  return clonedChild;
-}
+    const clonedChild = React.cloneElement(children, {
+      onScroll: onChange,
+      ref: elementRef,
+    });
+
+    return clonedChild;
+  },
+);
+
+export default InfiniteScroll;

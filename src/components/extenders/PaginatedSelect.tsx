@@ -1,25 +1,21 @@
-import * as Popover from "@radix-ui/react-popover";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { tv } from "tailwind-variants";
-import { useTheme } from "../../context/Theme.context";
+import useDebounce from "../../hooks/useDebounce";
 import { mergeClass } from "../../utils/css";
 import type { GetSet, Variant } from "../../utils/types";
-import Box from "../primitives/Box";
-import EventBlocker from "../primitives/EventBlocker";
 import Icon from "../primitives/Icon";
-import InfiniteScroll from "../primitives/InfiniteScroll";
+import InfiniteScroll, { type InfiniteScrollRef } from "../primitives/InfiniteScroll";
 import Input from "../primitives/Input";
 import Text from "../primitives/Text";
 import Group from "./Group";
-import { blockEvent } from "../../utils/event";
+import Modal from "./Modal";
 
 const selectStyles = tv({
   base: [
     "rounded-sm ease flex items-center focus-visible:outline-main-12 !leading-none justify-between text-nowrap font-text font-normal",
   ],
   slots: {
-    dropdown:
-      "outline-0 z-50 origin-top animate-drop animate-stretch mt-sm min-w-[var(--popover-anchor-width)]",
+    dropdown: "outline-0 z-50 origin-top animate-drop animate-stretch mt-sm min-w-[var(--popover-anchor-width)]",
     item: "rounded-sm flex justify-between items-center gap-md cursor-pointer select-none p-sm outline-offset-0 outline-0 text-nowrap focus-visible:outline-main-12",
     icon: "flex items-center",
     value: "flex gap-sm items-center",
@@ -126,190 +122,136 @@ const selectStyles = tv({
   ],
 });
 
-
-type SelectProps<T> = {
+type SelectProps = {
   size?: Variant<typeof selectStyles, "size">;
   look?: Variant<typeof selectStyles, "look">;
   options: { [key in string | number | symbol]: React.ReactNode };
-  defaultValue?: T | T[];
+  defaultValue?: string;
   placeholder?: string;
   className?: string;
   loading?: boolean;
-  multiple?: boolean;
   onNext?: (release: () => void) => Promise<void> | void;
-  onSearch?: (search: string) => Promise<void>;
-  state: GetSet<T | T[] | undefined>;
+  onSearch?: (search: string, release?: () => void) => Promise<void>;
+  state: GetSet<string | undefined>;
+  prefix?: React.ReactNode;
+  error?: ReactNode;
 };
 
-export default function PaginatedSelect<T extends string | number>({
-  options,
-  defaultValue,
+export default function PaginatedSelect({
+  options: optionMap,
   placeholder = "Select...",
   look,
   size,
   className,
   state,
   loading,
-  multiple = false,
   onNext,
-  onSearch,
-}: SelectProps<T>) {
-  const {
-    base,
-    item,
-    value: valueStyle,
-  } = selectStyles({
+  onSearch: onSearchProps,
+  prefix,
+  error,
+}: SelectProps) {
+  const { base, value: valueStyle } = selectStyles({
     look: look ?? "base",
     size: size ?? "md",
   });
 
-  const [_isOpenSelect, setIsOpenSelect] = useState(false);
-  const [internalValue, setInternalValue] = useState<T | T[] | undefined>(
-    defaultValue
-  );
-  const selectedValue = state ? state[0] : internalValue;
-  const setSelectedValue = state ? state[1] : setInternalValue;
-
-  const handleSelect = (val: T) => {
-    if (multiple) {
-      const selected = Array.isArray(selectedValue) ? selectedValue : [];
-      const alreadySelected = selected.includes(val);
-      const newValue = alreadySelected
-        ? selected.filter((v) => v !== val)
-        : [...selected, val];
-      setSelectedValue(newValue);
-    } else {
-      setIsOpenSelect(false);
-      setSelectedValue(val);
-    }
-  };
-
-  const selectedLabel = (() => {
-    if (multiple && Array.isArray(selectedValue)) {
-      return selectedValue.length === 0
-        ? placeholder
-        : `${selectedValue.length} option${
-            selectedValue.length > 1 ? "s" : ""
-          } selected`;
-    }
-
-    if (!multiple && selectedValue !== undefined) {
-      return options[selectedValue as keyof typeof options];
-    }
-
-    return placeholder;
-  })();
-
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      setIsOpenSelect(false);
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  const isSelected = (key: T) => {
-    if (multiple && Array.isArray(selectedValue)) {
-      return selectedValue.includes(key);
-    }
-    return selectedValue === key;
-  };
-
   const [search, setSearch] = useState<string>("");
+  const debouncedSearch = useDebounce(search, 500);
+  const [selectedValue, setSelectedValue] = state;
 
-  const onSearchChange = useCallback(
-    (search: string | undefined) => {
-      onSearch?.(search);
-      setSearch(search);
+  const handleSelect = useCallback(
+    (key: string) => {
+      setIsModalOpen(false);
+      setSelectedValue(key);
     },
-    [onSearch]
+    [setSelectedValue],
   );
 
+  const isSelected = useCallback(
+    (key: string) => {
+      return selectedValue === key;
+    },
+    [selectedValue],
+  );
 
-  /*
-   */
-  const { vars } = useTheme();
-  const [internalState, setInternalState] = useState<boolean>(false);
-  const hideTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-
-  useEffect(() => {
-    if (!hideTimeout.current) return;
-    clearTimeout(hideTimeout.current);
+  const onSearch = useCallback((search: string) => {
+    setSearch(search);
   }, []);
 
-  const toggle = useCallback(
-    () =>
-      blockEvent(() => {
-        setInternalState(!internalState);
-      }),
-    [internalState, state]
-  );
+  useEffect(() => {
+    onSearchProps?.(debouncedSearch);
+  }, [debouncedSearch, onSearchProps]);
+
+  const selectedValueDisplay = useMemo(() => {
+    if (!selectedValue) return;
+    return <Group>{optionMap[selectedValue]}</Group>;
+  }, [selectedValue, optionMap]);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const renderOptions = useMemo(() => {
+    const options = Object.entries(optionMap);
+    if (!options.length) {
+      const baseText = !!debouncedSearch ? "No result found for " : "No result found ";
+      return (
+        <Text look="soft" className="block text-center mt-lg">
+          {baseText}
+          <Text look="bold" bold>
+            {debouncedSearch}
+          </Text>
+        </Text>
+      );
+    }
+    return options.map(([key, node]) => (
+      <Group
+        key={key}
+        onClick={() => handleSelect(key)}
+        className={mergeClass(
+          "cursor-pointer justify-start w-full py-lg px-xl hover:bg-main-5",
+          isSelected(key) && "bg-main-3",
+        )}
+        size="md">
+        {node}
+      </Group>
+    ));
+  }, [optionMap, debouncedSearch, handleSelect, isSelected]);
+
+  const scrollRef = useRef<InfiniteScrollRef>(null);
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: We release the infinite scroll when new debounced search is made
+  useEffect(() => {
+    scrollRef.current?.release();
+  }, [debouncedSearch]);
 
   return (
-    <EventBlocker className="w-full">
-      <Popover.Root
-        open={internalState}
-        onOpenChange={(o) => {
-          return setInternalState(o);
-        }}
-      >
-        <Popover.Trigger className={className} onClick={toggle}>
-          {
-            <Group className={mergeClass(base(), "w-full")}>
-              <Text className={valueStyle()}>
-                {selectedLabel ?? placeholder}
-              </Text>
-              <Group>
-                {loading ? (
-                  <Icon className="animate-spin" remix="RiLoader4Fill" />
-                ) : (
-                  <Icon remix="RiArrowDropDownLine" />
-                )}
-              </Group>
-            </Group>
-          }
-        </Popover.Trigger>
-        <Popover.Portal>
-          <Popover.Content
-            className="!pointer-events-auto w-[var(--radix-popover-trigger-width)]"
-            asChild
-            style={vars}
-          >
-            <EventBlocker>
-              <Box
-                look="bold"
-                className="mt-md shadow-md animate-drop z-20"
-              >
-                {
-                  <InfiniteScroll onNext={onNext}>
-                    <div className="max-h-[245px] overflow-y-auto w-full">
-                      <Input
-                        placeholder="Search..."
-                        state={[search, onSearchChange]}
-                        className="w-full"
-                      />
-                      {Object.entries(options).map(([key, node]) => (
-                        <Group
-                          key={key}
-                          onClick={() => handleSelect(key as T)}
-                          className={mergeClass(item(),
-                            "cursor-pointer justify-start w-full !truncate",
-                            isSelected(key as T) && "bg-main-3"
-                          )}
-                          size="md"
-                        >
-                          {node}
-                        </Group>
-                      ))}
-                    </div>
-                  </InfiniteScroll>
-                }
-              </Box>
-            </EventBlocker>
-          </Popover.Content>
-        </Popover.Portal>
-      </Popover.Root>
-    </EventBlocker>
+    <Modal
+      state={[isModalOpen, setIsModalOpen]}
+      title={<Text look="bold">Select a token</Text>}
+      modal={
+        <Group className={mergeClass("h-[65vh]")}>
+          <Input
+            type={"string"}
+            state={[search, onSearch]}
+            placeholder={"Search a token"}
+            className="w-full h-[fit-content]"
+            size="lg"
+            prefix={<Icon remix="RiSearch2Line" />}
+          />
+          <InfiniteScroll onNext={onNext} ref={scrollRef}>
+            <div className="overflow-y-auto w-full h-full">{renderOptions}</div>
+          </InfiniteScroll>
+        </Group>
+      }>
+      <Group className={mergeClass("w-full", className)}>
+        <Group className={mergeClass(base(), "w-full h-[58px]")}>
+          <Group className={valueStyle()}>
+            {!selectedValueDisplay && <Group>{prefix}</Group>}
+            <Text>{selectedValueDisplay ?? placeholder}</Text>
+          </Group>
+          <Group>{loading && <Icon className="animate-spin" remix="RiLoader4Fill" />}</Group>
+        </Group>
+        {error}
+      </Group>
+    </Modal>
   );
 }
