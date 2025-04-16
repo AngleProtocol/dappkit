@@ -184,16 +184,16 @@ Input.DateTime = function InputDateTime({
 
   const onHoursChange = useCallback(
     (e: string) => {
-      if (!date) return;
-      const newDate = new Date(date.getTime());
+      const currentDate = date ? new Date(date.getTime()) : new Date();
+
       let hours = Number.parseInt(e, 10);
       if (amPm === "pm" && hours < 12) {
         hours += 12;
       } else if (amPm === "am" && hours === 12) {
         hours = 0; // Midnight case
       }
-      newDate.setHours(hours, 0);
-      setDate(newDate);
+      currentDate.setHours(hours, 0);
+      setDate(currentDate);
     },
     [date, amPm, setDate],
   );
