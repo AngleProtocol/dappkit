@@ -15,11 +15,19 @@ import WalletConnectors from "./WalletConnectors";
 export type WalletButtonProps = ButtonProps & {
   select?: ReactNode;
   connect?: ReactNode;
+  onConnect?: (connectorId: string) => void;
   status?: ReactNode;
   hideSpyMode?: boolean;
 };
 
-export default function WalletButton({ select, connect, status, hideSpyMode = false, ...props }: WalletButtonProps) {
+export default function WalletButton({
+  select,
+  connect,
+  onConnect,
+  status,
+  hideSpyMode = false,
+  ...props
+}: WalletButtonProps) {
   const { address, disconnect, connected, connector, chainId, chains } = useWalletContext();
 
   const connectedChain = useMemo(() => {
@@ -32,7 +40,7 @@ export default function WalletButton({ select, connect, status, hideSpyMode = fa
       <Modal
         title="CONNECT WALLET"
         className="mx-auto w-full max-w-[500px]"
-        modal={<WalletConnectors hideSpyMode={hideSpyMode} />}>
+        modal={<WalletConnectors onConnect={onConnect} hideSpyMode={hideSpyMode} />}>
         {connect || (
           <Button look="hype" size="lg" {...props}>
             Connect

@@ -37,11 +37,12 @@ export default function Value({
   fallback,
   ...props
 }: ValueProps) {
-  const formatDecimals = (_format.match(/#/g) || []).length;
   const formatIsCurrency = _format.includes("$");
+  const formatIsPercentage = _format.includes("%");
+  const formatDecimals = (_format.match(/#/g) || []).length + (formatIsPercentage ? 2 : 0);
   const formatOrShow = (v: typeof children) => {
     if (Number(v) < 1 / 10 ** formatDecimals && !(Number(v) <= 0) && formatDecimals > 0)
-      return `<${`${formatIsCurrency ? "$" : ""}0.${"0".repeat(Math.max(formatDecimals - 1))}1`}`;
+      return `<${`${formatIsCurrency ? "$" : ""}0.${"0".repeat(Math.max(formatDecimals - 1))}1`}${formatIsPercentage ? "%" : ""}`;
     return format(v, _format, { currency: "USD" });
   };
 

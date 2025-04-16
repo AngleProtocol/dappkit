@@ -8,7 +8,6 @@ import type { Component, GetSet } from "../../utils/types";
 import Box, { type BoxProps } from "../primitives/Box";
 import Collapsible from "../primitives/Collapsible";
 import Divider from "../primitives/Divider";
-import EventBlocker from "../primitives/EventBlocker";
 import Icon from "../primitives/Icon";
 import Space from "../primitives/Space";
 import Text from "../primitives/Text";
@@ -151,7 +150,7 @@ export default function Menu({
         className="hidden !pointer-events-auto md:block md:animate-drop md:p-md"
         asChild
         style={vars}>
-        <EventBlocker>
+        <Group>
           <Box
             size={size || "lg"}
             look={look || "soft"}
@@ -159,7 +158,7 @@ export default function Menu({
             {...props}>
             {desktopMenuItems}
           </Box>
-        </EventBlocker>
+        </Group>
       </DropdownMenu.Content>
     );
   }, [options, size, look, className, vars, desktopMenuItems]);
@@ -171,7 +170,7 @@ export default function Menu({
         className="block !pointer-events-auto py-[20px] md:!hidden md:opacity-0"
         asChild
         style={vars}>
-        <EventBlocker>
+        <Group>
           <Box
             size={size || "lg"}
             look={look || "soft"}
@@ -179,7 +178,7 @@ export default function Menu({
             {...props}>
             {responsiveMenuItems}
           </Box>
-        </EventBlocker>
+        </Group>
       </DropdownMenu.Content>
     );
   }, [options, size, look, className, vars, desktopMenuItems]);

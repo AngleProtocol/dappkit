@@ -1,4 +1,4 @@
-import { Link } from "@remix-run/react";
+import { Link } from "react-router";
 import { type VariantProps, tv } from "tailwind-variants";
 import useThemableProps from "../../hooks/theming/useThemableProps";
 import { mergeClass } from "../../utils/css";
@@ -80,7 +80,7 @@ export default function Button({
         tabIndex={disabled ? -1 : undefined}
         onClick={() => {
           onLink?.();
-          return window.open(to, "_blank", "noopener noreferrer");
+          console.log(mergeClass(styleProps, styleBold, className, disabled && "disabled"));
         }}
         className={mergeClass(styleProps, styleBold, className, disabled && "disabled")}>
         {children}

@@ -12,7 +12,10 @@ import Image from "../primitives/Image";
 import Input from "../primitives/Input";
 import Text from "../primitives/Text";
 
-export default function WalletConnectors({ hideSpyMode = false }) {
+export default function WalletConnectors({
+  hideSpyMode = false,
+  onConnect,
+}: { hideSpyMode?: boolean; onConnect?: (connectorId: string) => void }) {
   const { config, connect, connector: _connected, hiddenInjectedWallets } = useWalletContext();
 
   const sortedConnectors = useMemo(
@@ -46,7 +49,10 @@ export default function WalletConnectors({ hideSpyMode = false }) {
           return (
             <Button
               look="base"
-              onClick={() => connect(connector.id)}
+              onClick={() => {
+                onConnect?.(connector.id);
+                return connect(connector.id);
+              }}
               size="xl"
               bold
               className="gap-sm*2"
