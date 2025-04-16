@@ -235,7 +235,7 @@ export default function PaginatedSelect({
         state={[isModalOpen, setIsModalOpenWrapper]}
         title={<Text look="bold">Select a token</Text>}
         modal={
-          <Group className={mergeClass("h-[65vh] overflow-y-hidden")}>
+          <Group className={mergeClass(" overflow-y-hidden")}>
             <Input
               type={"string"}
               state={[search, onSearch]}
@@ -245,7 +245,7 @@ export default function PaginatedSelect({
               prefix={<Icon remix="RiSearch2Line" />}
             />
             <InfiniteScroll onNext={onNext} ref={scrollRef}>
-              <div className="overflow-y-auto w-full h-full">{renderOptions}</div>
+              <div className="overflow-y-auto w-full h-[65vh]">{renderOptions}</div>
             </InfiniteScroll>
           </Group>
         }
