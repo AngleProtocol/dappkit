@@ -134,6 +134,7 @@ type SelectProps = {
   onSearch?: (search: string, release?: () => void) => Promise<void>;
   state: GetSet<string | undefined>;
   prefix?: React.ReactNode;
+  suffix?: React.ReactNode;
   error?: ReactNode;
 };
 
@@ -148,6 +149,7 @@ export default function PaginatedSelect({
   onNext,
   onSearch: onSearchProps,
   prefix,
+  suffix,
   error,
 }: SelectProps) {
   const { base, value: valueStyle } = selectStyles({
@@ -229,6 +231,12 @@ export default function PaginatedSelect({
     setSearch("");
     setIsModalOpen(bool);
   }, []);
+
+  const renderSuffix = useMemo(() => {
+    if (selectedValueDisplay) return null;
+    if (loading) return <Icon className="animate-spin" remix="RiLoader4Fill" />;
+    return suffix;
+  }, [suffix, loading, selectedValueDisplay]);
   return (
     <>
       <Modal
@@ -251,12 +259,12 @@ export default function PaginatedSelect({
         }
       />
       <Group className={mergeClass("w-full", className)}>
-        <Group className={mergeClass(base(), "w-full h-[58px]")} onClick={toggleModal}>
+        <Group className={mergeClass(base(), "w-full h-[58px] justify-between")} onClick={toggleModal}>
           <Group className={valueStyle()}>
             {!selectedValueDisplay && <Group>{prefix}</Group>}
             <Text>{selectedValueDisplay ?? placeholder}</Text>
           </Group>
-          <Group>{loading && <Icon className="animate-spin" remix="RiLoader4Fill" />}</Group>
+          <Group className="pr-md">{renderSuffix}</Group>
         </Group>
         {error}
       </Group>
