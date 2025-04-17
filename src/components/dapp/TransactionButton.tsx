@@ -20,6 +20,7 @@ export type TransactionButtonProps = ButtonProps & {
   onSuccess?: (hash: string) => void;
   onError?: (hash: string) => void;
   onClick?: () => void;
+  shouldResetOnSuccess?: boolean;
 };
 
 export default function TransactionButton({
@@ -32,6 +33,7 @@ export default function TransactionButton({
   enableSponsorCheckbox,
   iconProps,
   onError,
+  shouldResetOnSuccess,
   ...props
 }: TransactionButtonProps) {
   const [status, setStatus] = useState<"idle" | "pending" | "success">("idle");
@@ -43,6 +45,7 @@ export default function TransactionButton({
     sponsorTransactions,
     setSponsorTransactions,
   } = useWalletContext();
+
   const execute = useCallback(async () => {
     if (!tx || !user || !client) return;
 
@@ -129,6 +132,7 @@ export default function TransactionButton({
           state: "good",
           loading: false,
         });
+        if (!!shouldResetOnSuccess) setStatus("idle");
       }
     } catch (_error) {
       setStatus("idle");
@@ -140,7 +144,7 @@ export default function TransactionButton({
         loading: false,
       });
     }
-  }, [tx, client, user, sendTransaction, onExecute, onSuccess, onError, name, onClick]);
+  }, [tx, client, user, shouldResetOnSuccess, sendTransaction, onExecute, onSuccess, onError, name, onClick]);
 
   //TODO: remove hardcoded chainId check in favor of more integrated and generic implem
   if (enableSponsorCheckbox && chainId === 324)
@@ -159,6 +163,7 @@ export default function TransactionButton({
         }
       </List>
     );
+
   return (
     <Button {...props} onClick={execute} disabled={status === "idle" ? props.disabled : true}>
       {status === "pending" ? (

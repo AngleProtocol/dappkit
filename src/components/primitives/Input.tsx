@@ -64,10 +64,9 @@ export type InputProps<T = string> = Component<
 
 function Input({ look, size, state, inputClassName, className, ...props }: InputProps) {
   const { header, footer, prefix, suffix, label, hint, error, ...rest } = props;
-
   if (extensions.some(extension => !!props?.[extension]))
     return (
-      <>
+      <Group className={mergeClass("flex-col", className)} size={"xs"}>
         <label className={mergeClass(inputStyles({ look, size }), className, "flex-col flex")} htmlFor="input">
           {header && (
             <label htmlFor="input" className="w-full flex">
@@ -97,11 +96,11 @@ function Input({ look, size, state, inputClassName, className, ...props }: Input
             </label>
           )}
         </label>
-        {error}
-      </>
+        <Group>{error}</Group>
+      </Group>
     );
   return (
-    <>
+    <Group className={mergeClass("flex-col", className)} size={"xs"}>
       <input
         autoComplete="off"
         className={mergeClass(inputStyles({ look, size }), className)}
@@ -109,8 +108,8 @@ function Input({ look, size, state, inputClassName, className, ...props }: Input
         onChange={e => state?.[1]?.(e?.target?.value)}
         {...rest}
       />
-      {error}
-    </>
+      <Group className="flex-col">{error}</Group>{" "}
+    </Group>
   );
 }
 
@@ -185,16 +184,16 @@ Input.DateTime = function InputDateTime({
 
   const onHoursChange = useCallback(
     (e: string) => {
-      if (!date) return;
-      const newDate = new Date(date.getTime());
+      const currentDate = date ? new Date(date.getTime()) : new Date();
+
       let hours = Number.parseInt(e, 10);
       if (amPm === "pm" && hours < 12) {
         hours += 12;
       } else if (amPm === "am" && hours === 12) {
         hours = 0; // Midnight case
       }
-      newDate.setHours(hours, 0);
-      setDate(newDate);
+      currentDate.setHours(hours, 0);
+      setDate(currentDate);
     },
     [date, amPm, setDate],
   );
