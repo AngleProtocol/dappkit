@@ -248,7 +248,7 @@ export default function PaginatedSelect({
               type={"string"}
               state={[search, onSearch]}
               placeholder={"Search a token"}
-              className="w-full h-[fit-content]"
+              className={mergeClass(base(), "w-full h-[fit-content]")}
               size="lg"
               prefix={<Icon remix="RiSearch2Line" />}
             />
