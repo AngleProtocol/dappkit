@@ -96,7 +96,7 @@ function Input({ look, size, state, inputClassName, className, ...props }: Input
             </label>
           )}
         </label>
-        <Group>{error}</Group>
+        {!!error && <Group>{error}</Group>}
       </Group>
     );
   return (
@@ -108,7 +108,7 @@ function Input({ look, size, state, inputClassName, className, ...props }: Input
         onChange={e => state?.[1]?.(e?.target?.value)}
         {...rest}
       />
-      <Group className="flex-col">{error}</Group>{" "}
+      {!!error && <Group className="flex-col">{error}</Group>}
     </Group>
   );
 }
