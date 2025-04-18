@@ -67,7 +67,7 @@ function Input({ look, size, state, inputClassName, className, ...props }: Input
   if (extensions.some(extension => !!props?.[extension]))
     return (
       <Group className={mergeClass(inputStyles({ look, size }), "flex-col", className)} size={"xs"}>
-        <label className={mergeClass(className, "flex-col flex")} htmlFor="input">
+        <label className={mergeClass(className, "w-full flex-col flex")} htmlFor="input">
           {header && (
             <label htmlFor="input" className="w-full flex">
               {header}
