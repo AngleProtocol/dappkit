@@ -65,7 +65,7 @@
     "tailwindcss": "^3.4.12",
     "tailwindcss-animate": "^1.0.7",
     "typedoc": "^0.26.7",
-    "viem": "2.23.12",
+    "viem": "^2.23.14",
     "vite-plugin-dts": "^4.2.1",
     "wagmi": "^2.14.6",
     "zustand": "^5.0.0-rc.2"
