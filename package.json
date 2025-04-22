@@ -10,7 +10,7 @@
     "lint": "biome check --fix ./src",
     "lint:ci": "biome check --diagnostic-level error ./src",
     "start": "react-router-serve ./build/server/index.js",
-    "typecheck": "react-router typegen && tsc"
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@ariakit/react": "^0.4.12",
@@ -65,7 +65,7 @@
     "tailwindcss": "^3.4.12",
     "tailwindcss-animate": "^1.0.7",
     "typedoc": "^0.26.7",
-    "viem": "^2.23.14",
+    "viem": "2.x",
     "vite-plugin-dts": "^4.2.1",
     "wagmi": "^2.14.6",
     "zustand": "^5.0.0-rc.2"

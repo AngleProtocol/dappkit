@@ -1,12 +1,10 @@
 import { getWalletClient, switchChain as wagmiCoreSwitchChain } from "@wagmi/core";
 import { useCallback, useEffect, useState } from "react";
 import { type Config, useAccount, useConfig, useConnect, useDisconnect } from "wagmi";
-
-//TODO: remove merkl-related typings in favor of redeclarations for better abstraction
-import type { Chain, Explorer } from "@merkl/api";
 import { http, type WalletClient, createPublicClient, createWalletClient, custom } from "viem";
 import { type SendTransactionParameters, eip712WalletActions, zksync } from "viem/zksync";
 import useSafe from "./useSafe";
+import type { Chain, Explorer } from "@merkl/api";
 
 export type WalletOptions = {
   sponsorTransactions?: boolean;
