@@ -1,5 +1,5 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import { Fragment, useMemo, useState, type ReactNode } from "react";
+import React, { useMemo, useState, type ReactNode } from "react";
 import { useTheme } from "../../context/Theme.context";
 import { mergeClass } from "../../utils/css";
 import type { Component, GetSet } from "../../utils/types";
@@ -23,10 +23,10 @@ export interface MenuProps {
 }
 
 const divide = (element: JSX.Element, index: number, arr: JSX.Element[]) => (
-  <Fragment key={index}>
+  <React.Fragment key={index}>
     {element}
     {((index === 0 && arr.length > 1) || index < arr.length - 1) && <Divider horizontal className="bg-main-11" />}
-  </Fragment>
+  </React.Fragment>
 );
 
 export function SubMenuResponsiv({ children, options, size, look, className }: Component<MenuProps & BoxProps>) {
