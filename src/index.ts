@@ -35,6 +35,8 @@ export { default as VisuallyHidden } from "./components/VisuallyHidden";
  */
 export * from "./components/extenders/Modal";
 export { default as Modal } from "./components/extenders/Modal";
+export * from "./components/extenders/Menu";
+export { default as Menu } from "./components/extenders/Menu";
 export * from "./components/extenders/Card";
 export { default as Card } from "./components/extenders/Card";
 export * from "./components/extenders/Group";
