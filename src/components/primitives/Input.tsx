@@ -55,7 +55,7 @@ export type InputExtension = (typeof extensions)[number];
 
 export type InputProps<T = string> = Component<
   Styled<typeof inputStyles> & { [Extension in InputExtension]?: ReactNode } & {
-    state?: GetSet<T | undefined>;
+    state?: GetSet<T>;
     inputClassName?: string;
     error?: ReactNode;
   },
@@ -113,7 +113,7 @@ function Input({ look, size, state, inputClassName, className, ...props }: Input
   );
 }
 
-Input.BigInt = function InputBigInt({ state, base, ...props }: InputProps<bigint> & { base: number }) {
+Input.BigInt = function InputBigInt({ state, base, ...props }: InputProps<bigint | undefined> & { base: number }) {
   const [internal, setInternal] = useState<bigint>();
   const [displayed, setDisplayed] = useState<string>();
   const [_getter, setter] = state ?? [];

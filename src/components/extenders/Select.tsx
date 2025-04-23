@@ -335,8 +335,10 @@ export default function Select<
                               key="select"
                               className={mergeClass(
                                 check(),
-                                !((typeof value === "object" && value?.includes(_value as T)) || value === _value) &&
-                                  "opacity-0",
+                                !(
+                                  (typeof value === "object" && (value as T[])?.includes(_value as T)) ||
+                                  value === _value
+                                ) && "opacity-0",
                               )}
                               size="sm"
                               remix="RiCheckFill"

@@ -24,7 +24,7 @@ export default function Connected({ hideSpyMode = false, children, chain: onlyOn
         </Button>
       </Modal>
     );
-  if (chain && chainId !== onlyOnChain)
+  if (chain && onlyOnChain && chainId !== onlyOnChain)
     return (
       <Button look="hype" size="md" {...props} onClick={() => switchChain(onlyOnChain)}>
         Switch to {chain.name}

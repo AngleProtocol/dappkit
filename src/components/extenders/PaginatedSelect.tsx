@@ -181,6 +181,7 @@ export default function PaginatedSelect({
   }, []);
 
   useEffect(() => {
+    if (!debouncedSearch) return;
     onSearchProps?.(debouncedSearch);
   }, [debouncedSearch, onSearchProps]);
 

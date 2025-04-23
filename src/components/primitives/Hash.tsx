@@ -34,7 +34,7 @@ export default function Hash({ value, format, copy, size, children: hash, classN
       {...props}
       className={mergeClass("items-center gap-sm font-text", copy && "select-none inline-flex", className)}>
       {formatted}
-      {copy && <Copy value={hash} />}
+      {copy && <Copy value={hash as string} />}
     </Text>
   );
 }
