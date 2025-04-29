@@ -35,7 +35,7 @@ export default function Tooltip({ helper, onOpen, children, icon = true, classNa
         <RadixTooltip.Trigger asChild>
           {/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
           <span className="flex items-center gap-sm" onClick={isTouchDevice ? () => setOpen(prev => !prev) : undefined}>
-            <div>{children}</div>
+            {children && <div>{children}</div>}
             {!!icon && <Icon className="text-main-12" remix="RiQuestionFill" alt="Tooltip" />}
           </span>
         </RadixTooltip.Trigger>
