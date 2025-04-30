@@ -273,7 +273,7 @@ export default function Select<
           setValue={v => setValue(v as Value)}
           value={value as string}
           defaultValue={multiple ? [] : undefined}>
-          <Ariakit.Select className={mergeClass(base(), className)}>
+          <Ariakit.Select className={mergeClass(base(), "pr-md", className)}>
             <div className={valueStyle()}>{label}</div>
             <div className={icon()}>
               {loading ? <Icon className="animate-spin" remix="RiLoader4Fill" /> : <Icon remix="RiArrowDropDownLine" />}
