@@ -134,6 +134,7 @@ export type TableProps<T extends Columns> = Component<
     className?: string;
     children?: PropsWithChildren["children"];
     onSort?: (id: keyof T, order: Order) => void;
+    size?: ListProps["size"];
   } & TableHeaders<T>,
   HTMLDivElement
 >;

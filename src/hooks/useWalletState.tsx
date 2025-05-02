@@ -31,14 +31,15 @@ export default function useWalletState(chains: (Chain & { explorers: Explorer[] 
 
   const wrapClient = useCallback(async () => {
     const _client = await getWalletClient<typeof config, 1>(config);
-
-    return (await options?.client?.(_client)) ?? _client;
+    // biome-ignore lint/suspicious/noExplicitAny: <Type instantiation is excessively deep and possibly infinite.ts(2589)>
+    return (await options?.client?.(_client as any)) ?? _client;
   }, [config, options?.client]);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: required for correctness
   useEffect(() => {
     async function set() {
-      setClient(await wrapClient());
+      const client = (await wrapClient()) as WalletClient;
+      setClient(client);
     }
 
     set();
